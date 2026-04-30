@@ -27,7 +27,7 @@ export default function MapEurope() {
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
-      controller={{maxBounds: EUROPE_BOUNDS}}
+      controller={true}
       layers={layers}
     >
       <Map
@@ -42,7 +42,7 @@ export default function MapEurope() {
               url: `https://api.protomaps.com/tiles/v4.json?key=${protomaps_api_key}`
             },
 
-            // 🌄 Mapterhorn DEM (IMPORTANT: WEBP tiles)
+            // Mapterhorn DEM (IMPORTANT: WEBP tiles)
             terrain: {
               type: 'raster-dem',
               tiles: [
@@ -64,7 +64,7 @@ export default function MapEurope() {
               }
             },
 
-            // 🌄 relief en ombre (hillshade)
+            // relief en ombre (hillshade)
             {
               id: 'hillshade',
               type: 'hillshade',
