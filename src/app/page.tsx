@@ -1,4 +1,4 @@
-import MapComponent from '../components/WindMap';
+import MapComponent from '@/components/WindMapWrapper';
 
 export default function Page() {
   return (
