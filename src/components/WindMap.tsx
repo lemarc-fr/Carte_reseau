@@ -1,6 +1,6 @@
 'use client';
 
-import {useMemo} from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import DeckGL from '@deck.gl/react';
 import {Map} from 'react-map-gl/maplibre';
 
@@ -16,22 +16,38 @@ const INITIAL_VIEW_STATE = {
   bearing: 0
 };
 
+const BOUNDS = {
+  minLon: -8, maxLon: 10,
+  minLat: 40,  maxLat: 52,
+};
+
 const EUROPE_BOUNDS: [[number, number], [number, number]] = [
-  [-11, 34],
-  [35, 72]
+  [BOUNDS.minLon, BOUNDS.minLat],
+  [BOUNDS.maxLon, BOUNDS.maxLat]
 ];
 
 export default function MapEurope() {
+  const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
+  const onViewStateChange = useCallback(({ viewState: vs }: any) => {
+    setViewState({
+      ...vs,
+      longitude: Math.min(BOUNDS.maxLon, Math.max(BOUNDS.minLon, vs.longitude)),
+      latitude:  Math.min(BOUNDS.maxLat, Math.max(BOUNDS.minLat, vs.latitude)),
+    });
+  }, []);
+  
   const layers = useMemo(() => [], []);
 
   return (
     <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
-      controller={true}
+      viewState={viewState}
+      onViewStateChange={onViewStateChange}
+      controller={{ dragRotate: false }}
       layers={layers}
     >
       <Map
         reuseMaps
+        maxBounds={EUROPE_BOUNDS}
         mapStyle={{
           version: 8,
 
