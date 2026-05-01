@@ -1,11 +1,9 @@
 import { fromArrayBuffer, TypedArray } from "geotiff";
-import { WIND_MAX, WIND_MIN } from "@/config/mapConfig";
-// Plage de vent en m/s — couvre largement les vents extrêmes
-
 
 export type WindTextureResult = {
   image: ImageData;
   imageUnscale: [number, number];
+  speedMax: number;
 };
 
 export async function buildWindTexture(
@@ -24,29 +22,40 @@ export async function buildWindTexture(
   const width = imageU.getWidth();
   const height = imageU.getHeight();
 
-  // Lire les rasters float32
   const [rasterU, rasterV] = await Promise.all([
     imageU.readRasters({ interleave: true }) as Promise<TypedArray>,
     imageV.readRasters({ interleave: true }) as Promise<TypedArray>,
   ]);
 
-  // Encoder U → R, V → G, 0 → B, 255 → A
-  // Même encodage que gdal_translate -scale WIND_MIN WIND_MAX 0 255
-  const rgba = new Uint8ClampedArray(width * height * 4);
-
+  // Calculer la vitesse max réelle pour calibrer la palette
+  let maxSpeed = 0;
   for (let i = 0; i < width * height; i++) {
-    const u = (rasterU[i] as number);
-    const v = (rasterV[i] as number);
+    const u = rasterU[i] as number;
+    const v = rasterV[i] as number;
+    const speed = Math.sqrt(u * u + v * v);
+    if (speed > maxSpeed) maxSpeed = speed;
+  }
 
-    rgba[i * 4 + 0] = scale(u, WIND_MIN, WIND_MAX); // R = U
-    rgba[i * 4 + 1] = scale(v, WIND_MIN, WIND_MAX); // G = V
-    rgba[i * 4 + 2] = 0;                             // B inutilisé
-    rgba[i * 4 + 3] = 255;                           // A opaque
+  // Arrondir au multiple de 5 supérieur (ex: 23.4 → 25)
+  const WIND_MAX = Math.ceil(maxSpeed / 5) * 5;
+  const WIND_MIN = -WIND_MAX;
+
+  console.log(`Vitesse max: ${maxSpeed.toFixed(1)} m/s → plage: [${WIND_MIN}, ${WIND_MAX}]`);
+
+  const rgba = new Uint8ClampedArray(width * height * 4);
+  for (let i = 0; i < width * height; i++) {
+    const u = rasterU[i] as number;
+    const v = rasterV[i] as number;
+    rgba[i * 4 + 0] = scale(u, WIND_MIN, WIND_MAX);
+    rgba[i * 4 + 1] = scale(v, WIND_MIN, WIND_MAX);
+    rgba[i * 4 + 2] = 0;
+    rgba[i * 4 + 3] = 255;
   }
 
   return {
     image: new ImageData(rgba, width, height),
     imageUnscale: [WIND_MIN, WIND_MAX],
+    speedMax : WIND_MAX,
   };
 }
 
