@@ -19,7 +19,7 @@ with open("scratch/GetCapabilities.xml", "w") as f:
 with httpx.Client(http1=True, http2=False) as client:
     response = client.get(
         "https://public-api.meteofrance.fr/public/arome/1.0/wcs/MF-NWP-HIGHRES-AROME-001-FRANCE-WCS/DescribeCoverage",
-        params={"service": "WCS", "version": "2.0.1", "coverageID": "WIND_SPEED_GUST__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND___2026-04-27T00.00.00Z"},
+        params={"service": "WCS", "version": "2.0.1", "coverageID": "U_COMPONENT_OF_WIND__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND___2026-05-01T12.00.00Z"},
         headers={
             "accept": "*/*",
             "apikey": API_KEY,
@@ -36,14 +36,14 @@ with httpx.Client(http1=True, http2=False) as client:
         params={
             "service": "WCS",
             "version": "2.0.1",
-            "coverageID": "WIND_SPEED_GUST__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND___2026-04-27T00.00.00Z",
+            "coverageID": "U_COMPONENT_OF_WIND__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND___2026-05-01T12.00.00Z",
             "subset": [
                 "long(2.0,3.0)",
                 "lat(48.0,49.0)",
                 "height(10)",
-                "time(2026-04-27T01:00:00Z)"
+                "time(2026-05-01T13:00:00Z)"
             ],
-            "format": "image/tiff",
+            "format": "application/wmo-grib",
             },
         headers={
             "accept": "*/*",
@@ -52,5 +52,5 @@ with httpx.Client(http1=True, http2=False) as client:
         timeout=30,
     )
 
-with open("scratch/output.tiff", "wb") as f:
+with open("scratch/output.grib", "wb") as f:
     f.write(response.content)
