@@ -42,3 +42,7 @@ next-env.d.ts
 
 
 dev_utils/*.txt
+
+*.tiff
+scratch/*.xml
+*.pyc
