@@ -8,7 +8,14 @@ const WCS_BASE =
 const U_PREFIX = 'U_COMPONENT_OF_WIND__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND';
 const V_PREFIX = 'V_COMPONENT_OF_WIND__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND';
 
+const CAPABILITIES_TTL_MS = 10 * 60 * 1000;
+let cachedUCoverageId: string | null = null;
+let cacheExpiresAt = 0;
+
 async function getLatestUCoverageId(): Promise<string> {
+  const now = Date.now();
+  if (cachedUCoverageId && now < cacheExpiresAt) return cachedUCoverageId;
+
   const url = new URL(`${WCS_BASE}/GetCapabilities`);
   url.searchParams.set('service', 'WCS');
   url.searchParams.set('version', '2.0.1');
@@ -16,7 +23,7 @@ async function getLatestUCoverageId(): Promise<string> {
 
   const res = await fetch(url.toString(), {
     headers: { apikey: AROME_API_KEY },
-    next: { revalidate: 600 },
+    cache: 'no-store',
   });
 
   if (!res.ok) throw new Error(`GetCapabilities failed: ${res.status}`);
@@ -30,7 +37,9 @@ async function getLatestUCoverageId(): Promise<string> {
   if (!ids.length) throw new Error('No U wind coverage IDs found in GetCapabilities');
 
   ids.sort((a, b) => b.localeCompare(a));
-  return ids[0];
+  cachedUCoverageId = ids[0];
+  cacheExpiresAt = Date.now() + CAPABILITIES_TTL_MS;
+  return cachedUCoverageId;
 }
 
 function parseCoverageRunTime(coverageId: string): Date {
@@ -55,6 +64,7 @@ async function fetchCoverageGeoTiff(
 
   const res = await fetch(url.toString(), {
     headers: { apikey: AROME_API_KEY },
+    cache: 'no-store',
   });
 
   if (!res.ok) {
