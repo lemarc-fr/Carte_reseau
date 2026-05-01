@@ -10,6 +10,7 @@ BOUNDS = {
 def fetch_u_v_tiff(api_key:str, bounds:dict):
     capabilities = fetch_capabilities(API_KEY)
     components = get_latest_wind_components(capabilities.text)
+    print(f"Composantes U et V les plus récentes : {components['U']} et {components['V']}")
 
     if components["U"] is None or components["V"] is None:
         exit(1)
@@ -50,3 +51,5 @@ def fetch_u_v_tiff(api_key:str, bounds:dict):
         print(coverage_v.text)
 
     return coverage_u.content, coverage_v.content
+
+fetch_u_v_tiff(API_KEY, BOUNDS)
