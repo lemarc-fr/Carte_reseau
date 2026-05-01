@@ -1,5 +1,5 @@
 // test.ts
-import { fetchUVTiff } from "@/lib/wind/main";
+import { fetchUVTiff } from "@/lib/wind/UV_TIFF";
 import { API_KEY_METEO, BOUNDS } from "@/config/mapConfig"; 
 import { writeFile } from "fs/promises";
 
