@@ -24,7 +24,6 @@ export const EUROPE_BOUNDS: [[number, number], [number, number]] = [
 export const GRID_COLS = 32;
 export const GRID_ROWS = 20;
 
-export const UV_MAX = 30;
 
 export const WIND_PALETTE: [number, string][] = [
   [0,   '#1a6faf'],
@@ -34,3 +33,5 @@ export const WIND_PALETTE: [number, string][] = [
   [0.8, '#f4833d'],
   [1.0, '#c8102e'],
 ];
+export const WIND_MIN = -128;
+export const WIND_MAX = 127;

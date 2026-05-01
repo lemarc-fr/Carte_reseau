@@ -5,29 +5,36 @@ import DeckGL from '@deck.gl/react';
 import { Map } from 'react-map-gl/maplibre';
 import { ParticleLayer } from 'weatherlayers-gl';
 import { ClipExtension } from '@deck.gl/extensions';
-import { GRID_ROWS, GRID_COLS, BOUNDS, UV_MAX, INITIAL_VIEW_STATE, WIND_PALETTE, EUROPE_BOUNDS, PROTOMAPS_API_KEY } from '@/config/mapConfig';
-import { fetchWindGrid, buildWindImageData } from '@/lib/wind';
+import {
+  BOUNDS, INITIAL_VIEW_STATE, WIND_PALETTE,
+  EUROPE_BOUNDS, PROTOMAPS_API_KEY, API_KEY_METEO
+} from '@/config/mapConfig';
+import { buildWindTexture } from '@/lib/wind/main';
+import { fetchUVTiff } from '@/lib/wind/UV_TIFF';
 
 export default function MapEurope() {
   const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
   const [windImage, setWindImage] = useState<ImageData | null>(null);
+  const [imageUnscale, setImageUnscale] = useState<[number, number]>([-128, 127]);
   const [status, setStatus] = useState<'loading' | 'ok' | 'error'>('loading');
 
   useEffect(() => {
     let cancelled = false;
 
-    fetchWindGrid()
-      .then(uvData => {
-        if (cancelled) return;
-        setWindImage(buildWindImageData(uvData));
-        setStatus('ok');
-      })
-      .catch(err => {
-        if (cancelled) return;
-        console.warn('Wind fetch failed:', err);
-        setWindImage(buildWindImageData(Array(GRID_COLS * GRID_ROWS).fill({ u: 0, v: 0 })));
-        setStatus('error');
-      });
+    async function load() {
+      const [uBuffer, vBuffer] = await fetchUVTiff(API_KEY_METEO, BOUNDS);
+      const { image, imageUnscale } = await buildWindTexture([uBuffer, vBuffer]);
+      if (cancelled) return;
+      setWindImage(image);
+      setImageUnscale(imageUnscale);
+      setStatus('ok');
+    }
+
+    load().catch(err => {
+      if (cancelled) return;
+      console.warn('Wind fetch failed:', err);
+      setStatus('error');
+    });
 
     return () => { cancelled = true; };
   }, []);
@@ -36,18 +43,17 @@ export default function MapEurope() {
     setViewState({
       ...vs,
       longitude: Math.min(BOUNDS.maxLon, Math.max(BOUNDS.minLon, vs.longitude)),
-      latitude:  Math.min(BOUNDS.maxLat, Math.max(BOUNDS.minLat, vs.latitude)),
+      latitude: Math.min(BOUNDS.maxLat, Math.max(BOUNDS.minLat, vs.latitude)),
     });
   }, []);
 
   const layers = useMemo(() => {
     if (!windImage) return [];
-
     return [
       new ParticleLayer({
         id: 'wind-particles',
         image: windImage,
-        imageUnscale: [-UV_MAX, UV_MAX],
+        imageUnscale,
         bounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
         numParticles: 5000,
         maxAge: 80,
@@ -60,19 +66,21 @@ export default function MapEurope() {
         clipBounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
       }),
     ];
-  }, [windImage]);
+  }, [windImage, imageUnscale]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%' }}>
       <DeckGL
-  viewState={viewState}
-  onViewStateChange={onViewStateChange}
-  controller={{ dragRotate: false }}
-  layers={layers}
-  onWebGLInitialized={(gl) => {
-    if (!(gl instanceof WebGL2RenderingContext)) {
-  console.error('WebGL2 required for ParticleLayer');
-}}}>
+        viewState={viewState}
+        onViewStateChange={onViewStateChange}
+        controller={{ dragRotate: false }}
+        layers={layers}
+        onWebGLInitialized={(gl) => {
+          if (!(gl instanceof WebGL2RenderingContext)) {
+            console.error('WebGL2 required for ParticleLayer');
+          }
+        }}
+      >
         <Map
           reuseMaps
           maxBounds={EUROPE_BOUNDS}
