@@ -52,4 +52,9 @@ def fetch_u_v_tiff(api_key:str, bounds:dict):
 
     return coverage_u.content, coverage_v.content
 
-fetch_u_v_tiff(API_KEY, BOUNDS)
+a = fetch_u_v_tiff(API_KEY, BOUNDS)
+print(f"Tailles des données U et V : {len(a[0])} et {len(a[1])} octets")
+with open("scratch/wind/u.tiff", "wb") as f:
+    f.write(a[0])
+with open("scratch/wind/v.tiff", "wb") as f:
+    f.write(a[1])
