@@ -32,19 +32,30 @@ export default function MapEurope() {
   useEffect(() => {
     let cancelled = false;
     async function load() {
-      const [uBuffer, vBuffer] = await fetchUVTiff(API_KEY_METEO, BOUNDS);
-      const { image, imageUnscale, speedMax } = await buildWindTexture([uBuffer, vBuffer]);
-      setSpeedMax(speedMax);
+      const [metaRes, imgRes] = await Promise.all([
+        fetch('/api/wind/meta'),
+        fetch('/api/wind/image'),
+      ]);
+
+      if (!metaRes.ok || !imgRes.ok) throw new Error('Wind fetch failed');
+
+      const { imageUnscale, speedMax } = await metaRes.json();
+
+      const blob = await imgRes.blob();
+      const bitmap = await createImageBitmap(blob);
+
+      const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(bitmap, 0, 0);
+      const image = ctx.getImageData(0, 0, bitmap.width, bitmap.height);
+
       if (cancelled) return;
       setWindImage(image);
       setImageUnscale(imageUnscale);
+      setSpeedMax(speedMax);
       setStatus('ok');
     }
-    load().catch(err => {
-      if (cancelled) return;
-      console.warn('Wind fetch failed:', err);
-      setStatus('error');
-    });
+    load().catch(() => { if (!cancelled) setStatus('error'); });
     return () => { cancelled = true; };
   }, []);
 
