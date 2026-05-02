@@ -13,6 +13,13 @@ export type WindCache = {
 
 let cache: WindCache | null = null;
 let refreshing: Promise<void> | null = null;
+let intervalId: NodeJS.Timeout | null = null;
+
+export function startWindRefresh() {
+  if (intervalId) return;
+  refresh();
+  intervalId = setInterval(refresh, 3 * 60 * 60 * 1000);
+}
 
 async function computeWindData(): Promise<WindCache> {
   const [uBuffer, vBuffer] = await fetchUVTiff(API_KEY_METEO, BOUNDS);
@@ -44,10 +51,6 @@ async function refresh(): Promise<void> {
     .finally(() => { refreshing = null; });
   return refreshing;
 }
-
-// Précalcul au démarrage + refresh toutes les 3h
-refresh();
-setInterval(refresh, 3 * 60 * 60 * 1000);
 
 export async function getWindData(): Promise<WindCache> {
   if (!cache) await refresh();
