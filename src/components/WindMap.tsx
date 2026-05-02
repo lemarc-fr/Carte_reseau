@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Map, NavigationControl, useControl } from 'react-map-gl/maplibre';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import { DeckProps } from '@deck.gl/core';
@@ -36,16 +36,8 @@ function WindToggleControl({
   windVisible: boolean;
   onToggleWind: () => void;
 }) {
-  const controlRef = useRef<ReactControl | null>(null);
-
   const control = useControl<ReactControl>(
-    () => {
-      const c = new ReactControl(
-        <WindTogglePanel active={windVisible} onToggle={onToggleWind} />
-      );
-      controlRef.current = c;
-      return c;
-    },
+    () => new ReactControl(<WindTogglePanel active={windVisible} onToggle={onToggleWind} />),
     { position: 'top-right' }
   );
 

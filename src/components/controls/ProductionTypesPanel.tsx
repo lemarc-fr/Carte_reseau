@@ -22,13 +22,13 @@ export type ProductionType =
   | 'pumpedStorage';
 
 export const PRODUCTION_TYPES: { key: ProductionType; label: string; icon: React.ReactNode }[] = [
-  { key: 'wind',          label: 'Éolien',           icon: <WindIcon size={18} /> },
-  { key: 'solar',         label: 'Solaire',           icon: <SolarIcon size={18} /> },
-  { key: 'gas',           label: 'Gaz',               icon: <GasIcon size={18} /> },
-  { key: 'nuclear',       label: 'Nucléaire',         icon: <NuclearIcon size={18} /> },
-  { key: 'biomass',       label: 'Biomasse',          icon: <BiomassIcon size={18} /> },
-  { key: 'battery',       label: 'Batterie',          icon: <BatteryIcon size={18} /> },
-  { key: 'hydro',         label: 'Hydraulique',       icon: <HydroIcon size={18} /> },
+  { key: 'wind', label: 'Éolien', icon: <WindIcon size={18} /> },
+  { key: 'solar', label: 'Solaire', icon: <SolarIcon size={18} /> },
+  { key: 'gas', label: 'Gaz', icon: <GasIcon size={18} /> },
+  { key: 'nuclear', label: 'Nucléaire', icon: <NuclearIcon size={18} /> },
+  { key: 'biomass', label: 'Biomasse', icon: <BiomassIcon size={18} /> },
+  { key: 'battery', label: 'Batterie', icon: <BatteryIcon size={18} /> },
+  { key: 'hydro', label: 'Hydraulique', icon: <HydroIcon size={18} /> },
   { key: 'pumpedStorage', label: 'Pompage-turbinage', icon: <PumpedStorageIcon size={18} /> },
 ];
 
