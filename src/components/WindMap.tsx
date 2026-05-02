@@ -8,9 +8,9 @@ import { ParticleLayer, RasterLayer } from 'weatherlayers-gl';
 import { ClipExtension } from '@deck.gl/extensions';
 import {
   BOUNDS, INITIAL_VIEW_STATE, WIND_PALETTE,
-  EUROPE_BOUNDS, PROTOMAPS_API_KEY,
-  PARTICLE_COLOR
+  EUROPE_BOUNDS, PARTICLE_COLOR
 } from '@/config/mapConfig';
+import { mapStyle } from '@/config/mapStyle';
 
 // Overlay interleaved — partage le contexte WebGL2 de MapLibre
 function DeckGLOverlay(props: DeckProps) {
@@ -92,40 +92,8 @@ export default function MapEurope() {
       <Map
         initialViewState={INITIAL_VIEW_STATE}
         maxBounds={EUROPE_BOUNDS}
-        mapStyle={{
-          version: 8,
-          sources: {
-            protomaps: {
-              type: 'vector',
-              url: `https://api.protomaps.com/tiles/v4.json?key=${PROTOMAPS_API_KEY}`
-            },
-            terrain: {
-              type: 'raster-dem',
-              tiles: ['https://tiles.mapterhorn.com/{z}/{x}/{y}.webp'],
-              tileSize: 512,
-              encoding: 'terrarium',
-              maxzoom: 14
-            }
-          },
-          layers: [
-            { id: 'background', type: 'background', paint: { 'background-color': '#ffffff' } },
-            {
-              id: 'hillshade', type: 'hillshade', source: 'terrain',
-              paint: { 'hillshade-shadow-color': '#000000', 'hillshade-highlight-color': '#ffffff', 'hillshade-exaggeration': 0.6 }
-            },
-            {
-              id: 'countries', type: 'line', source: 'protomaps', 'source-layer': 'boundaries',
-              filter: ['==', ['get', 'kind'], 'country'],
-              paint: { 'line-color': '#222', 'line-width': 1.2 }
-            },
-            {
-              id: 'coastline', type: 'line', source: 'protomaps', 'source-layer': 'water',
-              paint: { 'line-color': '#1f2a44', 'line-width': 1.2 }
-            }
-          ]
-        }}
-      >
-        {/* interleaved : partage le WebGL2 context de MapLibre, pas de canvas séparé */}
+        mapStyle={mapStyle}>
+          
         <DeckGLOverlay layers={layers} />
       </Map>
 
