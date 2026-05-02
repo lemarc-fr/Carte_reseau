@@ -44,6 +44,14 @@ export async function fetchUVTiff(
   if (coverageV.status !== 200) {
     throw new Error(`Erreur coverage V (${coverageV.status}): ${coverageV.data}`);
   }
-
-  return [coverageU.data as ArrayBuffer, coverageV.data as ArrayBuffer];
+  const toArrayBuffer = (buf: Buffer | ArrayBuffer): ArrayBuffer => {
+    if (buf instanceof ArrayBuffer) return buf;
+    const ab = new ArrayBuffer(buf.byteLength);
+    new Uint8Array(ab).set(new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength));
+    return ab;
+  };
+  return [
+    toArrayBuffer(coverageU.data as Buffer),
+    toArrayBuffer(coverageV.data as Buffer),
+  ];
 }
