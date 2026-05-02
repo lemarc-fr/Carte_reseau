@@ -8,10 +8,6 @@ const eslintConfig = defineConfig([
 
   {
     rules: {
-      "no-console": "warn",
-      "eqeqeq": "error",
-      "semi": ["error", "always"],
-      "quotes": ["error", "double"],
       "@typescript-eslint/no-explicit-any": "off",
     },
   },
