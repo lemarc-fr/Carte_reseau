@@ -12,7 +12,7 @@ export const INITIAL_VIEW_STATE = {
 };
 
 export const BOUNDS = {
-  minLon: -8, maxLon: 10,
+  minLon: -10, maxLon: 15,
   minLat: 40, maxLat: 52,
 };
 
@@ -30,17 +30,17 @@ export const PARTICLE_COLOR: [number, number, number, number] = [255, 255, 255, 
 
 // Palette pour le fond raster (vitesse du vent)
 export const WIND_PALETTE: [number, string][] = [
-  [0,    '#0d47a1'],  // calme — bleu très foncé
-  [0.05, '#1565c0'],
-  [0.1,  '#1976d2'],
-  [0.15, '#1e88e5'],
-  [0.2,  '#42a5f5'],  // légère brise — bleu clair
-  [0.3,  '#4db6ac'],  // vert-bleu
-  [0.4,  '#66bb6a'],  // vert
-  [0.5,  '#d4e157'],  // jaune-vert
-  [0.6,  '#ffee58'],  // jaune
-  [0.7,  '#ffa726'],  // orange
-  [0.8,  '#ef5350'],  // rouge
-  [0.9,  '#b71c1c'],
-  [1.0,  '#4a148c'],  // violet — vents violents
+  [0,  '#f8f9fa'],  // calme — blanc cassé
+  [1,  '#c8e6f5'],  // quasi-calme — bleu très pâle
+  [3,  '#7ec8e3'],  // petite brise
+  [5,  '#0099cc'],  // brise légère
+  [8,  '#00b386'],  // brise modérée — vert-cyan
+  [10, '#44cc44'],  // brise fraîche
+  [13, '#aadd00'],  // brise forte — jaune-vert
+  [16, '#ffdd00'],  // grand frais — jaune
+  [20, '#ff8800'],  // coup de vent — orange
+  [24, '#ff2200'],  // fort coup de vent — rouge
+  [28, '#cc0044'],  // tempête — rouge foncé
+  [32, '#880088'],  // violente tempête — violet
+  [36, '#330055'],  // ouragan — violet très foncé
 ];
