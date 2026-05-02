@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Map, useControl } from 'react-map-gl/maplibre';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import { DeckProps } from '@deck.gl/core';
@@ -8,11 +8,9 @@ import { ParticleLayer, RasterLayer } from 'weatherlayers-gl';
 import { ClipExtension } from '@deck.gl/extensions';
 import {
   BOUNDS, INITIAL_VIEW_STATE, WIND_PALETTE,
-  EUROPE_BOUNDS, PROTOMAPS_API_KEY, API_KEY_METEO,
+  EUROPE_BOUNDS, PROTOMAPS_API_KEY,
   PARTICLE_COLOR
 } from '@/config/mapConfig';
-import { buildWindTexture } from '@/lib/wind/main';
-import { fetchUVTiff } from '@/lib/wind/UV_TIFF';
 
 // Overlay interleaved — partage le contexte WebGL2 de MapLibre
 function DeckGLOverlay(props: DeckProps) {
@@ -32,19 +30,30 @@ export default function MapEurope() {
   useEffect(() => {
     let cancelled = false;
     async function load() {
-      const [uBuffer, vBuffer] = await fetchUVTiff(API_KEY_METEO, BOUNDS);
-      const { image, imageUnscale, speedMax } = await buildWindTexture([uBuffer, vBuffer]);
-      setSpeedMax(speedMax);
+      const [metaRes, imgRes] = await Promise.all([
+        fetch('/api/wind/meta'),
+        fetch('/api/wind/image'),
+      ]);
+
+      if (!metaRes.ok || !imgRes.ok) throw new Error('Wind fetch failed');
+
+      const { imageUnscale, speedMax } = await metaRes.json();
+
+      const blob = await imgRes.blob();
+      const bitmap = await createImageBitmap(blob);
+
+      const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(bitmap, 0, 0);
+      const image = ctx.getImageData(0, 0, bitmap.width, bitmap.height);
+
       if (cancelled) return;
       setWindImage(image);
       setImageUnscale(imageUnscale);
+      setSpeedMax(speedMax);
       setStatus('ok');
     }
-    load().catch(err => {
-      if (cancelled) return;
-      console.warn('Wind fetch failed:', err);
-      setStatus('error');
-    });
+    load().catch(() => { if (!cancelled) setStatus('error'); });
     return () => { cancelled = true; };
   }, []);
 
@@ -53,10 +62,10 @@ export default function MapEurope() {
   new RasterLayer({
     id: 'wind-raster',
     image: windImage,
-    imageUnscale,
+    imageUnscale: [0, speedMax],
     bounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
     palette: WIND_PALETTE,
-    opacity: 0.6,
+    opacity: 0.2,
     extensions: [new ClipExtension()],
     clipBounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
   }),
@@ -67,10 +76,10 @@ export default function MapEurope() {
     imageUnscale,
     bounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
     numParticles: 5000,
-    maxAge: 80,
-    speedFactor: 8.0,  // plus rapide
-    width: 1.5,
+    speedFactor: 3.0,
+    width: 1,
     opacity: 0.85,
+    maxAge: 100,
     animate: true,
     color: PARTICLE_COLOR,  // blanc
     extensions: [new ClipExtension()],
