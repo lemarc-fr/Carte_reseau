@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Map, useControl } from 'react-map-gl/maplibre';
+import { Map, NavigationControl, useControl } from 'react-map-gl/maplibre';
 import { MapboxOverlay } from '@deck.gl/mapbox';
 import { DeckProps } from '@deck.gl/core';
 import { ParticleLayer, RasterLayer } from 'weatherlayers-gl';
@@ -93,7 +93,8 @@ export default function MapEurope() {
         initialViewState={INITIAL_VIEW_STATE}
         maxBounds={EUROPE_BOUNDS}
         mapStyle={mapStyle}>
-          
+        
+        <NavigationControl position="top-right" />
         <DeckGLOverlay layers={layers} />
       </Map>
 
