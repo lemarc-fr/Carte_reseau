@@ -1,7 +1,11 @@
 import { fromArrayBuffer, TypedArray } from "geotiff";
 
 export type WindTextureResult = {
-  image: ImageData;
+  image: {
+    data: Uint8ClampedArray;
+    width: number;
+    height: number;
+  };
   imageUnscale: [number, number];
   speedMax: number;
 };
@@ -53,7 +57,7 @@ export async function buildWindTexture(
   }
 
   return {
-    image: new ImageData(rgba, width, height),
+    image: { data: rgba, width, height },
     imageUnscale: [WIND_MIN, WIND_MAX],
     speedMax : WIND_MAX,
   };
