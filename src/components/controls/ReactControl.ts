@@ -13,17 +13,21 @@ export class ReactControl {
   constructor(element: React.ReactElement) {
     this._currentElement = element;
     this._container = document.createElement('div');
+    this._container.className = 'maplibregl-ctrl maplibregl-ctrl-group'; // ← add this
   }
 
   onAdd(): HTMLElement {
+    this._container = document.createElement('div');
+    this._container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
     this._root = createRoot(this._container);
     this._root.render(this._currentElement);
     return this._container;
   }
 
   onRemove(): void {
-    this._root?.unmount();
+    const root = this._root;
     this._root = null;
+    setTimeout(() => root?.unmount(), 0);
   }
 
   setContent(element: React.ReactElement): void {
