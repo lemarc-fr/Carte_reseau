@@ -1,5 +1,7 @@
 https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/registre-national-installation-production-stockage-electricite-agrege/exports/geojson
 
+https://odre.opendatasoft.com/explore/dataset/registre-national-installation-production-stockage-electricite-agrege/information/?disjunctive.departement&disjunctive.region&disjunctive.epci&disjunctive.filiere&disjunctive.technologie&disjunctive.combustiblessecondaires&disjunctive.combustible&disjunctive.gestionnaire&disjunctive.regime
+
 https://digital.iservices.rte-france.com/open_api/actual_generation/v1/production_per_unit
 This requires a free OAuth2 account at data.rte-france.com. Units are identified by EIC codes, which are also present in the ODRÉ registry — so you can join the two datasets.
 
