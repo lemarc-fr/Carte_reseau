@@ -41,19 +41,22 @@ export const DEFAULT_PRODUCTION_TYPES_STATE: ProductionTypesState = {
 interface MapState {
     // Vent
     windVisible: boolean;
-    windStatus: WindStatus;
-    windData: WindData | null;
-
-    // Types de production
-    productionTypes: ProductionTypesState;
-
-    // Actions
     toggleWind: () => void;
     setWindVisible: (visible: boolean) => void;
 
+    windStatus: WindStatus;
     setWindStatus: (status: WindStatus) => void;
+
+    windData: WindData | null;
     setWindData: (data: WindData) => void;
 
+    // Affichage
+    normalizeRing: boolean
+    toggleNormalizeRing: () => void;
+    setNormalizeRing: (value: boolean) => void;
+
+    // Types de production
+    productionTypes: ProductionTypesState;
     toggleProductionType: (key: ProductionType) => void;
     setProductionType: (key: ProductionType, value: boolean) => void;
     resetProductionTypes: () => void;
@@ -110,6 +113,20 @@ export const useMapStore = create<MapState>()(
                     { productionTypes: DEFAULT_PRODUCTION_TYPES_STATE },
                     false,
                     'resetProductionTypes'
+                ),
+            toggleNormalizeRing: () =>
+                set(
+                    (state) => ({
+                        normalizeRing: !state.normalizeRing,
+                    }),
+                    false,
+                    'toggleNormalizeRing'
+                ),
+            setNormalizeRing: (value) =>
+                set(
+                    { normalizeRing: value },
+                    false,
+                    'setNormalizeRing'
                 ),
         }),
         { name: 'MapStore' } // nom affiché dans Redux DevTools
