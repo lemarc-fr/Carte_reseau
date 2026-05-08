@@ -29,7 +29,6 @@ export async function buildWindTexture(
   // Récupère la valeur NoData déclarée dans le GeoTIFF
   const nodataU = imageU.getGDALNoData();
   const nodataV = imageV.getGDALNoData();
-  console.log(`NoData U: ${nodataU}, NoData V: ${nodataV}`);
 
   const [rasterU, rasterV] = await Promise.all([
     imageU.readRasters({ interleave: true }) as Promise<TypedArray>,
