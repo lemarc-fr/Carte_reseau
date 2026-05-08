@@ -29,18 +29,18 @@ export const GRID_ROWS = 20;
 export const PARTICLE_COLOR: [number, number, number, number] = [255, 255, 255, 200];
 
 // Palette pour le fond raster (vitesse du vent)
-export const WIND_PALETTE: [number, string][] = [
-  [0,  '#f8f9fa'],  // calme — blanc cassé
-  [1,  '#c8e6f5'],  // quasi-calme — bleu très pâle
-  [3,  '#7ec8e3'],  // petite brise
-  [5,  '#0099cc'],  // brise légère
-  [8,  '#00b386'],  // brise modérée — vert-cyan
-  [10, '#44cc44'],  // brise fraîche
-  [13, '#aadd00'],  // brise forte — jaune-vert
-  [16, '#ffdd00'],  // grand frais — jaune
-  [20, '#ff8800'],  // coup de vent — orange
-  [24, '#ff2200'],  // fort coup de vent — rouge
-  [28, '#cc0044'],  // tempête — rouge foncé
-  [32, '#880088'],  // violente tempête — violet
-  [36, '#330055'],  // ouragan — violet très foncé
+export const WIND_PALETTE: [number, [number, number, number]][] = [
+  [0, [246, 246, 246]],
+  [1.2861, [239, 248, 253]],
+  [3.8583, [204, 240, 254]],
+  [6.4305, [156, 219, 252]],
+  [9.0027, [172, 255, 167]],
+  [11.5749, [126, 222, 120]],
+  [15.17598, [230, 230, 117]],
+  [21.09204, [255, 125, 75]],
+  [28.80864, [229, 39, 13]],
+  [37.03968, [153, 0, 0]],
+  [46.2996, [127, 0, 160]],
+  [56.5884, [255, 100, 127]],
+  [66.8772, [255, 255, 255]]
 ];
