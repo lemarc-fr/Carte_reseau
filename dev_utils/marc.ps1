@@ -1,7 +1,7 @@
-﻿$racine = "C:\Users\marcb\Developpement\carte_reseau\"
-$dossierSortie = "C:\Users\marcb\Developpement\carte_reseau\dev_utils"
+﻿$racine = "C:\Users\marcb\WebstormProjects\Carte_reseau\src\components"
+$dossierSortie = "C:\Users\marcb\WebstormProjects\Carte_reseau\dev_utils"
 $profondeur = -1   # -1 = pas de limite, 1 = un seul niveau
-$dossiersIgnores = @("node_modules", ".git", "__pycache__", ".venv", 'dev_utils', '.idea', '.ruff_cache', '.next')
+$dossiersIgnores = @('icons', "node_modules", ".git", "__pycache__", ".venv", 'dev_utils', '.idea', '.ruff_cache', '.next')
 
 function Generate-Tree {
     param (
@@ -50,7 +50,7 @@ function Generate-Concatenation {
         [int]$MaxDepth = -1
     )
     $extensionsAutorisees = @(
-       ".pyazeazeaz", ".js", ".json"
+       ".pyazeazeaz", ".js", ".json", ".ts", ".tsx"
     )
 
     if (-not (Test-Path $RootPath)) {
