@@ -48,7 +48,7 @@ Stocker dans `plantIds` les identifiants OSM de toutes les centrales visibles (v
 
 ## Ordre d'implémentation recommandé
 
-1. Source + layers dans `mapStyle.ts`
+1. Source + layers dans des layers
 2. Nouveaux états dans le store
 3. Filtrage par `productionTypes`
 4. Taille dynamique via `normalizeRing`
