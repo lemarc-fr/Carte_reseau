@@ -1,85 +1,71 @@
 import json
 import re
 import time
-from urllib.parse import urljoin
-import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from threading import Semaphore
+import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 
+OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 INPUT_JSON = "france_power_plants.json"
 OUTPUT_JSON = "france_power_plants_enriched.json"
-
 OSM_USER_AGENT = "france-power-plants-enricher/1.0 (contact@example.com)"
 
-MAX_WORKERS = 10
-REQUEST_DELAY = 0.1
-SAVE_EVERY = 100
+# Limites par API pour éviter les 429
+OVERPASS_SEMAPHORE = Semaphore(3)   # Overpass est le plus fragile
+WIKIDATA_SEMAPHORE = Semaphore(8)
+DETAIL_SEMAPHORE   = Semaphore(10)
+
+SAVE_EVERY = 50  # Plus fréquent
 
 def make_session():
     s = requests.Session()
     s.headers.update({"User-Agent": OSM_USER_AGENT})
     retry = Retry(
-        total=3,
+        total=4,
         backoff_factor=2,
-        status_forcelist=[429, 503],
+        status_forcelist=[429, 500, 503],
         respect_retry_after_header=True,
     )
-    adapter = HTTPAdapter(max_retries=retry)
+    adapter = HTTPAdapter(max_retries=retry, pool_connections=20, pool_maxsize=50)
     s.mount("https://", adapter)
     s.mount("http://", adapter)
     return s
 
-session = make_session()
+SESSION = make_session()
 
-retry_plants = []
+
+# ── Scraping detail page ──────────────────────────────────────────────────────
 
 def enrich_from_detail_page(detail_url):
-    response = session.get(detail_url, timeout=30)
-    response.raise_for_status()
-    soup = BeautifulSoup(response.text, "html.parser")
-    enriched = {
-        "openstreetmap_url": None,
-        "entsoe_eic": None,
-        "osm_details": None
-    }
+    with DETAIL_SEMAPHORE:
+        r = SESSION.get(detail_url, timeout=30)
+    r.raise_for_status()
+    soup = BeautifulSoup(r.text, "html.parser")
+
+    enriched = {"openstreetmap_url": None, "entsoe_eic": None, "osm_details": None}
+
     osm_link = soup.find("a", string="OpenStreetMap")
     if osm_link and osm_link.get("href"):
         enriched["openstreetmap_url"] = osm_link["href"]
-    rows = soup.find_all("tr")
-    for row in rows:
+
+    for row in soup.find_all("tr"):
         cells = row.find_all("td")
-        if len(cells) < 2:
-            continue
-        key = cells[0].get_text(strip=True)
-        if "ENTSOE_EIC" in key:
+        if len(cells) >= 2 and "ENTSOE_EIC" in cells[0].get_text(strip=True):
             value = cells[1].get_text(strip=True)
             if value:
                 enriched["entsoe_eic"] = value.split(";")
             break
+
     if enriched["openstreetmap_url"]:
         enriched["osm_details"] = enrich_from_openstreetmap(enriched["openstreetmap_url"])
+
     return enriched
 
-def fetch_node_coordinates_from_page(node_url):
-    """Récupère lat/lon depuis une page /node/XXXX"""
-    response = session.get(node_url, timeout=30)
-    response.raise_for_status()
-    soup = BeautifulSoup(response.text, "html.parser")
-    lat_span = soup.find("span", class_="latitude")
-    lon_span = soup.find("span", class_="longitude")
-    if not lat_span or not lon_span:
-        return None
-    try:
-        return {
-            "url": node_url,
-            "latitude": float(lat_span.get_text(strip=True)),
-            "longitude": float(lon_span.get_text(strip=True))
-        }
-    except Exception:
-        return None
+
+# ── Overpass ──────────────────────────────────────────────────────────────────
 
 def fetch_osm_element(osm_type, osm_id):
     query = f"""
@@ -88,73 +74,50 @@ def fetch_osm_element(osm_type, osm_id):
     >>;
     out geom;
     """
-    response = session.post(OVERPASS_URL, data={"data": query}, timeout=60)
-    response.raise_for_status()
-    data = response.json()
+    with OVERPASS_SEMAPHORE:
+        r = SESSION.post(OVERPASS_URL, data={"data": query}, timeout=60)
+    r.raise_for_status()
+    data = r.json()
     elements = data["elements"]
 
     result = {"tags": {}, "nodes": [], "ways": [], "relations": []}
 
     root = next(
         (el for el in elements if el["type"] == osm_type and str(el["id"]) == str(osm_id)),
-        None
+        None,
     )
     if root:
         result["tags"] = root.get("tags", {})
 
-    # Nodes : id, lat, lon, tags
     result["nodes"] = [
-        {
-            "id": el["id"],
-            "latitude": el["lat"],
-            "longitude": el["lon"],
-            "tags": el.get("tags", {}),
-        }
-        for el in elements
-        if el["type"] == "node" and "lat" in el
+        {"id": el["id"], "latitude": el["lat"], "longitude": el["lon"], "tags": el.get("tags", {})}
+        for el in elements if el["type"] == "node" and "lat" in el
     ]
-
-    # Ways : id, tags, et la géométrie inline (liste de {lat, lon})
-    # `out geom` injecte directement `geometry` dans chaque way — pas besoin de croiser les nodes
     result["ways"] = [
-        {
-            "id": el["id"],
-            "tags": el.get("tags", {}),
-            "refs": el.get("nodes", []),          # ids des nodes membres
-            "geometry": el.get("geometry", []),   # [{lat, lon}, ...] injecté par out geom
-        }
-        for el in elements
-        if el["type"] == "way"
+        {"id": el["id"], "tags": el.get("tags", {}), "refs": el.get("nodes", []), "geometry": el.get("geometry", [])}
+        for el in elements if el["type"] == "way"
     ]
-
-    # Relations : id, tags, membres (type/ref/role)
     result["relations"] = [
         {
-            "id": el["id"],
-            "tags": el.get("tags", {}),
+            "id": el["id"], "tags": el.get("tags", {}),
             "members": [
-                {
-                    "type": m["type"],
-                    "ref": m["ref"],
-                    "role": m.get("role", ""),
-                    # out geom injecte aussi geometry dans les membres way des relations
-                    "geometry": m.get("geometry", []),
-                }
+                {"type": m["type"], "ref": m["ref"], "role": m.get("role", ""), "geometry": m.get("geometry", [])}
                 for m in el.get("members", [])
             ],
         }
-        for el in elements
-        if el["type"] == "relation"
+        for el in elements if el["type"] == "relation"
     ]
-
     return result
+
 
 def enrich_from_openstreetmap(osm_url):
     match = re.search(r"openstreetmap\.org/(relation|way|node)/(\d+)", osm_url)
     if not match:
-        return {"tags": {}, "node_coordinates": []}
-    osm_type, osm_id = match.group(1), match.group(2)
-    return fetch_osm_element(osm_type, osm_id)
+        return {"tags": {}, "nodes": []}
+    return fetch_osm_element(match.group(1), match.group(2))
+
+
+# ── Wikidata ──────────────────────────────────────────────────────────────────
 
 def get_claim(entity, prop):
     return entity.get("claims", {}).get(prop, [])
@@ -170,136 +133,135 @@ def get_string_claims(entity, prop):
 
 def get_quantity_claim(entity, prop):
     try:
-        claim = get_claim(entity, prop)[0]
-        amount = claim["mainsnak"]["datavalue"]["value"]["amount"]
+        amount = get_claim(entity, prop)[0]["mainsnak"]["datavalue"]["value"]["amount"]
         return float(amount.replace("+", ""))
     except Exception:
         return None
 
 def get_coordinate_claim(entity):
     try:
-        claim = get_claim(entity, "P625")[0]
-        value = claim["mainsnak"]["datavalue"]["value"]
-        return {
-            "latitude": value["latitude"],
-            "longitude": value["longitude"]
-        }
+        value = get_claim(entity, "P625")[0]["mainsnak"]["datavalue"]["value"]
+        return {"latitude": value["latitude"], "longitude": value["longitude"]}
     except Exception:
         return None
 
 def get_time_claim(entity, prop):
     try:
-        claim = get_claim(entity, prop)[0]
-        raw = claim["mainsnak"]["datavalue"]["value"]["time"]
+        raw = get_claim(entity, prop)[0]["mainsnak"]["datavalue"]["value"]["time"]
         return raw.replace("+", "").replace("T00:00:00Z", "")
     except Exception:
         return None
 
 def enrich_from_wikidata(wikidata_id):
     url = f"https://www.wikidata.org/wiki/Special:EntityData/{wikidata_id}.json"
-    response = session.get(url, timeout=30)
-    response.raise_for_status()
-    data = response.json()
-    entity = data["entities"][wikidata_id]
+    with WIKIDATA_SEMAPHORE:
+        r = SESSION.get(url, timeout=30)
+    r.raise_for_status()
+    entity = r.json()["entities"][wikidata_id]
+
     enriched = {}
     coords = get_coordinate_claim(entity)
     if coords:
-        enriched["latitude"] = coords["latitude"]
-        enriched["longitude"] = coords["longitude"]
-    commissioning_date = get_time_claim(entity, "P729")
-    if not commissioning_date:
-        commissioning_date = get_time_claim(entity, "P571")
-    enriched["commissioning_date"] = commissioning_date
-    enriched["power_mw"] = get_quantity_claim(entity, "P2109")
-    enriched["eics"] = get_string_claims(entity, "P8645")
+        enriched.update(coords)
+    enriched["commissioning_date"] = get_time_claim(entity, "P729") or get_time_claim(entity, "P571")
+    enriched["power_mw"]           = get_quantity_claim(entity, "P2109")
+    enriched["eics"]               = get_string_claims(entity, "P8645")
     return enriched
 
+
+# ── Traitement d'une centrale (toutes les requêtes en parallèle) ──────────────
+
 def process_plant(index, total, plant):
-    print(f"[{index}/{total}] {plant.get('name')}")
-    detail_url = plant.get("detail_url")
+    name = plant.get("name", "?")
+    detail_url  = plant.get("detail_url")
     wikidata_id = plant.get("wikidata_id")
 
+    # Lance detail + wikidata en parallèle dans un pool dédié
     with ThreadPoolExecutor(max_workers=2) as pool:
-        futures = {}
+        f_detail   = pool.submit(enrich_from_detail_page, detail_url)  if detail_url  else None
+        f_wikidata = pool.submit(enrich_from_wikidata, wikidata_id)     if wikidata_id else None
 
-        if detail_url:
-            futures["detail"] = pool.submit(enrich_from_detail_page, detail_url)
-        if wikidata_id:
-            futures["wikidata"] = pool.submit(enrich_from_wikidata, wikidata_id)
-
-        if "detail" in futures:
+        if f_detail:
             try:
-                plant["detail_page_data"] = futures["detail"].result()
+                plant["detail_page_data"] = f_detail.result()
             except Exception as e:
                 plant["detail_page_error"] = str(e)
 
-        if "wikidata" in futures:
+        if f_wikidata:
             try:
-                plant["wikidata_details"] = futures["wikidata"].result()
+                plant["wikidata_details"] = f_wikidata.result()
             except requests.HTTPError as e:
-                if e.response.status_code == 429:
-                    print(f"429 sur {wikidata_id}")
-                    retry_plants.append((index, plant))
-                else:
-                    plant["wikidata_error"] = str(e)
+                if e.response is not None and e.response.status_code == 429:
+                    raise  # remonté au niveau main pour retry
+                plant["wikidata_error"] = str(e)
             except Exception as e:
                 plant["wikidata_error"] = str(e)
 
-    time.sleep(REQUEST_DELAY)
+    print(f"[{index}/{total}] {name}")
+
     return plant
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
     with open(INPUT_JSON, "r", encoding="utf-8") as f:
         plants = json.load(f)
-    total = len(plants)
+
+    total   = len(plants)
     results = [None] * total
+    to_retry = []  # (original_index, plant)
 
-    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        futures = {
-            executor.submit(process_plant, i + 1, total, plant): i
-            for i, plant in enumerate(plants)
-        }
-        completed = 0
-        for future in as_completed(futures):
-            index = futures[future]
-            try:
-                results[index] = future.result()
-            except Exception as e:
-                print("Erreur future:", e)
+    # Nombre de workers élevé : le vrai throttling est fait par les sémaphores
+    MAX_WORKERS = 40
 
-            completed += 1
+    def run_batch(items):
+        """items : liste de (original_index, plant)"""
+        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+            futures = {
+                executor.submit(process_plant, idx + 1, total, plant): (idx, plant)
+                for idx, plant in items
+            }
+            completed = 0
+            for future in as_completed(futures):
+                orig_idx, plant = futures[future]
+                try:
+                    results[orig_idx] = future.result()
+                except requests.HTTPError as e:
+                    # 429 Wikidata → retry plus tard
+                    if e.response is not None and e.response.status_code == 429:
+                        to_retry.append((orig_idx, plant))
+                    else:
+                        plant["error"] = str(e)
+                        results[orig_idx] = plant
+                except Exception as e:
+                    plant["error"] = str(e)
+                    results[orig_idx] = plant
 
-            if completed % 10 == 0:
-                print(f"  [debug] completed={completed}, dernier index={index}")
-                print(f"  [debug] résultat: {results[index]}")
+                completed += 1
+                if completed % SAVE_EVERY == 0:
+                    _autosave(results, completed, total)
 
-            if completed % SAVE_EVERY == 0:
-                snapshot = [r for r in results if r is not None]
-                tmp_path = OUTPUT_JSON + ".tmp"
-                with open(tmp_path, "w", encoding="utf-8") as f:
-                    json.dump(snapshot, f, ensure_ascii=False, indent=2)
-                print(f"[autosave] {completed}/{total} — {len(snapshot)} résultats → {tmp_path}")
+    run_batch(list(enumerate(plants)))
 
-    if retry_plants:
-        print(f"\n=== RETRY 429 ({len(retry_plants)}) ===\n")
-        time.sleep(10)
-        for index, plant in retry_plants:
-            wikidata_id = plant.get("wikidata_id")
-            print(f"[RETRY] {wikidata_id}")
-            try:
-                enrichment = enrich_from_wikidata(wikidata_id)
-                plant["wikidata_details"] = enrichment
-                if "wikidata_error" in plant:
-                    del plant["wikidata_error"]
-            except Exception as e:
-                plant["wikidata_error"] = str(e)
-            time.sleep(1.5)
-            results[index - 1] = plant
+    if to_retry:
+        print(f"\n=== RETRY 429 Wikidata ({len(to_retry)} centrales) — pause 15 s ===")
+        time.sleep(15)
+        run_batch(to_retry)
 
     with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)
+    print(f"\n✓ Sauvegardé : {OUTPUT_JSON}  ({total} entrées)")
 
-    print(f"\nFichier sauvegardé: {OUTPUT_JSON}")
+
+def _autosave(results, completed, total):
+    tmp = OUTPUT_JSON + ".tmp"
+    snapshot = [r if r is not None else {} for r in results]
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(snapshot, f, ensure_ascii=False, indent=2)
+    done = sum(1 for r in results if r is not None)
+    print(f"[autosave] {completed}/{total} soumises, {done} terminées → {tmp}")
+
 
 if __name__ == "__main__":
     main()
