@@ -7,6 +7,7 @@ import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+from tqdm import tqdm
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 INPUT_JSON = "france_power_plants.json"
@@ -196,9 +197,6 @@ def process_plant(index, total, plant):
                 plant["wikidata_error"] = str(e)
             except Exception as e:
                 plant["wikidata_error"] = str(e)
-
-    print(f"[{index}/{total}] {name}")
-
     return plant
 
 
@@ -223,24 +221,25 @@ def main():
                 for idx, plant in items
             }
             completed = 0
-            for future in as_completed(futures):
-                orig_idx, plant = futures[future]
-                try:
-                    results[orig_idx] = future.result()
-                except requests.HTTPError as e:
-                    # 429 Wikidata → retry plus tard
-                    if e.response is not None and e.response.status_code == 429:
-                        to_retry.append((orig_idx, plant))
-                    else:
+            with tqdm(total=total) as pbar:
+                for future in as_completed(futures):
+                    orig_idx, plant = futures[future]
+                    try:
+                        results[orig_idx] = future.result()
+                    except requests.HTTPError as e:
+                        if e.response is not None and e.response.status_code == 429:
+                            to_retry.append((orig_idx, plant))
+                        else:
+                            plant["error"] = str(e)
+                            results[orig_idx] = plant
+                    except Exception as e:
                         plant["error"] = str(e)
                         results[orig_idx] = plant
-                except Exception as e:
-                    plant["error"] = str(e)
-                    results[orig_idx] = plant
 
-                completed += 1
-                if completed % SAVE_EVERY == 0:
-                    _autosave(results, completed, total)
+                    completed += 1
+                    if completed % SAVE_EVERY == 0:
+                        _autosave(results, completed, total)
+                    pbar.update(1)
 
     run_batch(list(enumerate(plants)))
 
