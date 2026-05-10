@@ -261,6 +261,123 @@ def _autosave(results, completed, total):
     done = sum(1 for r in results if r is not None)
     print(f"[autosave] {completed}/{total} soumises, {done} terminées → {tmp}")
 
+def main_retry_wikidata():
+    with open(OUTPUT_JSON, "r", encoding="utf-8") as f:
+        plants = json.load(f)
+    plants_to_correct = []
+    for plant in plants:
+        try :
+            if plant["wikidata_error"]:
+                plants_to_correct.append(plant)
+        except :
+            pass
+    print("generate newplant")
+    newplant = []
+    newplant.append(process_plant(1, 2, plants_to_correct[0]))
+    newplant.append(process_plant(2,2, plants_to_correct[1]))
+    print(len(plants_to_correct))
+    for plant in plants:
+        try:
+            if plant["name"] == newplant[0]["name"]:
+                print(plant["name"])
+                for key in plant.keys():
+                    try:
+                        plant[key] = newplant[0][key]
+                    except Exception as e:
+                        print(e)
+                del plant["wikidata_error"]
+            if plant["name"] == newplant[1]["name"]:
+                print(plant["name"])
+                for key in plant.keys():
+                    try:
+                        plant[key] = newplant[1][key]
+                    except Exception as e:
+                        print(e)
+                del plant["wikidata_error"]
+        except Exception as e:
+            print(e)
+    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+        json.dump(plants, f, ensure_ascii=False, indent=2)
 
-if __name__ == "__main__":
-    main()
+def main_retry_overpass():
+    with open(OUTPUT_JSON, "r", encoding="utf-8") as f:
+        plants = json.load(f)
+
+    # Centrales avec une detail_page_error liée à Overpass
+    OVERPASS_ERRORS = ("429", "504", "ConnectionReset", "Connection aborted", "HTTPSConnectionPool")
+    to_fix = [
+        (i, p) for i, p in enumerate(plants)
+        if "detail_page_error" in p
+           and any(tag in p["detail_page_error"] for tag in OVERPASS_ERRORS)
+    ]
+    print(f"{len(to_fix)} centrales à relancer via Overpass")
+
+    results = {}  # idx → plant enrichi ou erreur
+
+    def retry_one(idx, plant):
+        """Récupère uniquement osm_details pour une centrale déjà partiellement enrichie."""
+        # L'URL OSM peut être dans detail_page_data si la detail page avait réussi
+        # mais Overpass avait échoué, ou absente si la detail page elle-même a échoué.
+        dpd = plant.get("detail_page_data") or {}
+        osm_url = dpd.get("openstreetmap_url")
+
+        if not osm_url:
+            # La detail page entière a échoué : on la refait complètement
+            detail_url = plant.get("detail_url")
+            if not detail_url:
+                return idx, plant, "no_detail_url"
+            try:
+                plant["detail_page_data"] = enrich_from_detail_page(detail_url)
+                plant.pop("detail_page_error", None)
+                return idx, plant, "ok"
+            except Exception as e:
+                plant["detail_page_error"] = str(e)
+                return idx, plant, f"error: {e}"
+
+        # On a déjà l'URL OSM : on relance uniquement Overpass
+        try:
+            osm_details = enrich_from_openstreetmap(osm_url)
+            plant["detail_page_data"]["osm_details"] = osm_details
+            plant.pop("detail_page_error", None)
+            return idx, plant, "ok"
+        except Exception as e:
+            plant["detail_page_error"] = str(e)
+            return idx, plant, f"error: {e}"
+
+    # Workers intentionnellement bas : Overpass ne supporte pas la concurrence élevée
+    MAX_WORKERS = 2
+
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = {
+            executor.submit(retry_one, idx, plant): (idx, plant)
+            for idx, plant in to_fix
+        }
+        ok_count = 0
+        err_count = 0
+        with tqdm(total=len(to_fix), desc="Overpass retry") as pbar:
+            for future in as_completed(futures):
+                idx, plant, status = future.result()
+                plants[idx] = plant
+                if status == "ok":
+                    ok_count += 1
+                else:
+                    err_count += 1
+                    print(status)
+
+                pbar.set_postfix(ok=ok_count, err=err_count)
+                pbar.update(1)
+
+                # Pause entre chaque requête Overpass terminée — essentiel
+                time.sleep(2)
+
+                # Autosave tous les 20
+                if (ok_count + err_count) % 20 == 0:
+                    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+                        json.dump(plants, f, ensure_ascii=False, indent=2)
+                    tqdm.write(f"[autosave] {ok_count+err_count}/{len(to_fix)}")
+
+    with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+        json.dump(plants, f, ensure_ascii=False, indent=2)
+    print(f"\n✓ Terminé — {ok_count} succès, {err_count} échecs restants")
+
+main_retry_overpass()

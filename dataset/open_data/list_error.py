@@ -1,3 +1,18 @@
+"""
+── error_top_level : 0 ──
+
+── detail_page_error : 2 ──
+    2x  HTTPSConnectionPool(host='overpass-api.de', port=443)
+        • Parc éolien de Mont joubert: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=60)
+        • Parc éolien de Vieille Carrière: HTTPSConnectionPool(host='overpass-api.de', port=443): Read timed out. (read timeout=60)
+
+── wikidata_error : 0 ──
+
+── osm_fetch_error : 0 ──
+
+Process finished with exit code 0
+"""
+
 import json
 from collections import Counter
 
