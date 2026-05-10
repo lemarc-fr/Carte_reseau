@@ -29,7 +29,7 @@ npm run dev
 
 ## Stratégie: exposer uniquement les bonnes données
 
-Objectif: publier un jeu de données **minimal, stable, et exploitable carte**.
+Objectif: publier un jeu de données **minimal, stable, et exploitable par la carte**.
 
 ### Contrat cible (champs exposés)
 Exposer uniquement:
@@ -39,7 +39,7 @@ Exposer uniquement:
 - `fuelTypes` (liste normalisée)
 - `capacityMw` (nombre, en MW)
 - `status` (`operating`, `construction`, `disused`, `unknown`)
-- `commissioningDate` (YYYY-MM-DD ou `null`)
+- `commissioningDate` (ISO 8601: `YYYY-MM-DD` ou `null`)
 - `operator` (exploitant)
 - `eicCode` (si disponible)
 - `sourceIds` (`odre`, `wikidata`, `osm`)
@@ -76,7 +76,7 @@ Ne pas exposer en front:
 
 ### Étape 3 — Règles de fusion champ par champ
 - `geometry`: OSM > Wikidata > `null`
-- `capacityMw`: ODRE (`maxpuis`/`puismaxinstallee`) > Wikidata (`power_mw`) > OSM (`plant:output:electricity`)
+- `capacityMw`: ODRE (`maxpuis`, alias historique `puismax`, ou `puismaxinstallee`) > Wikidata (`power_mw`) > OSM (`plant:output:electricity`)
 - `operator`: ODRE > OSM > OpenInfraMap
 - `commissioningDate`: Wikidata > ODRE > OSM
 - `assetType` / `fuelTypes`: ODRE + OSM avec table de mapping unique
