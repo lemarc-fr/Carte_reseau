@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 INPUT_JSON = "france_power_plants.json"
-OUTPUT_JSON = "france_power_plants_enriched.json"
+OUTPUT_JSON = "france_power_plants_enriched_2.json"
 OSM_USER_AGENT = "france-power-plants-enricher/1.0 (contact@example.com)"
 
 # Limites par API pour éviter les 429
@@ -79,36 +79,7 @@ def fetch_osm_element(osm_type, osm_id):
         r = SESSION.post(OVERPASS_URL, data={"data": query}, timeout=60)
     r.raise_for_status()
     data = r.json()
-    elements = data["elements"]
-
-    result = {"tags": {}, "nodes": [], "ways": [], "relations": []}
-
-    root = next(
-        (el for el in elements if el["type"] == osm_type and str(el["id"]) == str(osm_id)),
-        None,
-    )
-    if root:
-        result["tags"] = root.get("tags", {})
-
-    result["nodes"] = [
-        {"id": el["id"], "latitude": el["lat"], "longitude": el["lon"], "tags": el.get("tags", {})}
-        for el in elements if el["type"] == "node" and "lat" in el
-    ]
-    result["ways"] = [
-        {"id": el["id"], "tags": el.get("tags", {}), "refs": el.get("nodes", []), "geometry": el.get("geometry", [])}
-        for el in elements if el["type"] == "way"
-    ]
-    result["relations"] = [
-        {
-            "id": el["id"], "tags": el.get("tags", {}),
-            "members": [
-                {"type": m["type"], "ref": m["ref"], "role": m.get("role", ""), "geometry": m.get("geometry", [])}
-                for m in el.get("members", [])
-            ],
-        }
-        for el in elements if el["type"] == "relation"
-    ]
-    return result
+    return data
 
 
 def enrich_from_openstreetmap(osm_url):
@@ -380,4 +351,4 @@ def main_retry_overpass():
         json.dump(plants, f, ensure_ascii=False, indent=2)
     print(f"\n✓ Terminé — {ok_count} succès, {err_count} échecs restants")
 
-main_retry_overpass()
+main()
