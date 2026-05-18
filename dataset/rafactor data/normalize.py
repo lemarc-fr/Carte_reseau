@@ -116,14 +116,21 @@ def validate_output(plant: dict, name: str) -> float | None:
     unique_values = set(values.values())
 
     if len(unique_values) > 1:
-        log.error(
-            "[%s] Puissance incohérente entre les sources : %s",
-            name,
-            {k: f"{v} MW" for k, v in values.items()},
-        )
-        raise
+        # Affichage des valeurs en conflit
+        print(f"\n⚡ Conflit de puissance pour : {name}")
+        for source, val in values.items():
+            print(f"   [{source}] {val} MW")
 
-    # Priorité : wikidata > top_level > OSM
+        while True:
+            raw = input("   → Entrez la puissance correcte en MW (ou Entrée pour ignorer) : ").strip()
+            if raw == "":
+                log.warning("[%s] Puissance ignorée — conflit non résolu.", name)
+                raise
+            try:
+                return round(float(raw), 1)
+            except ValueError:
+                print("   ✗ Valeur invalide, réessayez.")
+
     return wd_mw or top_level_mw or osm_mw
 
 
