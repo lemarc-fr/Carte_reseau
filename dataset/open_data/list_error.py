@@ -16,7 +16,7 @@ Process finished with exit code 0
 import json
 from collections import Counter
 
-with open("france_power_plants_enriched.json", "r", encoding="utf-8") as f:
+with open("france_power_plants_enriched_2.json", "r", encoding="utf-8") as f:
     plants = json.load(f)
 
 total = len(plants)

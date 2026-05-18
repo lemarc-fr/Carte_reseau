@@ -11,8 +11,8 @@ from tqdm import tqdm
 
 OVERPASS_URL = "https://overpass-api.de/api/interpreter"
 INPUT_JSON = "france_power_plants.json"
-OUTPUT_JSON = "france_power_plants_enriched_2.json"
-OSM_USER_AGENT = "france-power-plants-enricher/1.0 (contact@example.com)"
+OUTPUT_JSON = "france_power_plants_enriched_3.json"
+OSM_USER_AGENT = "france-power-plants-enricher/1.0 "
 
 # Limites par API pour éviter les 429
 OVERPASS_SEMAPHORE = Semaphore(3)   # Overpass est le plus fragile
@@ -23,7 +23,7 @@ SAVE_EVERY = 50  # Plus fréquent
 
 def make_session():
     s = requests.Session()
-    s.headers.update({"User-Agent": OSM_USER_AGENT})
+    s.headers.update({"User-Agent": OSM_USER_AGENT, "Referer": "http://lemarc.fr"})
     retry = Retry(
         total=4,
         backoff_factor=2,
@@ -72,9 +72,8 @@ def fetch_osm_element(osm_type, osm_id):
     query = f"""
     [out:json][timeout:30];
     {osm_type}({osm_id});
-    >>;
     out geom;
-    """
+    """ # TODO : add >>; before geom
     with OVERPASS_SEMAPHORE:
         r = SESSION.post(OVERPASS_URL, data={"data": query}, timeout=60)
     r.raise_for_status()
@@ -352,3 +351,5 @@ def main_retry_overpass():
     print(f"\n✓ Terminé — {ok_count} succès, {err_count} échecs restants")
 
 main()
+for _ in range(5):
+    main_retry_overpass()
