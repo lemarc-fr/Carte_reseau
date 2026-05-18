@@ -3,3 +3,5 @@ dataset/open_data/power_plant_enriched.json filter=lfs diff=lfs merge=lfs -text
 france_power_plants_enriched.json filter=lfs diff=lfs merge=lfs -text
 dataset/open_data/france_power_plants_enriched.json filter=lfs diff=lfs merge=lfs -text
 dataset/registre-national-installation-production-stockage-electricite-agrege.json filter=lfs diff=lfs merge=lfs -text
+dataset/open_data/france_power_plants_enriched_2.json filter=lfs diff=lfs merge=lfs -text
+dataset/open_data/france_power_plants_enriched_3.json filter=lfs diff=lfs merge=lfs -text
