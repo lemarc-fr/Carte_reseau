@@ -7,3 +7,4 @@ dataset/open_data/france_power_plants_enriched_2.json filter=lfs diff=lfs merge=
 dataset/open_data/france_power_plants_enriched_3.json filter=lfs diff=lfs merge=lfs -text
 registre-national-installation-production-stockage-electricite-agrege.json filter=lfs diff=lfs merge=lfs -text
 france_power_plants_enriched_3.json filter=lfs diff=lfs merge=lfs -text
+dataset/rafactor[[:space:]]data/ordre_per_filiere/SOLAI.json filter=lfs diff=lfs merge=lfs -text
