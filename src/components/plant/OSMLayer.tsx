@@ -28,6 +28,9 @@ const EMPTY_NUCL_FEATURE_COLLECTION: FeatureCollection<Point, NuclFeaturePropert
     type: 'FeatureCollection',
     features: [],
 };
+const POWER_MW_TO_RADIUS_SCALE = 0.002;
+const BASE_NUCLEAR_CIRCLE_RADIUS = 5;
+const NORMALIZED_NUCLEAR_CIRCLE_RADIUS = 8;
 
 export default function OSMLayer() {
     const nuclearVisible = useMapStore((s) => s.productionTypes.nuclear);
@@ -100,8 +103,8 @@ export default function OSMLayer() {
     const nuclearCircleRadius = useMemo(
         () =>
             normalizeRing
-                ? 8
-                : ['+', 5, ['*', 0.002, ['coalesce', ['get', 'power_mw'], 0]]] as const,
+                ? NORMALIZED_NUCLEAR_CIRCLE_RADIUS
+                : ['+', BASE_NUCLEAR_CIRCLE_RADIUS, ['*', POWER_MW_TO_RADIUS_SCALE, ['coalesce', ['get', 'power_mw'], 0]]] as const,
         [normalizeRing]
     );
 
@@ -110,7 +113,7 @@ export default function OSMLayer() {
             <Source
                 id="power-plants"
                 type="vector"
-                tiles={['https://openinframap.org/map/power/5}{/{x}/{y}.pbf']}
+                tiles={['https://openinframap.org/map/power/{z}/{x}/{y}.pbf']}
                 minzoom={5}
                 maxzoom={5}
             >
