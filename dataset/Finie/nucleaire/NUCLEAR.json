@@ -1,0 +1,705 @@
+[
+  {
+    "id": "Q1739407",
+    "name": "Centre Nucléaire de Production d'Electricité de Gravelines",
+    "english_name": "Gravelines Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 51.01361111,
+    "longitude": 2.13611111,
+    "power_mw": 5460.0,
+    "commissioning_date": "1980-03-13",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1739407",
+    "units": [
+      {
+        "eic": "17W100P100P0135M",
+        "name": "GRAV5N05",
+        "commissioned": "1985-01-15",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 6563524.7
+      },
+      {
+        "eic": "17W100P100P0136K",
+        "name": "GRAV5N06",
+        "commissioned": "1985-10-25",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 5495865.4
+      },
+      {
+        "eic": "17W100P100P0133Q",
+        "name": "GRAV5N04",
+        "commissioned": "1981-10-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 6432849.4
+      },
+      {
+        "eic": "17W100P100P0130W",
+        "name": "GRAV5N01",
+        "commissioned": "1980-12-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 2503537.2
+      },
+      {
+        "eic": "17W100P100P0132S",
+        "name": "GRAV5N03",
+        "commissioned": "1980-12-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 6094559.2
+      },
+      {
+        "eic": "17W100P100P0131U",
+        "name": "GRAV5N02",
+        "commissioned": "1980-12-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 4791556.5
+      }
+    ]
+  },
+  {
+    "id": "Q1530519",
+    "name": "Centre Nucléaire de Production d'Electricité de Paluel",
+    "english_name": "Paluel Nuclear Power Plant",
+    "operator": "EDF",
+    "source": "nuclear",
+    "latitude": 49.85805556,
+    "longitude": 0.63555556,
+    "power_mw": 5320.0,
+    "commissioning_date": "1984-06-22",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1530519",
+    "units": [
+      {
+        "eic": "17W100P100P0141R",
+        "name": "PALUEN03",
+        "commissioned": "1986-02-01",
+        "status": "En service",
+        "power_mw": 1330.0,
+        "energy_injected_mwh": 9824510.2
+      },
+      {
+        "eic": "17W100P100P0142P",
+        "name": "PALUEN04",
+        "commissioned": "1986-06-01",
+        "status": "En service",
+        "power_mw": 1330.0,
+        "energy_injected_mwh": 7737422.3
+      },
+      {
+        "eic": "17W100P100P0140T",
+        "name": "PALUEN02",
+        "commissioned": "1985-12-01",
+        "status": "En service",
+        "power_mw": 1330.0,
+        "energy_injected_mwh": 8813994.4
+      },
+      {
+        "eic": "17W100P100P0139E",
+        "name": "PALUEN01",
+        "commissioned": "1985-12-01",
+        "status": "En service",
+        "power_mw": 1330.0,
+        "energy_injected_mwh": 8706456.6
+      }
+    ]
+  },
+  {
+    "id": "Q1371612",
+    "name": "Centre Nucléaire de Production d'Electricité de Cattenom",
+    "english_name": "Cattenom Nuclear Power Plant",
+    "operator": "EDF",
+    "source": "nuclear",
+    "latitude": 49.415833,
+    "longitude": 6.218056,
+    "power_mw": 5200.0,
+    "commissioning_date": "1987-04-01",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1371612",
+    "units": [
+      {
+        "eic": "17W100P100P0103Z",
+        "name": "CATTEN02",
+        "commissioned": "1988-02-01",
+        "status": "En service",
+        "power_mw": 1300.0,
+        "energy_injected_mwh": 9183823.1
+      },
+      {
+        "eic": "17W100P100P0105V",
+        "name": "CATTEN04",
+        "commissioned": "1992-01-01",
+        "status": "En service",
+        "power_mw": 1300.0,
+        "energy_injected_mwh": 8379379.4
+      },
+      {
+        "eic": "17W100P100P01012",
+        "name": "CATTEN01",
+        "commissioned": "1987-04-01",
+        "status": "En service",
+        "power_mw": 1300.0,
+        "energy_injected_mwh": 5656287.4
+      },
+      {
+        "eic": "17W100P100P0104X",
+        "name": "CATTEN03",
+        "commissioned": "1991-02-01",
+        "status": "En service",
+        "power_mw": 1300.0,
+        "energy_injected_mwh": 7402781.0
+      }
+    ]
+  },
+  {
+    "id": "Q390252",
+    "name": "Centrale nucléaire de Flamanville",
+    "english_name": "Flamanville Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 49.53722222,
+    "longitude": -1.8825,
+    "power_mw": 4280.0,
+    "commissioning_date": "1985-00-00",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q390252",
+    "units": [
+      {
+        "eic": "17W100P100P0126N",
+        "name": "FLAMAN01",
+        "commissioned": "1986-12-01",
+        "status": "En service",
+        "power_mw": 1330.0,
+        "energy_injected_mwh": 6625391.4
+      },
+      {
+        "eic": "17W100P100P03639",
+        "name": "FLAMAN03",
+        "commissioned": "2024-12-21",
+        "status": "En service",
+        "power_mw": 1620.0,
+        "energy_injected_mwh": 3137058.8
+      },
+      {
+        "eic": "17W100P100P0127L",
+        "name": "FLAMAN02",
+        "commissioned": "1987-03-09",
+        "status": "En service",
+        "power_mw": 1330.0,
+        "energy_injected_mwh": 6831931.9
+      }
+    ]
+  },
+  {
+    "id": "Q1735581",
+    "name": "Centre Nucléaire de Production d'Electricité de Chinon",
+    "english_name": "Chinon Nuclear Power Plant",
+    "operator": "EDF",
+    "source": "nuclear",
+    "latitude": 47.23055556,
+    "longitude": 0.17055556,
+    "power_mw": 3620.0,
+    "commissioning_date": "1964-02-01",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1735581",
+    "units": [
+      {
+        "eic": "17W100P100P0107R",
+        "name": "CHIN2N02",
+        "commissioned": "1984-08-01",
+        "status": "En service",
+        "power_mw": 905.0,
+        "energy_injected_mwh": 6368509.9
+      },
+      {
+        "eic": "17W100P100P0106T",
+        "name": "CHIN2N01",
+        "commissioned": "1984-02-01",
+        "status": "En service",
+        "power_mw": 905.0,
+        "energy_injected_mwh": 5572959.4
+      },
+      {
+        "eic": "17W100P100P0108P",
+        "name": "CHIN2N03",
+        "commissioned": "1987-03-04",
+        "status": "En service",
+        "power_mw": 905.0,
+        "energy_injected_mwh": 5387751.8
+      },
+      {
+        "eic": "17W100P100P0109N",
+        "name": "CHIN2N04",
+        "commissioned": "1988-04-01",
+        "status": "En service",
+        "power_mw": 905.0,
+        "energy_injected_mwh": 6531881.5
+      }
+    ]
+  },
+  {
+    "id": "Q1739363",
+    "name": "Centre Nucléaire de Production d'Electricité du Blayais",
+    "english_name": "Blayais Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 45.25611111,
+    "longitude": -0.69166667,
+    "power_mw": 3640.0,
+    "commissioning_date": "1981-00-00",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1739363",
+    "units": [
+      {
+        "eic": "17W100P100P0093C",
+        "name": "BLAYAN02",
+        "commissioned": "1983-02-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 6562575.6
+      },
+      {
+        "eic": "17W100P100P0094A",
+        "name": "BLAYAN03",
+        "commissioned": "1983-12-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 6074837.2
+      },
+      {
+        "eic": "17W100P100P00958",
+        "name": "BLAYAN04",
+        "commissioned": "1983-10-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 3135804.2
+      },
+      {
+        "eic": "17W100P100P0092E",
+        "name": "BLAYAN01",
+        "commissioned": "1981-12-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 5935703.0
+      }
+    ]
+  },
+  {
+    "name": "Centre Nucléaire de Production d'Electricité de Cruas-Meysse",
+    "english_name": "Cruas Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "power_mw": 3660.0,
+    "units": [
+      {
+        "eic": "17W100P100P0116Q",
+        "name": "CRUA5N02",
+        "commissioned": "1985-04-01",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 6079331.5
+      },
+      {
+        "eic": "17W100P100P0118M",
+        "name": "CRUA5N03",
+        "commissioned": "1984-09-10",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 5771196.3
+      },
+      {
+        "eic": "17W100P100P0115S",
+        "name": "CRUA5N01",
+        "commissioned": "1984-04-02",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 3548878.7
+      },
+      {
+        "eic": "17W100P100P0119K",
+        "name": "CRUA5N04",
+        "commissioned": "1985-02-11",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 6491948.2
+      }
+    ]
+  },
+  {
+    "id": "Q154006",
+    "name": "Centre Nucléaire de Production d'Electricité du Tricastin",
+    "english_name": "Tricastin Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 44.331,
+    "longitude": 4.73148,
+    "power_mw": 3660.0,
+    "commissioning_date": "1980-05-31",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q154006",
+    "units": [
+      {
+        "eic": "17W100P100P0152M",
+        "name": "TRICAN03",
+        "commissioned": "1981-05-01",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 5857006.5
+      },
+      {
+        "eic": "17W100P100P0150Q",
+        "name": "TRICAN02",
+        "commissioned": "1980-12-01",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 5742181.0
+      },
+      {
+        "eic": "17W100P100P0153K",
+        "name": "TRICAN04",
+        "commissioned": "1981-11-01",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 6831997.0
+      },
+      {
+        "eic": "17W100P100P0149B",
+        "name": "TRICAN01",
+        "commissioned": "1980-12-01",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 6074427.5
+      }
+    ]
+  },
+  {
+    "id": "Q1186009",
+    "name": "Centre Nucléaire de Production d'Electricité du Bugey",
+    "english_name": "Bugey Nuclear Power Plant",
+    "operator": "EDF",
+    "source": "nuclear",
+    "latitude": 45.79722222,
+    "longitude": 5.27,
+    "power_mw": 3580.0,
+    "commissioning_date": "1972-04-15",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1186009",
+    "units": [
+      {
+        "eic": "17W100P100P00966",
+        "name": "BUGEYN02",
+        "commissioned": "1979-03-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 5559062.0
+      },
+      {
+        "eic": "17W100P100P00974",
+        "name": "BUGEYN03",
+        "commissioned": "1979-03-01",
+        "status": "En service",
+        "power_mw": 910.0,
+        "energy_injected_mwh": 5777132.6
+      },
+      {
+        "eic": "17W100P100P01004",
+        "name": "BUGEYN05",
+        "commissioned": "1980-01-01",
+        "status": "En service",
+        "power_mw": 880.0,
+        "energy_injected_mwh": 6570560.9
+      },
+      {
+        "eic": "17W100P100P00982",
+        "name": "BUGEYN04",
+        "commissioned": "1979-07-01",
+        "status": "En service",
+        "power_mw": 880.0,
+        "energy_injected_mwh": 5480933.0
+      }
+    ]
+  },
+  {
+    "id": "Q918661",
+    "name": "Centre Nucléaire de Production d'Electricité de Dampierre en Burly",
+    "english_name": "Dampierre Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 47.73361111,
+    "longitude": 2.5175,
+    "power_mw": 3560.0,
+    "commissioning_date": "1980-03-03",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q918661",
+    "units": [
+      {
+        "eic": "17W100P100P0122V",
+        "name": "D.BURN03",
+        "commissioned": "1981-06-01",
+        "status": "En service",
+        "power_mw": 890.0,
+        "energy_injected_mwh": 5519445.9
+      },
+      {
+        "eic": "17W100P100P0121X",
+        "name": "D.BURN02",
+        "commissioned": "1981-02-01",
+        "status": "En service",
+        "power_mw": 890.0,
+        "energy_injected_mwh": 6533608.9
+      },
+      {
+        "eic": "17W100P100P0120Z",
+        "name": "D.BURN01",
+        "commissioned": "1980-10-01",
+        "status": "En service",
+        "power_mw": 890.0,
+        "energy_injected_mwh": 4543798.8
+      },
+      {
+        "eic": "17W100P100P0123T",
+        "name": "D.BURN04",
+        "commissioned": "1981-12-01",
+        "status": "En service",
+        "power_mw": 890.0,
+        "energy_injected_mwh": 6174168.2
+      }
+    ]
+  },
+  {
+    "id": "Q1739377",
+    "name": "Centre Nucléaire de Production d'Electricité de Chooz",
+    "english_name": "Chooz Nuclear Power Plant",
+    "operator": "EDF",
+    "source": "nuclear",
+    "latitude": 50.09,
+    "longitude": 4.790556,
+    "power_mw": 3000.0,
+    "commissioning_date": "1967-04-15",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1739377",
+    "units": [
+      {
+        "eic": "17W100P100P0112Y",
+        "name": "CHOO2N02",
+        "commissioned": "2000-09-29",
+        "status": "En service",
+        "power_mw": 1500.0,
+        "energy_injected_mwh": 7792809.2
+      },
+      {
+        "eic": "17W100P100P01101",
+        "name": "CHOO2N01",
+        "commissioned": "2000-05-15",
+        "status": "En service",
+        "power_mw": 1500.0,
+        "energy_injected_mwh": 7032431.8
+      }
+    ]
+  },
+  {
+    "id": "Q1739375",
+    "name": "Centre Nucléaire de Production d'Electricité de Civaux",
+    "english_name": "Civaux Nuclear Power Plant",
+    "operator": "EDF",
+    "source": "nuclear",
+    "latitude": 46.45611111,
+    "longitude": 0.65416667,
+    "power_mw": 2990.0,
+    "commissioning_date": "1997-00-00",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1739375",
+    "units": [
+      {
+        "eic": "17W100P100P0114U",
+        "name": "CIVAUN02",
+        "commissioned": "2002-04-23",
+        "status": "En service",
+        "power_mw": 1495.0,
+        "energy_injected_mwh": 8699108.1
+      },
+      {
+        "eic": "17W100P100P0113W",
+        "name": "CIVAUN01",
+        "commissioned": "2002-01-29",
+        "status": "En service",
+        "power_mw": 1495.0,
+        "energy_injected_mwh": 10404198.9
+      }
+    ]
+  },
+  {
+    "id": "Q2409863",
+    "name": "Centre Nucléaire de Production d'Electricité de Saint-Alban",
+    "english_name": "Saint-Alban Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 45.40472222,
+    "longitude": 4.75583333,
+    "power_mw": 2670.0,
+    "commissioning_date": "1985-00-00",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q2409863",
+    "units": [
+      {
+        "eic": "17W100P100P0145J",
+        "name": "SSAL7N01",
+        "commissioned": "1986-05-01",
+        "status": "En service",
+        "power_mw": 1335.0,
+        "energy_injected_mwh": 10295810.5
+      },
+      {
+        "eic": "17W100P100P0146H",
+        "name": "SSAL7N02",
+        "commissioned": "1987-03-01",
+        "status": "En service",
+        "power_mw": 1335.0,
+        "energy_injected_mwh": 6599751.0
+      }
+    ]
+  },
+  {
+    "id": "Q1318977",
+    "name": "Centre Nucléaire de Production d'Electricité de Penly",
+    "english_name": "Penly Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 49.97666667,
+    "longitude": 1.21194444,
+    "power_mw": 2660.0,
+    "commissioning_date": "1990-05-04",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1318977",
+    "units": [
+      {
+        "eic": "17W100P100P0143N",
+        "name": "PENLYN01",
+        "commissioned": "1990-12-01",
+        "status": "En service",
+        "power_mw": 1330.0,
+        "energy_injected_mwh": 10934608.0
+      },
+      {
+        "eic": "17W100P100P0144L",
+        "name": "PENLYN02",
+        "commissioned": "1992-11-01",
+        "status": "En service",
+        "power_mw": 1330.0,
+        "energy_injected_mwh": 7779221.9
+      }
+    ]
+  },
+  {
+    "id": "Q1471555",
+    "name": "Centrale nucléaire de Nogent-sur-Seine",
+    "english_name": "Nogent-sur-Seine Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 48.51611111,
+    "longitude": 3.51777778,
+    "power_mw": 2620.0,
+    "commissioning_date": "1987-10-21",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1471555",
+    "units": [
+      {
+        "eic": "17W100P100P0137I",
+        "name": "N.SE5N01",
+        "commissioned": "1988-02-24",
+        "status": "En service",
+        "power_mw": 1310.0,
+        "energy_injected_mwh": 8115232.9
+      },
+      {
+        "eic": "17W100P100P0138G",
+        "name": "N.SE5N02",
+        "commissioned": "1989-05-01",
+        "status": "En service",
+        "power_mw": 1310.0,
+        "energy_injected_mwh": 9935846.2
+      }
+    ]
+  },
+  {
+    "id": "Q1645882",
+    "name": "Centre Nucléaire de Production d'Electricité de Belleville-sur-Loire",
+    "english_name": "Belleville Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 47.509722222222,
+    "longitude": 2.875,
+    "power_mw": 2620.0,
+    "commissioning_date": "1987-10-14",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1645882",
+    "units": [
+      {
+        "eic": "17W100P100P0091G",
+        "name": "BVIL7N02",
+        "commissioned": "1989-01-01",
+        "status": "En service",
+        "power_mw": 1310.0,
+        "energy_injected_mwh": 5662283.6
+      },
+      {
+        "eic": "17W100P100P0090I",
+        "name": "BVIL7N01",
+        "commissioned": "1988-06-01",
+        "status": "En service",
+        "power_mw": 1310.0,
+        "energy_injected_mwh": 6489824.9
+      }
+    ]
+  },
+  {
+    "id": "Q1465285",
+    "name": "Centre Nucléaire de Production d'Electricité de Golfech",
+    "english_name": "Golfech Nuclear Power Plant",
+    "operator": "Électricité de France",
+    "source": "nuclear",
+    "latitude": 44.11111111,
+    "longitude": 0.84027778,
+    "power_mw": 2620.0,
+    "commissioning_date": "1991-00-00",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q1465285",
+    "units": [
+      {
+        "eic": "17W100P100P0129H",
+        "name": "GOLF5N02",
+        "commissioned": "1994-03-01",
+        "status": "En service",
+        "power_mw": 1310.0,
+        "energy_injected_mwh": 2044202.4
+      },
+      {
+        "eic": "17W100P100P0128J",
+        "name": "GOLF5N01",
+        "commissioned": "1991-02-01",
+        "status": "En service",
+        "power_mw": 1310.0,
+        "energy_injected_mwh": 8759665.8
+      }
+    ]
+  },
+  {
+    "id": "Q644493",
+    "name": "Centrale nucléaire de Saint-Laurent des Eaux",
+    "english_name": "Saint-Laurent Nuclear Power Plant",
+    "operator": "EDF",
+    "source": "nuclear",
+    "latitude": 47.72055556,
+    "longitude": 1.57861111,
+    "power_mw": 1830.0,
+    "commissioning_date": "1969-00-00",
+    "wikidata_url": "https://www.wikidata.org/wiki/Q644493",
+    "units": [
+      {
+        "eic": "17W100P100P0148D",
+        "name": "SSEA2N02",
+        "commissioned": "1983-08-01",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 6322017.7
+      },
+      {
+        "eic": "17W100P100P0147F",
+        "name": "SSEA2N01",
+        "commissioned": "1983-08-01",
+        "status": "En service",
+        "power_mw": 915.0,
+        "energy_injected_mwh": 3958190.6
+      }
+    ]
+  }
+]

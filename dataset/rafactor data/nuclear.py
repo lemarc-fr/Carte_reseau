@@ -83,7 +83,7 @@ def main():
     parser = argparse.ArgumentParser(description="Fusion EIC centrales ↔ registre ORE")
     parser.add_argument("--centrales", default="france_power_plants_enriched_3.json", help="Fichier JSON des centrales")
     parser.add_argument("--registre", default="ordre_per_filiere/NUCLE.json", help="Fichier JSON du registre ORE (liste)")
-    parser.add_argument("--output", default="NUCLEAR.json", help="Fichier de sortie")
+    parser.add_argument("--output", default="NUCLEAR_rich.json", help="Fichier de sortie")
     args = parser.parse_args()
 
     centrales = load_json(args.centrales)
