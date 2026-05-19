@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Grand-Maison STEP",
+    "eics_replace": ["17W100P100P02756"]
+  },
+  {
+    "name": "Centrale électrique de Vouglans",
+    "eics_replace": ["17W100P100P0301V"]
+  },
+  {
+    "name": "Usine C.N.R de Seyssel",
+    "eics_replace": ["17W000001017788H"]
+  },
+  {
+    "name": "Centrale hydroélectrique de Chautagne",
+    "eics_replace": ["17W000001017789F"]
+  },
+  {
+    "name": "Centrale Hydroélectrique de Brégnier-Cordon",
+    "eics_replace": ["17W000001017791S"]
+  },
+  {
+    "name": "Chute de Pierre Bénite",
+    "eics_replace": ["17W000001017793O"]
+  },
+  {
+    "name": "Centrale Hydroélectrique de Vaugris",
+    "eics_replace": ["17W000001017794M"]
+  },
+  {
+    "name": "Usine-Barrage de Sauveterre",
+    "eics_replace": ["17W000001017800G"]
+  }
+,{ "name": "Grand-Maison STEP", "eics_replace": ["17W100P100P02756"] }, { "name": "Centrale électrique de Vouglans", "eics_replace": ["17W100P100P0301V"] }, { "name": "Usine C.N.R de Seyssel", "eics_replace": ["17W000001017788H"] }, { "name": "Centrale hydroélectrique de Chautagne", "eics_replace": ["17W000001017789F"] }, { "name": "Centrale Hydroélectrique de Brégnier-Cordon", "eics_replace": ["17W000001017791S"] }, { "name": "Chute de Pierre Bénite", "eics_replace": ["17W000001017793O"] }, { "name": "Centrale Hydroélectrique de Vaugris", "eics_replace": ["17W000001017794M"] }, { "name": "Usine-Barrage de Sauveterre", "eics_replace": ["17W000001017800G"] }, { "name": "Centrale électrique de Serre-Ponçon", "eics_replace": ["17W100P100P02926"] }, { "name": "Sainte-Croix", "eics_replace": ["17W100P100P0297X"] }, { "name": "Centrale hydroélectrique de Marckolsheim", "eics_replace": ["17W100P100P0305N"] }, { "name": "Centrale hydroélectrique de Grangent", "eics_replace": ["17W000000012753W"] }, { "name": "Centrale de Laval-de-Cere II", "eics_replace": ["17W000000012171H"] }, { "name": "Centrale Hydroélectrique de Soulom", "eics_replace": ["17W000000012976C"] }, { "name": "Centrale hydroélectrique de Manosque", "eics_replace": ["17W0000000119231"] }, { "name": "Centrale hydroélectrique de Pralognan", "eics_replace": ["17W000000490675Y"] }, { "name": "Centrale Hydroélectrique du Hourat", "eics_replace": ["17W000000012866J"] }, { "name": "Centrale de Golinhac", "eics_replace": ["17W000000012852U"] }, { "name": "Centrale de Péage de Vizille", "eics_replace": ["17W000000012132R"] }, { "name": "Centrale de Laparan", "eics_replace": ["17W000000012556Y"] }, { "name": "Usine Hydroélectrique de Lardit", "eics_replace": ["17W000000012310T"] }, { "name": "Centrale de Coiselet", "eics_replace": ["17W000000012477U"] }, { "name": "Usine Hydroélectrique de Merens", "eics_replace": ["17W000000012061O"] }, { "name": "Usine de Saint-Geniez-ô-Merle", "eics_replace": ["17W000000012060Q"] }, { "name": "Centrale hydroélectrique de la Vanelle", "eics_replace": ["17W000000012559S"] }, { "name": "Centrale hydroélectrique de Gèdre", "eics_replace": ["17W000000011976H"] }, { "name": "Centrale hydroélectrique de Vinon-sur-Verdon", "eics_replace": ["17W0000000123824"] }, { "name": "Centrale Hydroélectrique de Lau-Balagnas", "eics_replace": ["17W000000012662Z"] }, { "name": "Centrale de Laval-de-Cere I", "eics_replace": ["17W000000012965H"] }, { "name": "Centrale hydroélectrique de Roquebillière", "eics_replace": ["17W000000012127K"] }, { "name": "Centrale hydroélectrique de Beaumont-Monteux", "eics_replace": ["17W000000012907V"] }, { "name": "Usine Hydroélectrique de Porcieu Amblagnieu", "eics_replace": ["17W000001017792Q"] }, { "name": "Centrale électrique de Saint-Georges de Commiers", "eics_replace": ["17W000000012333H"] } ]
