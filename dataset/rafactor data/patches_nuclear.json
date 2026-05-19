@@ -1,0 +1,22 @@
+[
+{
+"name": "Centre Nucléaire de Production d'Electricité de Cruas-Meysse",
+"eics_add": [
+"17W100P100P0115S",
+"17W100P100P0116Q",
+"17W100P100P0118M",
+"17W100P100P0119K"
+]
+},
+{
+"name": "Centrale nucléaire de Nogent-sur-Seine",
+"eics_replace": [
+"17W100P100P0137I",
+"17W100P100P0138G"
+]
+},
+  {
+    "name": "Centrale nucléaire de Flamanville",
+    "eics_add": ["17W100P100P03639"]
+  }
+]
