@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/plants_schema.json",
+  "title": "PowerPlantList",
+  "description": "Liste de centrales électriques simplifiées pour visualisation cartographique en temps réel.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/Plant"
+  },
+  "$defs": {
+    "Plant": {
+      "type": "object",
+      "title": "Plant",
+      "description": "Une centrale électrique.",
+      "required": ["id", "name", "source", "latitude", "longitude", "power_mw"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifiant Wikidata (ex: Q1739407).",
+          "pattern": "^Q[0-9]+$",
+          "examples": ["Q1739407"]
+        },
+        "name": {
+          "type": "string",
+          "description": "Nom officiel de la centrale.",
+          "examples": ["Centre Nucléaire de Production d'Electricité de Gravelines"]
+        },
+        "english_name": {
+          "type": "string",
+          "description": "Nom anglais de la centrale.",
+          "examples": ["Gravelines Nuclear Power Plant"]
+        },
+        "operator": {
+          "type": "string",
+          "description": "Opérateur de la centrale.",
+          "examples": ["Électricité de France"]
+        },
+        "source": {
+          "type": "string",
+          "description": "Source d'énergie primaire.",
+          "enum": ["nuclear", "hydro", "wind", "solar", "gas", "coal", "oil", "biomass", "geothermal", "tidal", "storage"],
+          "examples": ["nuclear"]
+        },
+        "latitude": {
+          "type": "number",
+          "description": "Latitude WGS84.",
+          "minimum": -90,
+          "maximum": 90,
+          "examples": [51.01361111]
+        },
+        "longitude": {
+          "type": "number",
+          "description": "Longitude WGS84.",
+          "minimum": -180,
+          "maximum": 180,
+          "examples": [2.13611111]
+        },
+        "power_mw": {
+          "type": "number",
+          "description": "Puissance installée totale en MW (somme des unités si disponible).",
+          "exclusiveMinimum": 0,
+          "examples": [5460.0]
+        },
+        "commissioning_date": {
+          "type": "string",
+          "description": "Date de mise en service de la centrale (première unité).",
+          "format": "date",
+          "examples": ["1980-03-13"]
+        },
+        "wikidata_url": {
+          "type": "string",
+          "description": "URL de la fiche Wikidata.",
+          "format": "uri",
+          "examples": ["https://www.wikidata.org/wiki/Q1739407"]
+        },
+        "units": {
+          "type": "array",
+          "description": "Liste des unités de production (groupes / réacteurs).",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/Unit"
+          }
+        }
+      }
+    },
+    "Unit": {
+      "type": "object",
+      "title": "Unit",
+      "description": "Une unité de production au sein d'une centrale (réacteur, turbine, groupe).",
+      "required": ["eic", "power_mw"],
+      "additionalProperties": false,
+      "properties": {
+        "eic": {
+          "type": "string",
+          "description": "Code EIC (Energy Identification Code) de l'unité, utilisé pour les requêtes temps réel ENTSO-E / RTE.",
+          "pattern": "^[0-9A-Z]{16}$",
+          "examples": ["17W100P100P0135M"]
+        },
+        "name": {
+          "type": "string",
+          "description": "Identifiant court de l'unité (ex: GRAV5N05).",
+          "examples": ["GRAV5N05"]
+        },
+        "commissioned": {
+          "type": "string",
+          "description": "Date de mise en service de l'unité.",
+          "format": "date",
+          "examples": ["1985-01-15"]
+        },
+        "status": {
+          "type": "string",
+          "description": "Régime opérationnel de l'unité.",
+          "enum": ["En service", "En construction", "Arrêté", "Déclassé"],
+          "examples": ["En service"]
+        },
+        "power_mw": {
+          "type": "number",
+          "description": "Puissance de l'unité en MW (puismaxrac en priorité, sinon puismaxinstallee).",
+          "exclusiveMinimum": 0,
+          "examples": [910.0]
+        },
+        "energy_injected_mwh": {
+          "type": "number",
+          "description": "Énergie annuelle glissante injectée sur le réseau en MWh.",
+          "minimum": 0,
+          "examples": [6563524.7]
+        }
+      }
+    }
+  }
+}

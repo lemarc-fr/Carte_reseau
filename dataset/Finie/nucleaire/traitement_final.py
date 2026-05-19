@@ -13,6 +13,7 @@ Format de sortie par unité :
 
 Priorité pour power_mw d'une unité  : puismaxrac > puismaxinstallee
 Priorité pour power_mw de la centrale : somme unités > wikidata > champ texte output
+Priorité pour lat/lon               : wikidata_details > centroïde géométrie OSM
 
 Usage :
   python simplify_plants.py <input_brut.json> [output.json]
@@ -61,8 +62,54 @@ def plant_power_mw(raw, units):
     return parse_output_mw(raw.get("output"))
 
 
+def osm_centroid(raw):
+    """
+    Calcule le centroïde depuis la géométrie OSM.
+    Cherche dans tous les éléments OSM (way ou relation/members).
+    Retourne (lat, lon) arrondis à 6 décimales, ou (None, None).
+    """
+    points = []
+
+    elements = (
+        raw.get("detail_page_data", {})
+        .get("osm_details", {})
+        .get("elements", [])
+    )
+
+    for element in elements:
+        # Way direct : geometry = liste de {lat, lon}
+        for pt in element.get("geometry", []):
+            lat, lon = pt.get("lat"), pt.get("lon")
+            if lat is not None and lon is not None:
+                points.append((lat, lon))
+
+        # Relation : members contenant chacun une geometry
+        for member in element.get("members", []):
+            for pt in member.get("geometry", []):
+                lat, lon = pt.get("lat"), pt.get("lon")
+                if lat is not None and lon is not None:
+                    points.append((lat, lon))
+
+    if not points:
+        return None, None
+
+    avg_lat = round(sum(p[0] for p in points) / len(points), 6)
+    avg_lon = round(sum(p[1] for p in points) / len(points), 6)
+    return avg_lat, avg_lon
+
+
+def plant_latlon(raw):
+    """wikidata_details lat/lon > centroïde OSM"""
+    wd = raw.get("wikidata_details", {})
+    lat = wd.get("latitude")
+    lon = wd.get("longitude")
+    if lat is not None and lon is not None:
+        return lat, lon
+    return osm_centroid(raw)
+
+
 def short_name(nominstallation):
-    """'GRAV5N05 - GROUPE 05 DE LA CENTRALE ...' → 'GRAV5N05'"""
+    """'CRUA5N02 - GROUPE 02 DE LA CENTRALE ...' → 'CRUA5N02'"""
     if not nominstallation:
         return None
     return nominstallation.split(" - ")[0].strip()
@@ -103,14 +150,16 @@ def simplify_plant(raw):
         if isinstance(data, dict)
     ]
 
+    lat, lon = plant_latlon(raw)
+
     plant = {
         "id":                 raw.get("wikidata_id"),
         "name":               raw.get("name"),
         "english_name":       raw.get("english_name"),
         "operator":           raw.get("operator"),
         "source":             raw.get("source"),
-        "latitude":           wd.get("latitude"),
-        "longitude":          wd.get("longitude"),
+        "latitude":           lat,
+        "longitude":          lon,
         "power_mw":           plant_power_mw(raw, units),
         "commissioning_date": wd.get("commissioning_date"),
         "wikidata_url":       raw.get("wikidata_url"),
@@ -136,7 +185,7 @@ def process(input_path, output_path=None):
 
     if output_path:
         Path(output_path).write_text(out_json, encoding="utf-8")
-        print(f"✓ Écrit dans {output_path}")
+        print(f"✓ Écrit dans {output_path}", file=sys.stderr)
     else:
         print(out_json)
 

@@ -284,10 +284,13 @@
     ]
   },
   {
+    "id": "Q288334",
     "name": "Centre Nucléaire de Production d'Electricité de Cruas-Meysse",
     "english_name": "Cruas Nuclear Power Plant",
     "operator": "Électricité de France",
     "source": "nuclear",
+    "latitude": 44.635299,
+    "longitude": 4.756118,
     "power_mw": 3660.0,
     "units": [
       {
