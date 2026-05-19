@@ -6,6 +6,8 @@ on:
       - main
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -22,11 +24,11 @@ jobs:
 
       - name: Deploy on server
         run: |
-          ssh -p 18005 Marc@lemarc.fr << 'EOF_REMOTE'
+          ssh -o StrictHostKeyChecking=yes -p 18005 Marc@lemarc.fr << 'EOF_REMOTE'
             set -e
             cd /home/Marc/Web/Carte_reseau/
-            git pull
+            git pull --ff-only
             npm install
             npm run build
-            sudo systemctl restart carte_reseau.service
+            sudo -n systemctl restart carte_reseau.service
           EOF_REMOTE
