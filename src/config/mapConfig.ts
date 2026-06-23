@@ -6,7 +6,7 @@ export const INITIAL_VIEW_STATE = {
   latitude: 50,
   zoom: 4.2,
   minZoom: 3,
-  maxZoom: 7,
+  maxZoom: 14,
   pitch: 0,
   bearing: 0
 };
