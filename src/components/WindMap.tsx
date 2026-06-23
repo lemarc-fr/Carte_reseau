@@ -15,7 +15,6 @@ import { ReactControl } from './controls/ReactControl';
 import WindTogglePanel from './controls/WindTogglePanel';
 import ProductionTypesPanel from './controls/ProductionTypesPanel';
 import { useMapStore } from '@/store/useMapStore';
-import OSMLayer from "@/components/plant/OSMLayer";
 
 // ─── DeckGL overlay ───────────────────────────────────────────────────────────
 
@@ -144,7 +143,6 @@ export default function MapEurope() {
           <WindToggleControl />
           <ProductionTypesControl />
           <DeckGLOverlay layers={layers} />
-          <OSMLayer />
         </Map>
 
         {windStatus !== 'ok' && (

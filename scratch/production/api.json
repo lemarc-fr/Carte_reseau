@@ -1,0 +1,834 @@
+{
+  "swagger":"2.0",
+  "info":{
+    "title":"Actual Generation",
+    "description":"Generation data aggregated by sector and produced per group (in MW) on an intradaily basis for net generation injected into the network. This data is produced by RTE using remote measurement facilities with which production units are equipped, and using an estimate model for the wind-power and photovoltaic sectors. Hydraulic stocks for France are the aggregated weekly fill rates of reservoirs and lake-type hydraulic storage plants; they are expressed in MWh and sent by the generators to RTE.",
+    "version":"1.1"
+  },
+  "basePath":"/open_api/actual_generation/v1",
+  "host":"digital.iservices.rte-france.com",
+  "schemes":[
+    "https"
+  ],
+  "paths":{
+    "/actual_generations_per_production_type":{
+      "get":{
+        "description":"This resource is for retrieving data about actual generation aggregated by sector on an intradaily basis for net generation injected into the network.",
+        "operationId":"001",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "name":"start_date",
+            "in":"query",
+            "description":"Forecast search start date (YYYY-MM-DDThh:mm:sszzzzzz)",
+            "required":false,
+            "type":"string",
+            "format":"date-time"
+          },
+          {
+            "name":"end_date",
+            "in":"query",
+            "description":"Forecast search end date (YYYY-MM-DDThh:mm:sszzzzzz)",
+            "required":false,
+            "type":"string",
+            "format":"date-time"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"OK",
+            "schema":{
+              "$ref":"#/definitions/actual_generations_per_production_type_obj"
+            }
+          },
+          "400":{
+            "description":"ACTUALGEN_PRODTYPE_F01 - If one of the fields 'start_date' or 'end_date' is used, the two fields are mandatory. Please used either fields or neither.  \n  \nACTUALGEN_PRODTYPE_F02 - The field 'start_date' in the API input is more recently than the field 'end_date'. Please correct the values of these fields  \n  \nACTUALGEN_PRODTYPE_F03 - The API does not provide feedback on such a long period in one call. To retrieve all the data please make it with severals calls to the API.  \n  \nACTUALGEN_PRODTYPE_F04 - The value of 'end_date' field is incorrect. It is not possible to recover data to this term.  \n  \nACTUALGEN_PRODTYPE_F05 - The period filled by fields 'start_date' and 'end_date' is too short to return values. Please check the user guide to verify the minimum period for this API.  \n  \nACTUALGEN_PRODTYPE_F06 - One of the dates in the API input does not follow the format described in the user guide. Please verify compliance with the format for each field.",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "401":{
+            "description":"Unauthorized",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "403":{
+            "description":"Forbidden",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "404":{
+            "description":"Not Found",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "408":{
+            "description":"Request Time-out",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "413":{
+            "description":"Request Entity Too Large",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "414":{
+            "description":"Request-URI Too Long",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "429":{
+            "description":"Too Many Requests",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "500":{
+            "description":"Internal Server Error",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "503":{
+            "description":"Service Unavailable",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "509":{
+            "description":"Bandwidth Limit Exceeded",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/actual_generations_per_unit":{
+      "get":{
+        "description":"This resource is for retrieving data about actual generation aggregated by unit on an intradaily basis. Data about actual generation is put together for the upcoming hour using measurements taken remotely on RTE's network. It relates to net generation injected into the network. For units that are not generating, this figure can be negative as a result of the site’s consumption.",
+        "operationId":"002",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "name":"start_date",
+            "in":"query",
+            "description":"Search start date (YYYY-MM-DDThh:mm:sszzzzzz)",
+            "required":false,
+            "type":"string",
+            "format":"date-time"
+          },
+          {
+            "name":"end_date",
+            "in":"query",
+            "description":"Search end date (YYYY-MM-DDThh:mm:sszzzzzz)",
+            "required":false,
+            "type":"string",
+            "format":"date-time"
+          },
+          {
+            "name":"unit_eic_code",
+            "in":"query",
+            "description":"Unit's EIC code",
+            "required":false,
+            "type":"string"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"OK",
+            "schema":{
+              "$ref":"#/definitions/actual_generations_per_unit_obj"
+            }
+          },
+          "400":{
+            "description":"ACTUALGEN_PERUNIT_F01 - If one of the fields 'start_date' or 'end_date' is used, the two fields are mandatory. Please used either fields or neither.  \n  \nACTUALGEN_PERUNIT_F02 - The field 'start_date' in the API input is more recently than the field 'end_date'. Please correct the values of these fields  \n  \nACTUALGEN_PERUNIT_F03 - The API does not provide feedback on such a long period in one call. To retrieve all the data please make it with severals calls to the API.  \n  \nACTUALGEN_PERUNIT_F04 - The value of 'end_date' field is incorrect. It is not possible to recover data to this term.  \n  \nACTUALGEN_PERUNIT_F05 - The period filled by fields 'start_date' and 'end_date' is too short to return values. Please check the user guide to verify the minimum period for this API.  \n  \nACTUALGEN_PERUNIT_F06 - One of the dates in the API input does not follow the format described in the user guide. Please verify compliance with the format for each field.",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "401":{
+            "description":"Unauthorized",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "403":{
+            "description":"Forbidden",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "404":{
+            "description":"Not Found",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "408":{
+            "description":"Request Time-out",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "413":{
+            "description":"Request Entity Too Large",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "414":{
+            "description":"Request-URI Too Long",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "429":{
+            "description":"Too Many Requests",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "500":{
+            "description":"Internal Server Error",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "503":{
+            "description":"Service Unavailable",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "509":{
+            "description":"Bandwidth Limit Exceeded",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/water_reserves":{
+      "get":{
+        "description":"This resource is for retrieving data about hydraulic stocks. Hydraulic stocks for France are the aggregated weekly fill rates of reservoirs and lake-type hydraulic storage plants as recorded on Monday at 0.00 AM. They are expressed in MWh and sent by the generators to RTE, which then aggregates the data before publishing it. This data is published on Wednesdays at 12:30 PM, or the day after if Wednesday is a bank holiday.",
+        "operationId":"003",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "name":"start_date",
+            "in":"query",
+            "description":"Forecast search start date (YYYY-MM-DDThh:mm:sszzzzzz)",
+            "required":false,
+            "type":"string",
+            "format":"date-time"
+          },
+          {
+            "name":"end_date",
+            "in":"query",
+            "description":"Forecast search end date (YYYY-MM-DDThh:mm:sszzzzzz)",
+            "required":false,
+            "type":"string",
+            "format":"date-time"
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"OK",
+            "schema":{
+              "$ref":"#/definitions/water_reserves_obj"
+            }
+          },
+          "400":{
+            "description":"ACTUALGEN_WATERRESERVES_F01 - If one of the fields 'start_date' or 'end_date' is used, the two fields are mandatory. Please used either fields or neither.  \n  \nACTUALGEN_WATERRESERVES_F02 - The field 'start_date' in the API input is more recently than the field 'end_date'. Please correct the values of these fields  \n  \nACTUALGEN_WATERRESERVES_F03 - The API does not provide feedback on such a long period in one call. To retrieve all the data please make it with severals calls to the API.  \n  \nACTUALGEN_WATERRESERVES_F04 - The value of 'end_date' field is incorrect. It is not possible to recover data to this term.  \n  \nACTUALGEN_WATERRESERVES_F05 - The period filled by fields 'start_date' and 'end_date' is too short to return values. Please check the user guide to verify the minimum period for this API.  \n  \nACTUALGEN_WATERRESERVES_F06 - One of the dates in the API input does not follow the format described in the user guide. Please verify compliance with the format for each field.",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "401":{
+            "description":"Unauthorized",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "403":{
+            "description":"Forbidden",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "404":{
+            "description":"Not Found",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "408":{
+            "description":"Request Time-out",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "413":{
+            "description":"Request Entity Too Large",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "414":{
+            "description":"Request-URI Too Long",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "429":{
+            "description":"Too Many Requests",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "500":{
+            "description":"Internal Server Error",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "503":{
+            "description":"Service Unavailable",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "509":{
+            "description":"Bandwidth Limit Exceeded",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          }
+        }
+      }
+    },
+    "/generation_mix_15min_time_scale":{
+      "get":{
+        "description":"This resource is for retrieving data about actual power generated from the overall power mix, which corresponds to net generation injected into the network. Unlike the 'actual_generations_per_production_type' resource, which returned an average for data taken over an hour, the values that this resource retrieves are discrete values every 15 minutes.",
+        "operationId":"004",
+        "consumes":[
+          "application/json"
+        ],
+        "produces":[
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "name":"start_date",
+            "in":"query",
+            "description":"Forecast search start date (YYYY-MM-DDThh:mm:sszzzzzz)",
+            "required":false,
+            "type":"string",
+            "format":"date-time"
+          },
+          {
+            "name":"end_date",
+            "in":"query",
+            "description":"Forecast search end date (YYYY-MM-DDThh:mm:sszzzzzz)",
+            "required":false,
+            "type":"string",
+            "format":"date-time"
+          },
+          {
+            "name":"production_type",
+            "in":"query",
+            "description":"Generating sector",
+            "required":false,
+            "type":"array",
+            "items":{
+              "type":"string",
+              "format":"enum"
+            },
+            "collectionFormat":"multi",
+            "enum":[
+              "FOSSIL_OIL",
+              "FOSSIL_GAS",
+              "HYDRO",
+              "BIOENERGY",
+              "NUCLEAR",
+              "FOSSIL_HARD_COAL",
+              "WIND",
+              "EXCHANGE",
+              "PUMPING",
+              "SOLAR"
+            ]
+          },
+          {
+            "name":"production_subtype",
+            "in":"query",
+            "description":"Generating sub-sector",
+            "required":false,
+            "type":"array",
+            "items":{
+              "type":"string",
+              "format":"enum"
+            },
+            "collectionFormat":"multi",
+            "enum":[
+              "TOTAL",
+              "FOSSIL_OIL_OTHER",
+              "FOSSIL_OIL_CHP",
+              "FOSSIL_OIL_CT",
+              "FOSSIL_GAS_OTHER",
+              "FOSSIL_GAS_CCGT",
+              "FOSSIL_GAS_CHP",
+              "FOSSIL_GAS_CT",
+              "HYDRO_PUMPED_STORAGE",
+              "HYDRO_WATER_RESERVOIR",
+              "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+              "BIOGAS",
+              "BIOMASS",
+              "WASTE"
+            ]
+          }
+        ],
+        "responses":{
+          "200":{
+            "description":"OK",
+            "schema":{
+              "$ref":"#/definitions/generation_mix_15min_time_scale_obj"
+            }
+          },
+          "400":{
+            "description":"ACTUALGEN_MIX15_F01 - If one of the fields 'start_date' or 'end_date' is used, the two fields are mandatory. Please used either fields or neither.    \n    \nACTUALGEN_MIX15_F02 - The field 'start_date' in the API input is more recently than the field 'end_date'. Please correct the values of these fields    \n    \nACTUALGEN_MIX15_F03 - The API does not provide feedback on such a long period in one call. To retrieve all the data please make it with severals calls to the API.    \n    \nACTUALGEN_MIX15_F04 - The value of 'end_date' field is incorrect. It is not possible to recover data to this term.    \n    \nACTUALGEN_MIX15_F05 - The period filled by fields 'start_date' and 'end_date' is too short to return values. Please check the user guide to verify the minimum period for this API.    \n    \nACTUALGEN_MIX15_F06 - One of the dates in the API input does not follow the format described in the user guide. Please verify compliance with the format for each field.    \n    \nACTUALGEN_MIX15_F07 - A 'production_type' and 'production_subtype' couple in the service entry does not work.    \n    \nACTUALGEN_MIX15_F08 - One of the enumerated field does not match with the list of expected values. Please verify compliance with the format for each field.",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "401":{
+            "description":"Unauthorized",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "403":{
+            "description":"Forbidden",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "404":{
+            "description":"Not Found",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "408":{
+            "description":"Request Time-out",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "413":{
+            "description":"Request Entity Too Large",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "414":{
+            "description":"Request-URI Too Long",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "429":{
+            "description":"Too Many Requests",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "500":{
+            "description":"Internal Server Error",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "503":{
+            "description":"Service Unavailable",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          },
+          "509":{
+            "description":"Bandwidth Limit Exceeded",
+            "schema":{
+              "$ref":"#/definitions/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions":{
+    "actual_generations_per_production_type_obj":{
+      "type":"object",
+      "properties":{
+        "actual_generations_per_production_type":{
+          "type":"array",
+          "items":{
+            "$ref":"#/definitions/actual_generations_per_production_type"
+          }
+        }
+      }
+    },
+    "actual_generations_per_production_type":{
+      "type":"object",
+      "properties":{
+        "start_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Forecast search start date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "end_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Forecast search end date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "production_type":{
+          "type":"string",
+          "enum":[
+            "BIOMASS",
+            "FOSSIL_GAS",
+            "FOSSIL_HARD_COAL",
+            "FOSSIL_OIL",
+            "HYDRO_PUMPED_STORAGE",
+            "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+            "HYDRO_WATER_RESERVOIR",
+            "NUCLEAR",
+            "SOLAR",
+            "WASTE",
+            "WIND_OFFSHORE",
+            "WIND_ONSHORE",
+          ],
+          "description":"Generating sector"
+        },
+        "values":{
+          "type":"array",
+          "items":{
+            "$ref":"#/definitions/value_actual_generations_per_production_type"
+          }
+        }
+      }
+    },
+    "value_actual_generations_per_production_type":{
+      "type":"object",
+      "properties":{
+        "start_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Time interval start (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "end_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Time interval end (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "updated_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Data update date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "value":{
+          "type":"integer",
+          "format":"int32",
+          "description":"Interval forecast value"
+        }
+      }
+    },
+    "actual_generations_per_unit_obj":{
+      "type":"object",
+      "properties":{
+        "actual_generations_per_unit":{
+          "type":"array",
+          "items":{
+            "$ref":"#/definitions/actual_generations_per_unit"
+          }
+        }
+      }
+    },
+    "actual_generations_per_unit":{
+      "type":"object",
+      "properties":{
+        "start_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Search start date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "end_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Search end date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "unit":{
+          "$ref":"#/definitions/unit_actual_generations_per_unit"
+        },
+        "values":{
+          "type":"array",
+          "items":{
+            "$ref":"#/definitions/value_actual_generations_per_unit"
+          }
+        }
+      }
+    },
+    "unit_actual_generations_per_unit":{
+      "type":"object",
+      "properties":{
+        "eic_code":{
+          "type":"string",
+          "description":"Unit's EIC code"
+        },
+        "name":{
+          "type":"string",
+          "description":"Name of the unit"
+        }
+      }
+    },
+    "value_actual_generations_per_unit":{
+      "type":"object",
+      "properties":{
+        "start_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Start time interval (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "end_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"End time interval (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "updated_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Data update date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "production_type":{
+          "type":"string",
+          "enum":[
+            "BIOMASS",
+            "FOSSIL_GAS",
+            "FOSSIL_HARD_COAL",
+            "FOSSIL_OIL",
+            "HYDRO_PUMPED_STORAGE",
+            "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+            "HYDRO_WATER_RESERVOIR",
+            "NUCLEAR",
+            "SOLAR",
+            "WASTE",
+            "WIND_OFFSHORE",
+            "WIND_ONSHORE",
+          ],
+          "description":"Generating sector"
+        },
+        "value":{
+          "type":"integer",
+          "format":"int32",
+          "description":"Data value"
+        }
+      }
+    },
+    "water_reserves_obj":{
+      "type":"object",
+      "properties":{
+        "water_reserves":{
+          "type":"array",
+          "items":{
+            "$ref":"#/definitions/water_reserves"
+          }
+        }
+      }
+    },
+    "water_reserves":{
+      "type":"object",
+      "properties":{
+        "start_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Search start date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "end_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Search end date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "values":{
+          "type":"array",
+          "items":{
+            "$ref":"#/definitions/value_water_reserves"
+          }
+        }
+      }
+    },
+    "value_water_reserves":{
+      "type":"object",
+      "properties":{
+        "start_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Start time interval (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "end_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"End time interval (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "updated_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Data update date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "value":{
+          "type":"integer",
+          "format":"int32",
+          "description":"Data value"
+        }
+      }
+    },
+    "generation_mix_15min_time_scale_obj":{
+      "type":"object",
+      "properties":{
+        "generation_mix_15min_time_scale":{
+          "type":"array",
+          "items":{
+            "$ref":"#/definitions/generation_mix_15min_time_scale"
+          }
+        }
+      }
+    },
+    "generation_mix_15min_time_scale":{
+      "type":"object",
+      "properties":{
+        "start_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Search start date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "end_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Search end date (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "production_type":{
+          "type":"string",
+          "enum":[
+            "FOSSIL_OIL",
+            "FOSSIL_GAS",
+            "HYDRO",
+            "BIOENERGY",
+            "NUCLEAR",
+            "FOSSIL_HARD_COAL",
+            "WIND",
+            "EXCHANGE",
+            "PUMPING",
+            "SOLAR"
+          ],
+          "description":"Generating sector"
+        },
+        "production_subtype":{
+          "type":"string",
+          "enum":[
+            "TOTAL",
+            "FOSSIL_OIL_OTHER",
+            "FOSSIL_OIL_CHP",
+            "FOSSIL_OIL_CT",
+            "FOSSIL_GAS_OTHER",
+            "FOSSIL_GAS_CCGT",
+            "FOSSIL_GAS_CHP",
+            "FOSSIL_GAS_CT",
+            "HYDRO_PUMPED_STORAGE",
+            "HYDRO_WATER_RESERVOIR",
+            "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+            "BIOGAS",
+            "BIOMASS",
+            "WASTE"
+          ],
+          "description":"Generating sub-sector"
+        },
+        "values":{
+          "type":"array",
+          "items":{
+            "$ref":"#/definitions/value_generation_mix_15min_time_scale"
+          }
+        }
+      }
+    },
+    "value_generation_mix_15min_time_scale":{
+      "type":"object",
+      "properties":{
+        "start_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Start time interval (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "end_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"End time interval (YYYY-MM-DDThh:mm:sszzzzzz)"
+        },
+        "value":{
+          "type":"integer",
+          "format":"int32",
+          "description":"Data value"
+        },
+        "updated_date":{
+          "type":"string",
+          "format":"date-time",
+          "description":"Date of the data’s update (YYYY-MM-DDThh:mm:sszzzzzz)"
+        }
+      }
+    },
+    "error":{
+      "type":"object",
+      "properties":{
+        "error":{
+          "type":"string",
+          "description":"short_name, error's explicit description"
+        },
+        "error_description":{
+          "type":"string",
+          "description":"long name, readable by a user"
+        },
+        "error_uri":{
+          "type":"string",
+          "description":"URI to the user guide on the VESPA technical platform or the FAQ/documentation on VESPA’s web portal"
+        },
+        "error_details":{
+          "type":"object",
+          "properties":{
+            "transaction_id":{
+              "type":"string",
+              "description":"unique call identifier, useful in the event of an incident"
+            }
+          }
+        }
+      }
+    }
+  }
+}
