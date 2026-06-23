@@ -1,4 +1,4 @@
-import { PROTOMAPS_API_KEY } from '@/config/mapConfig';
+import {INITIAL_VIEW_STATE, PROTOMAPS_API_KEY} from '@/config/mapConfig';
 import type { StyleSpecification } from 'maplibre-gl';
 
 export const mapStyle: StyleSpecification = {
@@ -13,7 +13,7 @@ export const mapStyle: StyleSpecification = {
               tiles: ['https://tiles.mapterhorn.com/{z}/{x}/{y}.webp'],
               tileSize: 512,
               encoding: 'terrarium',
-              maxzoom: 14
+              maxzoom: INITIAL_VIEW_STATE.maxZoom
             }
           },
           layers: [

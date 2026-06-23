@@ -71,6 +71,7 @@ export const useMapStore = create<MapState>()(
             windVisible: true,
             windStatus: 'loading',
             windData: null,
+            normalizeRing: false,
             productionTypes: DEFAULT_PRODUCTION_TYPES_STATE,
 
             // Actions vent
