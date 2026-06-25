@@ -47,3 +47,6 @@ dev_utils/*.txt
 scratch/*.xml
 *.pyc
 /dataset/carte_gravelines.html
+
+/src/generated/prisma
+data/

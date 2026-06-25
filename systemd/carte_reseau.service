@@ -1,25 +1,25 @@
 [Unit]
-Description=Next.js App
-After=network.target
+Description=Carte Reseau Next.js service
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 Type=simple
-User=www-data
-WorkingDirectory=/var/www/carte-reseau
-
-# Variables d'environnement
+User=Marc
+Group=Marc
+WorkingDirectory=/home/Marc/Web/Carte_reseau
 Environment=NODE_ENV=production
 Environment=PORT=3000
-# Ajouter d'autres variables ici, ou pointer vers un fichier :
-# EnvironmentFile=/var/www/carte-reseau/.env.local
-
-ExecStart=/usr/bin/npm start
-Restart=on-failure
-RestartSec=5s
-
-# Logs dans journald (voir avec : journalctl -u nextjs -f)
-StandardOutput=journal
-StandardError=journal
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/npm run start -- --hostname 127.0.0.1 --port 3000
+Restart=always
+RestartSec=5
+TimeoutStartSec=30
+TimeoutStopSec=15
+KillSignal=SIGINT
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
 
 [Install]
 WantedBy=multi-user.target

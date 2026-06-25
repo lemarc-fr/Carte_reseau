@@ -1,4 +1,4 @@
-﻿$racine = "C:\Users\marcb\WebstormProjects\Carte_reseau\src\components"
+﻿$racine = "C:\Users\marcb\WebstormProjects\Carte_reseau"
 $dossierSortie = "C:\Users\marcb\WebstormProjects\Carte_reseau\dev_utils"
 $profondeur = -1   # -1 = pas de limite, 1 = un seul niveau
 $dossiersIgnores = @('icons', "node_modules", ".git", "__pycache__", ".venv", 'dev_utils', '.idea', '.ruff_cache', '.next')

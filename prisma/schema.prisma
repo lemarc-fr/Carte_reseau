@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Unit {
+  id             Int      @id @default(autoincrement())
+  eicCode        String   @unique
+  name           String
+  plantName      String
+  commune        String
+  region         String
+  productionType String   // "NUCLEAR", "HYDRO", "WIND", etc.
+  puisMaxMw      Float
+  sourceFile     String   // "NUCLEAR.json", "HYDRO.json", etc.
+
+  productions    ProductionValue[]
+}
+
+model ProductionValue {
+  id          Int      @id @default(autoincrement())
+  unitId      Int
+  startDate   DateTime
+  endDate     DateTime
+  updatedDate DateTime
+  valueMw     Float
+  fetchedAt   DateTime @default(now())
+
+  unit        Unit     @relation(fields: [unitId], references: [id])
+
+  @@unique([unitId, startDate])
+  @@index([unitId, startDate])
+  @@index([startDate])
+  @@index([unitId])
+}
