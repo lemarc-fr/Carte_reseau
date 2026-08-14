@@ -1,7 +1,7 @@
 export const RTE_CLIENT_ID:string ="850b7ed4-385e-4d5e-bb94-6e34fe7158e7";
 export const RTE_CLIENT_SECRET:string ="b85fc814-c626-4ffc-b62b-989e54248afc";
-export const START_DATE:string ="2026-08-01T00:00:00+01:00";
-export const END_DATE:string ="2026-08-03T00:00:00+01:00";
+export const START_DATE:string ="2026-08-03T00:00:00+01:00";
+export const END_DATE:string ="2026-08-04T00:00:01+01:00";
 
 export const nuclear_eics: string[] = [
     '17W100P100P0135M', '17W100P100P0136K', '17W100P100P0133Q', '17W100P100P0130W',

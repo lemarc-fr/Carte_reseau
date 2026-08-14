@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Hypothèse : PostgreSQL (Neon / Supabase / Vercel Postgres / instance perso).
+// Le raw SQL utilisé dans lib/downsample.ts et lib/crud.ts (date_trunc, DISTINCT ON,
+// ON CONFLICT) est spécifique à Postgres — à adapter si vous utilisez un autre SGBD.
+//
+// Prisma 7 : l'URL de connexion ne se met plus ici, elle va dans prisma.config.ts
+// (pour le CLI/migrate) et est passée via un driver adapter au PrismaClient
+// (voir lib/prisma.ts). Voir https://pris.ly/d/config-datasource
+datasource db {
+  provider = "postgresql"
+}
+
+enum Granularity {
+  HOUR
+  DAY
+}
+
+// Table de référence des 57 réacteurs (métadonnées stables)
+model Reactor {
+  eic_code        String   @id
+  name            String
+  production_type String   @default("NUCLEAR")
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  readings ProductionReading[]
+
+  @@map("reactors")
+}
+
+// Relevés de production par créneau (1h pendant 7 jours, puis 1 jour au-delà)
+model ProductionReading {
+  eic_code        String
+  name            String
+  production_type String
+  start_date      DateTime
+  granularity     Granularity @default(HOUR)
+  value           Float
+  updated_date    DateTime
+  created_at      DateTime    @default(now())
+
+  reactor Reactor @relation(fields: [eic_code], references: [eic_code])
+
+  // Clé composite = pas besoin d'id séparé, et sert de cible pour les upserts
+  // (create/update en une seule opération, idempotent si on rejoue une ingestion).
+  @@id([eic_code, start_date, granularity])
+  // Index pour les requêtes cumulées (toutes centrales) et le job de downsampling,
+  // qui filtrent par start_date/granularity sans passer par eic_code.
+  @@index([start_date, granularity])
+  @@map("production_readings")
+}
