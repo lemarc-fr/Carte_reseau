@@ -1,0 +1,71 @@
+.app {
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.sidebar {
+  flex: 0 0 var(--sidebar-width);
+  width: var(--sidebar-width);
+  overflow-y: auto;
+  padding: 20px;
+  background: #ffffff;
+}
+
+.mapArea {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 12px;
+  background: var(--gray-100);
+}
+
+.mapCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+}
+
+.mapWrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.mapLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: var(--gray-50);
+  color: var(--gray-500);
+  font-size: 14px;
+}
+
+/* Mobile : la carte passe au-dessus, la page défile */
+@media (max-width: 900px) {
+  .app {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  .mapArea {
+    order: -1;
+    flex: none;
+    height: 60vh;
+    height: 60dvh;
+    padding: 8px;
+  }
+
+  .sidebar {
+    flex: none;
+    width: 100%;
+    overflow: visible;
+    padding: 16px;
+  }
+}

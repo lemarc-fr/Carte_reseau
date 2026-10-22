@@ -2,12 +2,42 @@
 
 Application Next.js pour visualiser des actifs de production électrique en France, avec enrichissement multi-sources.
 
+Interface inspirée de la [GB Renewables Map](https://renewables-map.robinhawkes.com/) de Robin Hawkes :
+carte des centrales (anneau = capacité, disque = production), graphique de production sur 7 jours,
+choix de l'instant affiché, liste triable et fiche détaillée par centrale. Pour l'instant : le nucléaire
+(18 centrales, 57 réacteurs), production horaire par réacteur publiée par RTE.
+
 ## Lancer le projet
+
+Fichier `.env` (non versionné) :
+
+```bash
+DATABASE_URL="postgresql://user:motdepasse@127.0.0.1:5432/nuclear_production"
+RTE_CLIENT_ID="…"       # application data.rte-france.com abonnée à l'API Actual Generation
+RTE_CLIENT_SECRET="…"
+```
 
 ```bash
 npm ci
+npm run db:migrate   # applique src/prisma/migrations
+npm run db:seed      # 18 centrales + 57 réacteurs depuis dataset/Finie/NUCLEAR.json
+npm run backfill     # 7 derniers jours de production RTE (optionnel : `npm run backfill -- 30`)
 npm run dev
 ```
+
+Une fois lancé, le serveur interroge RTE toutes les 15 minutes (`src/lib/power/ingest.ts`, démarré par
+`src/instrumentation.ts`). Les relevés horaires de plus de 7 jours sont agrégés en moyennes journalières.
+
+### API
+
+- `GET /api/plants` : centrales, réacteurs, position et emprise du site
+- `GET /api/generation?from=ISO&to=ISO` : production horaire par réacteur (7 jours par défaut, 31 max)
+
+### Déploiement (Raspberry Pi)
+
+- `systemd/carte_reseau.service` : service Next.js sur 127.0.0.1:3000 (lit `.env`)
+- `systemd/nginx.conf.part` : bloc `server` en 443 ssl, inclus depuis la configuration nginx principale
+  (les certificats y sont déclarés globalement)
 
 ## Sources de données disponibles
 

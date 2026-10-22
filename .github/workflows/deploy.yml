@@ -29,6 +29,7 @@ jobs:
             cd /home/Marc/Web/Carte_reseau/
             git pull --ff-only
             npm install
+            npm run db:migrate
             npm run build
             sudo -n systemctl restart carte_reseau.service
           EOF_REMOTE

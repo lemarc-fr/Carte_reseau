@@ -18,16 +18,48 @@ enum Granularity {
   DAY
 }
 
+// Site de production (ex. CNPE de Gravelines) : regroupe plusieurs réacteurs.
+// Alimenté par src/prisma/seed.ts à partir de dataset/Finie/NUCLEAR.json
+// (OSM + Wikidata + registre ODRE).
+model Plant {
+  id                 String    @id // slug stable, ex. "gravelines"
+  name               String // nom court affiché, ex. "Gravelines"
+  full_name          String
+  production_type    String    @default("NUCLEAR")
+  operator           String?
+  latitude           Float
+  longitude          Float
+  capacity_mw        Float // somme des puissances installées des réacteurs
+  commissioning_date DateTime? @db.Date
+  commune            String?
+  departement        String?
+  region             String?
+  wikidata_id        String?
+  osm_id             String? // ex. "relation/20240158"
+  contour            Json? // anneau extérieur simplifié [[lon, lat], ...]
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+
+  reactors Reactor[]
+
+  @@map("plants")
+}
+
 // Table de référence des 57 réacteurs (métadonnées stables)
 model Reactor {
-  eic_code        String   @id
-  name            String
-  production_type String   @default("NUCLEAR")
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
+  eic_code           String    @id
+  name               String
+  production_type    String    @default("NUCLEAR")
+  plant_id           String?
+  capacity_mw        Float?
+  commissioning_date DateTime? @db.Date
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
 
+  plant    Plant?              @relation(fields: [plant_id], references: [id])
   readings ProductionReading[]
 
+  @@index([plant_id])
   @@map("reactors")
 }
 
