@@ -23,6 +23,8 @@ export interface WindData {
     image: ImageData;
     imageUnscale: [number, number];
     speedMax: number;
+    runTime: number | null; // run AROME (epoch ms)
+    validTime: number | null; // échéance affichée (epoch ms)
 }
 
 // ─── État initial ─────────────────────────────────────────────────────────────

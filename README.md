@@ -9,24 +9,24 @@ choix de l'instant affiché, liste triable et fiche détaillée par centrale. Po
 
 ## Lancer le projet
 
-Fichier `.env` (non versionné) :
-
-```bash
-DATABASE_URL="postgresql://user:motdepasse@127.0.0.1:5432/nuclear_production"
-RTE_CLIENT_ID="…"       # application data.rte-france.com abonnée à l'API Actual Generation
-RTE_CLIENT_SECRET="…"
-```
+Copier `.env.example` en `.env` et le remplir : base PostgreSQL, identifiants RTE, clé Météo-France
+et **`BACK_FILL_START`**, la date (YYYY-MM-DD) depuis laquelle l'historique de production est conservé.
 
 ```bash
 npm ci
 npm run db:migrate   # applique src/prisma/migrations
 npm run db:seed      # 18 centrales + 57 réacteurs depuis dataset/Finie/NUCLEAR.json
-npm run backfill     # 7 derniers jours de production RTE (optionnel : `npm run backfill -- 30`)
 npm run dev
 ```
 
-Une fois lancé, le serveur interroge RTE toutes les 15 minutes (`src/lib/power/ingest.ts`, démarré par
-`src/instrumentation.ts`). Les relevés horaires de plus de 7 jours sont agrégés en moyennes journalières.
+Au démarrage, le serveur récupère les derniers jours puis complète l'historique depuis
+`BACK_FILL_START` (appels RTE de 7 jours, une seconde d'écart) ; il interroge ensuite RTE toutes les
+15 minutes (`src/lib/power/ingest.ts`, lancé par `src/instrumentation.ts`). Les relevés horaires de
+plus de 7 jours sont agrégés en moyennes journalières. `npm run backfill` relance le rattrapage à la
+main, `npm run backfill -- 30` retélécharge les 30 derniers jours.
+
+Le vent (AROME 10 m, Météo-France) est rechargé toutes les heures ; la carte indique le run et
+l'échéance affichés.
 
 ### API
 
@@ -35,23 +35,21 @@ Une fois lancé, le serveur interroge RTE toutes les 15 minutes (`src/lib/power/
 
 ### Déploiement (Raspberry Pi)
 
-- `systemd/carte_reseau.service` : service Next.js sur 127.0.0.1:3000 (lit `.env`)
+- `systemd/carte_reseau.service` : service Next.js sur 127.0.0.1:3000 (lit `.env`), installé par lien
+  symbolique dans /etc/systemd/system
 - `systemd/nginx.conf.part` : bloc `server` en 443 ssl, inclus depuis la configuration nginx principale
   (les certificats y sont déclarés globalement)
 
 ## Sources de données disponibles
 
 ### 1) Dataset ODRE (registre national)
-- Fichier: `dataset/registre-national-installation-production-stockage-electricite-agrege.json`
+- Fichier: `dataset/rafactor data/registre-national-installation-production-stockage-electricite-agrege.json`
 - Contenu: `FeatureCollection` avec un grand nombre de champs métier (filière, puissance, commune, gestionnaire, etc.)
 - Limite principale: `geometry` est souvent `null`
 
-### 2) Métadonnées ODRE
-- Fichier: `dataset/registre-national-installation-production-stockage-electricite-agrege.geojson`
-- Contenu: métadonnées du dataset (description des champs), pas la géométrie des installations
-
-### 3) Dataset enrichi OpenInfraMap / OSM / Wikidata
-- Fichier: `dataset/open_data/france_power_plants_enriched.json`
+### 2) Dataset enrichi OpenInfraMap / OSM / Wikidata
+- Fichier: `dataset/rafactor data/france_power_plants_enriched_3.json` (découpé par filière dans
+  `ordre_per_filiere/`, résultat final du nucléaire : `dataset/Finie/NUCLEAR.json`)
 - Contenu: noms d’installations, `wikidata_id`, tags OSM, coordonnées Wikidata, détails OSM
 - Utilité: source de géométrie + normalisation d’identifiants externes
 
@@ -127,8 +125,8 @@ Produire un `FeatureCollection` final pour la carte:
 
 ## Workflow recommandé
 
-1. Ingestion ODRE (`dataset/...agrege.json`)
-2. Ingestion enrichi (`dataset/open_data/france_power_plants_enriched.json`)
+1. Ingestion ODRE (`dataset/rafactor data/...agrege.json`)
+2. Ingestion enrichi (`dataset/rafactor data/france_power_plants_enriched_3.json`)
 3. Matching + fusion selon les règles ci-dessus
 4. Validation (doublons, géométrie invalide, puissance aberrante)
 5. Export d’un GeoJSON final prêt pour l’API/front

@@ -116,6 +116,8 @@ export const formatTime = (time: number) => timeFormat.format(time);
 export const formatDayTick = (time: number) => dayFormat.format(time);
 export const formatSlot = (time: number) => slotFormat.format(time);
 export const formatDate = (isoDay: string | null) => (isoDay ? dateFormat.format(new Date(isoDay)) : '–');
+const shortDateTimeFormat = new Intl.DateTimeFormat('fr-FR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+export const formatShortDateTime = (time: number) => shortDateTimeFormat.format(time);
 
 export function formatUpdated(time: number): string {
   const date = new Date(time);

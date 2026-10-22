@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    const { imageUnscale, speedMax, etag, expiresAt } = await getWindData();
+    const { imageUnscale, speedMax, runTime, validTime, etag, expiresAt } = await getWindData();
 
     const ifNoneMatch = request.headers.get('if-none-match');
     if (ifNoneMatch === etag) {
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const maxAge = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000));
 
     return NextResponse.json(
-      { imageUnscale, speedMax, imageUrl: '/api/wind/image' },
+      { imageUnscale, speedMax, runTime, validTime, imageUrl: '/api/wind/image' },
       {
         headers: {
           'Cache-Control': `public, max-age=${maxAge}, stale-while-revalidate=60`,

@@ -42,6 +42,7 @@ export interface GenerationSeries {
   times: number[]; // début de chaque créneau, epoch ms, croissant
   granularity: ReadingGranularity[]; // 1 h (HOUR) ou 24 h (DAY, données > 7 jours)
   series: Record<string, (number | null)[]>;
+  earliest: number | null; // plus ancien relevé (toute la base, cf. BACK_FILL_START)
   latest: number | null; // dernier créneau horaire disponible (toute la base)
   updatedAt: number | null; // dernière publication RTE (toute la base)
 }

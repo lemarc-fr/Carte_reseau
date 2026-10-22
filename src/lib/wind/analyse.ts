@@ -61,6 +61,12 @@ export function getLatestWindComponents(xmlText: string): WindComponents {
   return { U: uLatest[1], V: vLatest[1] };
 }
 
+/** Date du run AROME portée par l'identifiant de couverture (suffixe après "___"). */
+export function coverageRunTime(coverageId: string): Date | null {
+  const parts = coverageId.split("___");
+  return parseCoverageDate(parts[parts.length - 1]);
+}
+
 function parseCoverageDate(dateStr: string): Date | null {
   // Format: 2024-01-15T12.00.00Z  (points au lieu de ":" pour HH.MM.SS)
   const normalized = dateStr.replace(

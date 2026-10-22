@@ -1,10 +1,17 @@
 import { fetchCapabilities, fetchDescribeCoverage, fetchCoverage } from "./fetch";
-import { getLatestWindComponents, getNearestTime } from "./analyse";
+import { coverageRunTime, getLatestWindComponents, getNearestTime } from "./analyse";
+
+export interface WindCoverage {
+  u: ArrayBuffer;
+  v: ArrayBuffer;
+  runTime: Date | null; // run AROME utilisé
+  validTime: Date; // échéance de prévision affichée
+}
 
 export async function fetchUVTiff(
   apiKey: string,
   bounds: { minLon: number; maxLon: number; minLat: number; maxLat: number },
-): Promise<[ArrayBuffer, ArrayBuffer]> {
+): Promise<WindCoverage> {
   const capabilities = await fetchCapabilities(apiKey);
   const components = getLatestWindComponents(capabilities.data as string);
 
@@ -50,8 +57,10 @@ export async function fetchUVTiff(
     new Uint8Array(ab).set(new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength));
     return ab;
   };
-  return [
-    toArrayBuffer(coverageU.data as Buffer),
-    toArrayBuffer(coverageV.data as Buffer),
-  ];
+  return {
+    u: toArrayBuffer(coverageU.data as Buffer),
+    v: toArrayBuffer(coverageV.data as Buffer),
+    runTime: coverageRunTime(components.U),
+    validTime: new Date(coverageTime),
+  };
 }

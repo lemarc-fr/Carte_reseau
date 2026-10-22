@@ -1,4 +1,4 @@
-import {INITIAL_VIEW_STATE, PROTOMAPS_API_KEY} from '@/config/mapConfig';
+import { MAP_MAX_ZOOM, PROTOMAPS_API_KEY } from '@/config/mapConfig';
 import type { ExpressionSpecification, LayerSpecification, StyleSpecification } from 'maplibre-gl';
 
 // Fond de carte sobre (terre claire, mer gris-bleu, relief) pour faire ressortir
@@ -59,7 +59,7 @@ export const mapStyle: StyleSpecification = {
       tiles: ['https://tiles.mapterhorn.com/{z}/{x}/{y}.webp'],
       tileSize: 512,
       encoding: 'terrarium',
-      maxzoom: INITIAL_VIEW_STATE.maxZoom,
+      maxzoom: MAP_MAX_ZOOM,
       attribution: '<a href="https://mapterhorn.com/attribution">© Mapterhorn</a>'
     },
     'power-lines': {
@@ -96,10 +96,10 @@ export const mapStyle: StyleSpecification = {
     {
       id: 'hillshade', type: 'hillshade', source: 'terrain',
       paint: {
-        'hillshade-shadow-color': '#4a5568',
+        'hillshade-shadow-color': '#718096',
         'hillshade-highlight-color': '#ffffff',
         'hillshade-accent-color': '#cbd5e0',
-        'hillshade-exaggeration': 0.35
+        'hillshade-exaggeration': 0.25
       }
     },
     {

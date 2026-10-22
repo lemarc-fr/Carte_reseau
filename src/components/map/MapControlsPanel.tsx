@@ -17,6 +17,7 @@ import {
   WindParticlesIcon,
 } from '@/components/icons';
 import { WIND_PALETTE } from '@/config/mapConfig';
+import { formatShortDateTime } from '@/lib/generationUtils';
 import styles from './Map.module.css';
 
 // Filières à venir : affichées mais désactivées tant que leurs données ne sont pas ingérées
@@ -84,6 +85,7 @@ export default function MapControlsPanel() {
   const toggleProductionType = useMapStore((s) => s.toggleProductionType);
   const windVisible = useMapStore((s) => s.windVisible);
   const windStatus = useMapStore((s) => s.windStatus);
+  const windData = useMapStore((s) => s.windData);
   const toggleWind = useMapStore((s) => s.toggleWind);
   const powerLinesVisible = useMapStore((s) => s.powerLinesVisible);
   const togglePowerLines = useMapStore((s) => s.togglePowerLines);
@@ -126,6 +128,13 @@ export default function MapControlsPanel() {
             AROME · Météo-France · 10 m
             {windStatus === 'loading' && ' · chargement…'}
             {windStatus === 'error' && ' · indisponible'}
+            {windData?.validTime != null && (
+              <>
+                <br />
+                Prévision pour le {formatShortDateTime(windData.validTime)}
+                {windData.runTime !== null && ` (run du ${formatShortDateTime(windData.runTime)})`}
+              </>
+            )}
             <div className={styles.scale} style={{ background: WIND_GRADIENT }} />
             <div className={styles.scaleLabels}>
               <span>0</span>

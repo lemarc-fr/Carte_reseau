@@ -26,6 +26,7 @@ export default function TimeControl() {
           className={styles.input}
           aria-label="Date et heure affichées"
           step={3600}
+          min={generation?.earliest != null ? toInputValue(generation.earliest) : undefined}
           max={generation?.latest != null ? toInputValue(generation.latest) : undefined}
           value={toInputValue(shown)}
           onChange={(e) => {
