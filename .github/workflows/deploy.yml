@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 permissions: {}
@@ -28,7 +28,7 @@ jobs:
             set -e
             cd /home/Marc/Web/Carte_reseau/
             git pull --ff-only
-            npm install
+            npm ci
             npm run db:migrate
             npm run build
             sudo -n systemctl restart carte_reseau.service

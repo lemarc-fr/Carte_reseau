@@ -37,8 +37,10 @@ l'échéance affichés.
 
 - `systemd/carte_reseau.service` : service Next.js sur 127.0.0.1:3000 (lit `.env`), installé par lien
   symbolique dans /etc/systemd/system
-- `systemd/nginx.conf.part` : bloc `server` en 443 ssl, inclus depuis la configuration nginx principale
-  (les certificats y sont déclarés globalement)
+- `systemd/nginx.conf.part` : bloc `server` en 443 ssl, inclus avec ceux des autres sites par
+  `include /home/Marc/Web/*/systemd/nginx.conf.part;` (certificats déclarés globalement)
+- `.github/workflows/deploy.yml` : à chaque push sur `master`, SSH sur le Pi puis `git pull`, `npm ci`,
+  `npm run db:migrate`, `npm run build` et redémarrage du service
 
 ## Sources de données disponibles
 
