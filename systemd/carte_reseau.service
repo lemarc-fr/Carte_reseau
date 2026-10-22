@@ -1,7 +1,16 @@
+# Carte Réseau — serveur Next.js (carte + API + ingestion RTE toutes les 15 min)
+#
+# Installation :
+#   sudo ln -s /home/Marc/Web/Carte_reseau/systemd/carte_reseau.service /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now carte_reseau.service
+#
+# Prérequis dans WorkingDirectory : `npm ci && npx prisma migrate deploy && npm run build`
+# et un fichier .env (non versionné) avec DATABASE_URL, RTE_CLIENT_ID, RTE_CLIENT_SECRET.
+
 [Unit]
 Description=Carte Reseau Next.js service
-After=network-online.target
-Wants=network-online.target
+After=network-online.target postgresql.service
+Wants=network-online.target postgresql.service
 
 [Service]
 Type=simple
@@ -10,16 +19,28 @@ Group=Marc
 WorkingDirectory=/home/Marc/Web/Carte_reseau
 Environment=NODE_ENV=production
 Environment=PORT=3000
-Environment=PATH=/usr/local/bin:/usr/bin:/bin
-ExecStart=/usr/bin/npm run start -- --hostname 127.0.0.1 --port 3000
+Environment=NEXT_TELEMETRY_DISABLED=1
+EnvironmentFile=/home/Marc/Web/Carte_reseau/.env
+# node directement (pas `npm run`) pour que les signaux d'arrêt atteignent Next.js
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3000
 Restart=always
 RestartSec=5
 TimeoutStartSec=30
 TimeoutStopSec=15
-KillSignal=SIGINT
+KillSignal=SIGTERM
+
+# Durcissement : seul le cache .next/ est inscriptible
 NoNewPrivileges=true
 PrivateTmp=true
-ProtectSystem=full
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/Marc/Web/Carte_reseau/.next
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
 
 [Install]
 WantedBy=multi-user.target

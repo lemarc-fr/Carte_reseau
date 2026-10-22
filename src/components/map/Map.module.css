@@ -1,0 +1,229 @@
+/* ─── Barre de synthèse au-dessus de la carte ─────────────────────────────── */
+
+.statsBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 24px;
+  min-height: 38px;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 14px;
+}
+
+.stat {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.statLabel {
+  color: var(--gray-600);
+  border-bottom: 1px dotted var(--gray-400);
+  cursor: help;
+}
+
+.statValue {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+/* ─── Carte ───────────────────────────────────────────────────────────────── */
+
+.map {
+  position: absolute;
+  inset: 0;
+}
+
+.controlButton {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-700);
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 5;
+  min-width: 180px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  font-size: 13px;
+  color: var(--gray-700);
+  pointer-events: none;
+  transform: translate(12px, 12px);
+}
+
+.tooltipTitle {
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.tooltipRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.status {
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  background: rgba(26, 32, 44, 0.7);
+  color: #ffffff;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+/* ─── Panneau « Contrôles de la carte » ───────────────────────────────────── */
+
+.panel {
+  position: absolute;
+  z-index: 4;
+  top: 10px;
+  right: 50px;
+  width: 280px;
+  max-height: calc(100% - 20px);
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 16px;
+}
+
+.panelClose {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--radius);
+  background: none;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--gray-600);
+}
+
+.panelClose:hover {
+  background: var(--gray-100);
+}
+
+.panelSection {
+  padding: 4px 12px 8px;
+}
+
+.sectionToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 0;
+  border: none;
+  background: none;
+  font-size: 16px;
+  text-align: left;
+}
+
+.chevron {
+  font-size: 12px;
+  transition: transform 0.15s;
+}
+
+.chevronClosed {
+  composes: chevron;
+  transform: rotate(180deg);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 32px;
+  margin: 2px 0;
+  padding: 4px 12px;
+  border: none;
+  border-radius: var(--radius);
+  background: none;
+  font-size: 14px;
+  text-align: left;
+  color: var(--gray-500);
+}
+
+.item:hover:not(:disabled) {
+  background: var(--gray-100);
+}
+
+.item:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.itemActive {
+  composes: item;
+  background: var(--gray-200);
+  color: var(--gray-800);
+}
+
+.itemActive:hover:not(:disabled) {
+  background: var(--gray-300);
+}
+
+.layerActive {
+  composes: item;
+  background: var(--blue-100);
+  color: var(--gray-800);
+}
+
+.layerActive:hover:not(:disabled) {
+  background: #a9d8f5;
+}
+
+.itemIcon {
+  display: flex;
+  flex: none;
+  justify-content: center;
+  width: 18px;
+}
+
+.itemNote {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
+.layerInfo {
+  padding: 2px 12px 6px 40px;
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.scale {
+  height: 6px;
+  margin-top: 6px;
+  border-radius: 3px;
+}
+
+.scaleLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}

@@ -4,5 +4,7 @@ export async function register() {
     startWindRefresh();
     const { startDownSampleRefresh } = await import('./lib/downsample');
     startDownSampleRefresh();
+    const { startProductionRefresh } = await import('./lib/power/ingest');
+    startProductionRefresh();
   }
 }

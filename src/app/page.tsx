@@ -1,9 +1,5 @@
-import MapComponent from '@/components/WindMapWrapper';
+import Dashboard from '@/components/Dashboard';
 
 export default function Page() {
-  return (
-    <main style={{width: '100vw', height: '100vh'}}>
-      <MapComponent />
-    </main>
-  );
+  return <Dashboard />;
 }
