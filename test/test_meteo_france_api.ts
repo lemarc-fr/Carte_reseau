@@ -1,10 +1,12 @@
 // test.ts
 import { fetchUVTiff } from "@/lib/wind/UV_TIFF";
-import { API_KEY_METEO, BOUNDS } from "@/config/mapConfig"; 
+import "dotenv/config";
+import { BOUNDS } from "@/config/mapConfig";
 import { writeFile } from "fs/promises";
 
 async function testFetchUVTiff() {
-    const [u, v] = await fetchUVTiff(API_KEY_METEO, BOUNDS);
+    const { u, v, runTime, validTime } = await fetchUVTiff(process.env.METEO_FRANCE_API_KEY!, BOUNDS);
+    console.log("Run :", runTime?.toISOString(), "échéance :", validTime.toISOString());
 
     console.log("U:", u.byteLength, "bytes");
     console.log("V:", v.byteLength, "bytes");

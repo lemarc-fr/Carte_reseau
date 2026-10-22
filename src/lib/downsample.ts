@@ -23,8 +23,10 @@ let intervalId: NodeJS.Timeout | null = null;
 
 export function startDownSampleRefresh() {
   if (intervalId) return;
-  downsampleOldHourlyData();
-  intervalId = setInterval(downsampleOldHourlyData, 24 * 60 * 60 * 1000);
+  const run = () =>
+    downsampleOldHourlyData().catch((err) => console.error('[downsample] échec :', err));
+  run();
+  intervalId = setInterval(run, 24 * 60 * 60 * 1000);
 }
 export async function downsampleOldHourlyData(retentionDays: number = RETENTION_DAYS) {
   const cutoff = new Date();
@@ -37,8 +39,8 @@ export async function downsampleOldHourlyData(retentionDays: number = RETENTION_
         (eic_code, name, production_type, start_date, granularity, value, updated_date, created_at)
       SELECT
         eic_code,
-        name,
-        production_type,
+        MAX(name),
+        MAX(production_type),
         date_trunc('day', start_date) AS start_date,
         'DAY'::"Granularity",
         AVG(value) AS value,
@@ -46,7 +48,7 @@ export async function downsampleOldHourlyData(retentionDays: number = RETENTION_
         now()
       FROM production_readings
       WHERE granularity = 'HOUR' AND start_date < ${cutoff}
-      GROUP BY eic_code, name, production_type, date_trunc('day', start_date)
+      GROUP BY eic_code, date_trunc('day', start_date)
       ON CONFLICT (eic_code, start_date, granularity)
       DO UPDATE SET value = EXCLUDED.value, updated_date = EXCLUDED.updated_date
     `;
@@ -57,5 +59,5 @@ export async function downsampleOldHourlyData(retentionDays: number = RETENTION_
     `;
 
     return { cutoff, insertedOrUpdated, deletedHourlyRows };
-  });
+  }, { timeout: 5 * 60 * 1000 }); // un rattrapage (BACK_FILL_START) peut laisser des centaines de milliers de lignes
 }

@@ -35,7 +35,7 @@ export async function listPlants(): Promise<PlantInfo[]> {
 }
 
 export async function getGenerationSeries(from: Date, to: Date): Promise<GenerationSeries> {
-  const [readings, latest] = await Promise.all([
+  const [readings, latest, earliest] = await Promise.all([
     prisma.productionReading.findMany({
       where: { start_date: { gte: from, lte: to } },
       select: { eic_code: true, start_date: true, granularity: true, value: true },
@@ -45,6 +45,7 @@ export async function getGenerationSeries(from: Date, to: Date): Promise<Generat
       _max: { start_date: true, updated_date: true },
       where: { granularity: 'HOUR' },
     }),
+    prisma.productionReading.aggregate({ _min: { start_date: true } }),
   ]);
 
   const times: number[] = [];
@@ -76,6 +77,7 @@ export async function getGenerationSeries(from: Date, to: Date): Promise<Generat
     times,
     granularity,
     series,
+    earliest: earliest._min.start_date?.getTime() ?? null,
     latest: latest._max.start_date?.getTime() ?? null,
     updatedAt: latest._max.updated_date?.getTime() ?? null,
   };

@@ -15,7 +15,15 @@ import type { PickingInfo } from '@deck.gl/core';
 import { PolygonLayer, ScatterplotLayer } from '@deck.gl/layers';
 import { ClipExtension } from '@deck.gl/extensions';
 import { ParticleLayer, RasterLayer } from 'weatherlayers-gl';
-import { BOUNDS, FRANCE_BOUNDS, MAX_BOUNDS, PARTICLE_COLOR, WIND_PALETTE } from '@/config/mapConfig';
+import {
+  BOUNDS,
+  FRANCE_BOUNDS,
+  MAP_MAX_ZOOM,
+  MAX_BOUNDS,
+  PARTICLE_COLOR,
+  WIND_PALETTE,
+  WIND_RASTER_OPACITY,
+} from '@/config/mapConfig';
 import {
   FIRST_POWER_LINE_LAYER_ID,
   mapStyle,
@@ -25,7 +33,7 @@ import {
 } from '@/config/mapStyle';
 import { useMapStore } from '@/store/useMapStore';
 import { useCurrentSlot } from '@/hooks/useCurrentSlot';
-import { formatMW, formatPercent, plantSnapshot } from '@/lib/generationUtils';
+import { formatMW, formatPercent, formatShortDateTime, formatSlot, plantSnapshot } from '@/lib/generationUtils';
 import { ReactControl } from '../controls/ReactControl';
 import MapControlsPanel from './MapControlsPanel';
 import styles from './Map.module.css';
@@ -46,6 +54,14 @@ const STROKE: [number, number, number] = [0, 200, 200];
 const FILL_NO_DATA: [number, number, number] = [50, 100, 100];
 
 type RGBA = [number, number, number, number];
+
+const PREMULTIPLIED_ALPHA_BLENDING = {
+  blend: true,
+  blendColorSrcFactor: 'one',
+  blendColorDstFactor: 'one-minus-src-alpha',
+  blendAlphaSrcFactor: 'one',
+  blendAlphaDstFactor: 'one-minus-src-alpha',
+} as const;
 
 // Prop lue par @deck.gl/mapbox (rendu interleaved), absente des types des calques
 type Interleaved = { beforeId?: string };
@@ -214,7 +230,10 @@ export default function PowerMap() {
           imageUnscale: windData.imageUnscale,
           bounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
           palette: WIND_PALETTE,
-          opacity: 0.2,
+          opacity: WIND_RASTER_OPACITY,
+          // Le shader WeatherLayers sort une couleur prémultipliée par l'alpha : sans ces
+          // facteurs, deck.gl la multiplie une seconde fois et le fond devient gris.
+          parameters: PREMULTIPLIED_ALPHA_BLENDING,
           extensions: [new ClipExtension()],
           clipBounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
         }),
@@ -360,7 +379,7 @@ export default function PowerMap() {
         ref={mapRef}
         initialViewState={{ bounds: FRANCE_BOUNDS, fitBoundsOptions: { padding: 20 } }}
         minZoom={3}
-        maxZoom={14}
+        maxZoom={MAP_MAX_ZOOM}
         maxBounds={MAX_BOUNDS}
         mapStyle={mapStyle}
         attributionControl={false}
@@ -412,9 +431,17 @@ export default function PowerMap() {
         </div>
       )}
 
-      {windVisible && windStatus !== 'ok' && (
+      {windVisible && (
         <div className={styles.status}>
-          {windStatus === 'loading' ? '⟳ Chargement des vents…' : '⚠ Données vent indisponibles'}
+          {windStatus === 'loading' && '⟳ Chargement des vents…'}
+          {windStatus === 'error' && '⚠ Données vent indisponibles'}
+          {windStatus === 'ok' && windData && (
+            <>
+              Vent à 10 m · AROME Météo-France
+              {windData.validTime !== null && <> · prévision pour {formatSlot(windData.validTime)}</>}
+              {windData.runTime !== null && <> · run du {formatShortDateTime(windData.runTime)}</>}
+            </>
+          )}
         </div>
       )}
     </div>

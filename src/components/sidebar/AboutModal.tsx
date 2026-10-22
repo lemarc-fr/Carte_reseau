@@ -46,7 +46,11 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
             </a>{' '}
             (© contributeurs OpenStreetMap).
           </li>
-          <li>Vent : modèle AROME de Météo-France. Fond de carte : Protomaps, relief : Mapterhorn.</li>
+          <li>
+            Vent à 10 m : modèle AROME de Météo-France (API publique), rechargé toutes les heures avec
+            l&apos;échéance de prévision la plus proche ; la date du run et de l&apos;échéance sont indiquées en bas
+            à gauche de la carte. Fond de carte : Protomaps, relief : Mapterhorn.
+          </li>
         </ul>
 
         <h3>Que représentent les cercles ?</h3>

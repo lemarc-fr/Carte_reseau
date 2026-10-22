@@ -20,7 +20,7 @@ export function useWindData() {
 
         if (!metaRes.ok || !imgRes.ok) throw new Error('Wind fetch failed');
 
-        const { imageUnscale, speedMax } = await metaRes.json();
+        const { imageUnscale, speedMax, runTime, validTime } = await metaRes.json();
         const blob = await imgRes.blob();
         const bitmap = await createImageBitmap(blob);
 
@@ -30,7 +30,7 @@ export function useWindData() {
         const image = ctx.getImageData(0, 0, bitmap.width, bitmap.height);
 
         if (!cancelled) {
-          setWindData({ image, imageUnscale, speedMax });
+          setWindData({ image, imageUnscale, speedMax, runTime: runTime ?? null, validTime: validTime ?? null });
         }
       } catch {
         if (!cancelled) setWindStatus('error');

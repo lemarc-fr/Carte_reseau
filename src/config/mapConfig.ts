@@ -1,25 +1,13 @@
+// Clé publique (envoyée au navigateur) : restreindre ses domaines autorisés sur protomaps.com
 export const PROTOMAPS_API_KEY = "d0a95613fda80905";
-export const API_KEY_METEO = "eyJ4NXQiOiJZV0kxTTJZNE1qWTNOemsyTkRZeU5XTTRPV014TXpjek1UVmhNbU14T1RSa09ETXlOVEE0Tnc9PSIsImtpZCI6ImdhdGV3YXlfY2VydGlmaWNhdGVfYWxpYXMiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJtYXJjYnJ1bmV0OTJAY2FyYm9uLnN1cGVyIiwiYXBwbGljYXRpb24iOnsib3duZXIiOiJtYXJjYnJ1bmV0OTIiLCJ0aWVyUXVvdGFUeXBlIjpudWxsLCJ0aWVyIjoiVW5saW1pdGVkIiwibmFtZSI6IkRlZmF1bHRBcHBsaWNhdGlvbiIsImlkIjo0MDI3OSwidXVpZCI6ImVhZTc3YmQwLTk4ZjctNDNlYy1iZmFkLWM0MzFmZWExODA0OCJ9LCJpc3MiOiJodHRwczpcL1wvcG9ydGFpbC1hcGkubWV0ZW9mcmFuY2UuZnI6NDQzXC9vYXV0aDJcL3Rva2VuIiwidGllckluZm8iOnsiNTBQZXJNaW4iOnsidGllclF1b3RhVHlwZSI6InJlcXVlc3RDb3VudCIsImdyYXBoUUxNYXhDb21wbGV4aXR5IjowLCJncmFwaFFMTWF4RGVwdGgiOjAsInN0b3BPblF1b3RhUmVhY2giOnRydWUsInNwaWtlQXJyZXN0TGltaXQiOjAsInNwaWtlQXJyZXN0VW5pdCI6InNlYyJ9fSwia2V5dHlwZSI6IlBST0RVQ1RJT04iLCJzdWJzY3JpYmVkQVBJcyI6W3sic3Vic2NyaWJlclRlbmFudERvbWFpbiI6ImNhcmJvbi5zdXBlciIsIm5hbWUiOiJBUk9NRSIsImNvbnRleHQiOiJcL3B1YmxpY1wvYXJvbWVcLzEuMCIsInB1Ymxpc2hlciI6ImFkbWluX21mIiwidmVyc2lvbiI6IjEuMCIsInN1YnNjcmlwdGlvblRpZXIiOiI1MFBlck1pbiJ9XSwiZXhwIjoxODcyMzIyMDE2LCJ0b2tlbl90eXBlIjoiYXBpS2V5IiwiaWF0IjoxNzc3NjQ5MjE2LCJqdGkiOiJkYzlkMTY2Ni00MGNiLTRkZWItYTgxNy04OGQ5YzFlNzA3NDcifQ==.RYxSy3h31aZEXdLwJTi9NRiaJzQo0MYBla0t6jyAg2DA21Mdp_b3E48lictpEU4SDPud2tuHZVWsyerR7FaBQMMsKMMF-Tb2FGL1zJqLS7f6ZwnhZQpQZM_9NsUdzjXuWwb8pCxb6vKn-p3gQlqsurj-s4eyr-5DQE4FoM7fJDtlEDMD91D848XTN4UTELlpfiGKqmyN7wSw5PeZ9pFBaD7iID2aFa6WdXu10nEidf9o2SaEBBgAG4Ux0qElKyZp5bYJd-oMBjzu_WUIQZVmq6pgvs9u4whqZtwmAekVu_Tj0MpXA_bzznwQ-grVcunUc79yVqeoWJgjClE2umIloA==";
 
-export const INITIAL_VIEW_STATE = {
-  longitude: 10,
-  latitude: 50,
-  zoom: 4.2,
-  minZoom: 3,
-  maxZoom: 14,
-  pitch: 0,
-  bearing: 0
-};
+export const MAP_MAX_ZOOM = 14;
 
+// Zone couverte par les données de vent AROME
 export const BOUNDS = {
   minLon: -10, maxLon: 15,
   minLat: 40, maxLat: 52,
 };
-
-export const EUROPE_BOUNDS: [[number, number], [number, number]] = [
-  [BOUNDS.minLon, BOUNDS.minLat],
-  [BOUNDS.maxLon, BOUNDS.maxLat]
-];
 
 // Vue initiale : France métropolitaine entière
 export const FRANCE_BOUNDS: [[number, number], [number, number]] = [
@@ -33,26 +21,23 @@ export const MAX_BOUNDS: [[number, number], [number, number]] = [
   [25, 58],
 ];
 
-export const GRID_COLS = 32;
-export const GRID_ROWS = 20;
-
-
 // Particules blanches
-export const PARTICLE_COLOR: [number, number, number, number] = [255, 255, 255, 200];
+export const PARTICLE_COLOR: [number, number, number, number] = [255, 255, 255, 220];
 
-// Palette pour le fond raster (vitesse du vent)
+// Opacité du fond coloré (vitesse du vent) sous les particules
+export const WIND_RASTER_OPACITY = 0.5;
+
+// Palette du fond raster : vitesse du vent à 10 m (m/s) → couleur.
+// Vents faibles en teintes claires (la carte reste lumineuse), vents forts saturés.
 export const WIND_PALETTE: [number, [number, number, number]][] = [
-  [0, [246, 246, 246]],
-  [1.2861, [239, 248, 253]],
-  [3.8583, [204, 240, 254]],
-  [6.4305, [156, 219, 252]],
-  [9.0027, [172, 255, 167]],
-  [11.5749, [126, 222, 120]],
-  [15.17598, [230, 230, 117]],
-  [21.09204, [255, 125, 75]],
-  [28.80864, [229, 39, 13]],
-  [37.03968, [153, 0, 0]],
-  [46.2996, [127, 0, 160]],
-  [56.5884, [255, 100, 127]],
-  [66.8772, [255, 255, 255]]
+  [0, [214, 232, 246]],
+  [3, [168, 218, 238]],
+  [6, [150, 222, 176]],
+  [9, [196, 232, 122]],
+  [12, [246, 226, 102]],
+  [15, [250, 178, 82]],
+  [20, [240, 102, 80]],
+  [25, [214, 60, 120]],
+  [30, [160, 60, 180]],
+  [40, [100, 40, 140]],
 ];
