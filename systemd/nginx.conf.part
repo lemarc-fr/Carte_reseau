@@ -1,8 +1,8 @@
 # Carte Réseau (Next.js, service carte_reseau) — https://carte_reseau.lemarc.fr
 #
-# À inclure au niveau http, comme les autres projets, depuis
+# Inclus au niveau http, comme tous les sites de ~/Web, par
 # /etc/nginx/sites-available/tokamac :
-#   include /home/Marc/Web/Carte_reseau/systemd/nginx.conf.part;
+#   include /home/Marc/Web/*/systemd/nginx.conf.part;
 #
 # Pas de ssl_certificate ici : le certificat est déclaré globalement dans
 # /etc/nginx/nginx.conf.
