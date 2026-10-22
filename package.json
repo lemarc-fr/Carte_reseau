@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "tsx src/prisma/seed.ts",
+    "backfill": "tsx src/scripts/backfill.ts"
   },
   "dependencies": {
     "@deck.gl/core": "9.2.6",

@@ -21,6 +21,18 @@ export const EUROPE_BOUNDS: [[number, number], [number, number]] = [
   [BOUNDS.maxLon, BOUNDS.maxLat]
 ];
 
+// Vue initiale : France métropolitaine entière
+export const FRANCE_BOUNDS: [[number, number], [number, number]] = [
+  [-5.2, 42.2],
+  [8.4, 51.2],
+];
+
+// Limite de navigation, plus large que la zone du vent pour laisser de la marge
+export const MAX_BOUNDS: [[number, number], [number, number]] = [
+  [-20, 34],
+  [25, 58],
+];
+
 export const GRID_COLS = 32;
 export const GRID_ROWS = 20;
 

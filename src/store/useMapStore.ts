@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
+import type { GenerationSeries, PlantInfo } from '@/types/energy';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -16,6 +17,7 @@ export type ProductionType =
 export type ProductionTypesState = Record<ProductionType, boolean>;
 
 export type WindStatus = 'loading' | 'ok' | 'error';
+export type DataStatus = 'loading' | 'ok' | 'error';
 
 export interface WindData {
     image: ImageData;
@@ -39,6 +41,27 @@ export const DEFAULT_PRODUCTION_TYPES_STATE: ProductionTypesState = {
 // ─── Interface du store ───────────────────────────────────────────────────────
 
 interface MapState {
+    // Données
+    plants: PlantInfo[];
+    plantsStatus: DataStatus;
+    setPlants: (plants: PlantInfo[]) => void;
+    setPlantsStatus: (status: DataStatus) => void;
+
+    generation: GenerationSeries | null;
+    generationStatus: DataStatus;
+    setGeneration: (generation: GenerationSeries) => void;
+    setGenerationStatus: (status: DataStatus) => void;
+
+    // Instant affiché (epoch ms) ; null = temps réel (dernier créneau publié)
+    selectedTime: number | null;
+    setSelectedTime: (time: number | null) => void;
+
+    // Centrale sélectionnée (vue détaillée) et survolée (carte / tableau)
+    selectedPlantId: string | null;
+    selectPlant: (id: string | null) => void;
+    hoveredPlantId: string | null;
+    setHoveredPlantId: (id: string | null) => void;
+
     // Vent
     windVisible: boolean;
     toggleWind: () => void;
@@ -51,9 +74,22 @@ interface MapState {
     setWindData: (data: WindData) => void;
 
     // Affichage
+    controlsOpen: boolean;
+    toggleControls: () => void;
+    setControlsOpen: (open: boolean) => void;
+
+    capacityRingVisible: boolean;
+    toggleCapacityRing: () => void;
+
     normalizeRing: boolean
     toggleNormalizeRing: () => void;
     setNormalizeRing: (value: boolean) => void;
+
+    powerLinesVisible: boolean;
+    togglePowerLines: () => void;
+
+    labelsVisible: boolean;
+    toggleLabels: () => void;
 
     // Types de production
     productionTypes: ProductionTypesState;
@@ -68,11 +104,45 @@ export const useMapStore = create<MapState>()(
     devtools(
         (set) => ({
             // État initial
+            plants: [],
+            plantsStatus: 'loading',
+            generation: null,
+            generationStatus: 'loading',
+            selectedTime: null,
+            selectedPlantId: null,
+            hoveredPlantId: null,
             windVisible: true,
             windStatus: 'loading',
             windData: null,
+            controlsOpen: false,
+            capacityRingVisible: true,
             normalizeRing: false,
+            powerLinesVisible: true,
+            labelsVisible: true,
             productionTypes: DEFAULT_PRODUCTION_TYPES_STATE,
+
+            // Actions données
+            setPlants: (plants) =>
+                set({ plants, plantsStatus: 'ok' }, false, 'setPlants'),
+
+            setPlantsStatus: (status) =>
+                set({ plantsStatus: status }, false, 'setPlantsStatus'),
+
+            setGeneration: (generation) =>
+                set({ generation, generationStatus: 'ok' }, false, 'setGeneration'),
+
+            setGenerationStatus: (status) =>
+                set({ generationStatus: status }, false, 'setGenerationStatus'),
+
+            // Pas de date future : useEnergyData chargerait sans fin une fenêtre qui ne la contient pas
+            setSelectedTime: (time) =>
+                set({ selectedTime: time === null ? null : Math.min(time, Date.now()) }, false, 'setSelectedTime'),
+
+            selectPlant: (id) =>
+                set({ selectedPlantId: id }, false, 'selectPlant'),
+
+            setHoveredPlantId: (id) =>
+                set({ hoveredPlantId: id }, false, 'setHoveredPlantId'),
 
             // Actions vent
             toggleWind: () =>
@@ -86,6 +156,22 @@ export const useMapStore = create<MapState>()(
 
             setWindData: (data) =>
                 set({ windData: data, windStatus: 'ok' }, false, 'setWindData'),
+
+            // Actions affichage
+            toggleControls: () =>
+                set((state) => ({ controlsOpen: !state.controlsOpen }), false, 'toggleControls'),
+
+            setControlsOpen: (open) =>
+                set({ controlsOpen: open }, false, 'setControlsOpen'),
+
+            toggleCapacityRing: () =>
+                set((state) => ({ capacityRingVisible: !state.capacityRingVisible }), false, 'toggleCapacityRing'),
+
+            togglePowerLines: () =>
+                set((state) => ({ powerLinesVisible: !state.powerLinesVisible }), false, 'togglePowerLines'),
+
+            toggleLabels: () =>
+                set((state) => ({ labelsVisible: !state.labelsVisible }), false, 'toggleLabels'),
 
             // Actions production
             toggleProductionType: (key) =>
