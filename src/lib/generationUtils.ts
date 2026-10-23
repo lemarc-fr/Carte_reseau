@@ -44,11 +44,21 @@ export function unitOutput(generation: GenerationSeries | null, unit: UnitInfo, 
   return SIGNED_UNIT_TYPES.has(unit.production_type) ? value : Math.max(0, value);
 }
 
+// Certaines régions publient leur éCO2mix avec une heure de retard : on reprend leur
+// dernier taux de charge s'il date de moins de quelques créneaux horaires
+const LOAD_FACTOR_MAX_AGE_SLOTS = 3;
+
 /** Taux de charge régional (0-1) servant à estimer une centrale sans groupe publié. */
 export function regionalLoadFactor(generation: GenerationSeries | null, plant: PlantInfo, index: number): number | null {
   const kind = ASSET_TYPES[plant.type].regionalSeries;
   if (!generation || index < 0 || !kind || !plant.region_code) return null;
-  return generation.aggregates[`REGION:${plant.region_code}:${kind}`]?.[index] ?? null;
+  const series = generation.aggregates[`REGION:${plant.region_code}:${kind}`];
+  if (!series) return null;
+  for (let i = index; i >= 0 && i > index - LOAD_FACTOR_MAX_AGE_SLOTS; i--) {
+    if (generation.granularity[i] !== 'HOUR') break;
+    if (series[i] !== null) return series[i];
+  }
+  return series[index] ?? null;
 }
 
 /** La production de cette centrale est-elle estimée (aucun groupe publié par RTE) ? */
