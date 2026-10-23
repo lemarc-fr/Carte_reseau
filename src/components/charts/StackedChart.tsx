@@ -62,13 +62,24 @@ export default function StackedChart({
   onSelectTime,
 }: StackedChartProps) {
   const divisor = unit === 'GW' ? 1000 : 1;
-  const maxStack = rows.reduce((max, row) => {
-    const total = series.reduce((sum, s) => sum + (row[s.key] ?? 0), 0);
-    return Math.max(max, total);
-  }, 0);
+  // Les valeurs négatives (pompage des STEP) s'empilent sous zéro (stackOffset="sign")
+  let maxStack = 0;
+  let minStack = 0;
+  for (const row of rows) {
+    let positive = 0;
+    let negative = 0;
+    for (const s of series) {
+      const value = row[s.key] ?? 0;
+      if (value > 0) positive += value;
+      else negative += value;
+    }
+    maxStack = Math.max(maxStack, positive);
+    minStack = Math.min(minStack, negative);
+  }
   const yMax = Math.max(maxStack, capacity ?? 0) * 1.08 || 1;
-  const step = niceStep(yMax / divisor) * divisor;
-  const yTicks = Array.from({ length: Math.floor(yMax / step) + 1 }, (_, i) => i * step);
+  const step = niceStep((yMax - minStack) / divisor) * divisor;
+  const yMin = minStack < 0 ? -Math.ceil(-minStack / step) * step : 0;
+  const yTicks = Array.from({ length: Math.floor((yMax - yMin) / step) + 1 }, (_, i) => yMin + i * step);
   const yAxisWidth = unit === 'GW' ? 30 : 40;
 
   // L'instant cliqué se déduit de la position horizontale dans la zone de tracé
@@ -87,7 +98,7 @@ export default function StackedChart({
   return (
     <div onClick={handleClick} style={{ cursor: onSelectTime ? 'pointer' : undefined }}>
       <ResponsiveContainer width="100%" height={height}>
-        <AreaChart data={rows} margin={MARGIN}>
+        <AreaChart data={rows} margin={MARGIN} stackOffset="sign">
           <CartesianGrid vertical={false} stroke="#718096" strokeDasharray="1 3" />
           <XAxis
             dataKey="t"
@@ -102,7 +113,7 @@ export default function StackedChart({
             allowDataOverflow
           />
           <YAxis
-            domain={[0, yMax]}
+            domain={[yMin, yMax]}
             ticks={yTicks}
             tickFormatter={(v: number) => formatMW(v / divisor)}
             tick={TICK_STYLE}
@@ -125,7 +136,8 @@ export default function StackedChart({
               isAnimationActive={false}
             />
           ))}
-          {capacity !== undefined && (
+          {yMin < 0 && <ReferenceLine y={0} stroke="#2d3748" strokeWidth={1} />}
+        {capacity !== undefined && (
             <ReferenceLine
               y={capacity}
               stroke="#4a5568"

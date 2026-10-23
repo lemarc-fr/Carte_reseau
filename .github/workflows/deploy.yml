@@ -30,6 +30,7 @@ jobs:
             git pull --ff-only
             npm ci
             npm run db:migrate
+            npm run db:seed
             npm run build
             sudo -n systemctl restart carte_reseau.service
           EOF_REMOTE

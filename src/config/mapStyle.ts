@@ -10,7 +10,10 @@ const WATER = '#dde4ea';
 const LAND = '#f7f7f5';
 
 export const PLANTS_SOURCE_ID = 'plants';
+// Premier calque des noms : les cercles deck.gl s'insèrent juste en dessous
 export const PLANT_LABELS_LAYER_ID = 'plant-labels';
+const PLANT_LABELS_MAJOR_LAYER_ID = 'plant-labels-major';
+export const PLANT_LABEL_LAYER_IDS = [PLANT_LABELS_LAYER_ID, PLANT_LABELS_MAJOR_LAYER_ID];
 
 // ─── Lignes électriques (Open Infrastructure Map) ────────────────────────────
 
@@ -127,13 +130,18 @@ export const mapStyle: StyleSpecification = {
       paint: { 'line-color': '#6b7480', 'line-width': 1 }
     },
     ...POWER_LINE_LAYERS,
-    {
-      id: PLANT_LABELS_LAYER_ID, type: 'symbol', source: PLANTS_SOURCE_ID, minzoom: 4.5,
+    // Noms des centrales : petites installations à partir du zoom 8, grandes dès la vue France
+    ...([
+      [PLANT_LABELS_LAYER_ID, false, 8],
+      [PLANT_LABELS_MAJOR_LAYER_ID, true, 4.5],
+    ] as const).map(([id, major, minzoom]): LayerSpecification => ({
+      id, type: 'symbol', source: PLANTS_SOURCE_ID, minzoom,
+      filter: ['==', ['get', 'major'], major],
       layout: {
         'text-field': ['get', 'name'],
         'text-font': ['Noto Sans Medium'],
         'text-size': ['interpolate', ['linear'], ['zoom'], 5, 11, 10, 14],
-        // Les grosses centrales gardent leur nom quand les étiquettes se chevauchent
+        // Les grosses installations gardent leur nom quand les étiquettes se chevauchent
         'symbol-sort-key': ['get', 'rank'],
         'text-padding': 4
       },
@@ -143,6 +151,6 @@ export const mapStyle: StyleSpecification = {
         'text-halo-width': 1.6,
         'text-opacity': ['case', ['boolean', ['get', 'dimmed'], false], 0.35, 1]
       }
-    }
+    }))
   ]
 };

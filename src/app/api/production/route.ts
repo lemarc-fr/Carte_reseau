@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { upsertReading, upsertReadingsBulk, getReadingsByReactor } from '@/lib/crud';
+import { upsertReading, upsertReadingsBulk, getReadingsByUnit } from '@/lib/crud';
 import type { Granularity } from '@prisma/client';
 
 // GET /api/production?eic_code=...&from=...&to=...&granularity=HOUR|DAY
@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const data = await getReadingsByReactor(eic_code, {
+  const data = await getReadingsByUnit(eic_code, {
     from: from ? new Date(from) : undefined,
     to: to ? new Date(to) : undefined,
     granularity: granularity ?? undefined,
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
 
 // POST /api/production
 // Body : un seul relevé { eic_code, name, production_type, start_date, value, ... }
-// ou un lot : { readings: [ {...}, {...} ] } (ex. les 57 centrales d'un même créneau)
+// ou un lot : { readings: [ {...}, {...} ] } (ex. tous les groupes d'un même créneau)
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

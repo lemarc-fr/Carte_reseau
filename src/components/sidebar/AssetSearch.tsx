@@ -2,7 +2,8 @@
 
 import { useId, useMemo, useState } from 'react';
 import { useMapStore } from '@/store/useMapStore';
-import { reactorLabel } from './labels';
+import { unitLabel } from './unitLabel';
+import { ASSET_TYPES } from '@/config/assetTypes';
 import styles from './Sidebar.module.css';
 
 interface Option {
@@ -17,7 +18,7 @@ const MAX_OPTIONS = 50;
 const normalize = (value: string) =>
   value.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
-/** Liste déroulante filtrable : centrales (nom, commune, région) et réacteurs. */
+/** Liste déroulante filtrable : centrales et parcs (nom, commune, région) et groupes RTE. */
 export default function AssetSearch() {
   const plants = useMapStore((s) => s.plants);
   const selectedPlantId = useMapStore((s) => s.selectedPlantId);
@@ -33,26 +34,28 @@ export default function AssetSearch() {
   const options = useMemo<Option[]>(() => {
     const q = normalize(query.trim());
     const result: Option[] = [];
-    for (const plant of [...plants].sort((a, b) => a.name.localeCompare(b.name, 'fr'))) {
+    // Les plus grosses installations d'abord (la liste compte ~1 600 sites, surtout éoliens)
+    const bySize = [...plants].sort((a, b) => b.capacity_mw - a.capacity_mw);
+    for (const plant of bySize) {
       const haystack = normalize([plant.name, plant.full_name, plant.commune, plant.departement, plant.region].join(' '));
       if (!q || haystack.includes(q)) {
         result.push({
           key: plant.id,
           plantId: plant.id,
           label: plant.name,
-          detail: [plant.commune, plant.departement].filter(Boolean).join(' · '),
+          detail: [ASSET_TYPES[plant.type].label, plant.departement].filter(Boolean).join(' · '),
         });
       }
     }
     if (q) {
-      for (const plant of plants) {
-        for (const reactor of plant.reactors) {
-          if (normalize(reactor.name).includes(q) || reactor.eic_code.toLowerCase().includes(q)) {
+      for (const plant of bySize) {
+        for (const unit of plant.units) {
+          if (normalize(unit.name).includes(q) || unit.eic_code.toLowerCase().includes(q)) {
             result.push({
-              key: reactor.eic_code,
+              key: unit.eic_code,
               plantId: plant.id,
-              label: reactorLabel(reactor.name),
-              detail: `Réacteur · ${plant.name}`,
+              label: unitLabel(unit.name),
+              detail: `${plant.type === 'nuclear' ? 'Réacteur' : 'Groupe'} · ${plant.name}`,
             });
           }
         }
@@ -76,7 +79,7 @@ export default function AssetSearch() {
         aria-expanded={open}
         aria-controls={listId}
         aria-autocomplete="list"
-        placeholder="Sélectionner une centrale ou un réacteur"
+        placeholder="Rechercher une centrale, un parc, une commune…"
         value={open ? query : (selected?.name ?? '')}
         onFocus={() => {
           setOpen(true);

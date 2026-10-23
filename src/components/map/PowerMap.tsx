@@ -27,13 +27,16 @@ import {
 import {
   FIRST_POWER_LINE_LAYER_ID,
   mapStyle,
+  PLANT_LABEL_LAYER_IDS,
   PLANT_LABELS_LAYER_ID,
   PLANTS_SOURCE_ID,
   POWER_LINE_LAYERS,
 } from '@/config/mapStyle';
+import { ASSET_TYPES } from '@/config/assetTypes';
+import type { AssetType } from '@/types/energy';
 import { useMapStore } from '@/store/useMapStore';
 import { useCurrentSlot } from '@/hooks/useCurrentSlot';
-import { formatMW, formatPercent, formatShortDateTime, formatSlot, plantSnapshot } from '@/lib/generationUtils';
+import { formatMW, formatOutput, formatPercent, formatShortDateTime, formatSlot, plantSnapshot } from '@/lib/generationUtils';
 import { ReactControl } from '../controls/ReactControl';
 import MapControlsPanel from './MapControlsPanel';
 import styles from './Map.module.css';
@@ -43,15 +46,15 @@ import styles from './Map.module.css';
 // Anneau = capacité installée, disque = production du créneau affiché.
 
 const METERS_PER_SQRT_MW = 1000;
-const NORMALIZED_CAPACITY_MW = 3600; // taille commune en mode « Normaliser »
+const NORMALIZED_CAPACITY_MW = 400; // taille commune en mode « Normaliser »
 const CONTOUR_MIN_ZOOM = 10; // au-delà, les cercles masquent tout : on dessine l'emprise du site
 const DIMMED = 0.3; // opacité des autres centrales quand une centrale est sélectionnée
 const SELECTION_CONTEXT = 2.5; // marge autour de l'anneau quand on cadre une centrale
+const MAJOR_PLANT_MW = 500; // nom affiché dès la vue France (sinon à partir du zoom 8)
 
-// Couleurs « nuclear » de la carte de référence
-const FILL: [number, number, number] = [0, 255, 255];
-const STROKE: [number, number, number] = [0, 200, 200];
-const FILL_NO_DATA: [number, number, number] = [50, 100, 100];
+const FILL_NO_DATA: [number, number, number] = [90, 100, 110];
+// Opacité du disque : production publiée par RTE, estimée, ou pompage (STEP)
+const DISC_ALPHA = { measured: 110, estimated: 80, pumping: 40 };
 
 type RGBA = [number, number, number, number];
 
@@ -69,21 +72,24 @@ type Interleaved = { beforeId?: string };
 interface PlantDatum {
   id: string;
   name: string;
+  type: AssetType;
   position: [number, number];
   contour: [number, number][] | null;
   capacity: number;
-  output: number | null;
+  output: number | null; // MW, négatif pour une STEP qui pompe
+  estimated: boolean;
   running: number;
-  reactors: number;
+  units: number;
 }
 
 function ringRadius(capacity: number, normalize: boolean): number {
   return Math.sqrt(normalize ? NORMALIZED_CAPACITY_MW : capacity) * METERS_PER_SQRT_MW;
 }
 
+// Une STEP qui pompe garde un disque proportionnel à la puissance absorbée
 function discRadius(d: PlantDatum, normalize: boolean): number {
   if (!d.output) return 0;
-  return ringRadius(d.capacity, normalize) * Math.sqrt(d.output / d.capacity);
+  return ringRadius(d.capacity, normalize) * Math.sqrt(Math.abs(d.output) / d.capacity);
 }
 
 // ─── Contrôles ────────────────────────────────────────────────────────────────
@@ -139,29 +145,37 @@ export default function PowerMap() {
   const normalizeRing = useMapStore((s) => s.normalizeRing);
   const powerLinesVisible = useMapStore((s) => s.powerLinesVisible);
   const labelsVisible = useMapStore((s) => s.labelsVisible);
-  const nuclearVisible = useMapStore((s) => s.productionTypes.nuclear);
+  const productionTypes = useMapStore((s) => s.productionTypes);
   const { generation, index } = useCurrentSlot();
 
   const [styleReady, setStyleReady] = useState(false);
   const [showContours, setShowContours] = useState(false);
   const [tooltip, setTooltip] = useState<{ x: number; y: number; id: string } | null>(null);
 
+  // Centrales des filières affichées (panneau « Filières »)
+  const visiblePlants = useMemo(
+    () => plants.filter((plant) => productionTypes[ASSET_TYPES[plant.type].storeKey]),
+    [plants, productionTypes]
+  );
+
   const data = useMemo<PlantDatum[]>(
     () =>
-      plants.map((plant) => {
+      visiblePlants.map((plant) => {
         const snapshot = plantSnapshot(plant, generation, index);
         return {
           id: plant.id,
           name: plant.name,
+          type: plant.type,
           position: [plant.longitude, plant.latitude],
           contour: plant.contour,
           capacity: plant.capacity_mw,
           output: snapshot.output,
+          estimated: snapshot.estimated,
           running: snapshot.running,
-          reactors: snapshot.reactors,
+          units: snapshot.units,
         };
       }),
-    [plants, generation, index]
+    [visiblePlants, generation, index]
   );
 
   // ─── Calques MapLibre : noms des centrales et lignes électriques ───────────
@@ -170,29 +184,32 @@ export default function PowerMap() {
     const map = mapRef.current?.getMap();
     const source = styleReady ? map?.getSource<GeoJSONSource>(PLANTS_SOURCE_ID) : undefined;
     if (!source) return;
-    const byCapacity = [...plants].sort((a, b) => b.capacity_mw - a.capacity_mw).map((p) => p.id);
+    const byCapacity = [...visiblePlants].sort((a, b) => b.capacity_mw - a.capacity_mw);
     source.setData({
       type: 'FeatureCollection',
-      features: plants.map((plant) => ({
+      features: byCapacity.map((plant, rank) => ({
         type: 'Feature',
         geometry: { type: 'Point', coordinates: [plant.longitude, plant.latitude] },
         properties: {
           name: plant.name,
-          rank: plant.id === selectedPlantId ? -1 : byCapacity.indexOf(plant.id),
+          rank: plant.id === selectedPlantId ? -1 : rank,
+          major: plant.id === selectedPlantId || plant.type === 'nuclear' || plant.capacity_mw >= MAJOR_PLANT_MW,
           dimmed: selectedPlantId !== null && plant.id !== selectedPlantId,
         },
       })),
     });
-  }, [styleReady, plants, selectedPlantId]);
+  }, [styleReady, visiblePlants, selectedPlantId]);
 
   useEffect(() => {
     const map = mapRef.current?.getMap();
     if (!styleReady || !map) return;
-    map.setLayoutProperty(PLANT_LABELS_LAYER_ID, 'visibility', labelsVisible && nuclearVisible ? 'visible' : 'none');
+    for (const id of PLANT_LABEL_LAYER_IDS) {
+      map.setLayoutProperty(id, 'visibility', labelsVisible ? 'visible' : 'none');
+    }
     for (const layer of POWER_LINE_LAYERS) {
       map.setLayoutProperty(layer.id, 'visibility', powerLinesVisible ? 'visible' : 'none');
     }
-  }, [styleReady, labelsVisible, nuclearVisible, powerLinesVisible]);
+  }, [styleReady, labelsVisible, powerLinesVisible]);
 
   // Cadre la centrale sélectionnée avec son anneau de capacité et un peu de contexte
   useEffect(() => {
@@ -256,20 +273,29 @@ export default function PowerMap() {
       );
     }
 
-    if (!nuclearVisible || data.length === 0) return result;
+    if (data.length === 0) return result;
 
-    if (showContours) {
+    const fill = (d: PlantDatum) => ASSET_TYPES[d.type].fill;
+    const stroke = (d: PlantDatum) => ASSET_TYPES[d.type].stroke;
+    const discAlpha = (d: PlantDatum) =>
+      d.output !== null && d.output < 0 ? DISC_ALPHA.pumping : d.estimated ? DISC_ALPHA.estimated : DISC_ALPHA.measured;
+
+    // Zoom rapproché : emprise du site quand on la connaît (nucléaire, hydraulique), cercles sinon
+    const outlined = showContours ? data.filter((d) => d.contour) : [];
+    const circles = showContours ? data.filter((d) => !d.contour) : data;
+
+    if (outlined.length) {
       result.push(
         new PolygonLayer<PlantDatum, Interleaved>({
           id: 'plant-contours',
           beforeId: PLANT_LABELS_LAYER_ID,
-          data: data.filter((d) => d.contour),
+          data: outlined,
           getPolygon: (d) => d.contour!,
           getFillColor: (d): RGBA =>
             d.output === null
               ? [...FILL_NO_DATA, alpha(80, d.id)]
-              : [...FILL, alpha(60 + Math.round(140 * Math.min(1, d.output / d.capacity)), d.id)],
-          getLineColor: (d): RGBA => (highlighted(d.id) ? [26, 32, 44, 255] : [...STROKE, alpha(255, d.id)]),
+              : [...fill(d), alpha(60 + Math.round(140 * Math.min(1, Math.abs(d.output) / d.capacity)), d.id)],
+          getLineColor: (d): RGBA => (highlighted(d.id) ? [26, 32, 44, 255] : [...stroke(d), alpha(255, d.id)]),
           getLineWidth: (d) => (highlighted(d.id) ? 2.5 : 1.5),
           lineWidthUnits: 'pixels',
           pickable: true,
@@ -280,7 +306,6 @@ export default function PowerMap() {
           },
         })
       );
-      return result;
     }
 
     if (capacityRingVisible) {
@@ -288,7 +313,7 @@ export default function PowerMap() {
         new ScatterplotLayer<PlantDatum, Interleaved>({
           id: 'capacity-rings',
           beforeId: PLANT_LABELS_LAYER_ID,
-          data,
+          data: circles,
           getPosition: (d) => d.position,
           getRadius: (d) => ringRadius(d.capacity, normalizeRing),
           radiusUnits: 'meters',
@@ -314,16 +339,16 @@ export default function PowerMap() {
       new ScatterplotLayer<PlantDatum, Interleaved>({
         id: 'generation-discs',
         beforeId: PLANT_LABELS_LAYER_ID,
-        data: data.filter((d) => d.output),
+        data: circles.filter((d) => d.output),
         getPosition: (d) => d.position,
         getRadius: (d) => discRadius(d, normalizeRing),
         radiusUnits: 'meters',
         radiusMinPixels: 2,
         filled: true,
         stroked: true,
-        getFillColor: (d): RGBA => [...FILL, alpha(110, d.id)],
-        getLineColor: (d): RGBA => [...STROKE, alpha(255, d.id)],
-        getLineWidth: 1,
+        getFillColor: (d): RGBA => [...fill(d), alpha(discAlpha(d), d.id)],
+        getLineColor: (d): RGBA => [...stroke(d), alpha(255, d.id)],
+        getLineWidth: (d) => (d.output !== null && d.output < 0 ? 2 : 1),
         lineWidthUnits: 'pixels',
         pickable: true,
         updateTriggers: {
@@ -339,7 +364,6 @@ export default function PowerMap() {
     data,
     windVisible,
     windData,
-    nuclearVisible,
     capacityRingVisible,
     normalizeRing,
     showContours,
@@ -406,27 +430,41 @@ export default function PowerMap() {
       {tooltip && tooltipDatum && (
         <div className={styles.tooltip} style={{ left: tooltip.x, top: tooltip.y }}>
           <div className={styles.tooltipTitle}>{tooltipDatum.name}</div>
+          <div className={styles.tooltipType} style={{ color: ASSET_TYPES[tooltipDatum.type].badgeColor }}>
+            {ASSET_TYPES[tooltipDatum.type].label}
+          </div>
           <div className={styles.tooltipRow}>
-            <span>Production</span>
-            <span>{formatMW(tooltipDatum.output)} MW</span>
+            <span>
+              {tooltipDatum.output !== null && tooltipDatum.output < 0
+                ? 'Pompage'
+                : tooltipDatum.estimated
+                  ? 'Production estimée'
+                  : 'Production'}
+            </span>
+            <span>
+              {tooltipDatum.output !== null && tooltipDatum.output < 0
+                ? formatMW(-tooltipDatum.output)
+                : formatOutput(tooltipDatum.output, tooltipDatum.estimated)}{' '}
+              MW
+            </span>
           </div>
           <div className={styles.tooltipRow}>
             <span>Capacité</span>
             <span>{formatMW(tooltipDatum.capacity)} MW</span>
           </div>
-          {tooltipDatum.output !== null && (
-            <>
-              <div className={styles.tooltipRow}>
-                <span>Facteur de charge</span>
-                <span>{formatPercent(tooltipDatum.output / tooltipDatum.capacity)}</span>
-              </div>
-              <div className={styles.tooltipRow}>
-                <span>Réacteurs en marche</span>
-                <span>
-                  {tooltipDatum.running} / {tooltipDatum.reactors}
-                </span>
-              </div>
-            </>
+          {tooltipDatum.output !== null && tooltipDatum.output >= 0 && (
+            <div className={styles.tooltipRow}>
+              <span>Facteur de charge</span>
+              <span>{formatPercent(tooltipDatum.output / tooltipDatum.capacity)}</span>
+            </div>
+          )}
+          {tooltipDatum.output !== null && tooltipDatum.units > 0 && (
+            <div className={styles.tooltipRow}>
+              <span>{tooltipDatum.type === 'nuclear' ? 'Réacteurs' : 'Groupes'} en marche</span>
+              <span>
+                {tooltipDatum.running} / {tooltipDatum.units}
+              </span>
+            </div>
           )}
         </div>
       )}

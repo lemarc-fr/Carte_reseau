@@ -18,8 +18,8 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
         </button>
         <h2 id="about-title">À propos</h2>
         <p>
-          Carte Réseau montre la production des 57 réacteurs nucléaires français, heure par heure, sur une carte. Son
-          interface reprend celle de la{' '}
+          Carte Réseau montre heure par heure la production des centrales nucléaires, des centrales hydrauliques (dont
+          les stations de pompage, STEP) et des parcs éoliens français. Son interface reprend celle de la{' '}
           <a href="https://renewables-map.robinhawkes.com/" target="_blank" rel="noreferrer">
             GB Renewables Map
           </a>{' '}
@@ -29,15 +29,23 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
         <h3>D&apos;où viennent les données ?</h3>
         <ul>
           <li>
-            Production par réacteur : API{' '}
+            Production par groupe (réacteurs, grands groupes hydrauliques, éoliennes en mer) et production nationale par
+            filière : API{' '}
             <a href="https://data.rte-france.com/catalog/-/api/generation/Actual-Generation" target="_blank" rel="noreferrer">
               Actual Generation
             </a>{' '}
-            de RTE (production réalisée par groupe de plus de 100 MW), interrogée toutes les 15 minutes.
+            de RTE, interrogée toutes les 15 minutes.
           </li>
           <li>
-            Centrales, capacités et dates de mise en service : registre national des installations de production
-            (ODRE), Wikidata et OpenStreetMap.
+            Taux de charge régionaux de l&apos;éolien et de l&apos;hydraulique : éCO2mix régional de RTE, publié sur{' '}
+            <a href="https://odre.opendatasoft.com/explore/dataset/eco2mix-regional-tr/" target="_blank" rel="noreferrer">
+              ODRE
+            </a>
+            .
+          </li>
+          <li>
+            Centrales, parcs, puissances et dates de mise en service : registre national des installations de production
+            (ODRE), Wikidata et OpenStreetMap. Les parcs éoliens terrestres sont regroupés par commune.
           </li>
           <li>
             Lignes électriques :{' '}
@@ -55,9 +63,24 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
 
         <h3>Que représentent les cercles ?</h3>
         <p>
-          L&apos;anneau extérieur correspond à la capacité installée de la centrale, le disque plein à sa production sur
-          le créneau affiché. Leur surface est proportionnelle à la puissance. L&apos;option « Normaliser » donne la même
-          taille à toutes les centrales pour comparer leur taux de charge.
+          L&apos;anneau extérieur correspond à la puissance installée, le disque plein à la production sur le créneau
+          affiché. Leur surface est proportionnelle à la puissance. L&apos;option « Normaliser » donne la même taille à
+          toutes les installations pour comparer leur taux de charge.
+        </p>
+
+        <h3>Pourquoi certaines productions sont-elles estimées (≈) ?</h3>
+        <p>
+          RTE ne publie la production individuelle que des groupes de plus de 100 MW : réacteurs, grandes centrales
+          hydrauliques, parcs éoliens en mer. Pour les autres parcs éoliens et centrales hydrauliques, la production est
+          estimée en multipliant leur puissance installée par le taux de charge de leur filière dans leur région
+          (éCO2mix). Ces estimations sont affichées avec « ≈ » et un disque plus pâle.
+        </p>
+
+        <h3>Que fait une STEP ?</h3>
+        <p>
+          Une station de transfert d&apos;énergie par pompage remonte de l&apos;eau dans un bassin supérieur quand
+          l&apos;électricité est abondante (pompage, valeur négative) et la turbine quand elle manque. Sur la carte, une
+          STEP qui pompe est dessinée avec un disque presque transparent ; dans les graphiques, le pompage passe sous zéro.
         </p>
 
         <h3>Pourquoi un réacteur est-il à 0 MW ?</h3>

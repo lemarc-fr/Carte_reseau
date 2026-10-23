@@ -20,6 +20,10 @@ server {
     access_log /var/log/nginx/carte_reseau.access.log;
     error_log  /var/log/nginx/carte_reseau.error.log;
 
+    # gzip est actif globalement mais seulement pour text/html : /api/plants pèse ~850 Ko de JSON
+    gzip_types application/json application/javascript text/css image/svg+xml;
+    gzip_min_length 1024;
+
     add_header X-Content-Type-Options nosniff always;
     add_header Referrer-Policy strict-origin-when-cross-origin always;
 

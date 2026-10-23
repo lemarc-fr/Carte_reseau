@@ -20,15 +20,20 @@ import { WIND_PALETTE } from '@/config/mapConfig';
 import { formatShortDateTime } from '@/lib/generationUtils';
 import styles from './Map.module.css';
 
+// Filières affichées sur la carte
+const TYPES: { key: ProductionType; label: string; icon: React.ReactNode }[] = [
+  { key: 'nuclear', label: 'Nucléaire', icon: <NuclearIcon size={15} /> },
+  { key: 'wind', label: 'Éolien', icon: <WindIcon size={15} /> },
+  { key: 'hydro', label: 'Hydraulique', icon: <HydroIcon size={15} /> },
+  { key: 'pumpedStorage', label: 'STEP (pompage-turbinage)', icon: <PumpedStorageIcon size={15} /> },
+];
+
 // Filières à venir : affichées mais désactivées tant que leurs données ne sont pas ingérées
 const UPCOMING_TYPES: { key: ProductionType; label: string; icon: React.ReactNode }[] = [
-  { key: 'wind', label: 'Éolien', icon: <WindIcon size={16} /> },
-  { key: 'solar', label: 'Solaire', icon: <SolarIcon size={16} /> },
-  { key: 'gas', label: 'Gaz', icon: <GasIcon size={16} /> },
-  { key: 'hydro', label: 'Hydraulique', icon: <HydroIcon size={16} /> },
-  { key: 'pumpedStorage', label: 'Pompage-turbinage', icon: <PumpedStorageIcon size={16} /> },
-  { key: 'biomass', label: 'Biomasse', icon: <BiomassIcon size={16} /> },
-  { key: 'battery', label: 'Batterie', icon: <BatteryIcon size={16} /> },
+  { key: 'solar', label: 'Solaire', icon: <SolarIcon size={15} /> },
+  { key: 'gas', label: 'Gaz', icon: <GasIcon size={15} /> },
+  { key: 'biomass', label: 'Biomasse', icon: <BiomassIcon size={15} /> },
+  { key: 'battery', label: 'Batterie', icon: <BatteryIcon size={15} /> },
 ];
 
 const WIND_MAX = WIND_PALETTE[WIND_PALETTE.length - 1][0];
@@ -81,7 +86,7 @@ export default function MapControlsPanel() {
   const toggleNormalizeRing = useMapStore((s) => s.toggleNormalizeRing);
   const labelsVisible = useMapStore((s) => s.labelsVisible);
   const toggleLabels = useMapStore((s) => s.toggleLabels);
-  const nuclearVisible = useMapStore((s) => s.productionTypes.nuclear);
+  const productionTypes = useMapStore((s) => s.productionTypes);
   const toggleProductionType = useMapStore((s) => s.toggleProductionType);
   const windVisible = useMapStore((s) => s.windVisible);
   const windStatus = useMapStore((s) => s.windStatus);
@@ -115,7 +120,9 @@ export default function MapControlsPanel() {
       </Section>
 
       <Section title="Filières">
-        <Item icon={<NuclearIcon size={15} />} label="Nucléaire" active={nuclearVisible} onClick={() => toggleProductionType('nuclear')} />
+        {TYPES.map(({ key, label, icon }) => (
+          <Item key={key} icon={icon} label={label} active={productionTypes[key]} onClick={() => toggleProductionType(key)} />
+        ))}
         {UPCOMING_TYPES.map(({ key, label, icon }) => (
           <Item key={key} icon={icon} label={label} note="bientôt" disabled />
         ))}

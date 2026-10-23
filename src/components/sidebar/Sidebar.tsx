@@ -27,7 +27,7 @@ export default function Sidebar() {
           </button>
         </div>
         <p className={styles.subtitle}>
-          Le parc nucléaire en temps réel, d&apos;après{' '}
+          Nucléaire, hydraulique et éolien en temps réel, d&apos;après{' '}
           <a href="https://data.rte-france.com" target="_blank" rel="noreferrer">
             les données RTE
           </a>

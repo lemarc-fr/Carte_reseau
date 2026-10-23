@@ -1,18 +1,20 @@
 import 'dotenv/config';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { PrismaClient } from '@prisma/client';
-import { PrismaPg } from '@prisma/adapter-pg';
+import { prisma } from '@/lib/prisma';
+import { linkUnitsToPlants } from '@/lib/power/unitPlants';
 
 // Usage : npm run db:seed
-// Remplit `plants` (18 CNPE) et `reactors` (57 réacteurs suivis par RTE) à partir
-// du jeu de données consolidé dataset/Finie/NUCLEAR.json (OSM + Wikidata + ODRE).
+// Remplit `plants` et `units` à partir des jeux de données consolidés de dataset/Finie/ :
+//   NUCLEAR.json  18 CNPE et leurs 57 réacteurs (OSM + Wikidata + registre ODRE)
+//   HYDRO.json    centrales hydrauliques et STEP (OSM + Wikidata + registre ODRE)
+//   WIND.json     parcs éoliens regroupés par commune, parcs en mer (dataset/rafactor data/eolien.py)
 // Idempotent : peut être rejoué sans risque (upserts).
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
-const prisma = new PrismaClient({ adapter });
+const FINIE = join(process.cwd(), 'dataset', 'Finie');
 
-const DATASET_PATH = join(process.cwd(), 'dataset', 'Finie', 'NUCLEAR.json');
+// Seuil de publication de la production par groupe chez RTE
+const RTE_UNIT_MIN_MW = 100;
 
 // Tolérance de simplification des contours (degrés, ~10 m)
 const CONTOUR_TOLERANCE_DEG = 0.0001;
@@ -78,7 +80,7 @@ const REACTORS: { eic_code: string; name: string }[] = [
   { eic_code: '17W100P100P0147F', name: 'ST LAURENT 1' },
 ];
 
-// ─── Types du jeu de données ─────────────────────────────────────────────────
+// ─── Types des jeux de données ───────────────────────────────────────────────
 
 type LatLon = { lat?: number; lon?: number };
 
@@ -96,20 +98,50 @@ interface OdreRecord {
   commune: string | null;
   departement: string | null;
   region: string | null;
+  coderegion: string | null;
+  technologie: string | null;
+  regime: string | null;
 }
 
-interface DatasetPlant {
+// Format OSM + Wikidata + ODRE (NUCLEAR.json, HYDRO.json)
+interface OsmDatasetPlant {
   name: string;
-  english_name: string;
+  english_name: string | null;
   operator: string | null;
+  output: string | null;
+  method?: string | null;
   wikidata_id: string | null;
   detail_page_data: { osm_details: { elements: OsmElement[] } };
   wikidata_details: {
     latitude: number | null;
     longitude: number | null;
+    power_mw?: number | null;
     eics: Record<string, OdreRecord | null> | null;
   };
 }
+
+// Format de WIND.json (eolien.py)
+interface WindDatasetPlant {
+  id: string;
+  name: string;
+  full_name: string;
+  technology: 'onshore' | 'offshore';
+  commune: string | null;
+  departement: string | null;
+  region: string | null;
+  region_code: string | null;
+  latitude: number;
+  longitude: number;
+  capacity_mw: number;
+  commissioning_date: string | null;
+  installations: number;
+  units: { eic_code: string; name: string; capacity_mw: number; commissioning_date: string | null }[];
+}
+
+type PlantData = Parameters<typeof prisma.plant.create>[0]['data'];
+type UnitData = { eic_code: string; name: string; production_type: string; capacity_mw: number | null; commissioning_date: Date | null };
+
+const readDataset = <T>(file: string) => JSON.parse(readFileSync(join(FINIE, file), 'utf-8')) as T[];
 
 // ─── Géométrie ───────────────────────────────────────────────────────────────
 
@@ -180,7 +212,7 @@ function centroid(ring: Coord[]): Coord {
 
 const round = (value: number, decimals: number) => Number(value.toFixed(decimals));
 
-// ─── Construction des enregistrements ────────────────────────────────────────
+// ─── Noms et identifiants ────────────────────────────────────────────────────
 
 function slugify(value: string): string {
   return value
@@ -191,93 +223,192 @@ function slugify(value: string): string {
     .replace(/^-|-$/g, '');
 }
 
-function buildPlant(record: DatasetPlant) {
-  const shortName = record.english_name.replace(/\s+Nuclear Power Plant$/i, '').trim();
+// "Centrale hydroélectrique de Bort" -> "Bort", "STEP Montézic" -> "Montézic",
+// "Centrale de La Bathie" -> "La Bathie" (l'article du nom propre est conservé)
+const HYDRO_NAME_PREFIX =
+  /^(?:[Cc]entrale (?:hydro-?électrique|électrique|hydraulique)|[Cc]entrale|[Uu]sine (?:hydroélectrique|du barrage)|[Uu]sine|[Bb]arrage-usine|[Bb]arrage|[Aa]ménagement hydroélectrique|[Cc]hute|STEP)\s+(?:de la |de l'|de |du |des |d')?/;
+
+function hydroShortName(name: string): string {
+  return name.replace(HYDRO_NAME_PREFIX, '').replace(/\s+STEP$/, '').trim() || name;
+}
+
+// ─── Centrales au format OSM (nucléaire, hydraulique) ────────────────────────
+
+function osmPlant(record: OsmDatasetPlant, id: string, name: string) {
   const element = record.detail_page_data.osm_details.elements[0];
   const ring = element ? largestOuterRing(element) : null;
   const contour = ring
     ? simplify(ring, CONTOUR_TOLERANCE_DEG).map(([lon, lat]) => [round(lon, 6), round(lat, 6)] as Coord)
     : null;
 
-  const { latitude, longitude, eics } = record.wikidata_details;
+  const { latitude, longitude } = record.wikidata_details;
   const [lon, lat] =
     typeof latitude === 'number' && typeof longitude === 'number'
       ? [longitude, latitude]
       : ring
         ? centroid(ring)
         : [NaN, NaN];
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
-    throw new Error(`Aucune position pour ${record.name}`);
-  }
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
 
-  const knownEics = new Set(REACTORS.map((r) => r.eic_code));
-  const reactors = Object.entries(eics ?? {})
-    .filter((entry): entry is [string, OdreRecord] => entry[1] !== null && knownEics.has(entry[0]))
-    .map(([eic_code, odre]) => ({
-      eic_code,
-      capacity_mw: odre.puismaxinstallee ? odre.puismaxinstallee / 1000 : null,
-      commissioning_date: odre.datemiseenservice_date ? new Date(odre.datemiseenservice_date) : null,
-      odre,
-    }));
-
-  const commissioningDates = reactors
-    .map((r) => r.commissioning_date)
-    .filter((d): d is Date => d !== null)
-    .sort((a, b) => a.getTime() - b.getTime());
-  const location = reactors[0]?.odre;
+  const records = Object.values(record.wikidata_details.eics ?? {}).filter(
+    (r): r is OdreRecord => r !== null && (!r.regime || r.regime === 'En service')
+  );
+  const location = records[0];
+  const dates = records
+    .map((r) => r.datemiseenservice_date)
+    .filter((d): d is string => !!d)
+    .sort();
 
   return {
+    records,
     plant: {
-      id: slugify(shortName),
-      name: shortName,
+      id,
+      name,
       full_name: record.name,
-      production_type: 'NUCLEAR',
       operator: record.operator,
       latitude: round(lat, 6),
       longitude: round(lon, 6),
-      capacity_mw: reactors.reduce((sum, r) => sum + (r.capacity_mw ?? 0), 0),
-      commissioning_date: commissioningDates[0] ?? null,
+      capacity_mw: records.reduce((sum, r) => sum + (r.puismaxinstallee ?? 0) / 1000, 0),
+      commissioning_date: dates[0] ? new Date(dates[0]) : null,
       commune: location?.commune ?? null,
       departement: location?.departement ?? null,
       region: location?.region ?? null,
+      region_code: location?.coderegion ?? null,
       wikidata_id: record.wikidata_id,
       osm_id: element ? `${element.type}/${element.id}` : null,
       contour: contour ?? undefined,
-    },
-    reactors: reactors.map(({ eic_code, capacity_mw, commissioning_date }) => ({
-      eic_code,
-      capacity_mw,
-      commissioning_date,
-    })),
+    } satisfies Partial<PlantData>,
   };
 }
 
-async function main() {
-  const dataset = JSON.parse(readFileSync(DATASET_PATH, 'utf-8')) as DatasetPlant[];
-  const names = new Map(REACTORS.map((r) => [r.eic_code, r.name]));
-  let reactorCount = 0;
-
-  for (const record of dataset) {
-    const { plant, reactors } = buildPlant(record);
-    await prisma.plant.upsert({ where: { id: plant.id }, update: plant, create: plant });
-
-    for (const reactor of reactors) {
-      const data = {
-        ...reactor,
-        name: names.get(reactor.eic_code)!,
+function nuclearPlants() {
+  const known = new Map(REACTORS.map((r) => [r.eic_code, r.name]));
+  return readDataset<OsmDatasetPlant>('NUCLEAR.json').map((record) => {
+    const name = (record.english_name ?? record.name).replace(/\s+Nuclear Power Plant$/i, '').trim();
+    const built = osmPlant(record, slugify(name), name);
+    if (!built) throw new Error(`Aucune position pour ${record.name}`);
+    const units: UnitData[] = Object.entries(record.wikidata_details.eics ?? {})
+      .filter((entry): entry is [string, OdreRecord] => entry[1] !== null && known.has(entry[0]))
+      .map(([eic_code, odre]) => ({
+        eic_code,
+        name: known.get(eic_code)!,
         production_type: 'NUCLEAR',
-        plant_id: plant.id,
-      };
-      await prisma.reactor.upsert({ where: { eic_code: reactor.eic_code }, update: data, create: data });
-      reactorCount++;
+        capacity_mw: odre.puismaxinstallee ? odre.puismaxinstallee / 1000 : null,
+        commissioning_date: odre.datemiseenservice_date ? new Date(odre.datemiseenservice_date) : null,
+      }));
+    // Capacité du site = réacteurs suivis par RTE (les anciens réacteurs arrêtés sont exclus)
+    const capacity = units.reduce((sum, u) => sum + (u.capacity_mw ?? 0), 0);
+    return { plant: { ...built.plant, production_type: 'NUCLEAR', capacity_mw: capacity }, units };
+  });
+}
+
+function hydroPlants() {
+  const used = new Set<string>();
+  const result: { plant: PlantData; units: UnitData[] }[] = [];
+  for (const record of readDataset<OsmDatasetPlant>('HYDRO.json')) {
+    const name = hydroShortName(record.name);
+    let id = `hydro-${slugify(name)}`;
+    for (let n = 2; used.has(id); n++) id = `hydro-${slugify(name)}-${n}`;
+    used.add(id);
+
+    const built = osmPlant(record, id, name);
+    if (!built) {
+      console.warn(`  hydraulique ignorée (sans position) : ${record.name}`);
+      continue;
     }
-    console.log(`${plant.name.padEnd(18)} ${String(reactors.length).padStart(2)} réacteurs  ${plant.capacity_mw} MW`);
+    const technologies = built.records.map((r) => r.technologie).filter((t): t is string => !!t);
+    const pumped = record.method === 'water-pumped-storage' || technologies.includes('Pompage turbinage');
+    const technology = technologies.sort(
+      (a, b) => technologies.filter((t) => t === b).length - technologies.filter((t) => t === a).length
+    )[0];
+    const capacity =
+      built.plant.capacity_mw ||
+      record.wikidata_details.power_mw ||
+      Number.parseFloat((record.output ?? '').replace(/,/g, '')) ||
+      0;
+    if (!capacity) {
+      console.warn(`  hydraulique ignorée (puissance inconnue) : ${record.name}`);
+      continue;
+    }
+    result.push({
+      plant: {
+        ...built.plant,
+        production_type: pumped ? 'PUMPED_STORAGE' : 'HYDRO',
+        technology: pumped ? 'Pompage-turbinage' : (technology ?? null),
+        capacity_mw: capacity,
+      },
+      units: [], // groupes RTE rattachés par nom (unitPlants.ts) une fois ingérés
+    });
+  }
+  return result;
+}
+
+function windPlants() {
+  return readDataset<WindDatasetPlant>('WIND.json').map((w) => ({
+    plant: {
+      id: w.id,
+      name: w.name,
+      full_name: w.full_name,
+      production_type: 'WIND',
+      technology: w.technology,
+      latitude: w.latitude,
+      longitude: w.longitude,
+      capacity_mw: w.capacity_mw,
+      commissioning_date: w.commissioning_date ? new Date(w.commissioning_date) : null,
+      commune: w.commune,
+      departement: w.departement,
+      region: w.region,
+      region_code: w.region_code,
+      installations: w.installations,
+    } satisfies PlantData,
+    // RTE ne publie la production que des groupes de plus de 100 MW : les grands parcs en mer.
+    // Les fermes pilotes (Provence Grand Large, Floatgen) et l'éolien terrestre sont estimés.
+    units: w.technology === 'offshore'
+      ? w.units.filter((u) => u.capacity_mw >= RTE_UNIT_MIN_MW).map((u, i) => ({
+          eic_code: u.eic_code,
+          // Noms registre/RTE peu lisibles (« B.GUEEA1 - ADP A1 DE LA FERME… ») : numérotés par parc
+          name: `${w.name} ${i + 1}`,
+          production_type: 'WIND_OFFSHORE',
+          capacity_mw: u.capacity_mw,
+          commissioning_date: u.commissioning_date ? new Date(u.commissioning_date) : null,
+        }))
+      : [],
+  }));
+}
+
+async function main() {
+  const datasets = [
+    { label: 'Nucléaire', plants: nuclearPlants() },
+    { label: 'Hydraulique', plants: hydroPlants() },
+    { label: 'Éolien', plants: windPlants() },
+  ];
+
+  for (const { label, plants } of datasets) {
+    let units = 0;
+    for (const { plant, units: plantUnits } of plants) {
+      await prisma.plant.upsert({ where: { id: plant.id }, update: plant, create: plant });
+      for (const unit of plantUnits) {
+        const data = { ...unit, plant_id: plant.id };
+        // Le nom publié par RTE (déjà en base) est conservé, sauf pour l'éolien en mer (voir windPlants)
+        await prisma.unit.upsert({
+          where: { eic_code: unit.eic_code },
+          update: {
+            plant_id: plant.id,
+            capacity_mw: unit.capacity_mw,
+            commissioning_date: unit.commissioning_date,
+            ...(unit.production_type === 'WIND_OFFSHORE' && { name: unit.name }),
+          },
+          create: data,
+        });
+        units++;
+      }
+    }
+    const capacity = plants.reduce((sum, p) => sum + (p.plant.capacity_mw ?? 0), 0);
+    console.log(`${label.padEnd(12)} ${String(plants.length).padStart(5)} centrales  ${String(units).padStart(3)} groupes  ${Math.round(capacity)} MW`);
   }
 
-  console.log(`${dataset.length} centrales et ${reactorCount} réacteurs insérés/mis à jour.`);
-  if (reactorCount !== REACTORS.length) {
-    console.warn(`Attention : ${REACTORS.length - reactorCount} réacteur(s) RTE sans centrale associée.`);
-  }
+  const linked = await linkUnitsToPlants();
+  console.log(`${linked} groupe(s) RTE rattaché(s) par leur nom.`);
 }
 
 main()
