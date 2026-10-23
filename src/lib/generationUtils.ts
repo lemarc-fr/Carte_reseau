@@ -1,8 +1,9 @@
-import type { GenerationSeries, PlantInfo } from '@/types/energy';
+import type { AssetType, GenerationSeries, PlantInfo, UnitInfo } from '@/types/energy';
+import { ASSET_TYPES, SIGNED_UNIT_TYPES } from '@/config/assetTypes';
 
-// Fonctions pures côté client : lecture de la matrice GenerationSeries.
-// Les valeurs RTE sont négatives quand un réacteur à l'arrêt consomme pour ses
-// auxiliaires : on les ramène à 0 pour afficher une production.
+// Fonctions pures côté client : lecture des matrices de GenerationSeries.
+// Les valeurs RTE sont légèrement négatives quand un groupe à l'arrêt consomme pour
+// ses auxiliaires : ramenées à 0, sauf pour les STEP où le négatif est le pompage.
 
 export const HOUR_MS = 60 * 60 * 1000;
 export const DAY_MS = 24 * HOUR_MS;
@@ -35,61 +36,73 @@ export function effectiveTime(selectedTime: number | null, generation: Generatio
   return selectedTime ?? generation?.latest ?? Date.now();
 }
 
-export function reactorOutput(generation: GenerationSeries | null, eic: string, index: number): number | null {
+/** Puissance d'un groupe sur le créneau (MW), signée pour les STEP (négatif = pompage). */
+export function unitOutput(generation: GenerationSeries | null, unit: UnitInfo, index: number): number | null {
   if (!generation || index < 0) return null;
-  const value = generation.series[eic]?.[index];
-  return value === null || value === undefined ? null : Math.max(0, value);
+  const value = generation.series[unit.eic_code]?.[index];
+  if (value === null || value === undefined) return null;
+  return SIGNED_UNIT_TYPES.has(unit.production_type) ? value : Math.max(0, value);
 }
 
+/** Taux de charge régional (0-1) servant à estimer une centrale sans groupe publié. */
+export function regionalLoadFactor(generation: GenerationSeries | null, plant: PlantInfo, index: number): number | null {
+  const kind = ASSET_TYPES[plant.type].regionalSeries;
+  if (!generation || index < 0 || !kind || !plant.region_code) return null;
+  return generation.aggregates[`REGION:${plant.region_code}:${kind}`]?.[index] ?? null;
+}
+
+/** La production de cette centrale est-elle estimée (aucun groupe publié par RTE) ? */
+export const isEstimated = (plant: PlantInfo) => plant.units.length === 0;
+
 export interface Snapshot {
-  output: number | null; // MW, null si aucun réacteur n'a publié
+  output: number | null; // MW (négatif : pompage), null si rien de publié ni d'estimable
   capacity: number; // MW installés
-  running: number; // réacteurs qui produisent
-  reactors: number;
+  running: number; // groupes qui produisent
+  units: number; // groupes publiés par RTE
+  estimated: boolean; // capacité × taux de charge régional
 }
 
 export function plantSnapshot(plant: PlantInfo, generation: GenerationSeries | null, index: number): Snapshot {
+  if (isEstimated(plant)) {
+    const factor = regionalLoadFactor(generation, plant, index);
+    return {
+      output: factor === null ? null : plant.capacity_mw * factor,
+      capacity: plant.capacity_mw,
+      running: 0,
+      units: 0,
+      estimated: true,
+    };
+  }
   let output: number | null = null;
   let running = 0;
-  for (const reactor of plant.reactors) {
-    const value = reactorOutput(generation, reactor.eic_code, index);
+  for (const unit of plant.units) {
+    const value = unitOutput(generation, unit, index);
     if (value === null) continue;
     output = (output ?? 0) + value;
     if (value > 0) running++;
   }
-  return { output, capacity: plant.capacity_mw, running, reactors: plant.reactors.length };
+  return { output, capacity: plant.capacity_mw, running, units: plant.units.length, estimated: false };
 }
 
-export function fleetSnapshot(plants: PlantInfo[], generation: GenerationSeries | null, index: number): Snapshot {
-  return plants.reduce<Snapshot>(
-    (acc, plant) => {
-      const s = plantSnapshot(plant, generation, index);
-      return {
-        output: s.output === null ? acc.output : (acc.output ?? 0) + s.output,
-        capacity: acc.capacity + s.capacity,
-        running: acc.running + s.running,
-        reactors: acc.reactors + s.reactors,
-      };
-    },
-    { output: null, capacity: 0, running: 0, reactors: 0 }
-  );
+/** Production nationale d'une filière sur le créneau (MW, séries RTE par filière). */
+export function nationalOutput(generation: GenerationSeries | null, type: AssetType, index: number): number | null {
+  if (!generation || index < 0) return null;
+  let sum: number | null = null;
+  for (const key of ASSET_TYPES[type].nationalSeries) {
+    const value = generation.aggregates[key]?.[index];
+    if (value !== null && value !== undefined) sum = (sum ?? 0) + value;
+  }
+  return sum;
 }
 
-/** Lignes { t, [clé]: MW } pour un graphique empilé, une clé par groupe de réacteurs. */
-export function stackedRows(
+/** Lignes { t, [clé]: MW } pour un graphique empilé, une clé par série. */
+export function buildRows(
   generation: GenerationSeries,
-  groups: { key: string; eics: string[] }[]
+  groups: { key: string; value: (index: number) => number | null }[]
 ): Record<string, number | null>[] {
   return generation.times.map((t, i) => {
     const row: Record<string, number | null> = { t };
-    for (const { key, eics } of groups) {
-      let sum: number | null = null;
-      for (const eic of eics) {
-        const value = reactorOutput(generation, eic, i);
-        if (value !== null) sum = (sum ?? 0) + value;
-      }
-      row[key] = sum;
-    }
+    for (const { key, value } of groups) row[key] = value(i);
     return row;
   });
 }
@@ -110,6 +123,9 @@ const slotFormat = new Intl.DateTimeFormat('fr-FR', {
 const dateFormat = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
 export const formatMW = (value: number | null) => (value === null ? '–' : mwFormat.format(value));
+/** Puissance avec « ≈ » quand elle est estimée */
+export const formatOutput = (value: number | null, estimated: boolean) =>
+  value === null ? '–' : `${estimated ? '≈ ' : ''}${mwFormat.format(value)}`;
 export const formatGW = (mw: number) => gwFormat.format(mw / 1000);
 export const formatPercent = (ratio: number) => `${Math.round(ratio * 100)} %`;
 export const formatTime = (time: number) => timeFormat.format(time);

@@ -18,38 +18,41 @@ enum Granularity {
   DAY
 }
 
-// Site de production (ex. CNPE de Gravelines) : regroupe plusieurs réacteurs.
-// Alimenté par src/prisma/seed.ts à partir de dataset/Finie/NUCLEAR.json
-// (OSM + Wikidata + registre ODRE).
+// Site de production : centrale nucléaire, centrale hydraulique, STEP ou parcs
+// éoliens d'une commune. Alimenté par src/prisma/seed.ts à partir de dataset/Finie/.
 model Plant {
-  id                 String    @id // slug stable, ex. "gravelines"
+  id                 String    @id // slug stable, ex. "gravelines", "hydro-revin", "eolien-51163"
   name               String // nom court affiché, ex. "Gravelines"
   full_name          String
-  production_type    String    @default("NUCLEAR")
+  production_type    String    @default("NUCLEAR") // NUCLEAR | HYDRO | PUMPED_STORAGE | WIND
+  technology         String? // ex. "Lac", "Fil de l'eau", "onshore", "offshore"
   operator           String?
   latitude           Float
   longitude          Float
-  capacity_mw        Float // somme des puissances installées des réacteurs
+  capacity_mw        Float // puissance installée totale
   commissioning_date DateTime? @db.Date
   commune            String?
   departement        String?
   region             String?
+  region_code        String? // code INSEE de la région (estimation par taux de charge régional)
+  installations      Int? // nombre d'installations du registre ODRE regroupées
   wikidata_id        String?
   osm_id             String? // ex. "relation/20240158"
   contour            Json? // anneau extérieur simplifié [[lon, lat], ...]
   created_at         DateTime  @default(now())
   updated_at         DateTime  @updatedAt
 
-  reactors Reactor[]
+  units Unit[]
 
   @@map("plants")
 }
 
-// Table de référence des 57 réacteurs (métadonnées stables)
-model Reactor {
+// Groupe de production publié individuellement par RTE (réacteur, groupe hydraulique,
+// éolienne en mer...), identifié par son code EIC.
+model Unit {
   eic_code           String    @id
   name               String
-  production_type    String    @default("NUCLEAR")
+  production_type    String    @default("NUCLEAR") // type RTE, ex. NUCLEAR, HYDRO_PUMPED_STORAGE
   plant_id           String?
   capacity_mw        Float?
   commissioning_date DateTime? @db.Date
@@ -60,7 +63,7 @@ model Reactor {
   readings ProductionReading[]
 
   @@index([plant_id])
-  @@map("reactors")
+  @@map("units")
 }
 
 // Relevés de production par créneau (1h pendant 7 jours, puis 1 jour au-delà)
@@ -74,7 +77,7 @@ model ProductionReading {
   updated_date    DateTime
   created_at      DateTime    @default(now())
 
-  reactor Reactor @relation(fields: [eic_code], references: [eic_code])
+  unit Unit @relation(fields: [eic_code], references: [eic_code])
 
   // Clé composite = pas besoin d'id séparé, et sert de cible pour les upserts
   // (create/update en une seule opération, idempotent si on rejoue une ingestion).
@@ -83,4 +86,21 @@ model ProductionReading {
   // qui filtrent par start_date/granularity sans passer par eic_code.
   @@index([start_date, granularity])
   @@map("production_readings")
+}
+
+// Séries agrégées, même rétention que les relevés par groupe (horaire 7 jours, puis journalier) :
+//   "FR:<TYPE>"           production nationale par filière, MW (RTE actual_generations_per_production_type)
+//   "REGION:<code>:WIND"  taux de charge régional de l'éolien, 0-1 (éCO2mix régional)
+//   "REGION:<code>:HYDRO" taux de charge régional de l'hydraulique, 0-1 (éCO2mix régional)
+model AggregateReading {
+  series       String
+  start_date   DateTime
+  granularity  Granularity @default(HOUR)
+  value        Float
+  updated_date DateTime
+  created_at   DateTime    @default(now())
+
+  @@id([series, start_date, granularity])
+  @@index([start_date, granularity])
+  @@map("aggregate_readings")
 }

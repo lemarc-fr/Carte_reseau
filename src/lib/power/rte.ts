@@ -1,4 +1,5 @@
-// Client de l'API RTE « Actual Generation » (production réalisée par groupe > 100 MW).
+// Client de l'API RTE « Actual Generation » : production réalisée par groupe (> 100 MW)
+// et par filière (France entière).
 // https://data.rte-france.com/catalog/-/api/generation/Actual-Generation/v1.1
 //
 // Comportement observé de actual_generations_per_unit :
@@ -8,8 +9,7 @@
 //  - pas horaire, valeurs en MW, publiées avec ~20 min de retard.
 
 const TOKEN_URL = 'https://digital.iservices.rte-france.com/token/oauth/';
-const API_URL =
-  'https://digital.iservices.rte-france.com/open_api/actual_generation/v1/actual_generations_per_unit';
+const API_BASE = 'https://digital.iservices.rte-france.com/open_api/actual_generation/v1';
 
 export const MAX_DAYS_PER_CALL = 7;
 const PARIS_TZ = 'Europe/Paris';
@@ -19,6 +19,13 @@ export interface RteValue {
   end_date: string;
   updated_date: string;
   value: number;
+}
+
+export interface RteProductionTypeResult {
+  start_date: string;
+  end_date: string;
+  production_type: string; // NUCLEAR, WIND_ONSHORE, HYDRO_PUMPED_STORAGE, …, TOTAL
+  values: (Omit<RteValue, 'updated_date'> & { updated_date?: string })[];
 }
 
 export interface RteUnitResult {
@@ -103,17 +110,13 @@ async function getAccessToken(): Promise<string> {
 
 // ─── Données ─────────────────────────────────────────────────────────────────
 
-/**
- * Production réalisée de toutes les unités entre deux jours (Paris), fin exclue.
- * La fenêtre est limitée à MAX_DAYS_PER_CALL jours.
- */
-export async function fetchActualGenerations(fromDay: string, toDay: string): Promise<RteUnitResult[]> {
+async function fetchWindow<T>(resource: string, fromDay: string, toDay: string): Promise<T> {
   const span = daysBetween(fromDay, toDay);
   if (span < 1 || span > MAX_DAYS_PER_CALL) {
     throw new Error(`Fenêtre RTE invalide (${fromDay} → ${toDay}) : 1 à ${MAX_DAYS_PER_CALL} jours`);
   }
 
-  const url = new URL(API_URL);
+  const url = new URL(`${API_BASE}/${resource}`);
   url.searchParams.set('start_date', parisMidnight(fromDay));
   url.searchParams.set('end_date', parisMidnight(toDay));
 
@@ -123,9 +126,26 @@ export async function fetchActualGenerations(fromDay: string, toDay: string): Pr
   });
   if (res.status === 401) cachedToken = null;
   if (!res.ok) {
-    throw new Error(`API RTE ${fromDay} → ${toDay} (${res.status}) : ${await res.text()}`);
+    throw new Error(`API RTE ${resource} ${fromDay} → ${toDay} (${res.status}) : ${await res.text()}`);
   }
+  return (await res.json()) as T;
+}
 
-  const data = (await res.json()) as { actual_generations_per_unit?: RteUnitResult[] };
+/**
+ * Production réalisée de toutes les unités entre deux jours (Paris), fin exclue.
+ * La fenêtre est limitée à MAX_DAYS_PER_CALL jours.
+ */
+export async function fetchActualGenerations(fromDay: string, toDay: string): Promise<RteUnitResult[]> {
+  const data = await fetchWindow<{ actual_generations_per_unit?: RteUnitResult[] }>(
+    'actual_generations_per_unit', fromDay, toDay
+  );
   return data.actual_generations_per_unit ?? [];
+}
+
+/** Production nationale par filière (horaire) entre deux jours (Paris), fin exclue. */
+export async function fetchGenerationsPerType(fromDay: string, toDay: string): Promise<RteProductionTypeResult[]> {
+  const data = await fetchWindow<{ actual_generations_per_production_type?: RteProductionTypeResult[] }>(
+    'actual_generations_per_production_type', fromDay, toDay
+  );
+  return data.actual_generations_per_production_type ?? [];
 }

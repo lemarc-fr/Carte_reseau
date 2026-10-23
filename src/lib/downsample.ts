@@ -58,6 +58,22 @@ export async function downsampleOldHourlyData(retentionDays: number = RETENTION_
       WHERE granularity = 'HOUR' AND start_date < ${cutoff}
     `;
 
+    // Même traitement pour les séries agrégées (production nationale, taux de charge
+    // régionaux), pour qu'elles restent alignées sur les relevés des groupes.
+    await tx.$executeRaw`
+      INSERT INTO aggregate_readings (series, start_date, granularity, value, updated_date, created_at)
+      SELECT series, date_trunc('day', start_date), 'DAY'::"Granularity", AVG(value), now(), now()
+      FROM aggregate_readings
+      WHERE granularity = 'HOUR' AND start_date < ${cutoff}
+      GROUP BY series, date_trunc('day', start_date)
+      ON CONFLICT (series, start_date, granularity)
+      DO UPDATE SET value = EXCLUDED.value, updated_date = EXCLUDED.updated_date
+    `;
+    await tx.$executeRaw`
+      DELETE FROM aggregate_readings
+      WHERE granularity = 'HOUR' AND start_date < ${cutoff}
+    `;
+
     return { cutoff, insertedOrUpdated, deletedHourlyRows };
   }, { timeout: 5 * 60 * 1000 }); // un rattrapage (BACK_FILL_START) peut laisser des centaines de milliers de lignes
 }

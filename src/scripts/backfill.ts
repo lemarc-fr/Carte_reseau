@@ -27,8 +27,10 @@ async function main() {
   const today = parisDay();
   const from = addDays(today, -(days - 1));
   console.log(`Récupération RTE du ${from} au ${today}…`);
-  const rows = await ingestDays(from, addDays(today, 1), (start, end, n) => console.log(`  ${start} → ${end} : ${n}`));
-  console.log(`${rows} relevé(s) horaires écrits.`);
+  const rows = await ingestDays(from, addDays(today, 1), (source, start, end, n) =>
+    console.log(`  ${source.padEnd(24)} ${start} → ${end} : ${n}`)
+  );
+  console.log(`${rows} relevé(s) écrits.`);
 
   const { insertedOrUpdated, deletedHourlyRows } = await downsampleOldHourlyData();
   console.log(`Sous-échantillonnage : ${insertedOrUpdated} jour(s) agrégés, ${deletedHourlyRows} relevés horaires supprimés.`);

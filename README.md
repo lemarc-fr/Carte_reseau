@@ -4,8 +4,16 @@ Application Next.js pour visualiser des actifs de production électrique en Fran
 
 Interface inspirée de la [GB Renewables Map](https://renewables-map.robinhawkes.com/) de Robin Hawkes :
 carte des centrales (anneau = capacité, disque = production), graphique de production sur 7 jours,
-choix de l'instant affiché, liste triable et fiche détaillée par centrale. Pour l'instant : le nucléaire
-(18 centrales, 57 réacteurs), production horaire par réacteur publiée par RTE.
+choix de l'instant affiché, liste triable et fiche détaillée par centrale.
+
+| Filière | Sites | Production affichée |
+|---|---|---|
+| Nucléaire | 18 centrales, 57 réacteurs | par réacteur (RTE) |
+| Hydraulique et STEP | 153 centrales | par groupe pour 16 grandes centrales (RTE), estimée pour les autres |
+| Éolien | 1 447 sites (parcs regroupés par commune, 5 parcs en mer) | par groupe pour les parcs en mer (RTE), estimée pour les autres |
+
+Estimation = puissance installée × taux de charge régional de la filière (éCO2mix). Le graphique et la
+barre du haut utilisent la production nationale par filière publiée par RTE.
 
 ## Lancer le projet
 
@@ -15,7 +23,7 @@ et **`BACK_FILL_START`**, la date (YYYY-MM-DD) depuis laquelle l'historique de p
 ```bash
 npm ci
 npm run db:migrate   # applique src/prisma/migrations
-npm run db:seed      # 18 centrales + 57 réacteurs depuis dataset/Finie/NUCLEAR.json
+npm run db:seed      # centrales et parcs depuis dataset/Finie/ (NUCLEAR, HYDRO, WIND .json)
 npm run dev
 ```
 
@@ -28,10 +36,16 @@ main, `npm run backfill -- 30` retélécharge les 30 derniers jours.
 Le vent (AROME 10 m, Météo-France) est rechargé toutes les heures ; la carte indique le run et
 l'échéance affichés.
 
+Jeux de données : `dataset/Finie/WIND.json` est produit par `dataset/rafactor data/eolien.py` (registre
+ODRE, communes géocodées par geo.api.gouv.fr, parcs en mer positionnés dans `patches_wind.json`). Les
+groupes hydrauliques RTE sont rattachés à leur centrale par leur nom (`src/lib/power/unitPlants.ts`).
+
 ### API
 
 - `GET /api/plants` : centrales, réacteurs, position et emprise du site
-- `GET /api/generation?from=ISO&to=ISO` : production horaire par réacteur (7 jours par défaut, 31 max)
+- `GET /api/generation?from=ISO&to=ISO` : production horaire par groupe, production nationale par filière
+  et taux de charge régionaux (7 jours par défaut, 31 max)
+- `GET /api/units` : groupes publiés par RTE
 
 ### Déploiement (Raspberry Pi)
 
@@ -40,7 +54,7 @@ l'échéance affichés.
 - `systemd/nginx.conf.part` : bloc `server` en 443 ssl, inclus avec ceux des autres sites par
   `include /home/Marc/Web/*/systemd/nginx.conf.part;` (certificats déclarés globalement)
 - `.github/workflows/deploy.yml` : à chaque push sur `master`, SSH sur le Pi puis `git pull`, `npm ci`,
-  `npm run db:migrate`, `npm run build` et redémarrage du service
+  `npm run db:migrate`, `npm run db:seed`, `npm run build` et redémarrage du service
 
 ## Sources de données disponibles
 

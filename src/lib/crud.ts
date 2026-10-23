@@ -45,7 +45,7 @@ export async function upsertReading(input: ProductionReadingInput) {
   });
 }
 
-// Upsert de plusieurs relevés en une transaction (ex : les 57 réacteurs pour
+// Upsert de plusieurs relevés en une transaction (ex : tous les groupes pour
 // un créneau horaire donné, envoyés en une seule requête d'ingestion).
 export async function upsertReadingsBulk(inputs: ProductionReadingInput[]) {
   const ops = inputs.map((input) => {
@@ -72,7 +72,7 @@ export async function upsertReadingsBulk(inputs: ProductionReadingInput[]) {
 
 // ---------- READ ----------
 
-export async function getReadingsByReactor(
+export async function getReadingsByUnit(
   eic_code: string,
   opts: { from?: Date; to?: Date; granularity?: Granularity } = {}
 ) {
@@ -90,7 +90,7 @@ export async function getReadingsByReactor(
 }
 
 // Dernière valeur connue pour une centrale donnée
-export async function getLatestForReactor(eic_code: string) {
+export async function getLatestForUnit(eic_code: string) {
   return prisma.productionReading.findFirst({
     where: { eic_code },
     orderBy: { start_date: 'desc' },
@@ -99,7 +99,7 @@ export async function getLatestForReactor(eic_code: string) {
 
 // Dernière valeur connue pour CHAQUE centrale en une seule requête (DISTINCT ON
 // + l'index sur start_date rend ça rapide même avec beaucoup d'historique).
-export async function getLatestForAllReactors() {
+export async function getLatestForAllUnits() {
   return prisma.$queryRaw<
     {
       eic_code: string;
@@ -168,22 +168,22 @@ export async function deleteReading(
   });
 }
 
-// ---------- CRUD table Reactor (référentiel des 57 centrales) ----------
+// ---------- CRUD table Unit (groupes publiés par RTE : réacteurs, groupes hydrauliques, éolien en mer) ----------
 
-export async function listReactors() {
-  return prisma.reactor.findMany({ orderBy: { name: 'asc' } });
+export async function listUnits() {
+  return prisma.unit.findMany({ orderBy: { name: 'asc' } });
 }
 
-export async function getReactor(eic_code: string) {
-  return prisma.reactor.findUnique({ where: { eic_code } });
+export async function getUnit(eic_code: string) {
+  return prisma.unit.findUnique({ where: { eic_code } });
 }
 
-export async function upsertReactor(data: {
+export async function upsertUnit(data: {
   eic_code: string;
   name: string;
   production_type?: string;
 }) {
-  return prisma.reactor.upsert({
+  return prisma.unit.upsert({
     where: { eic_code: data.eic_code },
     update: { name: data.name, production_type: data.production_type ?? 'NUCLEAR' },
     create: {
@@ -194,6 +194,6 @@ export async function upsertReactor(data: {
   });
 }
 
-export async function deleteReactor(eic_code: string) {
-  return prisma.reactor.delete({ where: { eic_code } });
+export async function deleteUnit(eic_code: string) {
+  return prisma.unit.delete({ where: { eic_code } });
 }

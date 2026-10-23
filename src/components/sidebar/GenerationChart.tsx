@@ -3,59 +3,73 @@
 import { useMemo } from 'react';
 import { useMapStore } from '@/store/useMapStore';
 import { useCurrentSlot } from '@/hooks/useCurrentSlot';
-import { formatGW, stackedRows } from '@/lib/generationUtils';
+import { buildRows, nationalOutput } from '@/lib/generationUtils';
+import { ASSET_TYPE_ORDER, ASSET_TYPES } from '@/config/assetTypes';
 import StackedChart, { type ChartSeries } from '@/components/charts/StackedChart';
+import type { AssetType } from '@/types/energy';
 import styles from './Sidebar.module.css';
 
-// Une série par filière (seul le nucléaire est ingéré pour l'instant)
-const SERIES: ChartSeries[] = [{ key: 'nuclear', label: 'Nucléaire', fill: '#b9eef5', stroke: '#5fc9da' }];
-
+// Production nationale par filière (RTE), une aire par filière affichée sur la carte
 export default function GenerationChart() {
-  const plants = useMapStore((s) => s.plants);
+  const productionTypes = useMapStore((s) => s.productionTypes);
   const generationStatus = useMapStore((s) => s.generationStatus);
   const setSelectedTime = useMapStore((s) => s.setSelectedTime);
   const { generation, slotStart } = useCurrentSlot();
 
-  const capacity = useMemo(() => plants.reduce((sum, p) => sum + p.capacity_mw, 0), [plants]);
+  const types = ASSET_TYPE_ORDER.filter((type) => productionTypes[ASSET_TYPES[type].storeKey]);
+  const series: ChartSeries[] = types.map((type) => ({
+    key: type,
+    label: ASSET_TYPES[type].label,
+    fill: ASSET_TYPES[type].chartFill,
+    stroke: ASSET_TYPES[type].chartStroke,
+  }));
+
+  const typesKey = types.join(',');
   const rows = useMemo(() => {
     if (!generation) return [];
-    const eics = plants.flatMap((p) => p.reactors.map((r) => r.eic_code));
-    return stackedRows(generation, [{ key: 'nuclear', eics }]);
-  }, [generation, plants]);
+    return buildRows(
+      generation,
+      (typesKey.split(',').filter(Boolean) as AssetType[]).map((type) => ({
+        key: type,
+        value: (i: number) => nationalOutput(generation, type, i),
+      }))
+    );
+  }, [generation, typesKey]);
 
   return (
     <section className={styles.chartSection}>
-      <div className={styles.chartLabel}>↑ Production (GW)</div>
+      <div className={styles.chartLabel}>↑ Production en France (GW)</div>
       <div className={styles.chartBox}>
-        {generation && rows.length > 0 ? (
+        {generation && rows.length > 0 && series.length > 0 ? (
           <StackedChart
             rows={rows}
-            series={SERIES}
+            series={series}
             from={generation.from}
             to={generation.to}
             cursor={slotStart}
-            capacity={capacity || undefined}
             unit="GW"
-            height={130}
+            height={140}
             onSelectTime={setSelectedTime}
           />
         ) : (
           <div className={styles.chartPlaceholder}>
-            {generationStatus === 'error' ? 'Production indisponible' : generation ? 'Aucune donnée sur cette période' : 'Chargement…'}
+            {generationStatus === 'error'
+              ? 'Production indisponible'
+              : !series.length
+                ? 'Aucune filière affichée'
+                : generation
+                  ? 'Aucune donnée sur cette période'
+                  : 'Chargement…'}
           </div>
         )}
       </div>
       <div className={styles.legend}>
-        {SERIES.map((s) => (
+        {series.map((s) => (
           <span key={s.key} className={styles.legendItem}>
             <span className={styles.swatch} style={{ background: s.fill, borderColor: s.stroke }} />
             {s.label}
           </span>
         ))}
-        <span className={styles.legendItem}>
-          <span className={styles.swatchLine} />
-          Capacité installée ({formatGW(capacity)} GW)
-        </span>
         <span className={styles.legendItem}>
           <span className={styles.swatchCursor} />
           Instant affiché

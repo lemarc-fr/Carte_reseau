@@ -1,0 +1,66 @@
+[
+  {
+    "id": "eolien-en-mer-saint-nazaire",
+    "name": "Saint-Nazaire",
+    "full_name": "Parc éolien en mer de Saint-Nazaire (banc de Guérande)",
+    "match": "BANC-DE-GUERA",
+    "latitude": 47.165,
+    "longitude": -2.585
+  },
+  {
+    "id": "eolien-en-mer-fecamp",
+    "name": "Fécamp",
+    "full_name": "Parc éolien en mer de Fécamp",
+    "match": "HAUTES - FALA",
+    "latitude": 49.9042,
+    "longitude": 0.2203
+  },
+  {
+    "id": "eolien-en-mer-saint-brieuc",
+    "name": "Saint-Brieuc",
+    "full_name": "Parc éolien en mer de la baie de Saint-Brieuc",
+    "match": "BAIE-DE-ST-BR",
+    "latitude": 48.86,
+    "longitude": -2.535
+  },
+  {
+    "id": "eolien-en-mer-yeu-noirmoutier",
+    "name": "Yeu-Noirmoutier",
+    "full_name": "Parc éolien en mer des îles d'Yeu et de Noirmoutier",
+    "match": "VENT-DES-ILES",
+    "latitude": 46.8691,
+    "longitude": -2.5102
+  },
+  {
+    "id": "eolien-en-mer-dieppe-le-treport",
+    "name": "Dieppe-Le Tréport",
+    "full_name": "Parc éolien en mer de Dieppe-Le Tréport (Ridens de Dieppe)",
+    "match": "RIDENS-DE-DIE",
+    "latitude": 50.08,
+    "longitude": 1.22,
+    "extra_units": [
+      {
+        "eic_code": "17W100P100P2830V",
+        "name": "ADP A2 DE LA FERME EOLIENNE DE RIDENS-DE-DIEPPE",
+        "capacity_mw": 248,
+        "commissioning_date": null
+      }
+    ]
+  },
+  {
+    "id": "eolien-en-mer-provence-grand-large",
+    "name": "Provence Grand Large",
+    "full_name": "Ferme pilote flottante Provence Grand Large (Faraman)",
+    "match": "FARAMAN",
+    "latitude": 43.25,
+    "longitude": 4.79
+  },
+  {
+    "id": "eolien-en-mer-floatgen",
+    "name": "Floatgen",
+    "full_name": "Éolienne flottante Floatgen (site d'essais SEM-REV)",
+    "match": "FONDATION OPEN C",
+    "latitude": 47.24,
+    "longitude": -2.78
+  }
+]

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getReadingsByReactor, deleteReading, upsertReading } from '@/lib/crud';
+import { getReadingsByUnit, deleteReading, upsertReading } from '@/lib/crud';
 import type { Granularity } from '@prisma/client';
 
 // GET /api/production/17W100P100P0135M?from=...&to=...&granularity=HOUR|DAY
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ eic_
   const to = searchParams.get('to');
   const granularity = searchParams.get('granularity') as Granularity | null;
 
-  const data = await getReadingsByReactor(eic_code, {
+  const data = await getReadingsByUnit(eic_code, {
     from: from ? new Date(from) : undefined,
     to: to ? new Date(to) : undefined,
     granularity: granularity ?? undefined,

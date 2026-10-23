@@ -2,47 +2,41 @@
 
 import { useMapStore } from '@/store/useMapStore';
 import { useCurrentSlot } from '@/hooks/useCurrentSlot';
-import { fleetSnapshot, formatMW, formatPercent } from '@/lib/generationUtils';
+import { formatGW, formatMW, nationalOutput } from '@/lib/generationUtils';
+import { ASSET_TYPE_ORDER, ASSET_TYPES } from '@/config/assetTypes';
 import styles from './Map.module.css';
 
-function Stat({ label, title, value, color }: { label: string; title: string; value: string; color?: string }) {
-  return (
-    <span className={styles.stat}>
-      <span className={styles.statLabel} title={title}>
-        {label} :
-      </span>
-      <span className={styles.statValue} style={color ? { color } : undefined}>
-        {value}
-      </span>
-    </span>
-  );
-}
-
+// Production nationale (RTE, par filière) des filières affichées sur la carte
 export default function StatsBar() {
-  const plants = useMapStore((s) => s.plants);
+  const productionTypes = useMapStore((s) => s.productionTypes);
   const { generation, index } = useCurrentSlot();
-  const fleet = fleetSnapshot(plants, generation, index);
-  const hasData = fleet.output !== null;
+
+  const types = ASSET_TYPE_ORDER.filter((type) => productionTypes[ASSET_TYPES[type].storeKey]);
+  const values = types.map((type) => ({ type, value: nationalOutput(generation, type, index) }));
+  const known = values.filter((v) => v.value !== null);
+  const total = known.length ? known.reduce((sum, v) => sum + v.value!, 0) : null;
 
   return (
     <div className={styles.statsBar}>
-      <Stat
-        label="Production"
-        title="Production totale des réacteurs nucléaires sur le créneau horaire affiché"
-        value={`${formatMW(fleet.output)} MW`}
-      />
-      <Stat
-        label="Facteur de charge"
-        title="Production rapportée à la capacité installée du parc"
-        value={hasData && fleet.capacity ? formatPercent(fleet.output! / fleet.capacity) : '–'}
-        color="#086f83"
-      />
-      <Stat
-        label="En marche"
-        title="Réacteurs qui produisent sur le créneau affiché"
-        value={hasData ? `${fleet.running} / ${fleet.reactors}` : '–'}
-        color="#2f855a"
-      />
+      <span className={styles.stat}>
+        <span className={styles.statLabel} title="Production nationale des filières affichées sur le créneau horaire (RTE)">
+          Production :
+        </span>
+        <span className={styles.statValue}>{formatMW(total)} MW</span>
+      </span>
+      {values.map(({ type, value }) => (
+        <span key={type} className={styles.stat}>
+          <span
+            className={styles.statLabel}
+            title={type === 'pumped_storage' ? 'Turbinage (+) ou pompage (−) des STEP' : undefined}
+          >
+            {ASSET_TYPES[type].label} :
+          </span>
+          <span className={styles.statValue} style={{ color: ASSET_TYPES[type].badgeColor }}>
+            {value === null ? '–' : `${value > 0 && type === 'pumped_storage' ? '+' : ''}${formatGW(value)} GW`}
+          </span>
+        </span>
+      ))}
     </div>
   );
 }
