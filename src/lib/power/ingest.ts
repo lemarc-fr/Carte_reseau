@@ -39,6 +39,9 @@ const HOURLY_RETENTION_DAYS = 7;
 const LATE_PUBLICATION_HOURS = 3;
 // Pause entre deux fenêtres lors d'un rattrapage long (une fenêtre = 7 jours)
 const BACKFILL_PAUSE_MS = 1000;
+// Les API renvoient parfois des erreurs passagères (502 de la passerelle RTE) :
+// nouvelles tentatives après ces délais
+const RETRY_DELAYS_MS = [5_000, 20_000];
 
 /**
  * Début de l'historique à conserver, variable d'environnement BACK_FILL_START
@@ -55,6 +58,18 @@ export function backfillStart(): string | null {
 }
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function withRetry<T>(label: string, task: () => Promise<T>): Promise<T> {
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return await task();
+    } catch (err) {
+      if (attempt >= RETRY_DELAYS_MS.length) throw err;
+      console.warn(`[production] ${label} : échec (${(err as Error).message.slice(0, 120)}), nouvel essai`);
+      await sleep(RETRY_DELAYS_MS[attempt]);
+    }
+  }
+}
 
 // ─── Écriture ────────────────────────────────────────────────────────────────
 
@@ -263,7 +278,7 @@ export async function ingestDays(
     const windowEnd = addDays(start, MAX_DAYS_PER_CALL);
     const end = windowEnd < toDay ? windowEnd : toDay;
     for (const source of sources) {
-      const rows = await source.ingest(start, end);
+      const rows = await withRetry(`${source.name} ${start} → ${end}`, () => source.ingest(start, end));
       written += rows;
       onProgress?.(source.name, start, end, rows);
     }
@@ -294,12 +309,17 @@ export async function backfillHistory(): Promise<number> {
     }
     for (const [from, to] of ranges) {
       console.log(`[production] rattrapage ${source.name} du ${from} au ${to} (BACK_FILL_START=${start})…`);
-      rows += await ingestDays(
-        from,
-        to,
-        (_, a, b, n) => console.log(`[production]   ${a} → ${b} : ${n} relevé(s)`),
-        [source]
-      );
+      try {
+        rows += await ingestDays(
+          from,
+          to,
+          (_, a, b, n) => console.log(`[production]   ${a} → ${b} : ${n} relevé(s)`),
+          [source]
+        );
+      } catch (err) {
+        // Les jours manquants seront repris au prochain démarrage ; on passe à la suite
+        console.error(`[production] rattrapage ${source.name} interrompu :`, (err as Error).message);
+      }
     }
   }
   if (rows) await downsampleOldHourlyData();
