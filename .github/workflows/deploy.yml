@@ -29,6 +29,7 @@ jobs:
             cd /home/Marc/Web/Carte_reseau/
             git pull --ff-only
             npm ci
+            npx prisma generate   # client à jour avant le seed (le build le régénère aussi)
             npm run db:migrate
             npm run db:seed
             npm run build
