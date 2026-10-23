@@ -1,9 +1,9 @@
 import type { AssetType, GenerationSeries, PlantInfo, UnitInfo } from '@/types/energy';
-import { ASSET_TYPES, SIGNED_UNIT_TYPES } from '@/config/assetTypes';
+import { ASSET_TYPES, DISPLAYED_COUNTRIES } from '@/config/assetTypes';
 
 // Fonctions pures côté client : lecture des matrices de GenerationSeries.
-// Les valeurs RTE sont légèrement négatives quand un groupe à l'arrêt consomme pour
-// ses auxiliaires : ramenées à 0, sauf pour les STEP où le négatif est le pompage.
+// Les valeurs sont légèrement négatives quand un groupe à l'arrêt consomme pour ses
+// auxiliaires : ramenées à 0, sauf pour le stockage (STEP, batteries) où c'est la recharge.
 
 export const HOUR_MS = 60 * 60 * 1000;
 export const DAY_MS = 24 * HOUR_MS;
@@ -36,23 +36,38 @@ export function effectiveTime(selectedTime: number | null, generation: Generatio
   return selectedTime ?? generation?.latest ?? Date.now();
 }
 
-/** Puissance d'un groupe sur le créneau (MW), signée pour les STEP (négatif = pompage). */
-export function unitOutput(generation: GenerationSeries | null, unit: UnitInfo, index: number): number | null {
+/** Puissance d'un groupe sur le créneau (MW) ; négative seulement pour un stockage qui se recharge. */
+export function unitOutput(
+  generation: GenerationSeries | null,
+  unit: UnitInfo,
+  index: number,
+  signed = false
+): number | null {
   if (!generation || index < 0) return null;
   const value = generation.series[unit.eic_code]?.[index];
   if (value === null || value === undefined) return null;
-  return SIGNED_UNIT_TYPES.has(unit.production_type) ? value : Math.max(0, value);
+  return signed ? value : Math.max(0, value);
 }
 
-// Certaines régions publient leur éCO2mix avec une heure de retard : on reprend leur
-// dernier taux de charge s'il date de moins de quelques créneaux horaires
+/** Les valeurs négatives de ce site sont-elles une recharge (STEP, batteries) ? */
+export const isStorage = (plant: PlantInfo) => ASSET_TYPES[plant.type].storage;
+
+/** Libellé d'une puissance négative de stockage */
+export const chargingLabel = (type: AssetType) => (type === 'pumped_storage' ? 'Pompage' : 'Recharge');
+
+/** Groupes du site dont la production est publiée sur la fenêtre chargée */
+export const publishedUnits = (plant: PlantInfo, generation: GenerationSeries | null) =>
+  plant.units.filter((unit) => generation?.series[unit.eic_code]);
+
+// Certaines régions publient avec une heure de retard : on reprend leur dernier taux
+// de charge s'il date de moins de quelques créneaux horaires
 const LOAD_FACTOR_MAX_AGE_SLOTS = 3;
 
-/** Taux de charge régional (0-1) servant à estimer une centrale sans groupe publié. */
+/** Taux de charge régional (0-1, négatif pour des batteries qui se rechargent). */
 export function regionalLoadFactor(generation: GenerationSeries | null, plant: PlantInfo, index: number): number | null {
   const kind = ASSET_TYPES[plant.type].regionalSeries;
   if (!generation || index < 0 || !kind || !plant.region_code) return null;
-  const series = generation.aggregates[`REGION:${plant.region_code}:${kind}`];
+  const series = generation.aggregates[`${plant.country}-${plant.region_code}:${kind}`];
   if (!series) return null;
   for (let i = index; i >= 0 && i > index - LOAD_FACTOR_MAX_AGE_SLOTS; i--) {
     if (generation.granularity[i] !== 'HOUR') break;
@@ -61,19 +76,23 @@ export function regionalLoadFactor(generation: GenerationSeries | null, plant: P
   return series[index] ?? null;
 }
 
-/** La production de cette centrale est-elle estimée (aucun groupe publié par RTE) ? */
-export const isEstimated = (plant: PlantInfo) => plant.units.length === 0;
+/**
+ * Production estimée (capacité × taux de charge régional) : aucun groupe du site n'a
+ * publié de valeur sur la fenêtre chargée (petits sites, ou groupes non publiés).
+ */
+export const isEstimated = (plant: PlantInfo, generation: GenerationSeries | null) =>
+  publishedUnits(plant, generation).length === 0;
 
 export interface Snapshot {
-  output: number | null; // MW (négatif : pompage), null si rien de publié ni d'estimable
+  output: number | null; // MW (négatif : recharge d'un stockage), null si rien de publié ni d'estimable
   capacity: number; // MW installés
   running: number; // groupes qui produisent
-  units: number; // groupes publiés par RTE
+  units: number; // groupes publiés
   estimated: boolean; // capacité × taux de charge régional
 }
 
 export function plantSnapshot(plant: PlantInfo, generation: GenerationSeries | null, index: number): Snapshot {
-  if (isEstimated(plant)) {
+  if (isEstimated(plant, generation)) {
     const factor = regionalLoadFactor(generation, plant, index);
     return {
       output: factor === null ? null : plant.capacity_mw * factor,
@@ -83,24 +102,32 @@ export function plantSnapshot(plant: PlantInfo, generation: GenerationSeries | n
       estimated: true,
     };
   }
+  const published = publishedUnits(plant, generation);
   let output: number | null = null;
   let running = 0;
-  for (const unit of plant.units) {
-    const value = unitOutput(generation, unit, index);
+  for (const unit of published) {
+    const value = unitOutput(generation, unit, index, isStorage(plant));
     if (value === null) continue;
     output = (output ?? 0) + value;
     if (value > 0) running++;
   }
-  return { output, capacity: plant.capacity_mw, running, units: plant.units.length, estimated: false };
+  return { output, capacity: plant.capacity_mw, running, units: published.length, estimated: false };
 }
 
-/** Production nationale d'une filière sur le créneau (MW, séries RTE par filière). */
-export function nationalOutput(generation: GenerationSeries | null, type: AssetType, index: number): number | null {
+/** Production nationale d'une filière sur le créneau (MW), pour les pays affichés. */
+export function nationalOutput(
+  generation: GenerationSeries | null,
+  type: AssetType,
+  index: number,
+  countries: string[] = DISPLAYED_COUNTRIES
+): number | null {
   if (!generation || index < 0) return null;
   let sum: number | null = null;
-  for (const key of ASSET_TYPES[type].nationalSeries) {
-    const value = generation.aggregates[key]?.[index];
-    if (value !== null && value !== undefined) sum = (sum ?? 0) + value;
+  for (const country of countries) {
+    for (const code of ASSET_TYPES[type].nationalSeries) {
+      const value = generation.aggregates[`${country}:${code}`]?.[index];
+      if (value !== null && value !== undefined) sum = (sum ?? 0) + value;
+    }
   }
   return sum;
 }

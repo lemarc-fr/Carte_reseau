@@ -2,12 +2,12 @@
 export const PROTOMAPS_API_KEY = "d0a95613fda80905";
 
 export const MAP_MAX_ZOOM = 14;
+// Zoom du détail : emprise des centrales et installations OpenStreetMap à la place des cercles
+export const DETAIL_MIN_ZOOM = 10;
 
-// Zone couverte par les données de vent AROME
-export const BOUNDS = {
-  minLon: -10, maxLon: 15,
-  minLat: 40, maxLat: 52,
-};
+// Zones des couches de vent : GFS sur l'Europe, AROME HD sur la France et ses voisins
+export const EUROPE_WIND_BOUNDS = { minLon: -25, maxLon: 45, minLat: 34, maxLat: 72 };
+export const FRANCE_WIND_BOUNDS = { minLon: -10, maxLon: 15, minLat: 40, maxLat: 52 };
 
 // Vue initiale : France métropolitaine entière
 export const FRANCE_BOUNDS: [[number, number], [number, number]] = [
@@ -15,10 +15,10 @@ export const FRANCE_BOUNDS: [[number, number], [number, number]] = [
   [8.4, 51.2],
 ];
 
-// Limite de navigation, plus large que la zone du vent pour laisser de la marge
+// Limite de navigation : l'Europe, avec de la marge
 export const MAX_BOUNDS: [[number, number], [number, number]] = [
-  [-20, 34],
-  [25, 58],
+  [-35, 28],
+  [55, 75],
 ];
 
 // Particules blanches

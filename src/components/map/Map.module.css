@@ -74,6 +74,12 @@
   text-transform: uppercase;
 }
 
+.tooltipNote {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--gray-500);
+}
+
 .tooltipRow {
   display: flex;
   justify-content: space-between;
@@ -85,6 +91,7 @@
   position: absolute;
   bottom: 30px;
   left: 10px;
+  max-width: calc(100% - 20px);
   padding: 4px 10px;
   border-radius: var(--radius);
   background: rgba(26, 32, 44, 0.7);

@@ -11,6 +11,12 @@ const ASSET_TYPES: Record<string, AssetType> = {
   HYDRO: 'hydro',
   PUMPED_STORAGE: 'pumped_storage',
   WIND: 'wind',
+  SOLAR: 'solar',
+  GAS: 'gas',
+  COAL: 'coal',
+  OIL: 'oil',
+  BIOENERGY: 'bioenergy',
+  BATTERY: 'battery',
 };
 
 export async function listPlants(): Promise<PlantInfo[]> {
@@ -23,6 +29,7 @@ export async function listPlants(): Promise<PlantInfo[]> {
     .filter((plant) => plant.production_type in ASSET_TYPES)
     .map((plant) => ({
       id: plant.id,
+      country: plant.country,
       name: plant.name,
       full_name: plant.full_name,
       type: ASSET_TYPES[plant.production_type],
