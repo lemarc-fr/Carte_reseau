@@ -123,6 +123,8 @@ def main():
     args = parser.parse_args()
 
     registre = [e for e in load_json(args.registre) if e.get("regime") == "En service"]
+    # France métropolitaine seulement (les régions d'outre-mer ont les codes 01 à 06)
+    registre = [e for e in registre if (e.get("coderegion") or "99") > "06"]
     # Quelques fiches de la filière éolienne sont déclarées en photovoltaïque : on les écarte
     registre = [e for e in registre if e.get("technologie") != "Photovoltaïque"]
     offshore = [e for e in registre if (e.get("technologie") or "").startswith("En mer")]

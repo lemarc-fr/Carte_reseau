@@ -6484,22 +6484,6 @@
   "units": []
  },
  {
-  "id": "eolien-97420",
-  "name": "Sainte-Suzanne",
-  "full_name": "Éolien terrestre à Sainte-Suzanne (2 installations)",
-  "technology": "onshore",
-  "commune": "Sainte-Suzanne",
-  "departement": "La Réunion",
-  "region": "La Réunion",
-  "region_code": "04",
-  "latitude": -20.9507,
-  "longitude": 55.5936,
-  "capacity_mw": 19.8,
-  "commissioning_date": "2023-03-01",
-  "installations": 2,
-  "units": []
- },
- {
   "id": "eolien-62333",
   "name": "Fiefs",
   "full_name": "Éolien terrestre à Fiefs (3 installations)",

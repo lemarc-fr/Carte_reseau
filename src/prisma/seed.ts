@@ -403,6 +403,14 @@ async function main() {
         units++;
       }
     }
+    // Sites retirés du jeu de données (leurs groupes restent, détachés : ON DELETE SET NULL)
+    const { count: removed } = await prisma.plant.deleteMany({
+      where: {
+        production_type: { in: [...new Set(plants.map((p) => p.plant.production_type as string))] },
+        id: { notIn: plants.map((p) => p.plant.id) },
+      },
+    });
+    if (removed) console.log(`  ${removed} site(s) retiré(s) du jeu de données supprimé(s)`);
     const capacity = plants.reduce((sum, p) => sum + (p.plant.capacity_mw ?? 0), 0);
     console.log(`${label.padEnd(12)} ${String(plants.length).padStart(5)} centrales  ${String(units).padStart(3)} groupes  ${Math.round(capacity)} MW`);
   }
