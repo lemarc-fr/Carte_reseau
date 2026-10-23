@@ -1,0 +1,114 @@
+import { prisma } from '../../prisma';
+import type { Country } from '../types';
+import { aggregateDays, unitDays, upsertAggregates, upsertUnits } from '../store';
+import { fetchRegionalReadings } from './eco2mix';
+import {
+  fetchActualGenerations,
+  fetchGenerationsPerType,
+  FR_TIME_ZONE,
+  hasRteCredentials,
+  MAX_DAYS_PER_CALL,
+} from './rte';
+import { linkUnitsToPlants } from './unitPlants';
+
+// France : trois sources, synchronisées ensemble.
+//   groupes RTE    production par groupe (> 100 MW)    -> production_readings
+//   filières RTE   production nationale par filière     -> "FR:<TYPE>"
+//   éCO2mix        taux de charge régionaux, batteries  -> "FR-<région>:<FILIÈRE>", "FR:BATTERY"
+
+// Groupes suivis : tous ceux que publie RTE sauf ceux d'une filière sans site sur la carte
+const UNIT_PRODUCTION_TYPES = new Set([
+  'NUCLEAR',
+  'HYDRO_PUMPED_STORAGE',
+  'HYDRO_WATER_RESERVOIR',
+  'HYDRO_RUN_OF_RIVER_AND_POUNDAGE',
+  'WIND_OFFSHORE',
+  'FOSSIL_GAS',
+  'FOSSIL_OIL',
+  'FOSSIL_HARD_COAL',
+  'BIOMASS',
+  'OTHER', // batteries et cogénérations récentes
+]);
+// Un jour est complet pour les groupes s'il contient chacun de ces types (l'éolien en
+// mer n'existe que depuis 2022 et le charbon peut rester à l'arrêt : non exigés)
+const UNIT_TYPES_REQUIRED = ['NUCLEAR', 'HYDRO_PUMPED_STORAGE', 'HYDRO_WATER_RESERVOIR', 'FOSSIL_GAS'];
+
+/** Puissance installée des batteries par région, pour convertir la charge régionale en taux. */
+async function batteryCapacityByRegion(): Promise<Map<string, number>> {
+  const rows = await prisma.plant.groupBy({
+    by: ['region_code'],
+    where: { country: 'FR', production_type: 'BATTERY' },
+    _sum: { capacity_mw: true },
+  });
+  return new Map(rows.map((r) => [r.region_code ?? '', r._sum.capacity_mw ?? 0]));
+}
+
+export const france: Country = {
+  code: 'FR',
+  name: 'France',
+  timeZone: FR_TIME_ZONE,
+  enabled: hasRteCredentials,
+  sources: [
+    {
+      name: 'groupes RTE',
+      maxDays: MAX_DAYS_PER_CALL,
+      ingest: async (fromDay, toDay) => {
+        const units = await fetchActualGenerations(fromDay, toDay);
+        return upsertUnits(
+          units.filter((u) => UNIT_PRODUCTION_TYPES.has(u.unit.production_type)),
+          linkUnitsToPlants
+        );
+      },
+      daysWithData: (fromDay) => unitDays(fromDay, UNIT_TYPES_REQUIRED, FR_TIME_ZONE),
+    },
+    {
+      name: 'filières RTE',
+      maxDays: MAX_DAYS_PER_CALL,
+      ingest: async (fromDay, toDay) => {
+        const now = new Date().toISOString();
+        const types = await fetchGenerationsPerType(fromDay, toDay);
+        return upsertAggregates(
+          types.flatMap((t) =>
+            t.values.map((v) => ({
+              series: `FR:${t.production_type}`,
+              start: v.start_date,
+              value: v.value,
+              updated: v.updated_date ?? now, // absent de certaines réponses par filière
+            }))
+          )
+        );
+      },
+      daysWithData: (fromDay) => aggregateDays(fromDay, 'FR:NUCLEAR', FR_TIME_ZONE),
+    },
+    {
+      name: 'éCO2mix régional',
+      maxDays: MAX_DAYS_PER_CALL,
+      ingest: async (fromDay, toDay) => {
+        const now = new Date().toISOString();
+        const [readings, batteryCapacity] = await Promise.all([
+          fetchRegionalReadings(fromDay, toDay),
+          batteryCapacityByRegion(),
+        ]);
+        const rows = [];
+        const nationalBattery = new Map<number, number>();
+        for (const r of readings) {
+          if (r.kind !== 'BATTERY_MW') {
+            rows.push({ series: `FR-${r.region}:${r.kind}`, start: r.start.toISOString(), value: r.value, updated: now });
+            continue;
+          }
+          nationalBattery.set(r.start.getTime(), (nationalBattery.get(r.start.getTime()) ?? 0) + r.value);
+          const capacity = batteryCapacity.get(r.region);
+          if (capacity) {
+            rows.push({ series: `FR-${r.region}:BATTERY`, start: r.start.toISOString(), value: r.value / capacity, updated: now });
+          }
+        }
+        for (const [t, value] of nationalBattery) {
+          rows.push({ series: 'FR:BATTERY', start: new Date(t).toISOString(), value, updated: now });
+        }
+        return upsertAggregates(rows);
+      },
+      // Solaire : filière la plus récemment ajoutée, son absence relance le rattrapage
+      daysWithData: (fromDay) => aggregateDays(fromDay, 'FR-84:SOLAR', FR_TIME_ZONE),
+    },
+  ],
+};

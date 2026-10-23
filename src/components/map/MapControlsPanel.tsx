@@ -6,35 +6,35 @@ import {
   BatteryIcon,
   BiomassIcon,
   CapacityRingIcon,
+  CoalIcon,
   GasIcon,
   GridBoundariesIcon,
   HydroIcon,
   NormaliseIcon,
   NuclearIcon,
+  OilIcon,
   PumpedStorageIcon,
   SolarIcon,
   WindIcon,
   WindParticlesIcon,
 } from '@/components/icons';
-import { WIND_PALETTE } from '@/config/mapConfig';
+import { DETAIL_MIN_ZOOM, WIND_PALETTE } from '@/config/mapConfig';
+import { ASSET_TYPE_ORDER, ASSET_TYPES } from '@/config/assetTypes';
 import { formatShortDateTime } from '@/lib/generationUtils';
 import styles from './Map.module.css';
 
-// Filières affichées sur la carte
-const TYPES: { key: ProductionType; label: string; icon: React.ReactNode }[] = [
-  { key: 'nuclear', label: 'Nucléaire', icon: <NuclearIcon size={15} /> },
-  { key: 'wind', label: 'Éolien', icon: <WindIcon size={15} /> },
-  { key: 'hydro', label: 'Hydraulique', icon: <HydroIcon size={15} /> },
-  { key: 'pumpedStorage', label: 'STEP (pompage-turbinage)', icon: <PumpedStorageIcon size={15} /> },
-];
-
-// Filières à venir : affichées mais désactivées tant que leurs données ne sont pas ingérées
-const UPCOMING_TYPES: { key: ProductionType; label: string; icon: React.ReactNode }[] = [
-  { key: 'solar', label: 'Solaire', icon: <SolarIcon size={15} /> },
-  { key: 'gas', label: 'Gaz', icon: <GasIcon size={15} /> },
-  { key: 'biomass', label: 'Biomasse', icon: <BiomassIcon size={15} /> },
-  { key: 'battery', label: 'Batterie', icon: <BatteryIcon size={15} /> },
-];
+const ICONS: Record<ProductionType, React.ReactNode> = {
+  nuclear: <NuclearIcon size={15} />,
+  hydro: <HydroIcon size={15} />,
+  pumpedStorage: <PumpedStorageIcon size={15} />,
+  wind: <WindIcon size={15} />,
+  solar: <SolarIcon size={15} />,
+  gas: <GasIcon size={15} />,
+  coal: <CoalIcon size={15} />,
+  oil: <OilIcon size={15} />,
+  biomass: <BiomassIcon size={15} />,
+  battery: <BatteryIcon size={15} />,
+};
 
 const WIND_MAX = WIND_PALETTE[WIND_PALETTE.length - 1][0];
 const WIND_GRADIENT = `linear-gradient(to right, ${WIND_PALETTE.map(
@@ -90,7 +90,7 @@ export default function MapControlsPanel() {
   const toggleProductionType = useMapStore((s) => s.toggleProductionType);
   const windVisible = useMapStore((s) => s.windVisible);
   const windStatus = useMapStore((s) => s.windStatus);
-  const windData = useMapStore((s) => s.windData);
+  const windLayers = useMapStore((s) => s.windLayers);
   const toggleWind = useMapStore((s) => s.toggleWind);
   const powerLinesVisible = useMapStore((s) => s.powerLinesVisible);
   const togglePowerLines = useMapStore((s) => s.togglePowerLines);
@@ -120,28 +120,37 @@ export default function MapControlsPanel() {
       </Section>
 
       <Section title="Filières">
-        {TYPES.map(({ key, label, icon }) => (
-          <Item key={key} icon={icon} label={label} active={productionTypes[key]} onClick={() => toggleProductionType(key)} />
-        ))}
-        {UPCOMING_TYPES.map(({ key, label, icon }) => (
-          <Item key={key} icon={icon} label={label} note="bientôt" disabled />
-        ))}
+        {ASSET_TYPE_ORDER.map((type) => {
+          const { storeKey, label } = ASSET_TYPES[type];
+          return (
+            <Item
+              key={type}
+              icon={ICONS[storeKey]}
+              label={label}
+              active={productionTypes[storeKey]}
+              onClick={() => toggleProductionType(storeKey)}
+            />
+          );
+        })}
+        <div className={styles.layerInfo}>
+          À partir du zoom {DETAIL_MIN_ZOOM} : emprise des sites et installations (éoliennes, panneaux…) d&apos;OpenStreetMap
+        </div>
       </Section>
 
       <Section title="Couches">
         <Item icon={<WindParticlesIcon width={16} height={16} stroke="currentColor" />} label="Vent" layer active={windVisible} onClick={toggleWind} />
         {windVisible && (
           <div className={styles.layerInfo}>
-            AROME · Météo-France · 10 m
+            À 10 m du sol
             {windStatus === 'loading' && ' · chargement…'}
             {windStatus === 'error' && ' · indisponible'}
-            {windData?.validTime != null && (
-              <>
-                <br />
-                Prévision pour le {formatShortDateTime(windData.validTime)}
-                {windData.runTime !== null && ` (run du ${formatShortDateTime(windData.runTime)})`}
-              </>
-            )}
+            {windLayers.map((layer) => (
+              <div key={layer.id}>
+                {layer.id === 'france' ? 'France' : 'Europe'} : {layer.model}, prévision pour le{' '}
+                {formatShortDateTime(layer.validTime)}
+                {layer.runTime !== null && ` (run du ${formatShortDateTime(layer.runTime)})`}
+              </div>
+            ))}
             <div className={styles.scale} style={{ background: WIND_GRADIENT }} />
             <div className={styles.scaleLabels}>
               <span>0</span>
@@ -150,7 +159,7 @@ export default function MapControlsPanel() {
           </div>
         )}
         <Item icon={<GridBoundariesIcon size={15} />} label="Lignes électriques" layer active={powerLinesVisible} onClick={togglePowerLines} />
-        {powerLinesVisible && <div className={styles.layerInfo}>Open Infrastructure Map · haute tension</div>}
+        {powerLinesVisible && <div className={styles.layerInfo}>Open Infrastructure Map (OpenStreetMap)</div>}
       </Section>
     </div>
   );

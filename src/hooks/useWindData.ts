@@ -1,11 +1,22 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useMapStore } from '@/store/useMapStore';
+import { useMapStore, type WindLayerData } from '@/store/useMapStore';
 
-// Chargement des données vent (AROME, préparées par /api/wind) — pousse dans le store
+type WindLayerMeta = Omit<WindLayerData, 'image'> & { imageUrl: string };
+
+async function decode(url: string): Promise<ImageData> {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${url} : HTTP ${res.status}`);
+  const bitmap = await createImageBitmap(await res.blob());
+  const ctx = new OffscreenCanvas(bitmap.width, bitmap.height).getContext('2d')!;
+  ctx.drawImage(bitmap, 0, 0);
+  return ctx.getImageData(0, 0, bitmap.width, bitmap.height);
+}
+
+// Couches de vent (GFS Europe, AROME HD France) préparées par /api/wind — poussées dans le store
 export function useWindData() {
-  const setWindData = useMapStore((s) => s.setWindData);
+  const setWindLayers = useMapStore((s) => s.setWindLayers);
   const setWindStatus = useMapStore((s) => s.setWindStatus);
 
   useEffect(() => {
@@ -13,31 +24,21 @@ export function useWindData() {
 
     async function load() {
       try {
-        const [metaRes, imgRes] = await Promise.all([
-          fetch('/api/wind/meta'),
-          fetch('/api/wind/image'),
-        ]);
-
-        if (!metaRes.ok || !imgRes.ok) throw new Error('Wind fetch failed');
-
-        const { imageUnscale, speedMax, runTime, validTime } = await metaRes.json();
-        const blob = await imgRes.blob();
-        const bitmap = await createImageBitmap(blob);
-
-        const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
-        const ctx = canvas.getContext('2d')!;
-        ctx.drawImage(bitmap, 0, 0);
-        const image = ctx.getImageData(0, 0, bitmap.width, bitmap.height);
-
-        if (!cancelled) {
-          setWindData({ image, imageUnscale, speedMax, runTime: runTime ?? null, validTime: validTime ?? null });
-        }
+        const res = await fetch('/api/wind/meta');
+        if (!res.ok) throw new Error('Wind fetch failed');
+        const { layers } = (await res.json()) as { layers: WindLayerMeta[] };
+        const loaded = await Promise.all(
+          layers.map(async ({ imageUrl, ...meta }) => ({ ...meta, image: await decode(imageUrl) }))
+        );
+        if (!cancelled) setWindLayers(loaded);
       } catch {
         if (!cancelled) setWindStatus('error');
       }
     }
 
     load();
-    return () => { cancelled = true; };
-  }, [setWindData, setWindStatus]);
+    return () => {
+      cancelled = true;
+    };
+  }, [setWindLayers, setWindStatus]);
 }

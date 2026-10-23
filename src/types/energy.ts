@@ -1,8 +1,18 @@
 // Contrats JSON partagés entre les routes API et le client (pas d'import Prisma ici :
 // ce fichier est aussi embarqué dans le bundle navigateur).
 
-// Mêmes catégories que la carte de référence ; production_type en base -> type affiché
-export type AssetType = 'nuclear' | 'hydro' | 'pumped_storage' | 'wind';
+// Catégories de la carte de référence, plus charbon et fioul ; production_type en base -> type affiché
+export type AssetType =
+  | 'nuclear'
+  | 'hydro'
+  | 'pumped_storage'
+  | 'wind'
+  | 'solar'
+  | 'gas'
+  | 'coal'
+  | 'oil'
+  | 'bioenergy'
+  | 'battery';
 
 export interface UnitInfo {
   eic_code: string;
@@ -14,6 +24,7 @@ export interface UnitInfo {
 
 export interface PlantInfo {
   id: string;
+  country: string; // ISO 3166-1 alpha-2
   name: string;
   full_name: string;
   type: AssetType;
@@ -26,12 +37,12 @@ export interface PlantInfo {
   commune: string | null;
   departement: string | null;
   region: string | null;
-  region_code: string | null;
-  installations: number | null; // installations du registre ODRE regroupées (éolien)
+  region_code: string | null; // région dans le pays (estimation par taux de charge régional)
+  installations: number | null; // installations du registre regroupées sur ce site
   wikidata_id: string | null;
   osm_id: string | null;
   contour: [number, number][] | null;
-  units: UnitInfo[]; // groupes publiés par RTE (vide : production estimée)
+  units: UnitInfo[]; // groupes dont la production est publiée individuellement
 }
 
 export type ReadingGranularity = 'HOUR' | 'DAY';
@@ -39,8 +50,8 @@ export type ReadingGranularity = 'HOUR' | 'DAY';
 /**
  * Production sur une fenêtre, en matrices alignées sur `times` :
  * series[eic][i]      puissance moyenne (MW) du groupe sur le créneau commençant à times[i]
- * aggregates[clé][i]  série agrégée : "FR:<TYPE>" (MW, production nationale par filière)
- *                     ou "REGION:<code>:<WIND|HYDRO>" (taux de charge régional, 0-1)
+ * aggregates[clé][i]  série agrégée : "<pays>:<TYPE>" (MW, production nationale par filière)
+ *                     ou "<pays>-<région>:<FILIÈRE>" (taux de charge régional, 0-1)
  * null : rien de publié pour ce créneau.
  */
 export interface GenerationSeries {

@@ -18,8 +18,9 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
         </button>
         <h2 id="about-title">À propos</h2>
         <p>
-          Carte Réseau montre heure par heure la production des centrales nucléaires, des centrales hydrauliques (dont
-          les stations de pompage, STEP) et des parcs éoliens français. Son interface reprend celle de la{' '}
+          Carte Réseau montre heure par heure la production d&apos;électricité de la France, site par site : nucléaire,
+          hydraulique et stations de pompage (STEP), éolien, solaire, gaz, charbon, fioul, bioénergies et batteries. Son
+          interface reprend celle de la{' '}
           <a href="https://renewables-map.robinhawkes.com/" target="_blank" rel="noreferrer">
             GB Renewables Map
           </a>{' '}
@@ -29,15 +30,15 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
         <h3>D&apos;où viennent les données ?</h3>
         <ul>
           <li>
-            Production par groupe (réacteurs, grands groupes hydrauliques, éoliennes en mer) et production nationale par
-            filière : API{' '}
+            Production des groupes de plus de 100 MW (réacteurs, grande hydraulique, centrales thermiques, éolien en mer,
+            grandes batteries) et production nationale par filière : API{' '}
             <a href="https://data.rte-france.com/catalog/-/api/generation/Actual-Generation" target="_blank" rel="noreferrer">
               Actual Generation
             </a>{' '}
             de RTE, interrogée toutes les 15 minutes.
           </li>
           <li>
-            Taux de charge régionaux de l&apos;éolien et de l&apos;hydraulique : éCO2mix régional de RTE, publié sur{' '}
+            Taux de charge régionaux par filière et charge des batteries : éCO2mix régional de RTE, publié sur{' '}
             <a href="https://odre.opendatasoft.com/explore/dataset/eco2mix-regional-tr/" target="_blank" rel="noreferrer">
               ODRE
             </a>
@@ -45,19 +46,23 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </li>
           <li>
             Centrales, parcs, puissances et dates de mise en service : registre national des installations de production
-            (ODRE), Wikidata et OpenStreetMap. Les parcs éoliens terrestres sont regroupés par commune.
+            (ODRE), Wikidata et OpenStreetMap. Les petites installations sont regroupées par commune et par filière ;
+            les communes de moins de 1 MW ne sont pas représentées (surtout du petit solaire), leur production reste
+            comptée dans les totaux nationaux.
           </li>
           <li>
-            Lignes électriques :{' '}
+            Lignes électriques et, à partir du zoom 10, emprise des centrales, éoliennes, panneaux solaires et postes
+            électriques :{' '}
             <a href="https://openinframap.org" target="_blank" rel="noreferrer">
               Open Infrastructure Map
             </a>{' '}
             (© contributeurs OpenStreetMap).
           </li>
           <li>
-            Vent à 10 m : modèle AROME de Météo-France (API publique), rechargé toutes les heures avec
-            l&apos;échéance de prévision la plus proche ; la date du run et de l&apos;échéance sont indiquées en bas
-            à gauche de la carte. Fond de carte : Protomaps, relief : Mapterhorn.
+            Vent à 10 m : AROME HD de Météo-France sur la France (maille d&apos;environ 1 km) et GFS de la NOAA sur le
+            reste de l&apos;Europe (0,25°, via le serveur THREDDS de l&apos;UCAR), rechargés toutes les heures avec
+            l&apos;échéance la plus proche ; modèles, runs et échéances sont indiqués en bas à gauche de la carte. Fond
+            de carte : Protomaps, relief : Mapterhorn.
           </li>
         </ul>
 
@@ -70,17 +75,18 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
 
         <h3>Pourquoi certaines productions sont-elles estimées (≈) ?</h3>
         <p>
-          RTE ne publie la production individuelle que des groupes de plus de 100 MW : réacteurs, grandes centrales
-          hydrauliques, parcs éoliens en mer. Pour les autres parcs éoliens et centrales hydrauliques, la production est
-          estimée en multipliant leur puissance installée par le taux de charge de leur filière dans leur région
+          RTE ne publie la production individuelle que des groupes de plus de 100 MW. Pour tous les autres sites
+          (parcs éoliens terrestres, solaire, petite hydraulique, cogénérations, bioénergies, batteries…), la production
+          est estimée en multipliant leur puissance installée par le taux de charge de leur filière dans leur région
           (éCO2mix). Ces estimations sont affichées avec « ≈ » et un disque plus pâle.
         </p>
 
-        <h3>Que fait une STEP ?</h3>
+        <h3>Que font les STEP et les batteries ?</h3>
         <p>
           Une station de transfert d&apos;énergie par pompage remonte de l&apos;eau dans un bassin supérieur quand
-          l&apos;électricité est abondante (pompage, valeur négative) et la turbine quand elle manque. Sur la carte, une
-          STEP qui pompe est dessinée avec un disque presque transparent ; dans les graphiques, le pompage passe sous zéro.
+          l&apos;électricité est abondante (pompage, valeur négative) et la turbine quand elle manque. Les batteries font
+          de même (recharge, valeur négative). Sur la carte, un stockage qui se recharge est dessiné avec un disque
+          presque transparent ; dans les graphiques, la recharge passe sous zéro.
         </p>
 
         <h3>Pourquoi un réacteur est-il à 0 MW ?</h3>

@@ -41,9 +41,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-
-dev_utils/*.txt
-
-*.tiff
+# Python (scripts de dataset/)
 *.pyc
-/dataset/carte_gravelines.html
+__pycache__/
+
+# IDE (configuration locale, dont l'adresse de la base)
+.idea/
