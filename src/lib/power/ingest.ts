@@ -342,6 +342,18 @@ async function syncRecent(): Promise<number> {
   if (from < oldest) from = oldest;
   if (parisHour() < LATE_PUBLICATION_HOURS && from > addDays(today, -1)) from = addDays(today, -1);
 
+  // Une source ajoutée après coup (ou restée en échec) peut manquer des jours récents
+  // alors que les groupes sont à jour : on repart du premier jour manquant
+  for (const source of SOURCES) {
+    const present = await source.daysWithData(oldest);
+    for (let day = oldest; day < from; day = addDays(day, 1)) {
+      if (!present.has(day)) {
+        from = day;
+        break;
+      }
+    }
+  }
+
   return ingestDays(from, addDays(today, 1));
 }
 
