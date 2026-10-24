@@ -9,17 +9,12 @@ export const DETAIL_MIN_ZOOM = 10;
 export const EUROPE_WIND_BOUNDS = { minLon: -25, maxLon: 45, minLat: 34, maxLat: 72 };
 export const FRANCE_WIND_BOUNDS = { minLon: -10, maxLon: 15, minLat: 40, maxLat: 52 };
 
+// Emprises [ouest, sud, est, nord]
 // Vue initiale : France métropolitaine entière
-export const FRANCE_BOUNDS: [[number, number], [number, number]] = [
-  [-5.2, 42.2],
-  [8.4, 51.2],
-];
+export const FRANCE_BOUNDS: [number, number, number, number] = [-5.2, 42.2, 8.4, 51.2];
 
 // Limite de navigation : l'Europe, avec de la marge
-export const MAX_BOUNDS: [[number, number], [number, number]] = [
-  [-35, 28],
-  [55, 75],
-];
+export const MAX_BOUNDS: [number, number, number, number] = [-35, 28, 55, 75];
 
 // Particules blanches
 export const PARTICLE_COLOR: [number, number, number, number] = [255, 255, 255, 220];
