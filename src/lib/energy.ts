@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { prisma } from './prisma';
 import type { AssetType, GenerationSeries, PlantInfo, ReadingGranularity } from '@/types/energy';
 
@@ -11,9 +12,15 @@ const ASSET_TYPES: Record<string, AssetType> = {
   HYDRO: 'hydro',
   PUMPED_STORAGE: 'pumped_storage',
   WIND: 'wind',
+  SOLAR: 'solar',
+  GAS: 'gas',
+  COAL: 'coal',
+  OIL: 'oil',
+  BIOENERGY: 'bioenergy',
+  BATTERY: 'battery',
 };
 
-export async function listPlants(): Promise<PlantInfo[]> {
+async function listPlants(): Promise<PlantInfo[]> {
   const plants = await prisma.plant.findMany({
     include: { units: true },
     orderBy: { capacity_mw: 'desc' },
@@ -23,6 +30,7 @@ export async function listPlants(): Promise<PlantInfo[]> {
     .filter((plant) => plant.production_type in ASSET_TYPES)
     .map((plant) => ({
       id: plant.id,
+      country: plant.country,
       name: plant.name,
       full_name: plant.full_name,
       type: ASSET_TYPES[plant.production_type],
@@ -48,6 +56,33 @@ export async function listPlants(): Promise<PlantInfo[]> {
         commissioning_date: toDay(unit.commissioning_date),
       })),
     }));
+}
+
+// La liste des sites ne change qu'au seed (suivi d'un redémarrage) ou quand des groupes
+// nouvellement publiés sont rattachés à un site : JSON sérialisé une fois et gardé en mémoire.
+export interface PlantsPayload {
+  json: string;
+  etag: string;
+}
+
+let plantsPayload: Promise<PlantsPayload> | null = null;
+
+export function cachedPlants(): Promise<PlantsPayload> {
+  plantsPayload ??= listPlants()
+    .then((plants) => {
+      const json = JSON.stringify(plants);
+      const hash = createHash('sha1').update(json).digest('base64url').slice(0, 16);
+      return { json, etag: `"plants-${hash}"` };
+    })
+    .catch((err) => {
+      plantsPayload = null;
+      throw err;
+    });
+  return plantsPayload;
+}
+
+export function invalidatePlants() {
+  plantsPayload = null;
 }
 
 interface Reading {

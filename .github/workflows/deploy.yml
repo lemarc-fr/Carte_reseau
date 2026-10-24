@@ -30,6 +30,7 @@ jobs:
             git pull --ff-only
             npm ci
             npx prisma generate   # client à jour avant le seed (le build le régénère aussi)
+            npm test              # avant de toucher à la base
             npm run db:migrate
             npm run db:seed
             npm run build

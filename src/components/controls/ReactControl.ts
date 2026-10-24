@@ -13,12 +13,10 @@ export class ReactControl {
   constructor(element: React.ReactElement) {
     this._currentElement = element;
     this._container = document.createElement('div');
-    this._container.className = 'maplibregl-ctrl maplibregl-ctrl-group'; // ← add this
+    this._container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
   }
 
   onAdd(): HTMLElement {
-    this._container = document.createElement('div');
-    this._container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
     this._root = createRoot(this._container);
     this._root.render(this._currentElement);
     return this._container;

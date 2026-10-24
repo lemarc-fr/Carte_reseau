@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 import { useMapStore } from '@/store/useMapStore';
 import { useCurrentSlot } from '@/hooks/useCurrentSlot';
-import { formatMW, formatOutput, plantSnapshot, type Snapshot } from '@/lib/generationUtils';
+import { chargingLabel, formatMW, formatOutput, plantSnapshot, type Snapshot } from '@/lib/generationUtils';
 import { ASSET_TYPES } from '@/config/assetTypes';
 import type { PlantInfo } from '@/types/energy';
 import TypeBadge from './TypeBadge';
@@ -27,7 +27,7 @@ function detail(plant: PlantInfo, snapshot: Snapshot): string {
       ? `${plant.installations} installations · estimation`
       : 'Estimation régionale';
   }
-  if (snapshot.output < 0) return 'Pompage';
+  if (snapshot.output < 0) return chargingLabel(plant.type);
   return `${snapshot.running}/${snapshot.units} en marche`;
 }
 

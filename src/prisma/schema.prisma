@@ -2,9 +2,8 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Hypothèse : PostgreSQL (Neon / Supabase / Vercel Postgres / instance perso).
-// Le raw SQL utilisé dans lib/downsample.ts et lib/crud.ts (date_trunc, DISTINCT ON,
-// ON CONFLICT) est spécifique à Postgres — à adapter si vous utilisez un autre SGBD.
+// PostgreSQL : le SQL brut de lib/downsample.ts et lib/power/store.ts (date_trunc,
+// unnest, ON CONFLICT, AT TIME ZONE) lui est spécifique.
 //
 // Prisma 7 : l'URL de connexion ne se met plus ici, elle va dans prisma.config.ts
 // (pour le CLI/migrate) et est passée via un driver adapter au PrismaClient
@@ -18,13 +17,15 @@ enum Granularity {
   DAY
 }
 
-// Site de production : centrale nucléaire, centrale hydraulique, STEP ou parcs
-// éoliens d'une commune. Alimenté par src/prisma/seed.ts à partir de dataset/Finie/.
+// Site de production : centrale, ou installations d'une même filière regroupées par
+// commune (éolien, solaire...). Alimenté par src/prisma/seed.ts à partir de dataset/<pays>/final/.
 model Plant {
   id                 String    @id // slug stable, ex. "gravelines", "hydro-revin", "eolien-51163"
+  country            String    @default("FR") // code ISO 3166-1 alpha-2
   name               String // nom court affiché, ex. "Gravelines"
   full_name          String
-  production_type    String    @default("NUCLEAR") // NUCLEAR | HYDRO | PUMPED_STORAGE | WIND
+  // NUCLEAR | HYDRO | PUMPED_STORAGE | WIND | SOLAR | GAS | OIL | COAL | BIOENERGY | BATTERY
+  production_type    String    @default("NUCLEAR")
   technology         String? // ex. "Lac", "Fil de l'eau", "onshore", "offshore"
   operator           String?
   latitude           Float
@@ -34,7 +35,7 @@ model Plant {
   commune            String?
   departement        String?
   region             String?
-  region_code        String? // code INSEE de la région (estimation par taux de charge régional)
+  region_code        String? // code de la région dans le pays (INSEE en France), pour l'estimation
   installations      Int? // nombre d'installations du registre ODRE regroupées
   wikidata_id        String?
   osm_id             String? // ex. "relation/20240158"
@@ -44,6 +45,7 @@ model Plant {
 
   units Unit[]
 
+  @@index([country])
   @@map("plants")
 }
 
@@ -89,9 +91,9 @@ model ProductionReading {
 }
 
 // Séries agrégées, même rétention que les relevés par groupe (horaire 7 jours, puis journalier) :
-//   "FR:<TYPE>"           production nationale par filière, MW (RTE actual_generations_per_production_type)
-//   "REGION:<code>:WIND"  taux de charge régional de l'éolien, 0-1 (éCO2mix régional)
-//   "REGION:<code>:HYDRO" taux de charge régional de l'hydraulique, 0-1 (éCO2mix régional)
+//   "<pays>:<TYPE>"            production nationale par filière, MW (ex. "FR:NUCLEAR", "FR:BATTERY")
+//   "<pays>-<région>:<FILIÈRE>" taux de charge régional, 0-1, négatif quand des batteries se
+//                              rechargent (ex. "FR-84:WIND", "FR-84:SOLAR", "FR-84:BATTERY")
 model AggregateReading {
   series       String
   start_date   DateTime

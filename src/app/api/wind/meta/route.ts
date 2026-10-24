@@ -1,29 +1,27 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { getWindData } from '@/lib/wind/cache';
+import { NextResponse } from 'next/server';
+import { getWindLayers } from '@/lib/wind/cache';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(request: NextRequest) {
+// GET /api/wind/meta -> couches de vent disponibles (zone, échelle, modèle, run, échéance)
+export async function GET() {
   try {
-    const { imageUnscale, speedMax, runTime, validTime, etag, expiresAt } = await getWindData();
-
-    const ifNoneMatch = request.headers.get('if-none-match');
-    if (ifNoneMatch === etag) {
-      return new NextResponse(null, { status: 304 });
-    }
-
-    const maxAge = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000));
-
+    const layers = await getWindLayers();
     return NextResponse.json(
-      { imageUnscale, speedMax, runTime, validTime, imageUrl: '/api/wind/image' },
       {
-        headers: {
-          'Cache-Control': `public, max-age=${maxAge}, stale-while-revalidate=60`,
-          'ETag': etag,
-        },
-      }
+        layers: layers.map((layer) => ({
+          id: layer.id,
+          model: layer.model,
+          bounds: layer.bounds,
+          imageUnscale: layer.imageUnscale,
+          runTime: layer.runTime,
+          validTime: layer.validTime,
+          imageUrl: `/api/wind/image?layer=${layer.id}&v=${encodeURIComponent(layer.etag.replace(/"/g, ''))}`,
+        })),
+      },
+      { headers: { 'Cache-Control': 'public, max-age=300' } }
     );
   } catch {
-    return NextResponse.json({ error: 'Wind data unavailable' }, { status: 503 });
+    return NextResponse.json({ error: 'Vent indisponible' }, { status: 503 });
   }
 }

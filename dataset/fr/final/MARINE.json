@@ -1,0 +1,43 @@
+[
+ {
+  "id": "marin-35241",
+  "name": "Rance",
+  "full_name": "Usine marémotrice de la Rance",
+  "production_type": "HYDRO",
+  "technology": "Marémotrice",
+  "commune": "La Richardais",
+  "departement": "Ille-et-Vilaine",
+  "region": "Bretagne",
+  "region_code": "53",
+  "latitude": 48.61,
+  "longitude": -2.043,
+  "capacity_mw": 240.0,
+  "commissioning_date": "2013-10-01",
+  "installations": 1,
+  "units": [
+   {
+    "eic_code": "17W100P100P0272C",
+    "name": "Rance 1",
+    "capacity_mw": 240.0,
+    "commissioning_date": "2013-10-01"
+   }
+  ]
+ },
+ {
+  "id": "marin-22210",
+  "name": "Ploubazlanec",
+  "full_name": "Énergies marines à Ploubazlanec (2 installations)",
+  "production_type": "HYDRO",
+  "technology": "Hydrolienne en mer",
+  "commune": "Ploubazlanec",
+  "departement": "Côtes-d'Armor",
+  "region": "Bretagne",
+  "region_code": "53",
+  "latitude": 48.8047,
+  "longitude": -3.0308,
+  "capacity_mw": 2.545,
+  "commissioning_date": "2015-09-01",
+  "installations": 2,
+  "units": []
+ }
+]

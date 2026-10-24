@@ -3,9 +3,9 @@ import "./globals.css";
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 export const metadata: Metadata = {
-  title: "Carte Réseau — la production électrique française en temps réel",
+  title: "Carte Réseau — la production d'électricité en temps réel",
   description:
-    "Carte en temps réel des centrales nucléaires, hydrauliques et des parcs éoliens français, d'après les données de production publiées par RTE.",
+    "Carte en temps réel des centrales et parcs de production d'électricité (nucléaire, hydraulique, éolien, solaire, thermique, bioénergies, stockage), d'après les données publiées par RTE.",
 };
 
 export const viewport: Viewport = {
