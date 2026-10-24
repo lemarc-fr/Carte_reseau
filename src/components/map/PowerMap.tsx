@@ -1,70 +1,75 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   AttributionControl,
   FullscreenControl,
   Map,
   NavigationControl,
   useControl,
+  type MapLayerMouseEvent,
   type MapRef,
 } from 'react-map-gl/maplibre';
 import type { GeoJSONSource } from 'maplibre-gl';
 import { MapboxOverlay, type MapboxOverlayProps } from '@deck.gl/mapbox';
 import type { PickingInfo } from '@deck.gl/core';
 import { PolygonLayer, ScatterplotLayer } from '@deck.gl/layers';
-import { ClipExtension } from '@deck.gl/extensions';
-import { ParticleLayer, RasterLayer } from 'weatherlayers-gl';
-import {
-  BOUNDS,
-  FRANCE_BOUNDS,
-  MAP_MAX_ZOOM,
-  MAX_BOUNDS,
-  PARTICLE_COLOR,
-  WIND_PALETTE,
-  WIND_RASTER_OPACITY,
-} from '@/config/mapConfig';
+import { DETAIL_MIN_ZOOM, FRANCE_BOUNDS, MAP_MAX_ZOOM, MAX_BOUNDS, WIND_PALETTE } from '@/config/mapConfig';
 import {
   FIRST_POWER_LINE_LAYER_ID,
   mapStyle,
+  OSM_FILTERED_LAYER_IDS,
+  OSM_INTERACTIVE_LAYER_IDS,
+  osmSourceFilter,
   PLANT_LABEL_LAYER_IDS,
   PLANT_LABELS_LAYER_ID,
   PLANTS_SOURCE_ID,
   POWER_LINE_LAYERS,
 } from '@/config/mapStyle';
-import { ASSET_TYPES } from '@/config/assetTypes';
+import { ASSET_TYPE_ORDER, ASSET_TYPES } from '@/config/assetTypes';
 import type { AssetType } from '@/types/energy';
 import { useMapStore } from '@/store/useMapStore';
 import { useCurrentSlot } from '@/hooks/useCurrentSlot';
-import { formatMW, formatOutput, formatPercent, formatShortDateTime, formatSlot, plantSnapshot } from '@/lib/generationUtils';
+import {
+  chargingLabel,
+  formatMW,
+  hasLargeUnit,
+  LARGE_UNIT_MW,
+  formatOutput,
+  formatPercent,
+  formatShortDateTime,
+  formatSlot,
+  plantSnapshot,
+} from '@/lib/generationUtils';
 import { ReactControl } from '../controls/ReactControl';
-import MapControlsPanel from './MapControlsPanel';
+import DisplayPanel from '../controls/DisplayPanel';
+import ProductionTypesPanel from '../controls/ProductionTypesPanel';
+import { windDeckLayers } from './windLayers';
 import styles from './Map.module.css';
 
 // ─── Représentation des centrales ─────────────────────────────────────────────
 // Surface proportionnelle à la puissance : rayon (m) = √MW × constante.
 // Anneau = capacité installée, disque = production du créneau affiché.
+// Au zoom du détail, les cercles laissent la place à l'emprise des sites et aux
+// installations d'OpenStreetMap.
 
 const METERS_PER_SQRT_MW = 1000;
 const NORMALIZED_CAPACITY_MW = 400; // taille commune en mode « Normaliser »
-const CONTOUR_MIN_ZOOM = 10; // au-delà, les cercles masquent tout : on dessine l'emprise du site
-const DIMMED = 0.3; // opacité des autres centrales quand une centrale est sélectionnée
-const SELECTION_CONTEXT = 2.5; // marge autour de l'anneau quand on cadre une centrale
+const DIMMED = 0.3; // opacité des autres sites quand un site est sélectionné
+const SELECTION_CONTEXT = 2.5; // marge autour de l'anneau quand on cadre un site
 const MAJOR_PLANT_MW = 500; // nom affiché dès la vue France (sinon à partir du zoom 8)
 
 const FILL_NO_DATA: [number, number, number] = [90, 100, 110];
-// Opacité du disque : production publiée par RTE, estimée, ou pompage (STEP)
-const DISC_ALPHA = { measured: 110, estimated: 80, pumping: 40 };
+// Opacité du disque : production publiée, estimée, ou stockage qui se recharge
+const DISC_ALPHA = { measured: 110, estimated: 80, charging: 40 };
 
 type RGBA = [number, number, number, number];
 
-const PREMULTIPLIED_ALPHA_BLENDING = {
-  blend: true,
-  blendColorSrcFactor: 'one',
-  blendColorDstFactor: 'one-minus-src-alpha',
-  blendAlphaSrcFactor: 'one',
-  blendAlphaDstFactor: 'one-minus-src-alpha',
-} as const;
+// Légende de la couche vent (palette de mapConfig)
+const WIND_MAX = WIND_PALETTE[WIND_PALETTE.length - 1][0];
+const WIND_GRADIENT = `linear-gradient(to right, ${WIND_PALETTE.map(
+  ([speed, [r, g, b]]) => `rgb(${r}, ${g}, ${b}) ${((speed / WIND_MAX) * 100).toFixed(1)}%`
+).join(', ')})`;
 
 // Prop lue par @deck.gl/mapbox (rendu interleaved), absente des types des calques
 type Interleaved = { beforeId?: string };
@@ -76,56 +81,49 @@ interface PlantDatum {
   position: [number, number];
   contour: [number, number][] | null;
   capacity: number;
-  output: number | null; // MW, négatif pour une STEP qui pompe
+  output: number | null; // MW, négatif pour un stockage qui se recharge
   estimated: boolean;
   running: number;
   units: number;
+}
+
+// Installation OpenStreetMap survolée au zoom du détail
+interface OsmFeature {
+  x: number;
+  y: number;
+  name: string | null;
+  source: string | null;
+  outputMw: number | null;
+  kind: 'plant' | 'generator';
 }
 
 function ringRadius(capacity: number, normalize: boolean): number {
   return Math.sqrt(normalize ? NORMALIZED_CAPACITY_MW : capacity) * METERS_PER_SQRT_MW;
 }
 
-// Une STEP qui pompe garde un disque proportionnel à la puissance absorbée
+// Un stockage qui se recharge garde un disque proportionnel à la puissance absorbée
 function discRadius(d: PlantDatum, normalize: boolean): number {
   if (!d.output) return 0;
   return ringRadius(d.capacity, normalize) * Math.sqrt(Math.abs(d.output) / d.capacity);
 }
 
+/** Filière d'une installation OSM (`source`), si elle correspond à l'une des nôtres. */
+function osmSourceLabel(source: string | null): string {
+  const type = ASSET_TYPE_ORDER.find((t) => source && ASSET_TYPES[t].osmSources.includes(source));
+  return type ? ASSET_TYPES[type].label : source ? `Autre (${source})` : 'Filière non renseignée';
+}
+
 // ─── Contrôles ────────────────────────────────────────────────────────────────
 
 function DeckGLOverlay(props: MapboxOverlayProps) {
-  const overlay = useControl<MapboxOverlay>(
-      () => new MapboxOverlay({ interleaved: true, ...props })
-  );
+  const overlay = useControl<MapboxOverlay>(() => new MapboxOverlay({ interleaved: true, ...props }));
   overlay.setProps(props);
   return null;
 }
 
-function ControlsToggle() {
-  const open = useMapStore((s) => s.controlsOpen);
-  const toggle = useMapStore((s) => s.toggleControls);
-  return (
-    <button
-      type="button"
-      className={styles.controlButton}
-      title="Contrôles de la carte"
-      aria-label="Contrôles de la carte"
-      aria-pressed={open}
-      onClick={toggle}
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-        <path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0" />
-        <circle cx="16" cy="6" r="2" />
-        <circle cx="10" cy="12" r="2" />
-        <circle cx="18" cy="18" r="2" />
-      </svg>
-    </button>
-  );
-}
-
-function MapControlsButton() {
-  useControl<ReactControl>(() => new ReactControl(<ControlsToggle />), { position: 'top-right' });
+// Panneaux d'icônes (contenu lu dans le store)
+function PanelControl({ children }: { children: React.ReactElement }) {
+  useControl<ReactControl>(() => new ReactControl(children), { position: 'top-right' });
   return null;
 }
 
@@ -138,7 +136,7 @@ export default function PowerMap() {
   const hoveredPlantId = useMapStore((s) => s.hoveredPlantId);
   const selectPlant = useMapStore((s) => s.selectPlant);
   const setHoveredPlantId = useMapStore((s) => s.setHoveredPlantId);
-  const windData = useMapStore((s) => s.windData);
+  const windLayers = useMapStore((s) => s.windLayers);
   const windVisible = useMapStore((s) => s.windVisible);
   const windStatus = useMapStore((s) => s.windStatus);
   const capacityRingVisible = useMapStore((s) => s.capacityRingVisible);
@@ -146,16 +144,23 @@ export default function PowerMap() {
   const powerLinesVisible = useMapStore((s) => s.powerLinesVisible);
   const labelsVisible = useMapStore((s) => s.labelsVisible);
   const productionTypes = useMapStore((s) => s.productionTypes);
+  const largeUnitsOnly = useMapStore((s) => s.largeUnitsOnly);
   const { generation, index } = useCurrentSlot();
 
   const [styleReady, setStyleReady] = useState(false);
-  const [showContours, setShowContours] = useState(false);
+  const [detail, setDetail] = useState(false);
   const [tooltip, setTooltip] = useState<{ x: number; y: number; id: string } | null>(null);
+  const [osmFeature, setOsmFeature] = useState<OsmFeature | null>(null);
 
-  // Centrales des filières affichées (panneau « Filières »)
+  const visibleTypes = useMemo(
+    () => ASSET_TYPE_ORDER.filter((type) => productionTypes[ASSET_TYPES[type].storeKey]),
+    [productionTypes]
+  );
+
+  // Sites des filières affichées, éventuellement limités à ceux dotés d'un gros groupe
   const visiblePlants = useMemo(
-    () => plants.filter((plant) => productionTypes[ASSET_TYPES[plant.type].storeKey]),
-    [plants, productionTypes]
+    () => plants.filter((plant) => visibleTypes.includes(plant.type) && (!largeUnitsOnly || hasLargeUnit(plant))),
+    [plants, visibleTypes, largeUnitsOnly]
   );
 
   const data = useMemo<PlantDatum[]>(
@@ -178,7 +183,7 @@ export default function PowerMap() {
     [visiblePlants, generation, index]
   );
 
-  // ─── Calques MapLibre : noms des centrales et lignes électriques ───────────
+  // ─── Calques MapLibre : noms, lignes électriques, installations OSM ────────
 
   useEffect(() => {
     const map = mapRef.current?.getMap();
@@ -209,9 +214,14 @@ export default function PowerMap() {
     for (const layer of POWER_LINE_LAYERS) {
       map.setLayoutProperty(layer.id, 'visibility', powerLinesVisible ? 'visible' : 'none');
     }
-  }, [styleReady, labelsVisible, powerLinesVisible]);
+    const filter = osmSourceFilter(
+      visibleTypes.flatMap((type) => ASSET_TYPES[type].osmSources),
+      largeUnitsOnly ? LARGE_UNIT_MW : 0
+    );
+    for (const id of OSM_FILTERED_LAYER_IDS) map.setFilter(id, filter);
+  }, [styleReady, labelsVisible, powerLinesVisible, visibleTypes, largeUnitsOnly]);
 
-  // Cadre la centrale sélectionnée avec son anneau de capacité et un peu de contexte
+  // Cadre le site sélectionné avec son anneau de capacité et un peu de contexte
   useEffect(() => {
     const map = mapRef.current;
     const plant = plants.find((p) => p.id === selectedPlantId);
@@ -235,61 +245,23 @@ export default function PowerMap() {
     const alpha = (value: number, id: string) =>
       selectedPlantId && id !== selectedPlantId ? Math.round(value * DIMMED) : value;
     const highlighted = (id: string) => id === selectedPlantId || id === hoveredPlantId;
-    const result = [];
-
-    if (windVisible && windData) {
-      result.push(
-        new RasterLayer({
-          id: 'wind-raster',
-          beforeId: FIRST_POWER_LINE_LAYER_ID,
-          image: windData.image,
-          // R/G = composantes U/V encodées sur [-max, +max], comme pour les particules
-          imageUnscale: windData.imageUnscale,
-          bounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
-          palette: WIND_PALETTE,
-          opacity: WIND_RASTER_OPACITY,
-          // Le shader WeatherLayers sort une couleur prémultipliée par l'alpha : sans ces
-          // facteurs, deck.gl la multiplie une seconde fois et le fond devient gris.
-          parameters: PREMULTIPLIED_ALPHA_BLENDING,
-          extensions: [new ClipExtension()],
-          clipBounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
-        }),
-        new ParticleLayer({
-          id: 'wind-particles',
-          beforeId: FIRST_POWER_LINE_LAYER_ID,
-          image: windData.image,
-          imageUnscale: windData.imageUnscale,
-          bounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
-          numParticles: 5000,
-          speedFactor: 3.0,
-          width: 1,
-          opacity: 0.85,
-          maxAge: 100,
-          animate: true,
-          color: PARTICLE_COLOR,
-          extensions: [new ClipExtension()],
-          clipBounds: [BOUNDS.minLon, BOUNDS.minLat, BOUNDS.maxLon, BOUNDS.maxLat],
-        })
-      );
-    }
-
-    if (data.length === 0) return result;
-
     const fill = (d: PlantDatum) => ASSET_TYPES[d.type].fill;
     const stroke = (d: PlantDatum) => ASSET_TYPES[d.type].stroke;
+    const charging = (d: PlantDatum) => d.output !== null && d.output < 0;
     const discAlpha = (d: PlantDatum) =>
-      d.output !== null && d.output < 0 ? DISC_ALPHA.pumping : d.estimated ? DISC_ALPHA.estimated : DISC_ALPHA.measured;
+      charging(d) ? DISC_ALPHA.charging : d.estimated ? DISC_ALPHA.estimated : DISC_ALPHA.measured;
 
-    // Zoom rapproché : emprise du site quand on la connaît (nucléaire, hydraulique), cercles sinon
-    const outlined = showContours ? data.filter((d) => d.contour) : [];
-    const circles = showContours ? data.filter((d) => !d.contour) : data;
+    const result = [];
+    if (windVisible) result.push(...windDeckLayers(windLayers, FIRST_POWER_LINE_LAYER_ID));
+    if (data.length === 0) return result;
 
-    if (outlined.length) {
+    if (detail) {
+      // Emprise des sites connus (nucléaire, hydraulique), colorée selon leur charge
       result.push(
         new PolygonLayer<PlantDatum, Interleaved>({
           id: 'plant-contours',
           beforeId: PLANT_LABELS_LAYER_ID,
-          data: outlined,
+          data: data.filter((d) => d.contour),
           getPolygon: (d) => d.contour!,
           getFillColor: (d): RGBA =>
             d.output === null
@@ -306,6 +278,7 @@ export default function PowerMap() {
           },
         })
       );
+      return result;
     }
 
     if (capacityRingVisible) {
@@ -313,7 +286,7 @@ export default function PowerMap() {
         new ScatterplotLayer<PlantDatum, Interleaved>({
           id: 'capacity-rings',
           beforeId: PLANT_LABELS_LAYER_ID,
-          data: circles,
+          data,
           getPosition: (d) => d.position,
           getRadius: (d) => ringRadius(d.capacity, normalizeRing),
           radiusUnits: 'meters',
@@ -339,16 +312,16 @@ export default function PowerMap() {
       new ScatterplotLayer<PlantDatum, Interleaved>({
         id: 'generation-discs',
         beforeId: PLANT_LABELS_LAYER_ID,
-        data: circles.filter((d) => d.output),
+        data: data.filter((d) => d.output),
         getPosition: (d) => d.position,
         getRadius: (d) => discRadius(d, normalizeRing),
         radiusUnits: 'meters',
-        radiusMinPixels: 2,
+        radiusMinPixels: 1.5,
         filled: true,
         stroked: true,
         getFillColor: (d): RGBA => [...fill(d), alpha(discAlpha(d), d.id)],
         getLineColor: (d): RGBA => [...stroke(d), alpha(255, d.id)],
-        getLineWidth: (d) => (d.output !== null && d.output < 0 ? 2 : 1),
+        getLineWidth: (d) => (charging(d) ? 2 : 1),
         lineWidthUnits: 'pixels',
         pickable: true,
         updateTriggers: {
@@ -360,16 +333,7 @@ export default function PowerMap() {
     );
 
     return result;
-  }, [
-    data,
-    windVisible,
-    windData,
-    capacityRingVisible,
-    normalizeRing,
-    showContours,
-    selectedPlantId,
-    hoveredPlantId,
-  ]);
+  }, [data, windVisible, windLayers, capacityRingVisible, normalizeRing, detail, selectedPlantId, hoveredPlantId]);
 
   // ─── Interactions ──────────────────────────────────────────────────────────
 
@@ -395,7 +359,27 @@ export default function PowerMap() {
     [selectPlant]
   );
 
+  // Infobulle des installations OSM (survol ; toucher sur mobile)
+  const onOsmPointer = useCallback((event: MapLayerMouseEvent) => {
+    const feature = event.features?.[0];
+    if (!feature) {
+      setOsmFeature(null);
+      return;
+    }
+    const props = feature.properties as Record<string, string | number | undefined>;
+    const output = Number(props.output);
+    setOsmFeature({
+      x: event.point.x,
+      y: event.point.y,
+      name: (props.name as string) || null,
+      source: (props.source as string) || null,
+      outputMw: Number.isFinite(output) && output > 0 ? output : null,
+      kind: feature.layer.id === 'osm-generators' ? 'generator' : 'plant',
+    });
+  }, []);
+
   const tooltipDatum = tooltip ? data.find((d) => d.id === tooltip.id) : undefined;
+  const windAt = windLayers.find((l) => l.id === 'france') ?? windLayers[0];
 
   return (
     <div className={styles.map}>
@@ -407,25 +391,32 @@ export default function PowerMap() {
         maxBounds={MAX_BOUNDS}
         mapStyle={mapStyle}
         attributionControl={false}
+        interactiveLayerIds={OSM_INTERACTIVE_LAYER_IDS}
+        onMouseMove={onOsmPointer}
+        onClick={onOsmPointer}
+        onMouseLeave={() => setOsmFeature(null)}
         onStyleData={() => setStyleReady(true)}
         onMove={(e) => {
-          const contours = e.viewState.zoom >= CONTOUR_MIN_ZOOM;
-          setShowContours((current) => (current === contours ? current : contours));
+          const next = e.viewState.zoom >= DETAIL_MIN_ZOOM;
+          setDetail((current) => (current === next ? current : next));
         }}
         onError={(e) => console.error('[carte]', e.error?.message ?? e.error)}
       >
         <FullscreenControl position="top-right" containerId="map-card" />
         <NavigationControl position="top-right" />
-        <MapControlsButton />
+        <PanelControl>
+          <DisplayPanel />
+        </PanelControl>
+        <PanelControl>
+          <ProductionTypesPanel />
+        </PanelControl>
         <AttributionControl
           position="bottom-right"
           compact={false}
-          customAttribution={['<a href="https://data.rte-france.com">RTE</a>', 'Météo-France AROME']}
+          customAttribution={['<a href="https://data.rte-france.com">RTE</a>', 'Météo-France AROME', 'NOAA GFS']}
         />
         <DeckGLOverlay layers={layers} onHover={onHover} onClick={onClick} />
       </Map>
-
-      <MapControlsPanel />
 
       {tooltip && tooltipDatum && (
         <div className={styles.tooltip} style={{ left: tooltip.x, top: tooltip.y }}>
@@ -436,7 +427,7 @@ export default function PowerMap() {
           <div className={styles.tooltipRow}>
             <span>
               {tooltipDatum.output !== null && tooltipDatum.output < 0
-                ? 'Pompage'
+                ? chargingLabel(tooltipDatum.type)
                 : tooltipDatum.estimated
                   ? 'Production estimée'
                   : 'Production'}
@@ -469,15 +460,35 @@ export default function PowerMap() {
         </div>
       )}
 
+      {!tooltip && osmFeature && (
+        <div className={styles.tooltip} style={{ left: osmFeature.x, top: osmFeature.y }}>
+          <div className={styles.tooltipTitle}>
+            {osmFeature.name ?? (osmFeature.kind === 'generator' ? 'Générateur' : 'Installation sans nom')}
+          </div>
+          <div className={styles.tooltipType}>{osmSourceLabel(osmFeature.source)}</div>
+          {osmFeature.outputMw !== null && (
+            <div className={styles.tooltipRow}>
+              <span>Puissance</span>
+              <span>{formatMW(osmFeature.outputMw)} MW</span>
+            </div>
+          )}
+          <div className={styles.tooltipNote}>Données OpenStreetMap</div>
+        </div>
+      )}
+
       {windVisible && (
         <div className={styles.status}>
           {windStatus === 'loading' && '⟳ Chargement des vents…'}
           {windStatus === 'error' && '⚠ Données vent indisponibles'}
-          {windStatus === 'ok' && windData && (
+          {windStatus === 'ok' && windAt && (
             <>
-              Vent à 10 m · AROME Météo-France
-              {windData.validTime !== null && <> · prévision pour {formatSlot(windData.validTime)}</>}
-              {windData.runTime !== null && <> · run du {formatShortDateTime(windData.runTime)}</>}
+              Vent à 10 m · {windLayers.map((l) => l.model).join(' et ')} · prévision pour {formatSlot(windAt.validTime)}
+              {windAt.runTime !== null && <> · run du {formatShortDateTime(windAt.runTime)}</>}
+              <div className={styles.scale}>
+                <span>0</span>
+                <span className={styles.scaleBar} style={{ background: WIND_GRADIENT }} />
+                <span>{WIND_MAX} m/s</span>
+              </div>
             </>
           )}
         </div>

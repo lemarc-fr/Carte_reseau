@@ -5,39 +5,44 @@ import type { GenerationSeries, PlantInfo } from '@/types/energy';
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type ProductionType =
+    | 'nuclear'
+    | 'hydro'
+    | 'pumpedStorage'
     | 'wind'
     | 'solar'
     | 'gas'
-    | 'nuclear'
+    | 'coal'
+    | 'oil'
     | 'biomass'
-    | 'battery'
-    | 'hydro'
-    | 'pumpedStorage';
+    | 'battery';
 
 export type ProductionTypesState = Record<ProductionType, boolean>;
 
-export type WindStatus = 'loading' | 'ok' | 'error';
 export type DataStatus = 'loading' | 'ok' | 'error';
 
-export interface WindData {
-    image: ImageData;
+export interface WindLayerData {
+    id: string; // "europe" (GFS) ou "france" (AROME HD)
+    model: string;
+    bounds: { minLon: number; maxLon: number; minLat: number; maxLat: number };
     imageUnscale: [number, number];
-    speedMax: number;
-    runTime: number | null; // run AROME (epoch ms)
-    validTime: number | null; // échéance affichée (epoch ms)
+    runTime: number | null; // run du modèle (epoch ms)
+    validTime: number; // échéance affichée (epoch ms)
+    image: ImageData;
 }
 
 // ─── État initial ─────────────────────────────────────────────────────────────
 
-export const DEFAULT_PRODUCTION_TYPES_STATE: ProductionTypesState = {
+const ALL_PRODUCTION_TYPES: ProductionTypesState = {
+    nuclear: true,
+    hydro: true,
+    pumpedStorage: true,
     wind: true,
     solar: true,
     gas: true,
-    nuclear: true,
+    coal: true,
+    oil: true,
     biomass: true,
     battery: true,
-    hydro: true,
-    pumpedStorage: true,
 };
 
 // ─── Interface du store ───────────────────────────────────────────────────────
@@ -67,25 +72,17 @@ interface MapState {
     // Vent
     windVisible: boolean;
     toggleWind: () => void;
-    setWindVisible: (visible: boolean) => void;
-
-    windStatus: WindStatus;
-    setWindStatus: (status: WindStatus) => void;
-
-    windData: WindData | null;
-    setWindData: (data: WindData) => void;
+    windStatus: DataStatus;
+    setWindStatus: (status: DataStatus) => void;
+    windLayers: WindLayerData[];
+    setWindLayers: (layers: WindLayerData[]) => void;
 
     // Affichage
-    controlsOpen: boolean;
-    toggleControls: () => void;
-    setControlsOpen: (open: boolean) => void;
-
     capacityRingVisible: boolean;
     toggleCapacityRing: () => void;
 
-    normalizeRing: boolean
+    normalizeRing: boolean;
     toggleNormalizeRing: () => void;
-    setNormalizeRing: (value: boolean) => void;
 
     powerLinesVisible: boolean;
     togglePowerLines: () => void;
@@ -93,11 +90,13 @@ interface MapState {
     labelsVisible: boolean;
     toggleLabels: () => void;
 
-    // Types de production
+    // Uniquement les sites dotés d'un groupe d'au moins LARGE_UNIT_MW
+    largeUnitsOnly: boolean;
+    toggleLargeUnitsOnly: () => void;
+
+    // Filières affichées
     productionTypes: ProductionTypesState;
     toggleProductionType: (key: ProductionType) => void;
-    setProductionType: (key: ProductionType, value: boolean) => void;
-    resetProductionTypes: () => void;
 }
 
 // ─── Store ────────────────────────────────────────────────────────────────────
@@ -105,7 +104,6 @@ interface MapState {
 export const useMapStore = create<MapState>()(
     devtools(
         (set) => ({
-            // État initial
             plants: [],
             plantsStatus: 'loading',
             generation: null,
@@ -115,107 +113,43 @@ export const useMapStore = create<MapState>()(
             hoveredPlantId: null,
             windVisible: true,
             windStatus: 'loading',
-            windData: null,
-            controlsOpen: false,
+            windLayers: [],
             capacityRingVisible: true,
             normalizeRing: false,
             powerLinesVisible: true,
             labelsVisible: true,
-            productionTypes: DEFAULT_PRODUCTION_TYPES_STATE,
+            largeUnitsOnly: false,
+            productionTypes: ALL_PRODUCTION_TYPES,
 
-            // Actions données
-            setPlants: (plants) =>
-                set({ plants, plantsStatus: 'ok' }, false, 'setPlants'),
-
-            setPlantsStatus: (status) =>
-                set({ plantsStatus: status }, false, 'setPlantsStatus'),
-
-            setGeneration: (generation) =>
-                set({ generation, generationStatus: 'ok' }, false, 'setGeneration'),
-
-            setGenerationStatus: (status) =>
-                set({ generationStatus: status }, false, 'setGenerationStatus'),
+            setPlants: (plants) => set({ plants, plantsStatus: 'ok' }, false, 'setPlants'),
+            setPlantsStatus: (status) => set({ plantsStatus: status }, false, 'setPlantsStatus'),
+            setGeneration: (generation) => set({ generation, generationStatus: 'ok' }, false, 'setGeneration'),
+            setGenerationStatus: (status) => set({ generationStatus: status }, false, 'setGenerationStatus'),
 
             // Pas de date future : useEnergyData chargerait sans fin une fenêtre qui ne la contient pas
             setSelectedTime: (time) =>
                 set({ selectedTime: time === null ? null : Math.min(time, Date.now()) }, false, 'setSelectedTime'),
 
-            selectPlant: (id) =>
-                set({ selectedPlantId: id }, false, 'selectPlant'),
+            selectPlant: (id) => set({ selectedPlantId: id }, false, 'selectPlant'),
+            setHoveredPlantId: (id) => set({ hoveredPlantId: id }, false, 'setHoveredPlantId'),
 
-            setHoveredPlantId: (id) =>
-                set({ hoveredPlantId: id }, false, 'setHoveredPlantId'),
-
-            // Actions vent
-            toggleWind: () =>
-                set((state) => ({ windVisible: !state.windVisible }), false, 'toggleWind'),
-
-            setWindVisible: (visible) =>
-                set({ windVisible: visible }, false, 'setWindVisible'),
-
-            setWindStatus: (status) =>
-                set({ windStatus: status }, false, 'setWindStatus'),
-
-            setWindData: (data) =>
-                set({ windData: data, windStatus: 'ok' }, false, 'setWindData'),
-
-            // Actions affichage
-            toggleControls: () =>
-                set((state) => ({ controlsOpen: !state.controlsOpen }), false, 'toggleControls'),
-
-            setControlsOpen: (open) =>
-                set({ controlsOpen: open }, false, 'setControlsOpen'),
+            toggleWind: () => set((s) => ({ windVisible: !s.windVisible }), false, 'toggleWind'),
+            setWindStatus: (status) => set({ windStatus: status }, false, 'setWindStatus'),
+            setWindLayers: (layers) => set({ windLayers: layers, windStatus: 'ok' }, false, 'setWindLayers'),
 
             toggleCapacityRing: () =>
-                set((state) => ({ capacityRingVisible: !state.capacityRingVisible }), false, 'toggleCapacityRing'),
+                set((s) => ({ capacityRingVisible: !s.capacityRingVisible }), false, 'toggleCapacityRing'),
+            toggleNormalizeRing: () => set((s) => ({ normalizeRing: !s.normalizeRing }), false, 'toggleNormalizeRing'),
+            togglePowerLines: () => set((s) => ({ powerLinesVisible: !s.powerLinesVisible }), false, 'togglePowerLines'),
+            toggleLabels: () => set((s) => ({ labelsVisible: !s.labelsVisible }), false, 'toggleLabels'),
+            toggleLargeUnitsOnly: () =>
+                set((s) => ({ largeUnitsOnly: !s.largeUnitsOnly }), false, 'toggleLargeUnitsOnly'),
 
-            togglePowerLines: () =>
-                set((state) => ({ powerLinesVisible: !state.powerLinesVisible }), false, 'togglePowerLines'),
-
-            toggleLabels: () =>
-                set((state) => ({ labelsVisible: !state.labelsVisible }), false, 'toggleLabels'),
-
-            // Actions production
             toggleProductionType: (key) =>
                 set(
-                    (state) => ({
-                        productionTypes: {
-                            ...state.productionTypes,
-                            [key]: !state.productionTypes[key],
-                        },
-                    }),
+                    (s) => ({ productionTypes: { ...s.productionTypes, [key]: !s.productionTypes[key] } }),
                     false,
                     `toggleProductionType/${key}`
-                ),
-
-            setProductionType: (key, value) =>
-                set(
-                    (state) => ({
-                        productionTypes: { ...state.productionTypes, [key]: value },
-                    }),
-                    false,
-                    `setProductionType/${key}`
-                ),
-
-            resetProductionTypes: () =>
-                set(
-                    { productionTypes: DEFAULT_PRODUCTION_TYPES_STATE },
-                    false,
-                    'resetProductionTypes'
-                ),
-            toggleNormalizeRing: () =>
-                set(
-                    (state) => ({
-                        normalizeRing: !state.normalizeRing,
-                    }),
-                    false,
-                    'toggleNormalizeRing'
-                ),
-            setNormalizeRing: (value) =>
-                set(
-                    { normalizeRing: value },
-                    false,
-                    'setNormalizeRing'
                 ),
         }),
         { name: 'MapStore' } // nom affiché dans Redux DevTools

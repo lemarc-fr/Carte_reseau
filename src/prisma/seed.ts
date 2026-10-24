@@ -2,19 +2,19 @@ import 'dotenv/config';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { prisma } from '@/lib/prisma';
-import { linkUnitsToPlants } from '@/lib/power/unitPlants';
+import { linkUnitsToPlants } from '@/lib/power/fr/unitPlants';
 
 // Usage : npm run db:seed
-// Remplit `plants` et `units` à partir des jeux de données consolidés de dataset/Finie/ :
-//   NUCLEAR.json  18 CNPE et leurs 57 réacteurs (OSM + Wikidata + registre ODRE)
-//   HYDRO.json    centrales hydrauliques et STEP (OSM + Wikidata + registre ODRE)
-//   WIND.json     parcs éoliens regroupés par commune, parcs en mer (dataset/rafactor data/eolien.py)
-// Idempotent : peut être rejoué sans risque (upserts).
+// Remplit `plants` et `units` à partir des jeux de données consolidés de dataset/fr/final/ :
+//   NUCLEAR.json, HYDRO.json   centrales au format OSM + Wikidata + registre ODRE
+//   WIND.json, SOLAR.json, THERMAL.json, BIOENERGY.json, BATTERY.json, MARINE.json
+//                              sites regroupés par commune (dataset/fr/scripts/registre.py)
+// Idempotent : peut être rejoué sans risque (upserts). Les sites retirés d'un jeu de
+// données sont supprimés.
 
-const FINIE = join(process.cwd(), 'dataset', 'Finie');
-
-// Seuil de publication de la production par groupe chez RTE
-const RTE_UNIT_MIN_MW = 100;
+const COUNTRY = 'FR';
+const SEED_CONCURRENCY = 8;
+const FINAL_DIR = join(process.cwd(), 'dataset', 'fr', 'final');
 
 // Tolérance de simplification des contours (degrés, ~10 m)
 const CONTOUR_TOLERANCE_DEG = 0.0001;
@@ -120,12 +120,13 @@ interface OsmDatasetPlant {
   };
 }
 
-// Format de WIND.json (eolien.py)
-interface WindDatasetPlant {
+// Format des jeux produits par registre.py
+interface RegistrySite {
   id: string;
   name: string;
   full_name: string;
-  technology: 'onshore' | 'offshore';
+  production_type: string; // WIND, SOLAR, GAS, OIL, COAL, BIOENERGY, BATTERY, HYDRO
+  technology: string | null;
   commune: string | null;
   departement: string | null;
   region: string | null;
@@ -141,7 +142,7 @@ interface WindDatasetPlant {
 type PlantData = Parameters<typeof prisma.plant.create>[0]['data'];
 type UnitData = { eic_code: string; name: string; production_type: string; capacity_mw: number | null; commissioning_date: Date | null };
 
-const readDataset = <T>(file: string) => JSON.parse(readFileSync(join(FINIE, file), 'utf-8')) as T[];
+const readDataset = <T>(file: string) => JSON.parse(readFileSync(join(FINAL_DIR, file), 'utf-8')) as T[];
 
 // ─── Géométrie ───────────────────────────────────────────────────────────────
 
@@ -263,6 +264,7 @@ function osmPlant(record: OsmDatasetPlant, id: string, name: string) {
     records,
     plant: {
       id,
+      country: COUNTRY,
       name,
       full_name: record.name,
       operator: record.operator,
@@ -343,36 +345,44 @@ function hydroPlants() {
   return result;
 }
 
-function windPlants() {
-  return readDataset<WindDatasetPlant>('WIND.json').map((w) => ({
+// Type RTE des groupes déclarés par les jeux du registre (production_type du site -> groupe)
+const UNIT_TYPES: Record<string, string> = {
+  WIND: 'WIND_OFFSHORE',
+  GAS: 'FOSSIL_GAS',
+  OIL: 'FOSSIL_OIL',
+  COAL: 'FOSSIL_HARD_COAL',
+  BIOENERGY: 'BIOMASS',
+  BATTERY: 'OTHER',
+  HYDRO: 'HYDRO_RUN_OF_RIVER_AND_POUNDAGE',
+  SOLAR: 'SOLAR',
+};
+
+function registryPlants(file: string) {
+  return readDataset<RegistrySite>(file).map((site) => ({
     plant: {
-      id: w.id,
-      name: w.name,
-      full_name: w.full_name,
-      production_type: 'WIND',
-      technology: w.technology,
-      latitude: w.latitude,
-      longitude: w.longitude,
-      capacity_mw: w.capacity_mw,
-      commissioning_date: w.commissioning_date ? new Date(w.commissioning_date) : null,
-      commune: w.commune,
-      departement: w.departement,
-      region: w.region,
-      region_code: w.region_code,
-      installations: w.installations,
+      id: site.id,
+      country: COUNTRY,
+      name: site.name,
+      full_name: site.full_name,
+      production_type: site.production_type,
+      technology: site.technology,
+      latitude: site.latitude,
+      longitude: site.longitude,
+      capacity_mw: site.capacity_mw,
+      commissioning_date: site.commissioning_date ? new Date(site.commissioning_date) : null,
+      commune: site.commune,
+      departement: site.departement,
+      region: site.region,
+      region_code: site.region_code,
+      installations: site.installations,
     } satisfies PlantData,
-    // RTE ne publie la production que des groupes de plus de 100 MW : les grands parcs en mer.
-    // Les fermes pilotes (Provence Grand Large, Floatgen) et l'éolien terrestre sont estimés.
-    units: w.technology === 'offshore'
-      ? w.units.filter((u) => u.capacity_mw >= RTE_UNIT_MIN_MW).map((u, i) => ({
-          eic_code: u.eic_code,
-          // Noms registre/RTE peu lisibles (« B.GUEEA1 - ADP A1 DE LA FERME… ») : numérotés par parc
-          name: `${w.name} ${i + 1}`,
-          production_type: 'WIND_OFFSHORE',
-          capacity_mw: u.capacity_mw,
-          commissioning_date: u.commissioning_date ? new Date(u.commissioning_date) : null,
-        }))
-      : [],
+    units: site.units.map((u) => ({
+      eic_code: u.eic_code,
+      name: u.name,
+      production_type: UNIT_TYPES[site.production_type],
+      capacity_mw: u.capacity_mw,
+      commissioning_date: u.commissioning_date ? new Date(u.commissioning_date) : null,
+    })),
   }));
 }
 
@@ -380,40 +390,41 @@ async function main() {
   const datasets = [
     { label: 'Nucléaire', plants: nuclearPlants() },
     { label: 'Hydraulique', plants: hydroPlants() },
-    { label: 'Éolien', plants: windPlants() },
+    { label: 'Éolien', plants: registryPlants('WIND.json') },
+    { label: 'Solaire', plants: registryPlants('SOLAR.json') },
+    { label: 'Thermique', plants: registryPlants('THERMAL.json') },
+    { label: 'Bioénergies', plants: registryPlants('BIOENERGY.json') },
+    { label: 'Batteries', plants: registryPlants('BATTERY.json') },
+    { label: 'Marin', plants: registryPlants('MARINE.json') },
   ];
 
   for (const { label, plants } of datasets) {
     let units = 0;
-    for (const { plant, units: plantUnits } of plants) {
-      await prisma.plant.upsert({ where: { id: plant.id }, update: plant, create: plant });
-      for (const unit of plantUnits) {
-        const data = { ...unit, plant_id: plant.id };
-        // Le nom publié par RTE (déjà en base) est conservé, sauf pour l'éolien en mer (voir windPlants)
-        await prisma.unit.upsert({
-          where: { eic_code: unit.eic_code },
-          update: {
-            plant_id: plant.id,
-            capacity_mw: unit.capacity_mw,
-            commissioning_date: unit.commissioning_date,
-            ...(unit.production_type === 'WIND_OFFSHORE' && { name: unit.name }),
-          },
-          create: data,
-        });
-        units++;
-      }
+    // Upserts par lots parallèles (pool de connexions du driver pg)
+    for (let i = 0; i < plants.length; i += SEED_CONCURRENCY) {
+      await Promise.all(
+        plants.slice(i, i + SEED_CONCURRENCY).map(async ({ plant, units: plantUnits }) => {
+          await prisma.plant.upsert({ where: { id: plant.id }, update: plant, create: plant });
+          for (const unit of plantUnits) {
+            const { eic_code, ...fields } = unit;
+            await prisma.unit.upsert({
+              where: { eic_code },
+              update: { ...fields, plant_id: plant.id },
+              create: { ...unit, plant_id: plant.id },
+            });
+            units++;
+          }
+        })
+      );
     }
-    // Sites retirés du jeu de données (leurs groupes restent, détachés : ON DELETE SET NULL)
-    const { count: removed } = await prisma.plant.deleteMany({
-      where: {
-        production_type: { in: [...new Set(plants.map((p) => p.plant.production_type as string))] },
-        id: { notIn: plants.map((p) => p.plant.id) },
-      },
-    });
-    if (removed) console.log(`  ${removed} site(s) retiré(s) du jeu de données supprimé(s)`);
     const capacity = plants.reduce((sum, p) => sum + (p.plant.capacity_mw ?? 0), 0);
-    console.log(`${label.padEnd(12)} ${String(plants.length).padStart(5)} centrales  ${String(units).padStart(3)} groupes  ${Math.round(capacity)} MW`);
+    console.log(`${label.padEnd(12)} ${String(plants.length).padStart(5)} sites  ${String(units).padStart(3)} groupes  ${Math.round(capacity)} MW`);
   }
+
+  // Sites retirés des jeux de données (leurs groupes restent, détachés : ON DELETE SET NULL)
+  const ids = datasets.flatMap((d) => d.plants.map((p) => p.plant.id));
+  const { count: removed } = await prisma.plant.deleteMany({ where: { country: COUNTRY, id: { notIn: ids } } });
+  if (removed) console.log(`${removed} site(s) retiré(s) des jeux de données supprimé(s).`);
 
   const linked = await linkUnitsToPlants();
   console.log(`${linked} groupe(s) RTE rattaché(s) par leur nom.`);

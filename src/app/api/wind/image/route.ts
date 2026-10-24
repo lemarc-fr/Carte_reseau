@@ -1,25 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getWindData } from '@/lib/wind/cache';
+import { getWindLayers } from '@/lib/wind/cache';
 
 export const dynamic = 'force-dynamic';
 
+// GET /api/wind/image?layer=europe|france -> texture WebP (R/G = u/v, alpha = donnée présente)
 export async function GET(request: NextRequest) {
   try {
-    const { webp, etag, expiresAt } = await getWindData();
+    const id = request.nextUrl.searchParams.get('layer') ?? 'europe';
+    const layer = (await getWindLayers()).find((l) => l.id === id);
+    if (!layer) return new NextResponse(null, { status: 404 });
 
-    const ifNoneMatch = request.headers.get('if-none-match');
-    if (ifNoneMatch === etag) {
+    if (request.headers.get('if-none-match') === layer.etag) {
       return new NextResponse(null, { status: 304 });
     }
-
-    const maxAge = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000));
-
-    return new NextResponse(new Uint8Array(webp), {  // ← Buffer → Uint8Array
-    headers: {
+    return new NextResponse(new Uint8Array(layer.webp), {
+      headers: {
         'Content-Type': 'image/webp',
-        'Cache-Control': `public, max-age=${maxAge}, stale-while-revalidate=60`,
-        'ETag': etag,
-    },
+        // L'URL change avec l'échéance (paramètre v) : la texture peut être gardée longtemps
+        'Cache-Control': 'public, max-age=86400, immutable',
+        ETag: layer.etag,
+      },
     });
   } catch {
     return new NextResponse(null, { status: 503 });

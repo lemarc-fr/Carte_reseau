@@ -2,41 +2,67 @@
 
 import { useMapStore } from '@/store/useMapStore';
 import { useCurrentSlot } from '@/hooks/useCurrentSlot';
-import { formatGW, formatMW, nationalOutput } from '@/lib/generationUtils';
+import { formatGW, formatMW, formatPercent, nationalOutput } from '@/lib/generationUtils';
 import { ASSET_TYPE_ORDER, ASSET_TYPES } from '@/config/assetTypes';
+import type { AssetType } from '@/types/energy';
 import styles from './Map.module.css';
 
-// Production nationale (RTE, par filière) des filières affichées sur la carte
+const FOSSIL: AssetType[] = ['gas', 'coal', 'oil'];
+
+function Stat({ label, title, value, color }: { label: string; title: string; value: string; color?: string }) {
+  return (
+    <span className={styles.stat}>
+      <span className={styles.statLabel} title={title}>
+        {label} :
+      </span>
+      <span className={styles.statValue} style={color ? { color } : undefined}>
+        {value}
+      </span>
+    </span>
+  );
+}
+
+// Synthèse nationale (RTE, par filière) des filières affichées sur la carte
 export default function StatsBar() {
   const productionTypes = useMapStore((s) => s.productionTypes);
   const { generation, index } = useCurrentSlot();
 
   const types = ASSET_TYPE_ORDER.filter((type) => productionTypes[ASSET_TYPES[type].storeKey]);
-  const values = types.map((type) => ({ type, value: nationalOutput(generation, type, index) }));
-  const known = values.filter((v) => v.value !== null);
-  const total = known.length ? known.reduce((sum, v) => sum + v.value!, 0) : null;
+  const value = (type: AssetType) => nationalOutput(generation, type, index);
+  const sum = (list: AssetType[]) => {
+    const known = list.map(value).filter((v): v is number => v !== null);
+    return known.length ? known.reduce((a, b) => a + b, 0) : null;
+  };
+
+  const producing = types.filter((type) => !ASSET_TYPES[type].storage);
+  const storage = types.filter((type) => ASSET_TYPES[type].storage);
+  const production = sum(producing);
+  const lowCarbon = sum(producing.filter((type) => !FOSSIL.includes(type)));
+  const storageNet = sum(storage);
 
   return (
     <div className={styles.statsBar}>
-      <span className={styles.stat}>
-        <span className={styles.statLabel} title="Production nationale des filières affichées sur le créneau horaire (RTE)">
-          Production :
-        </span>
-        <span className={styles.statValue}>{formatMW(total)} MW</span>
-      </span>
-      {values.map(({ type, value }) => (
-        <span key={type} className={styles.stat}>
-          <span
-            className={styles.statLabel}
-            title={type === 'pumped_storage' ? 'Turbinage (+) ou pompage (−) des STEP' : undefined}
-          >
-            {ASSET_TYPES[type].label} :
-          </span>
-          <span className={styles.statValue} style={{ color: ASSET_TYPES[type].badgeColor }}>
-            {value === null ? '–' : `${value > 0 && type === 'pumped_storage' ? '+' : ''}${formatGW(value)} GW`}
-          </span>
-        </span>
-      ))}
+      <Stat
+        label="Production"
+        title="Production nationale des filières affichées sur le créneau horaire (RTE), hors stockage"
+        value={`${formatMW(production)} MW`}
+      />
+      {production !== null && production > 0 && lowCarbon !== null && (
+        <Stat
+          label="Bas carbone"
+          title="Part du nucléaire, de l'hydraulique, de l'éolien, du solaire et des bioénergies dans cette production"
+          value={formatPercent(lowCarbon / production)}
+          color="#2f855a"
+        />
+      )}
+      {storageNet !== null && (
+        <Stat
+          label="Stockage"
+          title="STEP et batteries : déstockage (+) ou recharge (−)"
+          value={`${storageNet > 0 ? '+' : ''}${formatGW(storageNet)} GW`}
+          color={ASSET_TYPES.pumped_storage.badgeColor}
+        />
+      )}
     </div>
   );
 }

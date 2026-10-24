@@ -1,10 +1,15 @@
-import { MAP_MAX_ZOOM, PROTOMAPS_API_KEY } from '@/config/mapConfig';
-import type { ExpressionSpecification, LayerSpecification, StyleSpecification } from 'maplibre-gl';
+import { DETAIL_MIN_ZOOM, MAP_MAX_ZOOM, PROTOMAPS_API_KEY } from '@/config/mapConfig';
+import { ASSET_TYPE_ORDER, ASSET_TYPES } from '@/config/assetTypes';
+import type { ExpressionSpecification, FilterSpecification, LayerSpecification, StyleSpecification } from 'maplibre-gl';
 
 // Fond de carte sobre (terre claire, mer gris-bleu, relief) pour faire ressortir
 // les centrales, dans l'esprit de la GB Renewables Map. Ordre de rendu :
-//   fond de carte → [vent deck.gl] → lignes électriques → [cercles deck.gl] → noms des centrales
+//   fond de carte → [vent deck.gl] → lignes électriques → installations OSM (zoom ≥ 10)
+//   → [cercles deck.gl] → noms des centrales
 // Les calques deck.gl s'insèrent via `beforeId` sur les identifiants exportés ci-dessous.
+//
+// Lignes, centrales, générateurs et postes viennent des tuiles Open Infrastructure Map
+// (OpenStreetMap, monde entier) : le détail reste disponible dans n'importe quel pays.
 
 const WATER = '#dde4ea';
 const LAND = '#f7f7f5';
@@ -15,7 +20,9 @@ export const PLANT_LABELS_LAYER_ID = 'plant-labels';
 const PLANT_LABELS_MAJOR_LAYER_ID = 'plant-labels-major';
 export const PLANT_LABEL_LAYER_IDS = [PLANT_LABELS_LAYER_ID, PLANT_LABELS_MAJOR_LAYER_ID];
 
-// ─── Lignes électriques (Open Infrastructure Map) ────────────────────────────
+const OIM_SOURCE_ID = 'openinframap';
+
+// ─── Lignes électriques ──────────────────────────────────────────────────────
 
 const voltage: ExpressionSpecification = ['to-number', ['coalesce', ['get', 'voltage'], 0]];
 const inService: ExpressionSpecification = ['all', ['!=', ['get', 'disused'], true], ['!=', ['get', 'construction'], true]];
@@ -25,7 +32,7 @@ const inService: ExpressionSpecification = ['all', ['!=', ['get', 'disused'], tr
 const powerLineLayer = (id: string, minVoltage: number, maxVoltage: number, minzoom: number, width: number): LayerSpecification => ({
   id,
   type: 'line',
-  source: 'power-lines',
+  source: OIM_SOURCE_ID,
   'source-layer': 'power_line',
   minzoom,
   filter: ['all', inService, ['>=', voltage, minVoltage], ['<', voltage, maxVoltage]],
@@ -46,6 +53,88 @@ export const POWER_LINE_LAYERS: LayerSpecification[] = [
 
 export const FIRST_POWER_LINE_LAYER_ID = POWER_LINE_LAYERS[0].id;
 
+// ─── Installations en détail (zoom ≥ DETAIL_MIN_ZOOM) ─────────────────────────
+
+const rgb = ([r, g, b]: [number, number, number]) => `rgb(${r}, ${g}, ${b})`;
+const OTHER_SOURCE_COLOR = '#8a94a3'; // géothermie, sources non renseignées…
+
+// Couleur d'une installation OSM selon sa filière (`source`), mêmes teintes que les cercles
+const osmSourceColor = (part: 'fill' | 'stroke'): ExpressionSpecification => [
+  'match',
+  ['get', 'source'],
+  ...ASSET_TYPE_ORDER.flatMap((type) =>
+    ASSET_TYPES[type].osmSources.length ? [ASSET_TYPES[type].osmSources, rgb(ASSET_TYPES[type][part])] : []
+  ),
+  OTHER_SOURCE_COLOR,
+] as unknown as ExpressionSpecification;
+
+/**
+ * Filtre des installations OSM sur les filières affichées (les autres sources restent
+ * visibles) et, si minOutputMw > 0, sur leur puissance (`output`, en MW).
+ */
+export function osmSourceFilter(visibleSources: string[], minOutputMw = 0): FilterSpecification {
+  const known = ASSET_TYPE_ORDER.flatMap((type) => ASSET_TYPES[type].osmSources);
+  const bySource: ExpressionSpecification = [
+    'any',
+    ['in', ['get', 'source'], ['literal', visibleSources]],
+    ['!', ['in', ['coalesce', ['get', 'source'], ''], ['literal', known]]],
+  ];
+  if (minOutputMw <= 0) return bySource;
+  return ['all', bySource, ['>=', ['to-number', ['get', 'output'], 0], minOutputMw]];
+}
+
+export const OSM_DETAIL_LAYERS: LayerSpecification[] = [
+  {
+    id: 'osm-plants-fill', type: 'fill', source: OIM_SOURCE_ID, 'source-layer': 'power_plant', minzoom: DETAIL_MIN_ZOOM,
+    paint: { 'fill-color': osmSourceColor('fill'), 'fill-opacity': 0.25 },
+  },
+  {
+    id: 'osm-plants-outline', type: 'line', source: OIM_SOURCE_ID, 'source-layer': 'power_plant', minzoom: DETAIL_MIN_ZOOM,
+    paint: { 'line-color': osmSourceColor('stroke'), 'line-width': ['interpolate', ['linear'], ['zoom'], 10, 0.8, 14, 2] },
+  },
+  {
+    id: 'osm-substations', type: 'circle', source: OIM_SOURCE_ID, 'source-layer': 'power_substation_point', minzoom: 11,
+    paint: {
+      'circle-color': '#4a5568',
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 11, 1.5, 14, 3.5],
+      'circle-opacity': 0.6,
+    },
+  },
+  {
+    id: 'osm-generators', type: 'circle', source: OIM_SOURCE_ID, 'source-layer': 'power_generator', minzoom: DETAIL_MIN_ZOOM,
+    paint: {
+      'circle-color': osmSourceColor('fill'),
+      'circle-stroke-color': osmSourceColor('stroke'),
+      'circle-stroke-width': 0.6,
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 1.6, 14, 5],
+    },
+  },
+  {
+    id: 'osm-plant-points', type: 'circle', source: OIM_SOURCE_ID, 'source-layer': 'power_plant_point', minzoom: DETAIL_MIN_ZOOM,
+    paint: {
+      'circle-color': osmSourceColor('fill'),
+      'circle-stroke-color': '#ffffff',
+      'circle-stroke-width': 1,
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 10, 3, 14, 6],
+    },
+  },
+  {
+    id: 'osm-plant-names', type: 'symbol', source: OIM_SOURCE_ID, 'source-layer': 'power_plant', minzoom: 12,
+    layout: {
+      'text-field': ['get', 'name'],
+      'text-font': ['Noto Sans Medium'],
+      'text-size': 11,
+      'text-max-width': 10,
+      'text-padding': 4,
+    },
+    paint: { 'text-color': '#2d3748', 'text-halo-color': 'rgba(255, 255, 255, 0.9)', 'text-halo-width': 1.4 },
+  },
+];
+
+/** Calques OSM survolables (infobulle des installations en détail). */
+export const OSM_INTERACTIVE_LAYER_IDS = ['osm-plants-fill', 'osm-generators', 'osm-plant-points'];
+export const OSM_FILTERED_LAYER_IDS = OSM_DETAIL_LAYERS.filter((l) => l.id !== 'osm-substations').map((l) => l.id);
+
 // ─── Style complet ───────────────────────────────────────────────────────────
 
 export const mapStyle: StyleSpecification = {
@@ -65,12 +154,12 @@ export const mapStyle: StyleSpecification = {
       maxzoom: MAP_MAX_ZOOM,
       attribution: '<a href="https://mapterhorn.com/attribution">© Mapterhorn</a>'
     },
-    'power-lines': {
+    [OIM_SOURCE_ID]: {
       type: 'vector',
       tiles: ['https://openinframap.org/map/power/{z}/{x}/{y}.pbf'],
       minzoom: 2,
       maxzoom: 17,
-      attribution: '<a href="https://openinframap.org/copyright">Open Infrastructure Map</a>'
+      attribution: '<a href="https://openinframap.org/copyright">Open Infrastructure Map</a> © <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
     },
     // Rempli côté client (PowerMap) avec la position et le nom des centrales
     [PLANTS_SOURCE_ID]: {
@@ -130,12 +219,15 @@ export const mapStyle: StyleSpecification = {
       paint: { 'line-color': '#6b7480', 'line-width': 1 }
     },
     ...POWER_LINE_LAYERS,
+    ...OSM_DETAIL_LAYERS,
     // Noms des centrales : petites installations à partir du zoom 8, grandes dès la vue France
+    // (au zoom du détail, les noms des petits sites regroupés par commune s'effacent
+    // devant les installations OpenStreetMap)
     ...([
-      [PLANT_LABELS_LAYER_ID, false, 8],
-      [PLANT_LABELS_MAJOR_LAYER_ID, true, 4.5],
-    ] as const).map(([id, major, minzoom]): LayerSpecification => ({
-      id, type: 'symbol', source: PLANTS_SOURCE_ID, minzoom,
+      [PLANT_LABELS_LAYER_ID, false, 8, DETAIL_MIN_ZOOM],
+      [PLANT_LABELS_MAJOR_LAYER_ID, true, 4.5, 24],
+    ] as const).map(([id, major, minzoom, maxzoom]): LayerSpecification => ({
+      id, type: 'symbol', source: PLANTS_SOURCE_ID, minzoom, maxzoom,
       filter: ['==', ['get', 'major'], major],
       layout: {
         'text-field': ['get', 'name'],
