@@ -169,3 +169,15 @@ export async function aggregateDays(fromDay: string, series: string, timeZone: s
   );
   return new Set(rows.map((r) => r.day));
 }
+
+/** Note les jours `days` comme publiés en entier par `source`. */
+export async function markDays(source: string, days: string[]): Promise<void> {
+  if (!days.length) return;
+  await prisma.ingestedDay.createMany({ data: days.map((day) => ({ source, day })), skipDuplicates: true });
+}
+
+/** Jours publiés en entier par `source` depuis `fromDay`. */
+export async function markedDays(source: string, fromDay: string): Promise<Set<string>> {
+  const rows = await prisma.ingestedDay.findMany({ where: { source, day: { gte: fromDay } }, select: { day: true } });
+  return new Set(rows.map((r) => r.day));
+}

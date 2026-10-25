@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { prisma } from './prisma';
+import { DISPLAYED_COUNTRIES } from '@/config/assetTypes';
 import type { AssetType, GenerationSeries, PlantInfo, ReadingGranularity } from '@/types/energy';
 
 const toDay = (date: Date | null) => (date ? date.toISOString().slice(0, 10) : null);
@@ -108,9 +109,11 @@ export async function getGenerationSeries(from: Date, to: Date): Promise<Generat
       where: range,
       select: { series: true, start_date: true, granularity: true, value: true },
     }),
+    // Dernier créneau des pays affichés (graphique, barre du haut) : un autre pays publié
+    // plus tôt (programmes britanniques) ne doit pas avancer l'instant « en direct »
     prisma.productionReading.aggregate({
       _max: { start_date: true, updated_date: true },
-      where: { granularity: 'HOUR' },
+      where: { granularity: 'HOUR', unit: { country: { in: DISPLAYED_COUNTRIES } } },
     }),
     prisma.productionReading.aggregate({ _min: { start_date: true } }),
   ]);

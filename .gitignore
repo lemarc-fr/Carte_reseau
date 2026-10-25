@@ -47,3 +47,5 @@ __pycache__/
 
 # IDE (configuration locale, dont l'adresse de la base)
 .idea/
+dataset/gb/scripts/matches.txt
+dataset/gb/scripts/unmatched.txt

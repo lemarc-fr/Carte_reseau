@@ -413,7 +413,13 @@ export default function PowerMap() {
         <AttributionControl
           position="bottom-right"
           compact={false}
-          customAttribution={['<a href="https://data.rte-france.com">RTE</a>', 'Météo-France AROME', 'NOAA GFS']}
+          customAttribution={[
+            '<a href="https://data.rte-france.com">RTE</a>',
+            '<a href="https://bmrs.elexon.co.uk">BMRS © Elexon</a>',
+            'ENTSO-E',
+            'Météo-France AROME',
+            'NOAA GFS',
+          ]}
         />
         <DeckGLOverlay layers={layers} onHover={onHover} onClick={onClick} />
       </Map>

@@ -1,9 +1,9 @@
 import { entsoeCountry, type EntsoeArea } from './country';
 
 // Pays synchronisés par ENTSO-E (la France l'est par RTE, plus détaillé). Centrales :
-// dataset/<pays>/final/PLANTS.json (dataset/eu/scripts/powerplantmatching.py) ; celles du
-// Royaume-Uni (hors ENTSO-E depuis 2021), d'Ukraine, de Moldavie et du Kosovo restent
-// sans production.
+// dataset/<pays>/final/PLANTS.json (dataset/eu/scripts/powerplantmatching.py) ; celles
+// d'Ukraine, de Moldavie et du Kosovo restent sans production. La Grande-Bretagne, hors
+// ENTSO-E depuis 2021, est synchronisée par Elexon (../gb).
 // Codes EIC des zones : https://transparency.entsoe.eu (Area codes).
 const AREAS: EntsoeArea[] = [
   { code: 'AL', name: 'Albanie', timeZone: 'Europe/Tirane', domain: '10YAL-KESH-----5' },

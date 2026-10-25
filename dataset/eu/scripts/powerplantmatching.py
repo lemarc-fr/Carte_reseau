@@ -39,7 +39,7 @@ COUNTRIES = {
     "Greece": "GR", "Croatia": "HR", "Hungary": "HU", "Ireland": "IE", "Italy": "IT",
     "Lithuania": "LT", "Luxembourg": "LU", "Latvia": "LV", "Netherlands": "NL", "Norway": "NO",
     "Poland": "PL", "Portugal": "PT", "Romania": "RO", "Serbia": "RS", "Sweden": "SE",
-    "Slovenia": "SI", "Slovakia": "SK", "United Kingdom": "GB", "Ukraine": "UA",
+    "Slovenia": "SI", "Slovakia": "SK", "Ukraine": "UA",
     "Bosnia and Herzegovina": "BA", "North Macedonia": "MK", "Albania": "AL",
     "Montenegro": "ME", "Moldova": "MD", "Kosovo": "XK",
 }

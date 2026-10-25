@@ -37,7 +37,7 @@ const datasets = [
     .map((dir) => ({ file: `${dir}/final/PLANTS.json`, types: ALL_TYPES })),
 ].map((d) => ({ ...d, sites: read(d.file) }));
 
-describe.each(datasets)('$file', ({ types, sites }) => {
+describe.each(datasets)('$file', ({ file, types, sites }) => {
   it('contient des sites', () => {
     expect(sites.length).toBeGreaterThan(0);
   });
@@ -54,10 +54,16 @@ describe.each(datasets)('$file', ({ types, sites }) => {
     }
   });
 
-  it('ne liste que des groupes de 100 MW ou plus', () => {
+  // Groupes publiés par RTE et ENTSO-E (100 MW ou plus) ; au Royaume-Uni, les BMU
+  // d'Elexon sont publiées quelle que soit leur taille, la centrale fait 100 MW ou plus
+  it.skipIf(file.startsWith('gb/'))('ne liste que des groupes de 100 MW ou plus', () => {
     for (const unit of sites.flatMap((s) => s.units)) {
       if (unit.capacity_mw !== null) expect(unit.capacity_mw, unit.eic_code).toBeGreaterThanOrEqual(100);
     }
+  });
+
+  it.skipIf(file.startsWith('fr/'))('ne contient que des centrales de 100 MW ou plus', () => {
+    for (const site of sites) expect(site.capacity_mw, site.id).toBeGreaterThanOrEqual(100);
   });
 });
 

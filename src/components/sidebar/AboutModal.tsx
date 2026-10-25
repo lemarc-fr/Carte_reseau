@@ -51,6 +51,26 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
             comptée dans les totaux nationaux.
           </li>
           <li>
+            Grande-Bretagne : centrales de 100 MW et plus et leurs unités du mécanisme d&apos;ajustement (BMU), placées
+            grâce à powerplantmatching et OpenStreetMap. Production de chaque unité d&apos;après{' '}
+            <a href="https://bmrs.elexon.co.uk" target="_blank" rel="noreferrer">
+              BMRS
+            </a>{' '}
+            d&apos;Elexon : programme déclaré (PN) pour les derniers jours, remplacé par la production mesurée (B1610)
+            dès sa publication, une semaine environ après. Contient des données BMRS © Elexon Limited.
+          </li>
+          <li>
+            Reste de l&apos;Europe : centrales de 100 MW et plus de{' '}
+            <a href="https://github.com/PyPSA/powerplantmatching" target="_blank" rel="noreferrer">
+              powerplantmatching
+            </a>{' '}
+            (PyPSA), production par filière et par groupe de la{' '}
+            <a href="https://transparency.entsoe.eu" target="_blank" rel="noreferrer">
+              plateforme de transparence ENTSO-E
+            </a>
+            .
+          </li>
+          <li>
             Lignes électriques et, à partir du zoom 10, emprise des centrales, éoliennes, panneaux solaires et postes
             électriques :{' '}
             <a href="https://openinframap.org" target="_blank" rel="noreferrer">

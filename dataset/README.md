@@ -36,16 +36,37 @@ Les groupes publiés par RTE dont le code EIC n'apparaît pas dans ces jeux (gra
 quelques centrales thermiques) sont rattachés à leur site par leur nom dans
 `src/lib/power/fr/unitPlants.ts`.
 
+## Grande-Bretagne (`gb/`)
+
+`gb/scripts/bmu.py` part des unités du mécanisme d'ajustement (BMU) du référentiel d'Elexon
+(`gb/raw/elexon_bmunits.json`), regroupées en centrales par le radical de leur code National Grid
+(`DRAXX-1…6` -> `DRAXX`), et les place :
+
+1. `patches_bmu.json` : radical -> nom exact d'une centrale OSM ou powerplantmatching ;
+2. powerplantmatching, dont le code EIC de centrale contient le radical (`48WSTN0000DRAXXK`) ;
+3. OpenStreetMap (`gb/raw/osm_plants.json`, centrales nommées via Overpass, ODbL) : mots du nom, même
+   filière, puissance compatible.
+
+Résultat : 171 centrales d'au moins 100 MW, dont 109 avec 238 BMU (74 GW) ; les autres (solaire,
+centrales sans BMU) sont estimées. Restent non placées des centrales fermées (West Burton A, Hunterston B,
+charbon de Drax) et les cascades hydrauliques d'SSE. Le script écrit `scripts/matches.txt` (à relire) et
+`scripts/unmatched.txt`.
+
+```bash
+cd dataset/gb/scripts
+python3 bmu.py
+```
+
 ## Europe (`eu/` -> `<pays>/final/PLANTS.json`)
 
 `eu/raw/powerplants.csv` (Git LFS) : base [powerplantmatching](https://github.com/PyPSA/powerplantmatching)
 de PyPSA, qui rassemble les registres nationaux, ENTSO-E, JRC, OpenStreetMap et GEM avec positions et
 codes EIC. Téléchargée le 24/10/2026, sha256 `ceccce02edd33813216a264fe6c8e3281ce2249435a259c1b1a1b729ce4f3d78`.
 
-`eu/scripts/powerplantmatching.py` garde, hors France, les centrales d'au moins 100 MW en service
-(1 812 dans 35 pays) et liste leurs codes EIC comme groupes : ENTSO-E publie la production de chaque
-groupe de 100 MW ou plus. Le Royaume-Uni (hors ENTSO-E depuis 2021), l'Ukraine, la Moldavie et le
-Kosovo sont affichés sans production.
+`eu/scripts/powerplantmatching.py` garde, hors France et Grande-Bretagne, les centrales d'au moins
+100 MW en service (1 656 dans 34 pays) et liste leurs codes EIC comme groupes : ENTSO-E publie la production de chaque
+groupe de 100 MW ou plus. L'Ukraine, la Moldavie et le Kosovo sont affichés sans
+production.
 
 ```bash
 cd dataset/eu/scripts

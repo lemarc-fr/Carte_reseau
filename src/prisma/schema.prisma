@@ -108,3 +108,14 @@ model AggregateReading {
   @@index([start_date, granularity])
   @@map("aggregate_readings")
 }
+
+// Jours qu'une source a publiés en entier, quand la présence de relevés ne suffit pas à le
+// dire (ex. B1610 d'Elexon, qui remplace des relevés provisoires déjà en base)
+model IngestedDay {
+  source     String // ex. "GB:B1610"
+  day        String // YYYY-MM-DD, heure locale du pays
+  created_at DateTime @default(now())
+
+  @@id([source, day])
+  @@map("ingested_days")
+}

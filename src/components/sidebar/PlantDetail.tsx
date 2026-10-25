@@ -18,7 +18,14 @@ import {
   regionalLoadFactor,
   unitOutput,
 } from '@/lib/generationUtils';
-import { ASSET_TYPES, COUNTRY_NAMES, REGIONAL_LABELS, TECHNOLOGY_LABELS } from '@/config/assetTypes';
+import {
+  ASSET_TYPES,
+  COUNTRY_NAMES,
+  DEFAULT_LOAD_FACTOR_SOURCE,
+  LOAD_FACTOR_SOURCES,
+  REGIONAL_LABELS,
+  TECHNOLOGY_LABELS,
+} from '@/config/assetTypes';
 import StackedChart, { PASTEL, PASTEL_STROKE, type ChartSeries } from '@/components/charts/StackedChart';
 import { unitLabel } from './unitLabel';
 import TypeBadge from './TypeBadge';
@@ -114,7 +121,8 @@ export default function PlantDetail({ plant }: { plant: PlantInfo }) {
             <>
               La production de ce site n&apos;est pas publiée individuellement. Elle est estimée à partir de sa
               puissance installée et du taux de charge national {REGIONAL_LABELS[style.regionalSeries]} en {country}{' '}
-              (production par filière rapportée à la puissance installée, ENTSO-E).
+              (production par filière rapportée à la puissance installée,{' '}
+              {LOAD_FACTOR_SOURCES[plant.country] ?? DEFAULT_LOAD_FACTOR_SOURCE}).
               {snapshot.output === null &&
                 (generation && loadFactorKey(generation, plant)
                   ? ' Aucune donnée nationale disponible pour cet instant.'

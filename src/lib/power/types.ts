@@ -9,6 +9,13 @@ export interface Source {
   daysWithData: (fromDay: string) => Promise<Set<string>>;
   /** Longueur maximale d'une fenêtre pour cette source, en jours. */
   maxDays: number;
+  /**
+   * Jours en arrière que la synchronisation récente vérifie (défaut : les 7 jours de
+   * relevés horaires) ; davantage pour une source publiée avec retard.
+   */
+  lookbackDays?: number;
+  /** Profondeur d'historique de la source en jours (défaut : illimitée) : le rattrapage ne remonte pas plus loin. */
+  historyDays?: number;
 }
 
 export interface Country {

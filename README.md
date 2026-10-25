@@ -5,8 +5,9 @@ Carte en temps réel de la production d'électricité, site par site, inspirée 
 installée, disque = production, graphique de production par filière sur 7 jours, choix de l'instant
 affiché, liste triable et fiche détaillée par site. En ligne : https://carte_reseau.lemarc.fr
 
-Pays couverts : la France, site par site (RTE, éCO2mix), et le reste de l'Europe par ses centrales
-d'au moins 100 MW (1 812 dans 35 pays, production ENTSO-E, voir plus bas).
+Pays couverts : la France, site par site (RTE, éCO2mix), la Grande-Bretagne par ses centrales d'au moins
+100 MW et leurs unités BMU (Elexon), et le reste de l'Europe par ses centrales d'au moins 100 MW
+(34 pays, production ENTSO-E). Voir plus bas.
 
 | Filière | Sites | Production affichée |
 |---|---|---|
@@ -61,6 +62,19 @@ src/config/             filières (couleurs, séries), style de carte, réglages
 dataset/                jeux de données et leur préparation (voir dataset/README.md)
 systemd/                service et configuration nginx du déploiement
 ```
+
+### Grande-Bretagne : Elexon BMRS
+
+`src/lib/power/gb/` interroge l'API Insights d'Elexon (sans clé) :
+
+- filières : FUELHH (unités du réseau de transport) et AGWS (éolien et solaire, réseau de
+  distribution compris) -> `GB:<TYPE>`, `GB:TOTAL`, taux de charge `GB-*:<FILIÈRE>` (FUELHH rapporté à
+  la puissance des BMU de la filière) ;
+- production de chaque BMU des centrales de `dataset/gb/final/PLANTS.json` : programme déclaré (PN)
+  pour les derniers jours, remplacé par la production mesurée (B1610) dès sa publication, environ
+  7 jours après. Les jours complets en B1610 sont notés dans `ingested_days` ; la synchronisation
+  regarde 14 jours en arrière pour cette source (`lookbackDays`) et ne rapatrie pas de PN au-delà de
+  10 jours (`historyDays`).
 
 ### Europe : ENTSO-E
 

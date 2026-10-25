@@ -208,6 +208,10 @@ export const TECHNOLOGY_LABELS: Record<string, string> = {
   Déchets: 'Déchets',
 };
 
+// Source des taux de charge nationaux (estimation des sites sans groupe publié), hors France
+export const LOAD_FACTOR_SOURCES: Record<string, string> = { GB: 'Elexon' };
+export const DEFAULT_LOAD_FACTOR_SOURCE = 'ENTSO-E';
+
 // Noms des pays (sites et sources hors de France)
 export const COUNTRY_NAMES: Record<string, string> = {
   FR: 'France', AT: 'Autriche', BE: 'Belgique', BG: 'Bulgarie', CH: 'Suisse', CZ: 'Tchéquie',

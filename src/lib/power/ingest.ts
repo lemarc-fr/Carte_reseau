@@ -80,12 +80,15 @@ function firstMissing(present: Set<string>, from: string, to: string): string | 
  * fenêtre récente (gérée par syncRecent), puis les résume en moyennes journalières.
  */
 export async function backfillHistory(country: Country): Promise<number> {
-  const start = backfillStart();
-  if (!start) return 0;
-  const end = addDays(dayIn(country.timeZone), -(HOURLY_RETENTION_DAYS - 1));
+  const configured = backfillStart();
+  if (!configured) return 0;
+  const today = dayIn(country.timeZone);
+  const end = addDays(today, -(HOURLY_RETENTION_DAYS - 1));
 
   let rows = 0;
   for (const source of country.sources) {
+    const oldest = source.historyDays ? addDays(today, -source.historyDays) : configured;
+    const start = oldest > configured ? oldest : configured;
     const present = await source.daysWithData(start);
     // Jours manquants consécutifs regroupés en plages [from, to[
     const ranges: [string, string][] = [];
@@ -115,18 +118,37 @@ export async function backfillHistory(country: Country): Promise<number> {
   return rows;
 }
 
-/** Met à jour la fenêtre récente : du premier jour manquant (au plus 7 jours) à aujourd'hui inclus. */
-async function syncRecent(country: Country): Promise<number> {
+/**
+ * Met à jour la fenêtre récente, source par source (dans l'ordre du pays : une source
+ * plus fiable passe après et remplace), de son premier jour manquant (au plus
+ * `lookbackDays` jours) à aujourd'hui inclus.
+ */
+export async function syncRecent(country: Country): Promise<number> {
   const today = dayIn(country.timeZone);
-  const oldest = addDays(today, -(HOURLY_RETENTION_DAYS - 1));
+  const retained = addDays(today, -(HOURLY_RETENTION_DAYS - 1));
   // Aujourd'hui est toujours rechargé, la veille aussi juste après minuit
-  let from = hourIn(country.timeZone) < LATE_PUBLICATION_HOURS ? addDays(today, -1) : today;
-  // Une source ajoutée après coup (ou restée en échec) peut manquer des jours récents
+  const latest = hourIn(country.timeZone) < LATE_PUBLICATION_HOURS ? addDays(today, -1) : today;
+
+  let rows = 0;
+  let beyondRetention = false;
   for (const source of country.sources) {
-    const missing = firstMissing(await source.daysWithData(oldest), oldest, from);
-    if (missing && missing < from) from = missing;
+    // Une source ajoutée après coup, restée en échec ou publiée en retard peut manquer des jours
+    const oldest = addDays(today, -((source.lookbackDays ?? HOURLY_RETENTION_DAYS) - 1));
+    const missing = firstMissing(await source.daysWithData(oldest), oldest, latest);
+    const from = missing && missing < latest ? missing : latest;
+    let written = 0;
+    try {
+      written = await ingestDays(country, from, addDays(today, 1), undefined, [source]);
+    } catch (err) {
+      // Les autres sources du pays continuent ; celle-ci sera reprise au prochain passage
+      console.error(`[production] ${country.code} ${source.name} : synchronisation échouée :`, (err as Error).message);
+    }
+    rows += written;
+    if (written && from < retained) beyondRetention = true;
   }
-  return ingestDays(country, from, addDays(today, 1));
+  // Relevés horaires écrits au-delà de la rétention : résumés tout de suite en moyennes journalières
+  if (beyondRetention) await downsampleOldHourlyData();
+  return rows;
 }
 
 let running: Promise<number> | null = null;
@@ -137,7 +159,14 @@ const enabledCountries = () => COUNTRIES.filter((country) => country.enabled());
 function syncRecentOnce(): Promise<number> {
   running ??= (async () => {
     let rows = 0;
-    for (const country of enabledCountries()) rows += await syncRecent(country);
+    for (const country of enabledCountries()) {
+      // Un pays en échec n'empêche pas les suivants de se synchroniser
+      try {
+        rows += await syncRecent(country);
+      } catch (err) {
+        console.error(`[production] synchronisation ${country.code} échouée :`, (err as Error).message);
+      }
+    }
     return rows;
   })().finally(() => {
     running = null;
