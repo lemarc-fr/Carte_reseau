@@ -458,6 +458,19 @@ async function main() {
     if (removed) console.log(`${country} : ${removed} site(s) retiré(s) des jeux de données supprimé(s).`);
   }
 
+  // Groupes retirés d'un jeu (ex. codes EIC remplacés par des BMU) : détachés de leur site.
+  // Les groupes RTE rattachés par leur nom le sont de nouveau juste après.
+  for (const country of new Set(datasets.map((d) => d.country))) {
+    const eics = datasets
+      .filter((d) => d.country === country)
+      .flatMap((d) => d.plants.flatMap((p) => p.units.map((u) => u.eic_code)));
+    const { count: detached } = await prisma.unit.updateMany({
+      where: { plant: { country }, eic_code: { notIn: eics } },
+      data: { plant_id: null },
+    });
+    if (detached) console.log(`${country} : ${detached} groupe(s) retiré(s) des jeux de données détaché(s).`);
+  }
+
   const linked = await linkUnitsToPlants();
   console.log(`${linked} groupe(s) RTE rattaché(s) par leur nom.`);
 }
