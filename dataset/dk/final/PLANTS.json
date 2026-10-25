@@ -1,0 +1,588 @@
+[
+ {
+  "id": "dk-bioenergy-amager",
+  "name": "Amager",
+  "full_name": "Amager",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.68678,
+  "longitude": 12.6277,
+  "capacity_mw": 218.0,
+  "commissioning_date": "1971-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45V000000000012C",
+    "name": "Amager",
+    "production_type": "BIOMASS",
+    "capacity_mw": 218.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-bioenergy-avedore",
+  "name": "Avedore",
+  "full_name": "Avedore",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.60216,
+  "longitude": 12.47906,
+  "capacity_mw": 835.0,
+  "commissioning_date": "1990-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45V0000000000091",
+    "name": "Avedore 1",
+    "production_type": "BIOMASS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "45W0000000000102",
+    "name": "Avedore 2",
+    "production_type": "BIOMASS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-bioenergy-studstrup",
+  "name": "Studstrup",
+  "full_name": "Studstrup",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.2502,
+  "longitude": 10.34486,
+  "capacity_mw": 362.0,
+  "commissioning_date": "1985-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-coal-nordjylland",
+  "name": "Nordjylland",
+  "full_name": "Nordjylland",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.07369,
+  "longitude": 10.04078,
+  "capacity_mw": 716.0,
+  "commissioning_date": "1967-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45V0000000000156",
+    "name": "Nordjylland 1",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "45W000000000016R",
+    "name": "Nordjylland 2",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-gas-fyns",
+  "name": "Fyns",
+  "full_name": "Fyns",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.42941,
+  "longitude": 10.41021,
+  "capacity_mw": 362.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-gas-silkeborgvaerket",
+  "name": "Silkeborgvaerket",
+  "full_name": "Silkeborgvaerket",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.201,
+  "longitude": 9.558,
+  "capacity_mw": 108.2,
+  "commissioning_date": "1995-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45W000000000112V",
+    "name": "Silkeborgvaerket",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 108.2,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-gas-skaerbaekvaerket",
+  "name": "Skaerbaekvaerket",
+  "full_name": "Skaerbaekvaerket",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.51132,
+  "longitude": 9.61331,
+  "capacity_mw": 392.0,
+  "commissioning_date": "1997-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45V000000000010G",
+    "name": "Skaerbaekvaerket 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "45W0000000000110",
+    "name": "Skaerbaekvaerket 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-oil-kyndby",
+  "name": "Kyndby",
+  "full_name": "Kyndby",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.8124,
+  "longitude": 11.8793,
+  "capacity_mw": 126.0,
+  "commissioning_date": "1973-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45V0000000000083",
+    "name": "Kyndby 1",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "45W000000000009O",
+    "name": "Kyndby 2",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-solar-barmosen-solar-farm",
+  "name": "Barmosen Solar Farm",
+  "full_name": "Barmosen Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.0495,
+  "longitude": 11.8977,
+  "capacity_mw": 137.0,
+  "commissioning_date": "2022-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-solar-glejbjerg-solar-farm",
+  "name": "Glejbjerg Solar Farm",
+  "full_name": "Glejbjerg Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.5221,
+  "longitude": 8.8277,
+  "capacity_mw": 148.2,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-solar-heartland-solar-farm",
+  "name": "Heartland Solar Farm",
+  "full_name": "Heartland Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.377,
+  "longitude": 8.4734,
+  "capacity_mw": 207.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-solar-holsted-solar-farm",
+  "name": "Holsted Solar Farm",
+  "full_name": "Holsted Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.5267,
+  "longitude": 8.8878,
+  "capacity_mw": 175.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45W000000000213P",
+    "name": "Holsted Solar Farm",
+    "production_type": "SOLAR",
+    "capacity_mw": 175.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-solar-kasso-solar-farm",
+  "name": "Kasso Solar Farm",
+  "full_name": "Kasso Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.025,
+  "longitude": 9.2561,
+  "capacity_mw": 304.0,
+  "commissioning_date": "2002-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45W000000000153H",
+    "name": "Kasso Solar Farm",
+    "production_type": "SOLAR",
+    "capacity_mw": 304.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-solar-lidso-solar-farm",
+  "name": "Lidso Solar Farm",
+  "full_name": "Lidso Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.7069,
+  "longitude": 11.3092,
+  "capacity_mw": 215.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45W000000000219D",
+    "name": "Lidso Solar Farm",
+    "production_type": "SOLAR",
+    "capacity_mw": 215.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-solar-vandel-solar-farm",
+  "name": "Vandel Solar Farm",
+  "full_name": "Vandel Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.6969,
+  "longitude": 9.1957,
+  "capacity_mw": 274.5,
+  "commissioning_date": "2017-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-wind-anholt-wind-farm",
+  "name": "Anholt Wind Farm",
+  "full_name": "Anholt Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.5897,
+  "longitude": 11.1827,
+  "capacity_mw": 400.0,
+  "commissioning_date": "2013-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45W000000000022W",
+    "name": "Anholt Wind Farm",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 400.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-wind-horns-rev-offshore-wind-farm",
+  "name": "Horns Rev Offshore Wind Farm",
+  "full_name": "Horns Rev Offshore Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.6825,
+  "longitude": 7.7729,
+  "capacity_mw": 407.0,
+  "commissioning_date": "2018-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45W000000000023U",
+    "name": "Horns Rev Offshore Wind Farm 1",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "45W000000000024S",
+    "name": "Horns Rev Offshore Wind Farm 2",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "45W000000000114R",
+    "name": "Horns Rev Offshore Wind Farm 3",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-wind-horns-rev-offshore-wind-farm-2",
+  "name": "Horns Rev Offshore Wind Farm",
+  "full_name": "Horns Rev Offshore Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.6084,
+  "longitude": 7.6114,
+  "capacity_mw": 209.0,
+  "commissioning_date": "2009-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-wind-horns-rev-offshore-wind-farm-3",
+  "name": "Horns Rev Offshore Wind Farm",
+  "full_name": "Horns Rev Offshore Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.4691,
+  "longitude": 7.8847,
+  "capacity_mw": 160.0,
+  "commissioning_date": "2002-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-wind-kriegers-flak-offshore-wind-farm",
+  "name": "Kriegers Flak Offshore Wind Farm",
+  "full_name": "Kriegers Flak Offshore Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.9855,
+  "longitude": 12.9965,
+  "capacity_mw": 605.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-wind-rodsand-wind-farm",
+  "name": "Rodsand Wind Farm",
+  "full_name": "Rodsand Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.5265,
+  "longitude": 11.617,
+  "capacity_mw": 207.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45W000000000019L",
+    "name": "Rodsand Wind Farm 1",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "45W000000000021Y",
+    "name": "Rodsand Wind Farm 2",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-wind-rodsand-wind-farm-2",
+  "name": "Rodsand Wind Farm",
+  "full_name": "Rodsand Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.5254,
+  "longitude": 11.7597,
+  "capacity_mw": 166.0,
+  "commissioning_date": "2003-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-wind-vesterhav-nord",
+  "name": "Vesterhav Nord",
+  "full_name": "Vesterhav Nord",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.59641,
+  "longitude": 8.02562,
+  "capacity_mw": 176.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45W000000000172D",
+    "name": "Vesterhav Nord",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 176.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "dk-wind-vesterhav-offshore-wind-farm",
+  "name": "Vesterhav Offshore Wind Farm",
+  "full_name": "Vesterhav Offshore Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.6999,
+  "longitude": 8.0446,
+  "capacity_mw": 180.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "dk-wind-vesterhav-offshore-wind-farm-2",
+  "name": "Vesterhav Offshore Wind Farm",
+  "full_name": "Vesterhav Offshore Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.0329,
+  "longitude": 8.0267,
+  "capacity_mw": 170.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "45W000000000173B",
+    "name": "Vesterhav Offshore Wind Farm",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 170.0,
+    "commissioning_date": null
+   }
+  ]
+ }
+]

@@ -1,0 +1,2802 @@
+[
+ {
+  "id": "se-bioenergy-abyverket",
+  "name": "Abyverket",
+  "full_name": "Abyverket",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 59.2649,
+  "longitude": 15.1772,
+  "capacity_mw": 170.0,
+  "commissioning_date": "1960-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000063L",
+    "name": "Abyverket",
+    "production_type": "BIOMASS",
+    "capacity_mw": 170.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-bioenergy-aroskraft",
+  "name": "Aroskraft",
+  "full_name": "Aroskraft",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 59.58849,
+  "longitude": 16.51386,
+  "capacity_mw": 305.0,
+  "commissioning_date": "1973-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-bioenergy-handelo",
+  "name": "Handelo",
+  "full_name": "Handelo",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 58.6206,
+  "longitude": 16.2319,
+  "capacity_mw": 129.0,
+  "commissioning_date": "1983-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-bioenergy-metsa-husum",
+  "name": "Metsa Husum",
+  "full_name": "Metsa Husum",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.328,
+  "longitude": 19.1613,
+  "capacity_mw": 130.0,
+  "commissioning_date": "2022-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-bioenergy-ostersund",
+  "name": "Ostersund",
+  "full_name": "Ostersund",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.20587,
+  "longitude": 14.65637,
+  "capacity_mw": 118.0,
+  "commissioning_date": "2002-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-bioenergy-sodra-cell-monsteras-pulp-mill",
+  "name": "Sodra Cell Monsteras Pulp Mill",
+  "full_name": "Sodra Cell Monsteras Pulp Mill",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.0916,
+  "longitude": 16.5461,
+  "capacity_mw": 148.0,
+  "commissioning_date": "1979-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-bioenergy-uppsala",
+  "name": "Uppsala",
+  "full_name": "Uppsala",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 59.85242,
+  "longitude": 17.67742,
+  "capacity_mw": 120.0,
+  "commissioning_date": "1973-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000055K",
+    "name": "Uppsala",
+    "production_type": "BIOMASS",
+    "capacity_mw": 120.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-bioenergy-varo-pulp-mill",
+  "name": "Varo Pulp Mill",
+  "full_name": "Varo Pulp Mill",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.2245,
+  "longitude": 12.177,
+  "capacity_mw": 126.0,
+  "commissioning_date": "2006-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-bioenergy-vartaverket",
+  "name": "Vartaverket",
+  "full_name": "Vartaverket",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 59.35327,
+  "longitude": 18.1009,
+  "capacity_mw": 356.0,
+  "commissioning_date": "2013-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000023X",
+    "name": "Vartaverket",
+    "production_type": "BIOMASS",
+    "capacity_mw": 356.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-gas-lulea",
+  "name": "Lulea",
+  "full_name": "Lulea",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.5716,
+  "longitude": 22.082,
+  "capacity_mw": 100.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-gas-oresundsverket-malmo",
+  "name": "Oresundsverket Malmo",
+  "full_name": "Oresundsverket Malmo",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.62563,
+  "longitude": 13.04026,
+  "capacity_mw": 448.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU00000000040",
+    "name": "Oresundsverket Malmo",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 448.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-gas-rya-goteborg",
+  "name": "Rya Goteborg",
+  "full_name": "Rya Goteborg",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.6924,
+  "longitude": 11.8905,
+  "capacity_mw": 250.0,
+  "commissioning_date": "2006-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000062N",
+    "name": "Rya Goteborg",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 250.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-akkats",
+  "name": "Akkats",
+  "full_name": "Akkats",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 66.6315,
+  "longitude": 19.8208,
+  "capacity_mw": 157.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000107R",
+    "name": "Akkats",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 157.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-alvkarleby",
+  "name": "Alvkarleby",
+  "full_name": "Alvkarleby",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 60.5632,
+  "longitude": 17.4431,
+  "capacity_mw": 125.0,
+  "commissioning_date": "1915-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000053O",
+    "name": "Alvkarleby",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 125.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-bastusel",
+  "name": "Bastusel",
+  "full_name": "Bastusel",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.4029,
+  "longitude": 18.6736,
+  "capacity_mw": 100.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000038K",
+    "name": "Bastusel",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 100.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-bergeforsen",
+  "name": "Bergeforsen",
+  "full_name": "Bergeforsen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.5198,
+  "longitude": 17.3878,
+  "capacity_mw": 174.0,
+  "commissioning_date": "1955-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000051S",
+    "name": "Bergeforsen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 174.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-forsmo",
+  "name": "Forsmo",
+  "full_name": "Forsmo",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.2707,
+  "longitude": 17.2003,
+  "capacity_mw": 158.0,
+  "commissioning_date": "1948-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000047J",
+    "name": "Forsmo",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 158.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-gallejuar",
+  "name": "Gallejuar",
+  "full_name": "Gallejuar",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.1269,
+  "longitude": 19.4693,
+  "capacity_mw": 220.0,
+  "commissioning_date": "1964-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000039I",
+    "name": "Gallejuar",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 220.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-grundfors",
+  "name": "Grundfors",
+  "full_name": "Grundfors",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.9623,
+  "longitude": 17.5789,
+  "capacity_mw": 108.0,
+  "commissioning_date": "1958-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000150Q",
+    "name": "Grundfors",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 108.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-hackren",
+  "name": "Hackren",
+  "full_name": "Hackren",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.19792,
+  "longitude": 13.50875,
+  "capacity_mw": 152.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-hydro-harrsele",
+  "name": "Harrsele",
+  "full_name": "Harrsele",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.0169,
+  "longitude": 19.5606,
+  "capacity_mw": 223.0,
+  "commissioning_date": "1957-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000080L",
+    "name": "Harrsele",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 223.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-harspranget",
+  "name": "Harspranget",
+  "full_name": "Harspranget",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 66.9541,
+  "longitude": 19.8147,
+  "capacity_mw": 818.0,
+  "commissioning_date": "1919-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000029L",
+    "name": "Harspranget",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 818.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-hjalta",
+  "name": "Hjalta",
+  "full_name": "Hjalta",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.1836,
+  "longitude": 17.0985,
+  "capacity_mw": 178.0,
+  "commissioning_date": "1952-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-hydro-hojum",
+  "name": "Hojum",
+  "full_name": "Hojum",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 58.2803,
+  "longitude": 12.2786,
+  "capacity_mw": 170.0,
+  "commissioning_date": "1941-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000054M",
+    "name": "Hojum",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 170.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-holjes",
+  "name": "Holjes",
+  "full_name": "Holjes",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 60.9507,
+  "longitude": 12.5479,
+  "capacity_mw": 128.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000022Z",
+    "name": "Holjes",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 128.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-holleforsen",
+  "name": "Holleforsen",
+  "full_name": "Holleforsen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.9507,
+  "longitude": 16.6683,
+  "capacity_mw": 151.0,
+  "commissioning_date": "1949-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000050U",
+    "name": "Holleforsen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 151.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-jarnvagsforsen",
+  "name": "Jarnvagsforsen",
+  "full_name": "Jarnvagsforsen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.4872,
+  "longitude": 15.5595,
+  "capacity_mw": 100.0,
+  "commissioning_date": "1959-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000105V",
+    "name": "Jarnvagsforsen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 100.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-jarpstrommen",
+  "name": "Jarpstrommen",
+  "full_name": "Jarpstrommen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.3893,
+  "longitude": 13.3844,
+  "capacity_mw": 114.0,
+  "commissioning_date": "1944-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000019O",
+    "name": "Jarpstrommen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 114.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-kilforsen",
+  "name": "Kilforsen",
+  "full_name": "Kilforsen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.5442,
+  "longitude": 16.763,
+  "capacity_mw": 296.0,
+  "commissioning_date": "1953-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000045N",
+    "name": "Kilforsen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 296.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-korsselbranna",
+  "name": "Korsselbranna",
+  "full_name": "Korsselbranna",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.4584,
+  "longitude": 15.5387,
+  "capacity_mw": 130.0,
+  "commissioning_date": "1961-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000104X",
+    "name": "Korsselbranna",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 130.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-krangede",
+  "name": "Krangede",
+  "full_name": "Krangede",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.1467,
+  "longitude": 16.0718,
+  "capacity_mw": 248.0,
+  "commissioning_date": "1936-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000085B",
+    "name": "Krangede",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 248.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-krokstrommen",
+  "name": "Krokstrommen",
+  "full_name": "Krokstrommen",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.0466,
+  "longitude": 14.8779,
+  "capacity_mw": 103.0,
+  "commissioning_date": "1952-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU00000000210",
+    "name": "Krokstrommen",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 103.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-kvistforsen",
+  "name": "Kvistforsen",
+  "full_name": "Kvistforsen",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.7497,
+  "longitude": 20.8664,
+  "capacity_mw": 140.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000103Z",
+    "name": "Kvistforsen",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 140.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-langa",
+  "name": "Langa",
+  "full_name": "Langa",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.4632,
+  "longitude": 13.0803,
+  "capacity_mw": 156.0,
+  "commissioning_date": "1938-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-hydro-lasele",
+  "name": "Lasele",
+  "full_name": "Lasele",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.5552,
+  "longitude": 16.8277,
+  "capacity_mw": 165.0,
+  "commissioning_date": "1956-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000044P",
+    "name": "Lasele",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 165.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-laxede",
+  "name": "Laxede",
+  "full_name": "Laxede",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 66.2242,
+  "longitude": 20.8602,
+  "capacity_mw": 207.0,
+  "commissioning_date": "1959-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000037M",
+    "name": "Laxede",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 207.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-letsi",
+  "name": "Letsi",
+  "full_name": "Letsi",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 66.504,
+  "longitude": 20.3828,
+  "capacity_mw": 483.0,
+  "commissioning_date": "1967-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000035Q",
+    "name": "Letsi",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 483.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-ligga",
+  "name": "Ligga",
+  "full_name": "Ligga",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 66.809,
+  "longitude": 19.8997,
+  "capacity_mw": 342.0,
+  "commissioning_date": "1954-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000031Y",
+    "name": "Ligga",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 342.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-messaure",
+  "name": "Messaure",
+  "full_name": "Messaure",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 66.6926,
+  "longitude": 20.3476,
+  "capacity_mw": 463.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000032W",
+    "name": "Messaure",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 463.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-midskog",
+  "name": "Midskog",
+  "full_name": "Midskog",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.239,
+  "longitude": 15.2396,
+  "capacity_mw": 143.0,
+  "commissioning_date": "1944-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000048H",
+    "name": "Midskog",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 143.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-moforsen",
+  "name": "Moforsen",
+  "full_name": "Moforsen",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.3678,
+  "longitude": 16.9872,
+  "capacity_mw": 140.0,
+  "commissioning_date": "1968-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-hydro-namforsen",
+  "name": "Namforsen",
+  "full_name": "Namforsen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.4401,
+  "longitude": 16.8806,
+  "capacity_mw": 112.0,
+  "commissioning_date": "1946-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000046L",
+    "name": "Namforsen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 112.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-olden",
+  "name": "Olden",
+  "full_name": "Olden",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.7387,
+  "longitude": 13.5473,
+  "capacity_mw": 112.0,
+  "commissioning_date": "1910-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000106T",
+    "name": "Olden",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 112.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-olidan",
+  "name": "Olidan",
+  "full_name": "Olidan",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 58.275,
+  "longitude": 12.2727,
+  "capacity_mw": 103.0,
+  "commissioning_date": "1910-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-hydro-porjus",
+  "name": "Porjus",
+  "full_name": "Porjus",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 66.9587,
+  "longitude": 19.8008,
+  "capacity_mw": 417.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000028N",
+    "name": "Porjus",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 417.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-porsi",
+  "name": "Porsi",
+  "full_name": "Porsi",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 66.4287,
+  "longitude": 20.6533,
+  "capacity_mw": 282.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000036O",
+    "name": "Porsi",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 282.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-ramsele",
+  "name": "Ramsele",
+  "full_name": "Ramsele",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.5817,
+  "longitude": 16.3303,
+  "capacity_mw": 157.0,
+  "commissioning_date": "1958-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-hydro-ritsem",
+  "name": "Ritsem",
+  "full_name": "Ritsem",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 67.7289,
+  "longitude": 17.4851,
+  "capacity_mw": 304.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000026R",
+    "name": "Ritsem",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 304.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-sallsjo",
+  "name": "Sallsjo",
+  "full_name": "Sallsjo",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.2224,
+  "longitude": 13.6601,
+  "capacity_mw": 160.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000066F",
+    "name": "Sallsjo",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 160.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-seitevare",
+  "name": "Seitevare",
+  "full_name": "Seitevare",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 66.9774,
+  "longitude": 18.583,
+  "capacity_mw": 214.0,
+  "commissioning_date": "1967-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000033U",
+    "name": "Seitevare",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 214.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-stadsforsen",
+  "name": "Stadsforsen",
+  "full_name": "Stadsforsen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.9782,
+  "longitude": 16.6577,
+  "capacity_mw": 142.0,
+  "commissioning_date": "1939-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000049F",
+    "name": "Stadsforsen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 142.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-stalon",
+  "name": "Stalon",
+  "full_name": "Stalon",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.9439,
+  "longitude": 15.8305,
+  "capacity_mw": 130.0,
+  "commissioning_date": "1961-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000043R",
+    "name": "Stalon",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 130.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-storfinnforsen",
+  "name": "Storfinnforsen",
+  "full_name": "Storfinnforsen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.5978,
+  "longitude": 16.126,
+  "capacity_mw": 112.0,
+  "commissioning_date": "1953-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-hydro-stornorrfors",
+  "name": "Stornorrfors",
+  "full_name": "Stornorrfors",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.8525,
+  "longitude": 20.0517,
+  "capacity_mw": 599.0,
+  "commissioning_date": "1958-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000042T",
+    "name": "Stornorrfors",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 599.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-torpshammar",
+  "name": "Torpshammar",
+  "full_name": "Torpshammar",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.5083,
+  "longitude": 16.3788,
+  "capacity_mw": 119.0,
+  "commissioning_date": "1943-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000052Q",
+    "name": "Torpshammar",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 119.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-trangslet",
+  "name": "Trangslet",
+  "full_name": "Trangslet",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 61.3813,
+  "longitude": 13.725,
+  "capacity_mw": 329.0,
+  "commissioning_date": "1960-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000018Q",
+    "name": "Trangslet",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 329.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-tuggen",
+  "name": "Tuggen",
+  "full_name": "Tuggen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.4729,
+  "longitude": 18.8826,
+  "capacity_mw": 105.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000041V",
+    "name": "Tuggen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 105.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-umluspen",
+  "name": "Umluspen",
+  "full_name": "Umluspen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.0949,
+  "longitude": 17.1037,
+  "capacity_mw": 104.0,
+  "commissioning_date": "1957-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46X000000000008Y",
+    "name": "Umluspen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 104.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-vargfors",
+  "name": "Vargfors",
+  "full_name": "Vargfors",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.0214,
+  "longitude": 19.6854,
+  "capacity_mw": 120.0,
+  "commissioning_date": "1961-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000040X",
+    "name": "Vargfors",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 120.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-hydro-vietas",
+  "name": "Vietas",
+  "full_name": "Vietas",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 67.4927,
+  "longitude": 18.3547,
+  "capacity_mw": 325.0,
+  "commissioning_date": "1964-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000027P",
+    "name": "Vietas",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 325.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-nuclear-forsmark-1",
+  "name": "Forsmark 1",
+  "full_name": "Forsmark 1",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 60.4028,
+  "longitude": 18.1744,
+  "capacity_mw": 1078.0,
+  "commissioning_date": "1980-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000015W",
+    "name": "Forsmark 1",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 1078.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-nuclear-forsmark-2",
+  "name": "Forsmark 2",
+  "full_name": "Forsmark 2",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 60.4028,
+  "longitude": 18.1744,
+  "capacity_mw": 1160.0,
+  "commissioning_date": "1981-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000016U",
+    "name": "Forsmark 2",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 1160.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-nuclear-forsmark-3",
+  "name": "Forsmark 3",
+  "full_name": "Forsmark 3",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 60.4028,
+  "longitude": 18.1744,
+  "capacity_mw": 1208.0,
+  "commissioning_date": "1985-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000017S",
+    "name": "Forsmark 3",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 1208.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-nuclear-oskarshamn-3",
+  "name": "Oskarshamn 3",
+  "full_name": "Oskarshamn 3",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.4166,
+  "longitude": 16.67301,
+  "capacity_mw": 1450.0,
+  "commissioning_date": "1985-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000061P",
+    "name": "Oskarshamn 3",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 1450.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-nuclear-ringhals-3",
+  "name": "Ringhals 3",
+  "full_name": "Ringhals 3",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.2574,
+  "longitude": 12.1087,
+  "capacity_mw": 1117.0,
+  "commissioning_date": "1981-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU00000000121",
+    "name": "Ringhals 3",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 1117.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-nuclear-ringhals-4",
+  "name": "Ringhals 4",
+  "full_name": "Ringhals 4",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.2574,
+  "longitude": 12.1087,
+  "capacity_mw": 1171.0,
+  "commissioning_date": "1983-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000014Y",
+    "name": "Ringhals 4",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 1171.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-oil-aroskraft",
+  "name": "Aroskraft",
+  "full_name": "Aroskraft",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 59.58849,
+  "longitude": 16.51386,
+  "capacity_mw": 250.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000064J",
+    "name": "Aroskraft",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 250.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-oil-halmstad",
+  "name": "Halmstad",
+  "full_name": "Halmstad",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.6926,
+  "longitude": 12.9075,
+  "capacity_mw": 200.0,
+  "commissioning_date": "1993-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU00000000024",
+    "name": "Halmstad",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 200.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-oil-karlshamn",
+  "name": "Karlshamn",
+  "full_name": "Karlshamn",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.1525,
+  "longitude": 14.8349,
+  "capacity_mw": 704.0,
+  "commissioning_date": "1971-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000005Z",
+    "name": "Karlshamn",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 704.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-oil-kimstad",
+  "name": "Kimstad",
+  "full_name": "Kimstad",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 58.53811,
+  "longitude": 15.96513,
+  "capacity_mw": 134.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-oil-lahall",
+  "name": "Lahall",
+  "full_name": "Lahall",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.2332,
+  "longitude": 12.1737,
+  "capacity_mw": 240.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-oil-oresundsverket",
+  "name": "Oresundsverket",
+  "full_name": "Oresundsverket",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.6254,
+  "longitude": 13.0409,
+  "capacity_mw": 126.0,
+  "commissioning_date": "1971-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000091G",
+    "name": "Oresundsverket",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 126.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-oil-slite",
+  "name": "Slite",
+  "full_name": "Slite",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.7087,
+  "longitude": 18.8034,
+  "capacity_mw": 126.0,
+  "commissioning_date": "1983-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000157C",
+    "name": "Slite",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 126.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-oil-stallbacka",
+  "name": "Stallbacka",
+  "full_name": "Stallbacka",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 58.3061,
+  "longitude": 12.3198,
+  "capacity_mw": 201.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-oil-stenungsund",
+  "name": "Stenungsund",
+  "full_name": "Stenungsund",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 58.0866,
+  "longitude": 11.84453,
+  "capacity_mw": 520.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000056I",
+    "name": "Stenungsund 1",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "46WPU0000000057G",
+    "name": "Stenungsund 2",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-solar-hultsfred-solar-farm",
+  "name": "Hultsfred Solar Farm",
+  "full_name": "Hultsfred Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.5277,
+  "longitude": 15.8211,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000235I",
+    "name": "Hultsfred Solar Farm",
+    "production_type": "SOLAR",
+    "capacity_mw": 100.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-aby-alebo-wind-farm",
+  "name": "Aby Alebo Wind Farm",
+  "full_name": "Aby Alebo Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.1228,
+  "longitude": 16.304,
+  "capacity_mw": 155.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000148D",
+    "name": "Aby Alebo Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 155.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-amot-lingbo",
+  "name": "Amot Lingbo",
+  "full_name": "Amot Lingbo",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 61.04523,
+  "longitude": 16.49878,
+  "capacity_mw": 249.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000117O",
+    "name": "Amot Lingbo",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 249.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-andberg-wind-farm",
+  "name": "Andberg Wind Farm",
+  "full_name": "Andberg Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 61.7668,
+  "longitude": 13.941,
+  "capacity_mw": 286.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000137I",
+    "name": "Andberg Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 286.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-anglarna-wind-farm",
+  "name": "Anglarna Wind Farm",
+  "full_name": "Anglarna Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 60.8098,
+  "longitude": 16.2263,
+  "capacity_mw": 115.0,
+  "commissioning_date": "2019-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000209J",
+    "name": "Anglarna Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 115.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-askalen-wind-farm",
+  "name": "Askalen Wind Farm",
+  "full_name": "Askalen Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.5542,
+  "longitude": 15.0532,
+  "capacity_mw": 288.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000128J",
+    "name": "Askalen Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 288.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-bergvind-lingbo-wind-farm",
+  "name": "Bergvind Lingbo Wind Farm",
+  "full_name": "Bergvind Lingbo Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 61.0874,
+  "longitude": 16.3927,
+  "capacity_mw": 265.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-bjorkhojden-wind-farm",
+  "name": "Bjorkhojden Wind Farm",
+  "full_name": "Bjorkhojden Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.4722,
+  "longitude": 16.1034,
+  "capacity_mw": 288.0,
+  "commissioning_date": "2015-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU00000000016",
+    "name": "Bjorkhojden Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 288.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-bjorkvattnet-wind-farm",
+  "name": "Bjorkvattnet Wind Farm",
+  "full_name": "Bjorkvattnet Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.3995,
+  "longitude": 16.0161,
+  "capacity_mw": 174.9,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000129H",
+    "name": "Bjorkvattnet Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 174.9,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-bjornberget-wind-farm",
+  "name": "Bjornberget Wind Farm",
+  "full_name": "Bjornberget Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.3244,
+  "longitude": 15.7484,
+  "capacity_mw": 372.0,
+  "commissioning_date": "2022-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000203V",
+    "name": "Bjornberget Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 372.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-bjornlandshojden",
+  "name": "Bjornlandshojden",
+  "full_name": "Bjornlandshojden",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.84155,
+  "longitude": 17.52067,
+  "capacity_mw": 167.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000142P",
+    "name": "Bjornlandshojden",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 167.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-blabergsliden-wind-farm",
+  "name": "Blabergsliden Wind Farm",
+  "full_name": "Blabergsliden Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.6257,
+  "longitude": 20.3271,
+  "capacity_mw": 143.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-blakliden-fabodberget-wind-farm",
+  "name": "Blakliden Fabodberget Wind Farm",
+  "full_name": "Blakliden Fabodberget Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.025,
+  "longitude": 18.1358,
+  "capacity_mw": 353.0,
+  "commissioning_date": "2018-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000132S",
+    "name": "Blakliden Fabodberget Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 353.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-blodrotberget-wind-farm",
+  "name": "Blodrotberget Wind Farm",
+  "full_name": "Blodrotberget Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.8152,
+  "longitude": 17.8839,
+  "capacity_mw": 164.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-bruzaholm-wind-farm",
+  "name": "Bruzaholm Wind Farm",
+  "full_name": "Bruzaholm Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.6821,
+  "longitude": 15.1827,
+  "capacity_mw": 138.6,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000234K",
+    "name": "Bruzaholm Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 138.6,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-erstrask-south-ers",
+  "name": "Erstrask South Ers",
+  "full_name": "Erstrask South Ers",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.42727,
+  "longitude": 20.64388,
+  "capacity_mw": 101.0,
+  "commissioning_date": "2019-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000152M",
+    "name": "Erstrask South Ers",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 101.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-fabodberget-wind-farm",
+  "name": "Fabodberget Wind Farm",
+  "full_name": "Fabodberget Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.2342,
+  "longitude": 18.4842,
+  "capacity_mw": 143.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000134O",
+    "name": "Fabodberget Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 143.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-hastkullen-norra",
+  "name": "Hastkullen Norra",
+  "full_name": "Hastkullen Norra",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.82772,
+  "longitude": 17.25845,
+  "capacity_mw": 200.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000140T",
+    "name": "Hastkullen Norra",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 200.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-hocksjon-wind-farm",
+  "name": "Hocksjon Wind Farm",
+  "full_name": "Hocksjon Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.4589,
+  "longitude": 15.9774,
+  "capacity_mw": 131.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000135M",
+    "name": "Hocksjon Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 131.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-hogaliden-wind-farm",
+  "name": "Hogaliden Wind Farm",
+  "full_name": "Hogaliden Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 64.3094,
+  "longitude": 20.3029,
+  "capacity_mw": 105.0,
+  "commissioning_date": "2018-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000153K",
+    "name": "Hogaliden Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 105.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-jadraas-wind-farm",
+  "name": "Jadraas Wind Farm",
+  "full_name": "Jadraas Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 60.8296,
+  "longitude": 16.3202,
+  "capacity_mw": 213.0,
+  "commissioning_date": "2012-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000065H",
+    "name": "Jadraas Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 213.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-klevberget-wind-farm",
+  "name": "Klevberget Wind Farm",
+  "full_name": "Klevberget Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.4516,
+  "longitude": 16.1471,
+  "capacity_mw": 146.4,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU00000001962",
+    "name": "Klevberget Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 146.4,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-kraktorpet-wind-farm",
+  "name": "Kraktorpet Wind Farm",
+  "full_name": "Kraktorpet Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.7222,
+  "longitude": 16.4616,
+  "capacity_mw": 163.0,
+  "commissioning_date": "2019-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000138G",
+    "name": "Kraktorpet Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 163.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-lehtirova-wind-farm",
+  "name": "Lehtirova Wind Farm",
+  "full_name": "Lehtirova Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 67.1625,
+  "longitude": 22.0047,
+  "capacity_mw": 148.0,
+  "commissioning_date": "2018-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000208L",
+    "name": "Lehtirova Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 148.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-lillgrund-wind-farm",
+  "name": "Lillgrund Wind Farm",
+  "full_name": "Lillgrund Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.516,
+  "longitude": 12.8034,
+  "capacity_mw": 110.0,
+  "commissioning_date": "2007-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000058E",
+    "name": "Lillgrund Wind Farm",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 110.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-malarberget-wind-farm",
+  "name": "Malarberget Wind Farm",
+  "full_name": "Malarberget Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 60.1101,
+  "longitude": 16.0686,
+  "capacity_mw": 113.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000131U",
+    "name": "Malarberget Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 113.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-markbygden-wind-farm",
+  "name": "Markbygden Wind Farm",
+  "full_name": "Markbygden Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.3549,
+  "longitude": 21.3619,
+  "capacity_mw": 1078.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-markbygden-wind-farm-2",
+  "name": "Markbygden Wind Farm",
+  "full_name": "Markbygden Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.3255,
+  "longitude": 20.7389,
+  "capacity_mw": 780.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-markbygden-wind-farm-3",
+  "name": "Markbygden Wind Farm",
+  "full_name": "Markbygden Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.3544,
+  "longitude": 20.9832,
+  "capacity_mw": 650.0,
+  "commissioning_date": "2008-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-markbygden-wind-farm-4",
+  "name": "Markbygden Wind Farm",
+  "full_name": "Markbygden Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 65.4351,
+  "longitude": 20.62545,
+  "capacity_mw": 235.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-nysater-wind-farm",
+  "name": "Nysater Wind Farm",
+  "full_name": "Nysater Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.7681,
+  "longitude": 17.2968,
+  "capacity_mw": 495.5,
+  "commissioning_date": "2022-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-ogonfagnaden-wind-farm",
+  "name": "Ogonfagnaden Wind Farm",
+  "full_name": "Ogonfagnaden Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.49335,
+  "longitude": 15.969,
+  "capacity_mw": 163.0,
+  "commissioning_date": "2015-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU00000001020",
+    "name": "Ogonfagnaden Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 163.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-overturingen-wind-farm",
+  "name": "Overturingen Wind Farm",
+  "full_name": "Overturingen Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.5161,
+  "longitude": 15.0714,
+  "capacity_mw": 151.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-ranasjo-wind-farm",
+  "name": "Ranasjo Wind Farm",
+  "full_name": "Ranasjo Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.5225,
+  "longitude": 16.5706,
+  "capacity_mw": 155.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000205R",
+    "name": "Ranasjo Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 155.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-sidensjo-wind-farm",
+  "name": "Sidensjo Wind Farm",
+  "full_name": "Sidensjo Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.2987,
+  "longitude": 18.1345,
+  "capacity_mw": 144.0,
+  "commissioning_date": "2015-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000112Y",
+    "name": "Sidensjo Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 144.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-skaftasen-wind-farm",
+  "name": "Skaftasen Wind Farm",
+  "full_name": "Skaftasen Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 61.7926,
+  "longitude": 14.4778,
+  "capacity_mw": 231.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000146H",
+    "name": "Skaftasen Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 231.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-sorby-wind-farm",
+  "name": "Sorby Wind Farm",
+  "full_name": "Sorby Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 61.614,
+  "longitude": 16.0544,
+  "capacity_mw": 122.0,
+  "commissioning_date": "2016-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-sorlidberget-wind-farm",
+  "name": "Sorlidberget Wind Farm",
+  "full_name": "Sorlidberget Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.9941,
+  "longitude": 17.2421,
+  "capacity_mw": 140.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000230S",
+    "name": "Sorlidberget Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 140.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-stor-skalsjon-wind-farm",
+  "name": "Stor Skalsjon Wind Farm",
+  "full_name": "Stor Skalsjon Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.7305,
+  "longitude": 16.9775,
+  "capacity_mw": 260.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU00000002000",
+    "name": "Stor Skalsjon Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 260.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-storflotten-och-lasterhojden",
+  "name": "Storflotten Och Lasterhojden",
+  "full_name": "Storflotten Och Lasterhojden",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.49754,
+  "longitude": 15.05626,
+  "capacity_mw": 240.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000154I",
+    "name": "Storflotten Och Lasterhojden",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 240.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-storhojden-wind-farm",
+  "name": "Storhojden Wind Farm",
+  "full_name": "Storhojden Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 63.7283,
+  "longitude": 15.7806,
+  "capacity_mw": 154.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000232O",
+    "name": "Storhojden Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 154.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-svartnas-wind-farm",
+  "name": "Svartnas Wind Farm",
+  "full_name": "Svartnas Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 60.8447,
+  "longitude": 16.1313,
+  "capacity_mw": 115.0,
+  "commissioning_date": "2018-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-tolvmanstegen-wind-farm",
+  "name": "Tolvmanstegen Wind Farm",
+  "full_name": "Tolvmanstegen Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 58.8705,
+  "longitude": 11.4239,
+  "capacity_mw": 116.6,
+  "commissioning_date": "2012-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "se-wind-tonsen-wind-farm",
+  "name": "Tonsen Wind Farm",
+  "full_name": "Tonsen Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 61.14,
+  "longitude": 16.4685,
+  "capacity_mw": 116.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000116Q",
+    "name": "Tonsen Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 116.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-tvinnesheda-badeboda-wind-farm",
+  "name": "Tvinnesheda Badeboda Wind Farm",
+  "full_name": "Tvinnesheda Badeboda Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 57.1396,
+  "longitude": 15.3177,
+  "capacity_mw": 202.0,
+  "commissioning_date": "2022-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000149B",
+    "name": "Tvinnesheda Badeboda Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 202.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "se-wind-vitberget-wind-farm",
+  "name": "Vitberget Wind Farm",
+  "full_name": "Vitberget Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 62.97733,
+  "longitude": 17.41973,
+  "capacity_mw": 162.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "46WPU0000000229D",
+    "name": "Vitberget Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 162.0,
+    "commissioning_date": null
+   }
+  ]
+ }
+]

@@ -5,7 +5,8 @@ Carte en temps réel de la production d'électricité, site par site, inspirée 
 installée, disque = production, graphique de production par filière sur 7 jours, choix de l'instant
 affiché, liste triable et fiche détaillée par site. En ligne : https://carte_reseau.lemarc.fr
 
-Pays couvert : la France (architecture prévue pour en ajouter d'autres, voir plus bas).
+Pays couverts : la France, site par site (RTE, éCO2mix), et le reste de l'Europe par ses centrales
+d'au moins 100 MW (1 812 dans 35 pays, production ENTSO-E, voir plus bas).
 
 | Filière | Sites | Production affichée |
 |---|---|---|
@@ -30,8 +31,9 @@ filière.
 
 ## Lancer le projet
 
-Copier `.env.example` en `.env` et le remplir : base PostgreSQL, identifiants RTE, clé Météo-France
-et **`BACK_FILL_START`**, la date (YYYY-MM-DD) depuis laquelle l'historique de production est conservé.
+Copier `.env.example` en `.env` et le remplir : base PostgreSQL, identifiants RTE, clé Météo-France,
+jeton ENTSO-E (facultatif) et **`BACK_FILL_START`**, la date (YYYY-MM-DD) depuis laquelle
+l'historique de production est conservé.
 
 ```bash
 npm ci
@@ -60,16 +62,28 @@ dataset/                jeux de données et leur préparation (voir dataset/READ
 systemd/                service et configuration nginx du déploiement
 ```
 
+### Europe : ENTSO-E
+
+`src/lib/power/entsoe/` synchronise chaque pays de `countries.ts` (codes EIC de ses zones) avec
+l'API de la plateforme de transparence ENTSO-E, si `ENTSOE_API_KEY` est renseigné
+(`ENTSOE_COUNTRIES` pour n'en garder que certains) :
+
+- production par filière (A75) -> séries `<pays>:<TYPE>` et `<pays>:TOTAL` ;
+- taux de charge nationaux (production / puissance installée de l'année, A68) -> `<pays>-*:<FILIÈRE>`,
+  pour estimer les centrales sans groupe publié ;
+- production par groupe de 100 MW ou plus (A73) -> rattachée aux centrales par code EIC.
+
+Sans jeton, les centrales européennes s'affichent avec leur puissance, sans production.
+
 ### Ajouter un pays
 
-1. `dataset/<pays>/final/` : sites au format de `dataset/fr/final/WIND.json` (identifiant, filière,
-   position, puissance, région, groupes publiés), et lecture par `src/prisma/seed.ts`.
-2. `src/lib/power/<pays>/` : un objet `Country` (`src/lib/power/types.ts`) dont les sources
-   écrivent la production des groupes et les séries `<pays>:<FILIÈRE>` et `<pays>-<région>:<FILIÈRE>`.
-   Pour l'Europe, l'API ENTSO-E Transparency publie la production par groupe > 100 MW et par
-   filière (jeton gratuit sur demande).
-3. L'enregistrer dans `src/lib/power/countries.ts` et l'ajouter à `DISPLAYED_COUNTRIES`
-   (`src/config/assetTypes.ts`).
+1. `dataset/<pays>/final/PLANTS.json` : sites au format de `dataset/fr/final/WIND.json` (identifiant,
+   filière, position, puissance, région, groupes publiés), lus par `src/prisma/seed.ts`.
+2. Un objet `Country` (`src/lib/power/types.ts`) dont les sources écrivent la production des groupes
+   et les séries `<pays>:<FILIÈRE>` et `<pays>-<région>:<FILIÈRE>` : une ligne dans
+   `src/lib/power/entsoe/countries.ts` pour un pays d'ENTSO-E, un dossier comme `src/lib/power/fr/`
+   pour une autre source.
+3. L'enregistrer dans `src/lib/power/countries.ts`.
 
 ### API
 

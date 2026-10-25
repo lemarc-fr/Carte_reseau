@@ -9,11 +9,15 @@ export interface UnitReadings {
 }
 
 /**
- * Enregistre les relevés horaires d'un lot de groupes. Les groupes inconnus sont
- * créés (sans centrale) puis `onNewUnits` permet de les rattacher. Renvoie le nombre
- * de lignes écrites.
+ * Enregistre les relevés horaires d'un lot de groupes du pays `country`. Les groupes
+ * inconnus sont créés (sans centrale) puis `onNewUnits` permet de les rattacher. Renvoie
+ * le nombre de lignes écrites.
  */
-export async function upsertUnits(units: UnitReadings[], onNewUnits?: () => Promise<unknown>): Promise<number> {
+export async function upsertUnits(
+  country: string,
+  units: UnitReadings[],
+  onNewUnits?: () => Promise<unknown>
+): Promise<number> {
   if (!units.length) return 0;
 
   const { count: created } = await prisma.unit.createMany({
@@ -21,6 +25,7 @@ export async function upsertUnits(units: UnitReadings[], onNewUnits?: () => Prom
       eic_code: unit.eic_code,
       name: unit.name,
       production_type: unit.production_type,
+      country,
     })),
     skipDuplicates: true,
   });
@@ -130,25 +135,35 @@ const dayOfReading = (timeZone: string) => `(CASE
   ELSE ((start_date AT TIME ZONE 'UTC') AT TIME ZONE '${timeZone.replace(/'/g, '')}')::date
 END)::text`;
 
-/** Jours où chacun des types de groupes `types` a au moins un relevé. */
-export async function unitDays(fromDay: string, types: string[], timeZone: string): Promise<Set<string>> {
+/**
+ * Jours où les groupes du pays ont des relevés : de chacun des types `types` s'ils sont
+ * donnés, sinon d'au moins un groupe.
+ */
+export async function unitDays(
+  fromDay: string,
+  country: string,
+  timeZone: string,
+  types: string[] = []
+): Promise<Set<string>> {
   const rows = await prisma.$queryRawUnsafe<{ day: string }[]>(
     `SELECT day FROM (
        SELECT ${dayOfReading(timeZone)} AS day, production_type FROM production_readings
-       WHERE start_date >= $1::date - 1 AND production_type = ANY($2::text[])
-     ) t GROUP BY day HAVING count(DISTINCT production_type) = $3`,
+       WHERE start_date >= $1::date - 1
+         AND eic_code IN (SELECT eic_code FROM units WHERE country = $2)
+         AND (cardinality($3::text[]) = 0 OR production_type = ANY($3::text[]))
+     ) t GROUP BY day HAVING count(DISTINCT production_type) >= GREATEST(cardinality($3::text[]), 1)`,
     fromDay,
-    types,
-    types.length
+    country,
+    types
   );
   return new Set(rows.map((r) => r.day));
 }
 
-/** Jours où la série agrégée `series` a au moins un point. */
+/** Jours où la série agrégée `series` a au moins un point (`%` : toute série qui commence ainsi). */
 export async function aggregateDays(fromDay: string, series: string, timeZone: string): Promise<Set<string>> {
   const rows = await prisma.$queryRawUnsafe<{ day: string }[]>(
     `SELECT DISTINCT ${dayOfReading(timeZone)} AS day FROM aggregate_readings
-     WHERE series = $1 AND start_date >= $2::date - 1`,
+     WHERE series LIKE $1 AND start_date >= $2::date - 1`,
     series,
     fromDay
   );

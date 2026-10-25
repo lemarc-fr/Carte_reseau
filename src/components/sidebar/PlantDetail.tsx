@@ -14,10 +14,11 @@ import {
   isStorage,
   plantSnapshot,
   publishedUnits,
+  loadFactorKey,
   regionalLoadFactor,
   unitOutput,
 } from '@/lib/generationUtils';
-import { ASSET_TYPES, REGIONAL_LABELS, TECHNOLOGY_LABELS } from '@/config/assetTypes';
+import { ASSET_TYPES, COUNTRY_NAMES, REGIONAL_LABELS, TECHNOLOGY_LABELS } from '@/config/assetTypes';
 import StackedChart, { PASTEL, PASTEL_STROKE, type ChartSeries } from '@/components/charts/StackedChart';
 import { unitLabel } from './unitLabel';
 import TypeBadge from './TypeBadge';
@@ -68,7 +69,8 @@ export default function PlantDetail({ plant }: { plant: PlantInfo }) {
   }, [generation, plant, units, signed]);
 
   const hasData = rows.some((row) => series.some((s) => row[s.key] !== null));
-  const location = [plant.commune, plant.departement, plant.region].filter(Boolean).join(', ');
+  const country = plant.country === 'FR' ? null : (COUNTRY_NAMES[plant.country] ?? plant.country);
+  const location = [plant.commune, plant.departement, plant.region, country].filter(Boolean).join(', ');
   const technology = plant.technology ? (TECHNOLOGY_LABELS[plant.technology] ?? plant.technology) : null;
   const charging = snapshot.output !== null && snapshot.output < 0;
   const unitWord = plant.type === 'nuclear' ? 'réacteur' : 'groupe';
@@ -101,12 +103,22 @@ export default function PlantDetail({ plant }: { plant: PlantInfo }) {
 
       {snapshot.estimated && (
         <p className={styles.note}>
-          {style.regionalSeries ? (
+          {style.regionalSeries && plant.country === 'FR' ? (
             <>
               La production de ce site n&apos;est pas publiée individuellement. Elle est estimée à partir de sa
               puissance installée et du taux de charge régional {REGIONAL_LABELS[style.regionalSeries]}
               {plant.region ? ` en ${plant.region}` : ''} (éCO2mix).
               {snapshot.output === null && ' Aucune donnée régionale disponible pour cet instant (la Corse n’est pas couverte).'}
+            </>
+          ) : style.regionalSeries ? (
+            <>
+              La production de ce site n&apos;est pas publiée individuellement. Elle est estimée à partir de sa
+              puissance installée et du taux de charge national {REGIONAL_LABELS[style.regionalSeries]} en {country}{' '}
+              (production par filière rapportée à la puissance installée, ENTSO-E).
+              {snapshot.output === null &&
+                (generation && loadFactorKey(generation, plant)
+                  ? ' Aucune donnée nationale disponible pour cet instant.'
+                  : ' La production de ce pays n’est pas encore synchronisée.')}
             </>
           ) : (
             "La production de ce site n'est pas publiée et ne peut pas être estimée."

@@ -54,7 +54,8 @@ model Plant {
 model Unit {
   eic_code           String    @id
   name               String
-  production_type    String    @default("NUCLEAR") // type RTE, ex. NUCLEAR, HYDRO_PUMPED_STORAGE
+  production_type    String    @default("NUCLEAR") // type ENTSO-E/RTE, ex. NUCLEAR, HYDRO_PUMPED_STORAGE
+  country            String    @default("FR") // pays de la source qui publie le groupe
   plant_id           String?
   capacity_mw        Float?
   commissioning_date DateTime? @db.Date
@@ -65,6 +66,7 @@ model Unit {
   readings ProductionReading[]
 
   @@index([plant_id])
+  @@index([country])
   @@map("units")
 }
 

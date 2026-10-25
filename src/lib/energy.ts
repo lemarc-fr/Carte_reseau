@@ -70,7 +70,8 @@ let plantsPayload: Promise<PlantsPayload> | null = null;
 export function cachedPlants(): Promise<PlantsPayload> {
   plantsPayload ??= listPlants()
     .then((plants) => {
-      const json = JSON.stringify(plants);
+      // Champs vides omis (un tiers du volume) : le client les remet à null
+      const json = JSON.stringify(plants, (_, value) => (value === null ? undefined : value));
       const hash = createHash('sha1').update(json).digest('base64url').slice(0, 16);
       return { json, etag: `"plants-${hash}"` };
     })
@@ -84,6 +85,10 @@ export function cachedPlants(): Promise<PlantsPayload> {
 export function invalidatePlants() {
   plantsPayload = null;
 }
+
+// Arrondi des valeurs envoyées : 0,1 MW, ou 4 décimales pour les taux de charge ("<pays>-<région>:…")
+const round = (key: string, value: number) =>
+  key.includes('-') && key.includes(':') ? Math.round(value * 1e4) / 1e4 : Math.round(value * 10) / 10;
 
 interface Reading {
   key: string;
@@ -127,7 +132,7 @@ export async function getGenerationSeries(from: Date, to: Date): Promise<Generat
     for (const r of rows) {
       const t = r.start_date.getTime();
       if (r.granularity !== granularityAt.get(t)) continue;
-      (matrix[r.key] ??= new Array(times.length).fill(null))[index.get(t)!] = r.value;
+      (matrix[r.key] ??= new Array(times.length).fill(null))[index.get(t)!] = round(r.key, r.value);
     }
     return matrix;
   };

@@ -1,0 +1,128 @@
+[
+ {
+  "id": "lv-gas-riga",
+  "name": "Riga",
+  "full_name": "Riga",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.918,
+  "longitude": 24.2766,
+  "capacity_mw": 881.0,
+  "commissioning_date": "1973-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "lv-gas-riga-2",
+  "name": "Riga",
+  "full_name": "Riga",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.9904,
+  "longitude": 24.1788,
+  "capacity_mw": 158.0,
+  "commissioning_date": "1958-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "lv-hydro-kegums",
+  "name": "Kegums",
+  "full_name": "Kegums",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.7401,
+  "longitude": 24.7104,
+  "capacity_mw": 240.0,
+  "commissioning_date": "1940-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "43W-KEG-HPP----I",
+    "name": "Kegums",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 240.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "lv-hydro-plavinas",
+  "name": "Plavinas",
+  "full_name": "Plavinas",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.5833,
+  "longitude": 25.2401,
+  "capacity_mw": 894.0,
+  "commissioning_date": "1965-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "43W-PLAV-HPP---J",
+    "name": "Plavinas",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 894.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "lv-hydro-riga",
+  "name": "Riga",
+  "full_name": "Riga",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.8514,
+  "longitude": 24.272,
+  "capacity_mw": 402.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "43W-RIG-HPP----1",
+    "name": "Riga",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 402.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "lv-solar-stelpe-solar-farm",
+  "name": "Stelpe Solar Farm",
+  "full_name": "Stelpe Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.4541,
+  "longitude": 24.612,
+  "capacity_mw": 145.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": []
+ }
+]

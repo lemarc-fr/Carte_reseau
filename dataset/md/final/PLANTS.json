@@ -1,0 +1,61 @@
+[
+ {
+  "id": "md-gas-chisinau-thermoelectric-source",
+  "name": "Chisinau Thermoelectric Source",
+  "full_name": "Chisinau Thermoelectric Source",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.02983,
+  "longitude": 28.89369,
+  "capacity_mw": 258.0,
+  "commissioning_date": "1976-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "md-gas-kuchurgan",
+  "name": "Kuchurgan",
+  "full_name": "Kuchurgan",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.62903,
+  "longitude": 29.93971,
+  "capacity_mw": 910.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "md-gas-tpp-moldavskaya-gres",
+  "name": "Tpp Moldavskaya Gres",
+  "full_name": "Tpp Moldavskaya Gres",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.6292,
+  "longitude": 29.9407,
+  "capacity_mw": 2520.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "64WMGRES-----07L",
+    "name": "Tpp Moldavskaya Gres",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 2520.0,
+    "commissioning_date": null
+   }
+  ]
+ }
+]

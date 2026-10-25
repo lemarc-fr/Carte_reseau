@@ -1,0 +1,53 @@
+[
+ {
+  "id": "me-coal-pljevlja",
+  "name": "Pljevlja",
+  "full_name": "Pljevlja",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.33457,
+  "longitude": 19.32714,
+  "capacity_mw": 225.0,
+  "commissioning_date": "1982-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "me-hydro-mratinje",
+  "name": "Mratinje",
+  "full_name": "Mratinje",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.2728,
+  "longitude": 18.8424,
+  "capacity_mw": 342.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "me-pumped-storage-perucica",
+  "name": "Perucica",
+  "full_name": "Perucica",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.6719,
+  "longitude": 18.9951,
+  "capacity_mw": 307.0,
+  "commissioning_date": "1960-01-01",
+  "installations": null,
+  "units": []
+ }
+]

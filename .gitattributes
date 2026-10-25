@@ -3,3 +3,4 @@
 registre-national-installation-production-stockage-electricite-agrege.json filter=lfs diff=lfs merge=lfs -text
 france_power_plants_enriched_3.json filter=lfs diff=lfs merge=lfs -text
 SOLAI.json filter=lfs diff=lfs merge=lfs -text
+powerplants.csv filter=lfs diff=lfs merge=lfs -text

@@ -50,7 +50,7 @@ export default function DisplayPanel() {
       active: largeUnitsOnly,
       title: largeUnitsOnly
         ? 'Afficher tous les sites'
-        : `Uniquement les sites dotés d'un groupe de ${LARGE_UNIT_MW} MW ou plus`,
+        : `Uniquement les centrales et groupes de ${LARGE_UNIT_MW} MW ou plus`,
       onClick: toggleLargeUnitsOnly,
     },
     {

@@ -1,0 +1,819 @@
+[
+ {
+  "id": "be-gas-angleur",
+  "name": "Angleur",
+  "full_name": "Angleur",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.6177,
+  "longitude": 5.5837,
+  "capacity_mw": 178.0,
+  "commissioning_date": "1978-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "be-gas-awirs",
+  "name": "Awirs",
+  "full_name": "Awirs",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.5851,
+  "longitude": 5.418,
+  "capacity_mw": 875.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "be-gas-beringen",
+  "name": "Beringen",
+  "full_name": "Beringen",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.0586,
+  "longitude": 5.1056,
+  "capacity_mw": 422.0,
+  "commissioning_date": "2011-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WT-POWE000244W",
+    "name": "Beringen",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 422.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-drogenbos",
+  "name": "Drogenbos",
+  "full_name": "Drogenbos",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.8023,
+  "longitude": 4.299,
+  "capacity_mw": 460.0,
+  "commissioning_date": "1993-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WDROGEN0000863",
+    "name": "Drogenbos",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 460.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-ham-gent",
+  "name": "Ham Gent",
+  "full_name": "Ham Gent",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.0596,
+  "longitude": 3.7364,
+  "capacity_mw": 159.0,
+  "commissioning_date": "1993-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "be-gas-herdersbrug",
+  "name": "Herdersbrug",
+  "full_name": "Herdersbrug",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.2629,
+  "longitude": 3.2112,
+  "capacity_mw": 465.0,
+  "commissioning_date": "1998-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WHERDER0001288",
+    "name": "Herdersbrug",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 465.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-inesco",
+  "name": "Inesco",
+  "full_name": "Inesco",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.24125,
+  "longitude": 4.32567,
+  "capacity_mw": 138.0,
+  "commissioning_date": "2008-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WINESCO000149P",
+    "name": "Inesco",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 138.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-jemeppe-sur-sambre",
+  "name": "Jemeppe Sur Sambre",
+  "full_name": "Jemeppe Sur Sambre",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.44772,
+  "longitude": 4.66122,
+  "capacity_mw": 106.0,
+  "commissioning_date": "2000-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "be-gas-marcinelle-energie-carsid",
+  "name": "Marcinelle Energie Carsid",
+  "full_name": "Marcinelle Energie Carsid",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.4138,
+  "longitude": 4.4067,
+  "capacity_mw": 413.0,
+  "commissioning_date": "2011-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WMARCIN000179H",
+    "name": "Marcinelle Energie Carsid",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 413.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-ringvaart",
+  "name": "Ringvaart",
+  "full_name": "Ringvaart",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.1049,
+  "longitude": 3.7257,
+  "capacity_mw": 385.0,
+  "commissioning_date": "1997-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WRINGVA000209C",
+    "name": "Ringvaart",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 385.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-saint-ghislain",
+  "name": "Saint Ghislain",
+  "full_name": "Saint Ghislain",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.4719,
+  "longitude": 3.8248,
+  "capacity_mw": 350.0,
+  "commissioning_date": "2000-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WSAINT-000221B",
+    "name": "Saint Ghislain",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 350.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-scheldelaan-exxonmobil",
+  "name": "Scheldelaan Exxonmobil",
+  "full_name": "Scheldelaan Exxonmobil",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.254,
+  "longitude": 4.334,
+  "capacity_mw": 140.0,
+  "commissioning_date": "2009-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WSCHELD0002261",
+    "name": "Scheldelaan Exxonmobil",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 140.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-seraing",
+  "name": "Seraing",
+  "full_name": "Seraing",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.603,
+  "longitude": 5.4917,
+  "capacity_mw": 1170.0,
+  "commissioning_date": "1994-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22W20231024----8",
+    "name": "Seraing",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 1170.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-wilmarsdonk-total",
+  "name": "Wilmarsdonk Total",
+  "full_name": "Wilmarsdonk Total",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.27166,
+  "longitude": 4.3262,
+  "capacity_mw": 129.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "be-gas-zandvliet",
+  "name": "Zandvliet",
+  "full_name": "Zandvliet",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.36895,
+  "longitude": 4.26419,
+  "capacity_mw": 386.2,
+  "commissioning_date": "2005-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WZANDVL000255D",
+    "name": "Zandvliet",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 386.2,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-gas-zelzate-knippegroen",
+  "name": "Zelzate Knippegroen",
+  "full_name": "Zelzate Knippegroen",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.1587,
+  "longitude": 3.8068,
+  "capacity_mw": 315.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WZELZAT0002618",
+    "name": "Zelzate Knippegroen",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 315.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-nuclear-doel-1",
+  "name": "Doel 1",
+  "full_name": "Doel 1",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.3254,
+  "longitude": 4.2597,
+  "capacity_mw": 454.0,
+  "commissioning_date": "1975-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "be-nuclear-doel-2",
+  "name": "Doel 2",
+  "full_name": "Doel 2",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.3254,
+  "longitude": 4.2597,
+  "capacity_mw": 454.0,
+  "commissioning_date": "1975-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WDOELX2000077N",
+    "name": "Doel 2",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 454.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-nuclear-doel-4",
+  "name": "Doel 4",
+  "full_name": "Doel 4",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.3254,
+  "longitude": 4.2597,
+  "capacity_mw": 1090.0,
+  "commissioning_date": "1975-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WDOELX40000793",
+    "name": "Doel 4",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 1090.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-nuclear-tihange-1",
+  "name": "Tihange 1",
+  "full_name": "Tihange 1",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.5334,
+  "longitude": 5.2714,
+  "capacity_mw": 1009.0,
+  "commissioning_date": "1975-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WTIHANG000239G",
+    "name": "Tihange 1 1",
+    "production_type": "NUCLEAR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "22WTIHANG000240V",
+    "name": "Tihange 1 2",
+    "production_type": "NUCLEAR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-nuclear-tihange-3",
+  "name": "Tihange 3",
+  "full_name": "Tihange 3",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.5334,
+  "longitude": 5.2714,
+  "capacity_mw": 1089.0,
+  "commissioning_date": "1985-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WTIHANG000242R",
+    "name": "Tihange 3",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 1089.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-pumped-storage-coo",
+  "name": "Coo",
+  "full_name": "Coo",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.3846,
+  "longitude": 5.8616,
+  "capacity_mw": 1164.0,
+  "commissioning_date": "1969-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WCOOXII000070C",
+    "name": "Coo 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "22WCOOXIX000067T",
+    "name": "Coo 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-pumped-storage-la-plate-taille",
+  "name": "La Plate Taille",
+  "full_name": "La Plate Taille",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.1884,
+  "longitude": 4.3862,
+  "capacity_mw": 144.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WPLATEX000208N",
+    "name": "La Plate Taille",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 144.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-solar-kristal-solar-farm",
+  "name": "Kristal Solar Farm",
+  "full_name": "Kristal Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.1961,
+  "longitude": 3.891,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2019-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "be-wind-belwind-offshore-wind",
+  "name": "Belwind Offshore Wind",
+  "full_name": "Belwind Offshore Wind",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.64695,
+  "longitude": 2.8369,
+  "capacity_mw": 330.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "be-wind-belwind-phase",
+  "name": "Belwind Phase",
+  "full_name": "Belwind Phase",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.66,
+  "longitude": 2.8,
+  "capacity_mw": 171.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WBELWIN0000271",
+    "name": "Belwind Phase",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 171.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-wind-norther-offshore-wind",
+  "name": "Norther Offshore Wind",
+  "full_name": "Norther Offshore Wind",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.5281,
+  "longitude": 3.0158,
+  "capacity_mw": 370.0,
+  "commissioning_date": "2019-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22W201902131---T",
+    "name": "Norther Offshore Wind",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 370.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-wind-northwind-wind-farm",
+  "name": "Northwind Wind Farm",
+  "full_name": "Northwind Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.619,
+  "longitude": 2.901,
+  "capacity_mw": 216.0,
+  "commissioning_date": "2013-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WNORTHW000187B",
+    "name": "Northwind Wind Farm",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 216.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-wind-offshore-wind",
+  "name": "Offshore Wind",
+  "full_name": "Offshore Wind",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.54667,
+  "longitude": 2.94333,
+  "capacity_mw": 325.0,
+  "commissioning_date": "2009-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22W20161130----Z",
+    "name": "Offshore Wind",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 325.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-wind-rentel-wind-farm",
+  "name": "Rentel Wind Farm",
+  "full_name": "Rentel Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.59,
+  "longitude": 2.94,
+  "capacity_mw": 309.0,
+  "commissioning_date": "2018-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "be-wind-seamade-mermaid-wind-farm",
+  "name": "Seamade Mermaid Wind Farm",
+  "full_name": "Seamade Mermaid Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.72,
+  "longitude": 2.74,
+  "capacity_mw": 235.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22W20200608A---8",
+    "name": "Seamade Mermaid Wind Farm",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 235.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-wind-seamade-seastar-wind-farm",
+  "name": "Seamade Seastar Wind Farm",
+  "full_name": "Seamade Seastar Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.63,
+  "longitude": 2.86,
+  "capacity_mw": 252.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22W20200608C---Z",
+    "name": "Seamade Seastar Wind Farm",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 252.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-wind-the-northwester-offshore-wind",
+  "name": "The Northwester Offshore Wind",
+  "full_name": "The Northwester Offshore Wind",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.686,
+  "longitude": 2.757,
+  "capacity_mw": 219.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22W201909111---M",
+    "name": "The Northwester Offshore Wind",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 219.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-wind-thorntonbank-area-ne",
+  "name": "Thorntonbank Area Ne",
+  "full_name": "Thorntonbank Area Ne",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.556,
+  "longitude": 2.9689,
+  "capacity_mw": 147.6,
+  "commissioning_date": null,
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WTHORNT000237E",
+    "name": "Thorntonbank Area Ne",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 147.6,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "be-wind-thorntonbank-area-sw",
+  "name": "Thorntonbank Area Sw",
+  "full_name": "Thorntonbank Area Sw",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.54,
+  "longitude": 2.921,
+  "capacity_mw": 177.6,
+  "commissioning_date": "2013-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "22WTHORNT000238C",
+    "name": "Thorntonbank Area Sw",
+    "production_type": "WIND_OFFSHORE",
+    "capacity_mw": 177.6,
+    "commissioning_date": null
+   }
+  ]
+ }
+]

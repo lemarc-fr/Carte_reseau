@@ -1,8 +1,9 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-// Cohérence des jeux de données lus par le seed (dataset/fr/final, format du registre)
+// Cohérence des jeux de données lus par le seed, au format du registre :
+// dataset/fr/final (France) et dataset/<pays>/final/PLANTS.json (autres pays)
 
 interface RegistrySite {
   id: string;
@@ -12,8 +13,11 @@ interface RegistrySite {
   latitude: number;
   longitude: number;
   capacity_mw: number;
-  units: { eic_code: string; capacity_mw: number | null }[];
+  units: { eic_code: string; capacity_mw: number | null; production_type?: string }[];
 }
+
+const ALL_TYPES = ['NUCLEAR', 'HYDRO', 'PUMPED_STORAGE', 'WIND', 'SOLAR', 'GAS', 'COAL', 'OIL', 'BIOENERGY', 'BATTERY'];
+const DATASET_DIR = join(process.cwd(), 'dataset');
 
 const FILES: Record<string, string[]> = {
   'WIND.json': ['WIND'],
@@ -24,10 +28,14 @@ const FILES: Record<string, string[]> = {
   'MARINE.json': ['HYDRO'],
 };
 
-const read = (file: string): RegistrySite[] =>
-  JSON.parse(readFileSync(join(process.cwd(), 'dataset', 'fr', 'final', file), 'utf8'));
+const read = (path: string): RegistrySite[] => JSON.parse(readFileSync(join(DATASET_DIR, path), 'utf8'));
 
-const datasets = Object.entries(FILES).map(([file, types]) => ({ file, types, sites: read(file) }));
+const datasets = [
+  ...Object.entries(FILES).map(([file, types]) => ({ file: `fr/final/${file}`, types })),
+  ...readdirSync(DATASET_DIR)
+    .filter((dir) => /^[a-z]{2}$/.test(dir) && existsSync(join(DATASET_DIR, dir, 'final', 'PLANTS.json')))
+    .map((dir) => ({ file: `${dir}/final/PLANTS.json`, types: ALL_TYPES })),
+].map((d) => ({ ...d, sites: read(d.file) }));
 
 describe.each(datasets)('$file', ({ types, sites }) => {
   it('contient des sites', () => {

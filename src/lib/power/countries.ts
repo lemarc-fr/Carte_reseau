@@ -1,8 +1,8 @@
 import type { Country } from './types';
 import { france } from './fr';
+import { ENTSOE_COUNTRIES } from './entsoe/countries';
 
-// Pays synchronisés. Pour en ajouter un : un dossier comme ./fr (sources de production
-// au format Source, jeux de données dans dataset/<pays>/final/), puis l'enregistrer ici.
-// Piste pour le reste de l'Europe : l'API ENTSO-E Transparency (production par groupe
-// > 100 MW et par filière, jeton gratuit sur demande).
-export const COUNTRIES: Country[] = [france];
+// Pays synchronisés : la France par RTE et éCO2mix (./fr), le reste de l'Europe par
+// ENTSO-E (./entsoe, jeton ENTSOE_API_KEY, sélection ENTSOE_COUNTRIES). Pour un autre
+// fournisseur : un objet Country (types.ts) et ses jeux dans dataset/<pays>/final/.
+export const COUNTRIES: Country[] = [france, ...ENTSOE_COUNTRIES];

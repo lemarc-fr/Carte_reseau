@@ -55,13 +55,18 @@ export const isStorage = (plant: PlantInfo) => ASSET_TYPES[plant.type].storage;
 /** Libellé d'une puissance négative de stockage */
 export const chargingLabel = (type: AssetType) => (type === 'pumped_storage' ? 'Pompage' : 'Recharge');
 
-// Seuil du filtre « gros groupes » : c'est aussi le seuil de publication par groupe de
-// RTE, un groupe de puissance inconnue y est donc compté
+// Seuil du filtre « 100 MW » : c'est aussi le seuil de publication par groupe de RTE et
+// d'ENTSO-E, un groupe publié de puissance inconnue y est donc compté
 export const LARGE_UNIT_MW = 100;
 
-/** Le site compte-t-il au moins un groupe de LARGE_UNIT_MW ou plus ? */
+/**
+ * Le site compte-t-il un groupe de LARGE_UNIT_MW ou plus, ou est-il une centrale de cette
+ * puissance ? Les sites qui regroupent plusieurs installations (commune, `installations`)
+ * ne comptent que par leurs groupes.
+ */
 export const hasLargeUnit = (plant: PlantInfo) =>
-  plant.units.some((unit) => (unit.capacity_mw ?? LARGE_UNIT_MW) >= LARGE_UNIT_MW);
+  plant.units.some((unit) => (unit.capacity_mw ?? LARGE_UNIT_MW) >= LARGE_UNIT_MW) ||
+  (plant.installations === null && plant.capacity_mw >= LARGE_UNIT_MW);
 
 /** Groupes du site dont la production est publiée sur la fenêtre chargée */
 export const publishedUnits = (plant: PlantInfo, generation: GenerationSeries | null) =>
@@ -71,12 +76,25 @@ export const publishedUnits = (plant: PlantInfo, generation: GenerationSeries | 
 // de charge s'il date de moins de quelques créneaux horaires
 const LOAD_FACTOR_MAX_AGE_SLOTS = 3;
 
-/** Taux de charge régional (0-1, négatif pour des batteries qui se rechargent). */
-export function regionalLoadFactor(generation: GenerationSeries | null, plant: PlantInfo, index: number): number | null {
+// Région « * » : taux de charge du pays entier (pays sans données régionales, ENTSO-E)
+export const NATIONAL_REGION = '*';
+
+/** Série de taux de charge du site : celle de sa région, sinon celle de son pays. */
+export function loadFactorKey(generation: GenerationSeries, plant: PlantInfo): string | null {
   const kind = ASSET_TYPES[plant.type].regionalSeries;
-  if (!generation || index < 0 || !kind || !plant.region_code) return null;
-  const series = generation.aggregates[`${plant.country}-${plant.region_code}:${kind}`];
-  if (!series) return null;
+  if (!kind) return null;
+  const regional = plant.region_code && `${plant.country}-${plant.region_code}:${kind}`;
+  if (regional && generation.aggregates[regional]) return regional;
+  const national = `${plant.country}-${NATIONAL_REGION}:${kind}`;
+  return generation.aggregates[national] ? national : null;
+}
+
+/** Taux de charge régional ou national (0-1, négatif pour des batteries qui se rechargent). */
+export function regionalLoadFactor(generation: GenerationSeries | null, plant: PlantInfo, index: number): number | null {
+  if (!generation || index < 0) return null;
+  const key = loadFactorKey(generation, plant);
+  if (!key) return null;
+  const series = generation.aggregates[key];
   for (let i = index; i >= 0 && i > index - LOAD_FACTOR_MAX_AGE_SLOTS; i--) {
     if (generation.granularity[i] !== 'HOUR') break;
     if (series[i] !== null) return series[i];

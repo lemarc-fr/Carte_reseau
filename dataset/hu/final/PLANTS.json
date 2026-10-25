@@ -1,0 +1,489 @@
+[
+ {
+  "id": "hu-bioenergy-oroszlany",
+  "name": "Oroszlany",
+  "full_name": "Oroszlany",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.50174,
+  "longitude": 18.27107,
+  "capacity_mw": 100.0,
+  "commissioning_date": "1961-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-bioenergy-pecs",
+  "name": "Pecs",
+  "full_name": "Pecs",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.06264,
+  "longitude": 18.2604,
+  "capacity_mw": 103.6,
+  "commissioning_date": "1966-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WPECS------PPO",
+    "name": "Pecs",
+    "production_type": "BIOMASS",
+    "capacity_mw": 103.6,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-coal-matra",
+  "name": "Matra",
+  "full_name": "Matra",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.79027,
+  "longitude": 20.06358,
+  "capacity_mw": 884.0,
+  "commissioning_date": "1969-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WMATRA-----PPK",
+    "name": "Matra",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": 884.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-coal-oroszlany",
+  "name": "Oroszlany",
+  "full_name": "Oroszlany",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.50174,
+  "longitude": 18.27107,
+  "capacity_mw": 250.0,
+  "commissioning_date": "1961-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-gas-ajka",
+  "name": "Ajka",
+  "full_name": "Ajka",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.095,
+  "longitude": 17.556,
+  "capacity_mw": 114.0,
+  "commissioning_date": "2011-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-gas-borsodchem",
+  "name": "Borsodchem",
+  "full_name": "Borsodchem",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.2453,
+  "longitude": 20.6476,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2001-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-gas-csepel",
+  "name": "Csepel",
+  "full_name": "Csepel",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.428,
+  "longitude": 19.0525,
+  "capacity_mw": 402.0,
+  "commissioning_date": "2000-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WCSEPEL----PPI",
+    "name": "Csepel",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 402.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-gas-dunamenti",
+  "name": "Dunamenti",
+  "full_name": "Dunamenti",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.3283,
+  "longitude": 18.9169,
+  "capacity_mw": 698.0,
+  "commissioning_date": "1989-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WDUME------PPI",
+    "name": "Dunamenti",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 698.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-gas-gonyui",
+  "name": "Gonyui",
+  "full_name": "Gonyui",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.7384,
+  "longitude": 17.8033,
+  "capacity_mw": 427.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WGONYU-----PP5",
+    "name": "Gonyui",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 427.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-gas-kelenfoldi-eromu",
+  "name": "Kelenfoldi Eromu",
+  "full_name": "Kelenfoldi Eromu",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.4624,
+  "longitude": 19.0563,
+  "capacity_mw": 178.0,
+  "commissioning_date": "1914-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WKELENF----PP8",
+    "name": "Kelenfoldi Eromu",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 178.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-gas-kispesti-eromu",
+  "name": "Kispesti Eromu",
+  "full_name": "Kispesti Eromu",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.4568,
+  "longitude": 19.1673,
+  "capacity_mw": 109.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WKISP------PP6",
+    "name": "Kispesti Eromu",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 109.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-gas-matra",
+  "name": "Matra",
+  "full_name": "Matra",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.79027,
+  "longitude": 20.06358,
+  "capacity_mw": 600.0,
+  "commissioning_date": "2007-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-gas-ujpesti",
+  "name": "Ujpesti",
+  "full_name": "Ujpesti",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.554,
+  "longitude": 19.1023,
+  "capacity_mw": 110.0,
+  "commissioning_date": "1910-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WUJPEST----PPO",
+    "name": "Ujpesti",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 110.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-nuclear-paks-1",
+  "name": "Paks 1",
+  "full_name": "Paks 1",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.57763,
+  "longitude": 18.8532,
+  "capacity_mw": 509.0,
+  "commissioning_date": "1982-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WPAKS------PPL",
+    "name": "Paks 1",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 509.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-nuclear-paks-2",
+  "name": "Paks 2",
+  "full_name": "Paks 2",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.57763,
+  "longitude": 18.8532,
+  "capacity_mw": 506.0,
+  "commissioning_date": "1984-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-nuclear-paks-3",
+  "name": "Paks 3",
+  "full_name": "Paks 3",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.57763,
+  "longitude": 18.8532,
+  "capacity_mw": 506.0,
+  "commissioning_date": "1986-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-nuclear-paks-4",
+  "name": "Paks 4",
+  "full_name": "Paks 4",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.57763,
+  "longitude": 18.8532,
+  "capacity_mw": 506.0,
+  "commissioning_date": "1987-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-oil-liter",
+  "name": "Liter",
+  "full_name": "Liter",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.1075,
+  "longitude": 18.0143,
+  "capacity_mw": 123.0,
+  "commissioning_date": "1998-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WLITER-----PPP",
+    "name": "Liter",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 123.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-oil-lorinci",
+  "name": "Lorinci",
+  "full_name": "Lorinci",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.71643,
+  "longitude": 19.67776,
+  "capacity_mw": 173.0,
+  "commissioning_date": "1949-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WLORINC----PPF",
+    "name": "Lorinci",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 173.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-oil-sajoszoged",
+  "name": "Sajoszoged",
+  "full_name": "Sajoszoged",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.94,
+  "longitude": 20.968,
+  "capacity_mw": 155.0,
+  "commissioning_date": "1998-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "15WSAJSZOGED-PP4",
+    "name": "Sajoszoged",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 155.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "hu-solar-kaposvar-solar-farm",
+  "name": "Kaposvar Solar Farm",
+  "full_name": "Kaposvar Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.3752,
+  "longitude": 17.8441,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-solar-mezocsat-solar-farm",
+  "name": "Mezocsat Solar Farm",
+  "full_name": "Mezocsat Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.7823,
+  "longitude": 20.9247,
+  "capacity_mw": 304.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "hu-solar-tokaj-solar-farm",
+  "name": "Tokaj Solar Farm",
+  "full_name": "Tokaj Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.1298,
+  "longitude": 21.3818,
+  "capacity_mw": 200.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ }
+]

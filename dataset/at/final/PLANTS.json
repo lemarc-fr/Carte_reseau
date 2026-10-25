@@ -1,0 +1,1181 @@
+[
+ {
+  "id": "at-gas-donaustadt",
+  "name": "Donaustadt",
+  "full_name": "Donaustadt",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.2,
+  "longitude": 16.4633,
+  "capacity_mw": 395.0,
+  "commissioning_date": "1973-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-PROD-DO----O",
+    "name": "Donaustadt",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 395.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-gas-korneuburg",
+  "name": "Korneuburg",
+  "full_name": "Korneuburg",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.33263,
+  "longitude": 16.33981,
+  "capacity_mw": 150.0,
+  "commissioning_date": "1958-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-KW-KO2-EVN-5",
+    "name": "Korneuburg",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 150.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-gas-leopoldau",
+  "name": "Leopoldau",
+  "full_name": "Leopoldau",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.2767,
+  "longitude": 16.4339,
+  "capacity_mw": 140.0,
+  "commissioning_date": "1975-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-PROD-LAU---8",
+    "name": "Leopoldau",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 140.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-gas-linz-mitte",
+  "name": "Linz Mitte",
+  "full_name": "Linz Mitte",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.29922,
+  "longitude": 14.32294,
+  "capacity_mw": 217.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14WLSG-MITTE---U",
+    "name": "Linz Mitte",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 217.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-gas-linz-sud",
+  "name": "Linz Sud",
+  "full_name": "Linz Sud",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.26789,
+  "longitude": 14.3469,
+  "capacity_mw": 172.0,
+  "commissioning_date": "1993-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14WLSG-1SUED---5",
+    "name": "Linz Sud",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 172.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-gas-mellach",
+  "name": "Mellach",
+  "full_name": "Mellach",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.90819,
+  "longitude": 15.49231,
+  "capacity_mw": 1084.0,
+  "commissioning_date": "2011-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-WGM-KW-----J",
+    "name": "Mellach",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 1084.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-gas-simmering",
+  "name": "Simmering",
+  "full_name": "Simmering",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.1815,
+  "longitude": 16.4334,
+  "capacity_mw": 1180.0,
+  "commissioning_date": "1902-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-PROD-SIM---P",
+    "name": "Simmering",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 1180.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-gas-theiss",
+  "name": "Theiss",
+  "full_name": "Theiss",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.39486,
+  "longitude": 15.71015,
+  "capacity_mw": 485.0,
+  "commissioning_date": "2000-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-KW-THE-EVN-7",
+    "name": "Theiss",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 485.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-gas-timelkam",
+  "name": "Timelkam",
+  "full_name": "Timelkam",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.0122,
+  "longitude": 13.5895,
+  "capacity_mw": 405.0,
+  "commissioning_date": "2008-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14WENERGIE--WT02",
+    "name": "Timelkam",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 405.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-gas-werk-linz",
+  "name": "Werk Linz",
+  "full_name": "Werk Linz",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.28373,
+  "longitude": 14.34068,
+  "capacity_mw": 153.0,
+  "commissioning_date": "1995-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-hydro-abwinden-asten",
+  "name": "Abwinden Asten",
+  "full_name": "Abwinden Asten",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.248,
+  "longitude": 14.4302,
+  "capacity_mw": 168.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-BAA-KW-----D",
+    "name": "Abwinden Asten",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 168.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-altenworth",
+  "name": "Altenworth",
+  "full_name": "Altenworth",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.376,
+  "longitude": 15.857,
+  "capacity_mw": 328.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-BAW-KW-----F",
+    "name": "Altenworth",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 328.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-aschach",
+  "name": "Aschach",
+  "full_name": "Aschach",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.3852,
+  "longitude": 14.0229,
+  "capacity_mw": 287.0,
+  "commissioning_date": "1964-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-BAS-KW-----I",
+    "name": "Aschach",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 287.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-ausserfragant",
+  "name": "Ausserfragant",
+  "full_name": "Ausserfragant",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.9349,
+  "longitude": 13.1098,
+  "capacity_mw": 100.0,
+  "commissioning_date": "1965-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-E110354----8",
+    "name": "Ausserfragant",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 100.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-braunau-simbach",
+  "name": "Braunau Simbach",
+  "full_name": "Braunau Simbach",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.2451,
+  "longitude": 13.0065,
+  "capacity_mw": 100.0,
+  "commissioning_date": "1954-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-hydro-freudenau",
+  "name": "Freudenau",
+  "full_name": "Freudenau",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.1753,
+  "longitude": 16.4808,
+  "capacity_mw": 172.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-BFR-KW-----A",
+    "name": "Freudenau",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 172.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-gerlos",
+  "name": "Gerlos",
+  "full_name": "Gerlos",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.233,
+  "longitude": 11.8992,
+  "capacity_mw": 200.0,
+  "commissioning_date": "1949-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-TZG-KW-----H",
+    "name": "Gerlos",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 200.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-greifenstein",
+  "name": "Greifenstein",
+  "full_name": "Greifenstein",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.3562,
+  "longitude": 16.2424,
+  "capacity_mw": 293.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-BGS-KW-----Q",
+    "name": "Greifenstein",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 293.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-illwerke-vkw-kopswerk",
+  "name": "Illwerke Vkw Kopswerk",
+  "full_name": "Illwerke Vkw Kopswerk",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.97192,
+  "longitude": 10.05815,
+  "capacity_mw": 288.0,
+  "commissioning_date": "1969-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-hydro-illwerke-vkw-rodundwerk",
+  "name": "Illwerke Vkw Rodundwerk",
+  "full_name": "Illwerke Vkw Rodundwerk",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.08503,
+  "longitude": 9.88012,
+  "capacity_mw": 495.0,
+  "commissioning_date": "1943-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-hydro-jochenstein",
+  "name": "Jochenstein",
+  "full_name": "Jochenstein",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.5173,
+  "longitude": 13.7069,
+  "capacity_mw": 132.0,
+  "commissioning_date": "1956-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14WVERB-GJO-KW-5",
+    "name": "Jochenstein",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 132.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-kaprun-haupstufe",
+  "name": "Kaprun Haupstufe",
+  "full_name": "Kaprun Haupstufe",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.2594,
+  "longitude": 12.7385,
+  "capacity_mw": 260.0,
+  "commissioning_date": "1953-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-hydro-kaprun-main-stage",
+  "name": "Kaprun Main Stage",
+  "full_name": "Kaprun Main Stage",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.2591,
+  "longitude": 12.7389,
+  "capacity_mw": 240.0,
+  "commissioning_date": "1953-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-hydro-kaprun-schwarzach",
+  "name": "Kaprun Schwarzach",
+  "full_name": "Kaprun Schwarzach",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.3149,
+  "longitude": 13.1394,
+  "capacity_mw": 120.0,
+  "commissioning_date": "1960-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-TKS-KW-----P",
+    "name": "Kaprun Schwarzach",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 120.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-malta-main-stage",
+  "name": "Malta Main Stage",
+  "full_name": "Malta Main Stage",
+  "production_type": "HYDRO",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.0659,
+  "longitude": 13.3539,
+  "capacity_mw": 730.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-hydro-melk",
+  "name": "Melk",
+  "full_name": "Melk",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.223,
+  "longitude": 15.3041,
+  "capacity_mw": 187.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-BME-KW-----Q",
+    "name": "Melk",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 187.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-ottensheim-wilhering",
+  "name": "Ottensheim Wilhering",
+  "full_name": "Ottensheim Wilhering",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.3178,
+  "longitude": 14.1503,
+  "capacity_mw": 179.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-BOW-KW-----9",
+    "name": "Ottensheim Wilhering",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 179.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-prutz",
+  "name": "Prutz",
+  "full_name": "Prutz",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.0646,
+  "longitude": 10.6639,
+  "capacity_mw": 481.0,
+  "commissioning_date": "1964-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "11WATKAUN2HRWEAB",
+    "name": "Prutz",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 481.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-scharding-neuhaus",
+  "name": "Scharding Neuhaus",
+  "full_name": "Scharding Neuhaus",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.4355,
+  "longitude": 13.4399,
+  "capacity_mw": 100.0,
+  "commissioning_date": "1961-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-hydro-wallsee-mitterkirchen",
+  "name": "Wallsee Mitterkirchen",
+  "full_name": "Wallsee Mitterkirchen",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.1665,
+  "longitude": 14.6952,
+  "capacity_mw": 210.0,
+  "commissioning_date": "1968-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-BWM-KW-----L",
+    "name": "Wallsee Mitterkirchen",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 210.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-hydro-ybbs-persenbeug",
+  "name": "Ybbs Persenbeug",
+  "full_name": "Ybbs Persenbeug",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.1894,
+  "longitude": 15.068,
+  "capacity_mw": 237.0,
+  "commissioning_date": "1959-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-BYP-KW-----6",
+    "name": "Ybbs Persenbeug",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 237.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-oil-schwechat-refinery",
+  "name": "Schwechat Refinery",
+  "full_name": "Schwechat Refinery",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 48.1434,
+  "longitude": 16.4981,
+  "capacity_mw": 170.0,
+  "commissioning_date": "1975-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-pumped-storage-feldsee",
+  "name": "Feldsee",
+  "full_name": "Feldsee",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.0036,
+  "longitude": 13.0562,
+  "capacity_mw": 140.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-E110352----K",
+    "name": "Feldsee",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 140.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-hausling",
+  "name": "Hausling",
+  "full_name": "Hausling",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.1462,
+  "longitude": 11.9673,
+  "capacity_mw": 360.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-TZH-KW-----7",
+    "name": "Hausling",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 360.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-hintermuhr",
+  "name": "Hintermuhr",
+  "full_name": "Hintermuhr",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.1029,
+  "longitude": 13.4779,
+  "capacity_mw": 107.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-KW-HMUHR---R",
+    "name": "Hintermuhr",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 107.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-illwerke-vkw-kopswerk",
+  "name": "Illwerke Vkw Kopswerk",
+  "full_name": "Illwerke Vkw Kopswerk",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.97641,
+  "longitude": 10.04333,
+  "capacity_mw": 533.0,
+  "commissioning_date": "1969-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "11WD43VIWXHOILLM",
+    "name": "Illwerke Vkw Kopswerk",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 533.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-illwerke-vkw-lunerseewerk",
+  "name": "Illwerke Vkw Lunerseewerk",
+  "full_name": "Illwerke Vkw Lunerseewerk",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.07376,
+  "longitude": 9.87366,
+  "capacity_mw": 280.0,
+  "commissioning_date": "1957-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-pumped-storage-innerfragant-oschenik",
+  "name": "Innerfragant Oschenik",
+  "full_name": "Innerfragant Oschenik",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.9773,
+  "longitude": 13.0517,
+  "capacity_mw": 114.0,
+  "commissioning_date": "1965-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-E110349----M",
+    "name": "Innerfragant Oschenik",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 114.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-kaprun-limberg",
+  "name": "Kaprun Limberg",
+  "full_name": "Kaprun Limberg",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.1971,
+  "longitude": 12.7193,
+  "capacity_mw": 740.0,
+  "commissioning_date": "1956-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-pumped-storage-kaprun-limberg-2",
+  "name": "Kaprun Limberg",
+  "full_name": "Kaprun Limberg",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.1992,
+  "longitude": 12.7245,
+  "capacity_mw": 480.0,
+  "commissioning_date": "1956-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-TKP-KW-----I",
+    "name": "Kaprun Limberg 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "14WTK3KW-------1",
+    "name": "Kaprun Limberg 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-kuhtai-maschine",
+  "name": "Kuhtai Maschine",
+  "full_name": "Kuhtai Maschine",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.20744,
+  "longitude": 11.00528,
+  "capacity_mw": 289.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "11WD2KUET000160J",
+    "name": "Kuhtai Maschine",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 289.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-malta-hauptstufe",
+  "name": "Malta Hauptstufe",
+  "full_name": "Malta Hauptstufe",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.8701,
+  "longitude": 13.329,
+  "capacity_mw": 730.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-DMH-KW-----9",
+    "name": "Malta Hauptstufe",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 730.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-malta-oberstufe",
+  "name": "Malta Oberstufe",
+  "full_name": "Malta Oberstufe",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.0659,
+  "longitude": 13.3528,
+  "capacity_mw": 120.0,
+  "commissioning_date": "1976-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-DMO-KW-----D",
+    "name": "Malta Oberstufe",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 120.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-mayrhofen",
+  "name": "Mayrhofen",
+  "full_name": "Mayrhofen",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.1583,
+  "longitude": 11.851,
+  "capacity_mw": 355.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-TZMA-KW----N",
+    "name": "Mayrhofen",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 355.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-obervermuntwerk-maschine-turbine",
+  "name": "Obervermuntwerk Maschine Turbine",
+  "full_name": "Obervermuntwerk Maschine Turbine",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.93529,
+  "longitude": 10.05995,
+  "capacity_mw": 380.0,
+  "commissioning_date": "1943-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-pumped-storage-reisseck",
+  "name": "Reisseck",
+  "full_name": "Reisseck",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.8831,
+  "longitude": 13.3274,
+  "capacity_mw": 498.0,
+  "commissioning_date": "1950-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-DRP-KW-----M",
+    "name": "Reisseck",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 498.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-rosshag",
+  "name": "Rosshag",
+  "full_name": "Rosshag",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.0867,
+  "longitude": 11.7738,
+  "capacity_mw": 231.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "14W-TZR-KW-----I",
+    "name": "Rosshag",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 231.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-silz-maschine",
+  "name": "Silz Maschine",
+  "full_name": "Silz Maschine",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.26907,
+  "longitude": 10.96797,
+  "capacity_mw": 500.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "11WD2SILT000157E",
+    "name": "Silz Maschine",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 500.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "at-pumped-storage-tauernmoos",
+  "name": "Tauernmoos",
+  "full_name": "Tauernmoos",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.1592,
+  "longitude": 12.6328,
+  "capacity_mw": 170.0,
+  "commissioning_date": "2026-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-solar-wallern-tadten-solar-farm",
+  "name": "Wallern Tadten Solar Farm",
+  "full_name": "Wallern Tadten Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.7436,
+  "longitude": 16.97,
+  "capacity_mw": 164.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-wind-andau-wind-farm",
+  "name": "Andau Wind Farm",
+  "full_name": "Andau Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 47.8101,
+  "longitude": 17.04425,
+  "capacity_mw": 114.0,
+  "commissioning_date": "2013-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "at-wind-freilaenderalm-wind-farm",
+  "name": "Freilaenderalm Wind Farm",
+  "full_name": "Freilaenderalm Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.9143,
+  "longitude": 15.0637,
+  "capacity_mw": 102.0,
+  "commissioning_date": "2014-01-01",
+  "installations": null,
+  "units": []
+ }
+]

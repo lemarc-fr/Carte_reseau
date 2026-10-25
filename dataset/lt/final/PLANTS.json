@@ -1,0 +1,153 @@
+[
+ {
+  "id": "lt-battery-grid-battery",
+  "name": "Grid Battery",
+  "full_name": "Grid Battery",
+  "production_type": "BATTERY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.93,
+  "longitude": 23.31,
+  "capacity_mw": 200.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "lt-gas-lietuvos",
+  "name": "Lietuvos",
+  "full_name": "Lietuvos",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.7701,
+  "longitude": 24.6474,
+  "capacity_mw": 1045.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "41W1023600243EL3",
+    "name": "Lietuvos",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 1045.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "lt-hydro-kaunas-algirdas-brazauskas",
+  "name": "Kaunas Algirdas Brazauskas",
+  "full_name": "Kaunas Algirdas Brazauskas",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.8741,
+  "longitude": 24.001,
+  "capacity_mw": 101.0,
+  "commissioning_date": "1959-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "41W9259783288ELI",
+    "name": "Kaunas Algirdas Brazauskas",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 101.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "lt-pumped-storage-kruonis",
+  "name": "Kruonis",
+  "full_name": "Kruonis",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.799,
+  "longitude": 24.2475,
+  "capacity_mw": 900.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "41W2128003453ELI",
+    "name": "Kruonis",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 900.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "lt-solar-moletai-solar-farm",
+  "name": "Moletai Solar Farm",
+  "full_name": "Moletai Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.2251,
+  "longitude": 25.397,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "lt-wind-kelme-enefit-green-wind-farm",
+  "name": "Kelme Enefit Green Wind Farm",
+  "full_name": "Kelme Enefit Green Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.6345,
+  "longitude": 22.97785,
+  "capacity_mw": 481.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "lt-wind-vejo",
+  "name": "Vejo",
+  "full_name": "Vejo",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 56.28908,
+  "longitude": 23.02414,
+  "capacity_mw": 1308.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "41W8908466671EL6",
+    "name": "Vejo",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 1308.0,
+    "commissioning_date": null
+   }
+  ]
+ }
+]

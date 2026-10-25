@@ -1,0 +1,1728 @@
+[
+ {
+  "id": "pl-battery-nowa-wies-elcka",
+  "name": "Nowa Wies Elcka",
+  "full_name": "Nowa Wies Elcka",
+  "production_type": "BATTERY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.77,
+  "longitude": 22.33,
+  "capacity_mw": 200.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-bioenergy-jaworzno",
+  "name": "Jaworzno",
+  "full_name": "Jaworzno",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.21423,
+  "longitude": 19.21604,
+  "capacity_mw": 105.0,
+  "commissioning_date": "1953-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-bioenergy-konin",
+  "name": "Konin",
+  "full_name": "Konin",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.28366,
+  "longitude": 18.26947,
+  "capacity_mw": 100.0,
+  "commissioning_date": "1958-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-bioenergy-polaniec",
+  "name": "Polaniec",
+  "full_name": "Polaniec",
+  "production_type": "BIOENERGY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.43769,
+  "longitude": 21.33769,
+  "capacity_mw": 225.0,
+  "commissioning_date": "1983-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000165Z",
+    "name": "Polaniec",
+    "production_type": "BIOMASS",
+    "capacity_mw": 225.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-belchatow-phase",
+  "name": "Belchatow Phase",
+  "full_name": "Belchatow Phase",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.26639,
+  "longitude": 19.33056,
+  "capacity_mw": 5400.0,
+  "commissioning_date": "1981-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000016F",
+    "name": "Belchatow Phase",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": 5400.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-bydgoszcz-phase",
+  "name": "Bydgoszcz Phase",
+  "full_name": "Bydgoszcz Phase",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.09918,
+  "longitude": 18.0889,
+  "capacity_mw": 227.0,
+  "commissioning_date": "1929-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000035B",
+    "name": "Bydgoszcz Phase",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 227.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-chorzow-elcho",
+  "name": "Chorzow Elcho",
+  "full_name": "Chorzow Elcho",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.30746,
+  "longitude": 18.96946,
+  "capacity_mw": 226.0,
+  "commissioning_date": "1991-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000000369",
+    "name": "Chorzow Elcho",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 226.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-gdansk",
+  "name": "Gdansk",
+  "full_name": "Gdansk",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.3782,
+  "longitude": 18.64128,
+  "capacity_mw": 217.8,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000059Y",
+    "name": "Gdansk",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 217.8,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-gdynia",
+  "name": "Gdynia",
+  "full_name": "Gdynia",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.55336,
+  "longitude": 18.48079,
+  "capacity_mw": 105.2,
+  "commissioning_date": "1974-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000061A",
+    "name": "Gdynia",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 105.2,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-jaworzno-phase",
+  "name": "Jaworzno Phase",
+  "full_name": "Jaworzno Phase",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.20913,
+  "longitude": 19.21258,
+  "capacity_mw": 2455.0,
+  "commissioning_date": "1953-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000000628",
+    "name": "Jaworzno Phase 1",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "19W0000000000636",
+    "name": "Jaworzno Phase 2",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "19W000000000296K",
+    "name": "Jaworzno Phase 3",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-katowice-pke",
+  "name": "Katowice Pke",
+  "full_name": "Katowice Pke",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.28568,
+  "longitude": 19.05438,
+  "capacity_mw": 135.0,
+  "commissioning_date": "1999-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000076Y",
+    "name": "Katowice Pke",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 135.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-kozienice",
+  "name": "Kozienice",
+  "full_name": "Kozienice",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.6673,
+  "longitude": 21.46126,
+  "capacity_mw": 2919.0,
+  "commissioning_date": "1972-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000095U",
+    "name": "Kozienice 1",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "19W000000000104I",
+    "name": "Kozienice 2",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-kozienice-2",
+  "name": "Kozienice",
+  "full_name": "Kozienice",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.6673,
+  "longitude": 21.46126,
+  "capacity_mw": 1075.0,
+  "commissioning_date": "2017-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-coal-krakow-leg",
+  "name": "Krakow Leg",
+  "full_name": "Krakow Leg",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.05402,
+  "longitude": 20.00602,
+  "capacity_mw": 460.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000000806",
+    "name": "Krakow Leg",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 460.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-lagisza",
+  "name": "Lagisza",
+  "full_name": "Lagisza",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.35016,
+  "longitude": 19.14351,
+  "capacity_mw": 1180.0,
+  "commissioning_date": "1963-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000111L",
+    "name": "Lagisza",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 1180.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-laziska",
+  "name": "Laziska",
+  "full_name": "Laziska",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.13453,
+  "longitude": 18.84435,
+  "capacity_mw": 1155.0,
+  "commissioning_date": "1917-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000116B",
+    "name": "Laziska 1",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "19W0000000001195",
+    "name": "Laziska 2",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-lodz",
+  "name": "Lodz",
+  "full_name": "Lodz",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.74564,
+  "longitude": 19.53963,
+  "capacity_mw": 215.0,
+  "commissioning_date": "1977-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-coal-lodz-2",
+  "name": "Lodz",
+  "full_name": "Lodz",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.79836,
+  "longitude": 19.42073,
+  "capacity_mw": 198.0,
+  "commissioning_date": "1958-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-coal-lodz-bc",
+  "name": "Lodz Bc",
+  "full_name": "Lodz Bc",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.7463,
+  "longitude": 19.5382,
+  "capacity_mw": 215.0,
+  "commissioning_date": "1977-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-coal-patnow",
+  "name": "Patnow",
+  "full_name": "Patnow",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.62506,
+  "longitude": 19.3903,
+  "capacity_mw": 474.0,
+  "commissioning_date": "1967-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000142A",
+    "name": "Patnow 1",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "19W000000000149X",
+    "name": "Patnow 2",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-pomorzany",
+  "name": "Pomorzany",
+  "full_name": "Pomorzany",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.391,
+  "longitude": 14.52479,
+  "capacity_mw": 134.0,
+  "commissioning_date": "1959-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000168T",
+    "name": "Pomorzany",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 134.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-poznan-karolin",
+  "name": "Poznan Karolin",
+  "full_name": "Poznan Karolin",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.43642,
+  "longitude": 16.98866,
+  "capacity_mw": 313.0,
+  "commissioning_date": "1975-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000000725",
+    "name": "Poznan Karolin 1",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "19W0000000000741",
+    "name": "Poznan Karolin 2",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-pulawy-grupa-azoty",
+  "name": "Pulawy Grupa Azoty",
+  "full_name": "Pulawy Grupa Azoty",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.41644,
+  "longitude": 21.96931,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000212F",
+    "name": "Pulawy Grupa Azoty",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 100.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-rybnik",
+  "name": "Rybnik",
+  "full_name": "Rybnik",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.13406,
+  "longitude": 18.52196,
+  "capacity_mw": 1775.0,
+  "commissioning_date": "1972-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000001713",
+    "name": "Rybnik",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 1775.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-siekierki",
+  "name": "Siekierki",
+  "full_name": "Siekierki",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.19146,
+  "longitude": 21.08622,
+  "capacity_mw": 591.0,
+  "commissioning_date": "1961-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000002191",
+    "name": "Siekierki",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 591.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-siersza",
+  "name": "Siersza",
+  "full_name": "Siersza",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.20804,
+  "longitude": 19.46094,
+  "capacity_mw": 797.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000002361",
+    "name": "Siersza",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 797.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-swiecie-pulp-mill",
+  "name": "Swiecie Pulp Mill",
+  "full_name": "Swiecie Pulp Mill",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.39363,
+  "longitude": 18.37422,
+  "capacity_mw": 113.0,
+  "commissioning_date": "1974-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-coal-wroclaw",
+  "name": "Wroclaw",
+  "full_name": "Wroclaw",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.12371,
+  "longitude": 17.02457,
+  "capacity_mw": 263.0,
+  "commissioning_date": "1901-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000193U",
+    "name": "Wroclaw 1",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "19W000000000213D",
+    "name": "Wroclaw 2",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-zabrze-phase",
+  "name": "Zabrze Phase",
+  "full_name": "Zabrze Phase",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.31236,
+  "longitude": 18.79863,
+  "capacity_mw": 108.0,
+  "commissioning_date": "1976-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000287L",
+    "name": "Zabrze Phase",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 108.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-zeran",
+  "name": "Zeran",
+  "full_name": "Zeran",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.2947,
+  "longitude": 20.99334,
+  "capacity_mw": 586.0,
+  "commissioning_date": "1954-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000297I",
+    "name": "Zeran",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 586.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-coal-zw-nowa",
+  "name": "Zw Nowa",
+  "full_name": "Zw Nowa",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.34776,
+  "longitude": 19.27816,
+  "capacity_mw": 105.0,
+  "commissioning_date": "1992-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000239W",
+    "name": "Zw Nowa",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 105.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-adamow",
+  "name": "Adamow",
+  "full_name": "Adamow",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.01231,
+  "longitude": 18.54621,
+  "capacity_mw": 600.0,
+  "commissioning_date": "2027-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-blachownia-manufacturing",
+  "name": "Blachownia Manufacturing",
+  "full_name": "Blachownia Manufacturing",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.36123,
+  "longitude": 18.28752,
+  "capacity_mw": 158.0,
+  "commissioning_date": "1955-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-dabrowa-gornicza-coking",
+  "name": "Dabrowa Gornicza Coking",
+  "full_name": "Dabrowa Gornicza Coking",
+  "production_type": "GAS",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.34191,
+  "longitude": 19.26772,
+  "capacity_mw": 113.0,
+  "commissioning_date": "2007-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-dolna-odra",
+  "name": "Dolna Odra",
+  "full_name": "Dolna Odra",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.20778,
+  "longitude": 14.46722,
+  "capacity_mw": 1366.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-gdansk-ccgt",
+  "name": "Gdansk Ccgt",
+  "full_name": "Gdansk Ccgt",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.34514,
+  "longitude": 18.72658,
+  "capacity_mw": 561.0,
+  "commissioning_date": "2029-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-gorzow",
+  "name": "Gorzow",
+  "full_name": "Gorzow",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.7504,
+  "longitude": 15.2712,
+  "capacity_mw": 204.0,
+  "commissioning_date": "1999-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000060C",
+    "name": "Gorzow 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "19W000000000274U",
+    "name": "Gorzow 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-grudziadz",
+  "name": "Grudziadz",
+  "full_name": "Grudziadz",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.48375,
+  "longitude": 18.75356,
+  "capacity_mw": 560.0,
+  "commissioning_date": "2026-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-krakow-leg",
+  "name": "Krakow Leg",
+  "full_name": "Krakow Leg",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.05402,
+  "longitude": 20.00602,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2028-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-nowa-sarzyna",
+  "name": "Nowa Sarzyna",
+  "full_name": "Nowa Sarzyna",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.3172,
+  "longitude": 22.3237,
+  "capacity_mw": 129.0,
+  "commissioning_date": "2000-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000000571",
+    "name": "Nowa Sarzyna",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 129.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-ostroleka",
+  "name": "Ostroleka",
+  "full_name": "Ostroleka",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.10361,
+  "longitude": 21.6125,
+  "capacity_mw": 750.0,
+  "commissioning_date": "2026-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-plock",
+  "name": "Plock",
+  "full_name": "Plock",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.588,
+  "longitude": 19.678,
+  "capacity_mw": 630.0,
+  "commissioning_date": "2018-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000283T",
+    "name": "Plock",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 630.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-poznan-karolin",
+  "name": "Poznan Karolin",
+  "full_name": "Poznan Karolin",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.43642,
+  "longitude": 16.98866,
+  "capacity_mw": 200.0,
+  "commissioning_date": "2026-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-rybnik",
+  "name": "Rybnik",
+  "full_name": "Rybnik",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.13406,
+  "longitude": 18.52196,
+  "capacity_mw": 900.0,
+  "commissioning_date": "2027-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-rzeszow",
+  "name": "Rzeszow",
+  "full_name": "Rzeszow",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.0646,
+  "longitude": 22.0294,
+  "capacity_mw": 141.0,
+  "commissioning_date": "1980-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000169R",
+    "name": "Rzeszow",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 141.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-stalowa-wola",
+  "name": "Stalowa Wola",
+  "full_name": "Stalowa Wola",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.55386,
+  "longitude": 22.0791,
+  "capacity_mw": 450.0,
+  "commissioning_date": "1939-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000284R",
+    "name": "Stalowa Wola",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 450.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-synthos-oswiecim",
+  "name": "Synthos Oswiecim",
+  "full_name": "Synthos Oswiecim",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.03933,
+  "longitude": 19.27148,
+  "capacity_mw": 120.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-gas-torun",
+  "name": "Torun",
+  "full_name": "Torun",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.0475,
+  "longitude": 18.6932,
+  "capacity_mw": 110.0,
+  "commissioning_date": "2017-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000293Q",
+    "name": "Torun",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 110.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-wloclawek",
+  "name": "Wloclawek",
+  "full_name": "Wloclawek",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.7074,
+  "longitude": 18.9589,
+  "capacity_mw": 465.0,
+  "commissioning_date": "2017-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000256W",
+    "name": "Wloclawek",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 465.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-wrotkow",
+  "name": "Wrotkow",
+  "full_name": "Wrotkow",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.2161,
+  "longitude": 22.5583,
+  "capacity_mw": 231.0,
+  "commissioning_date": "1976-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000001098",
+    "name": "Wrotkow",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 231.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-zeran",
+  "name": "Zeran",
+  "full_name": "Zeran",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.2947,
+  "longitude": 20.99334,
+  "capacity_mw": 490.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000290W",
+    "name": "Zeran",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 490.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-gas-zielona-gora",
+  "name": "Zielona Gora",
+  "full_name": "Zielona Gora",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.9514,
+  "longitude": 15.4879,
+  "capacity_mw": 198.0,
+  "commissioning_date": "1974-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000230D",
+    "name": "Zielona Gora",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 198.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-hydro-wloclawek",
+  "name": "Wloclawek",
+  "full_name": "Wloclawek",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.6547,
+  "longitude": 19.1333,
+  "capacity_mw": 168.0,
+  "commissioning_date": "1969-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000004M",
+    "name": "Wloclawek",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 168.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-pumped-storage-porabka-zar",
+  "name": "Porabka Zar",
+  "full_name": "Porabka Zar",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 49.7803,
+  "longitude": 19.2116,
+  "capacity_mw": 552.0,
+  "commissioning_date": "1953-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000247X",
+    "name": "Porabka Zar",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 552.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-pumped-storage-solina",
+  "name": "Solina",
+  "full_name": "Solina",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 49.396,
+  "longitude": 22.4538,
+  "capacity_mw": 198.0,
+  "commissioning_date": "1968-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-pumped-storage-zarnowiec",
+  "name": "Zarnowiec",
+  "full_name": "Zarnowiec",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.7224,
+  "longitude": 18.0826,
+  "capacity_mw": 780.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000002418",
+    "name": "Zarnowiec",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 780.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-pumped-storage-zydowo",
+  "name": "Zydowo",
+  "full_name": "Zydowo",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.0251,
+  "longitude": 16.7071,
+  "capacity_mw": 165.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000002426",
+    "name": "Zydowo",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 165.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-solar-jeziorko-solar-farm",
+  "name": "Jeziorko Solar Farm",
+  "full_name": "Jeziorko Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.5399,
+  "longitude": 21.8893,
+  "capacity_mw": 153.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-solar-milkowice-solar-farm",
+  "name": "Milkowice Solar Farm",
+  "full_name": "Milkowice Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.2586,
+  "longitude": 16.0616,
+  "capacity_mw": 113.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-solar-mitra-solar-farm",
+  "name": "Mitra Solar Farm",
+  "full_name": "Mitra Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.01285,
+  "longitude": 18.63145,
+  "capacity_mw": 265.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-solar-rutki-solar-farm",
+  "name": "Rutki Solar Farm",
+  "full_name": "Rutki Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.6744,
+  "longitude": 17.5359,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2025-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-solar-serby-solar-farm",
+  "name": "Serby Solar Farm",
+  "full_name": "Serby Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 51.1835,
+  "longitude": 16.5066,
+  "capacity_mw": 112.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-solar-zamosc-solar-farm",
+  "name": "Zamosc Solar Farm",
+  "full_name": "Zamosc Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.7178,
+  "longitude": 23.2179,
+  "capacity_mw": 135.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-solar-zwartowo-solar-farm",
+  "name": "Zwartowo Solar Farm",
+  "full_name": "Zwartowo Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.6971,
+  "longitude": 17.8064,
+  "capacity_mw": 203.0,
+  "commissioning_date": "2022-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W111100000022B",
+    "name": "Zwartowo Solar Farm",
+    "production_type": "SOLAR",
+    "capacity_mw": 203.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-wind-bakow-wind-farm",
+  "name": "Bakow Wind Farm",
+  "full_name": "Bakow Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.2159,
+  "longitude": 19.1344,
+  "capacity_mw": 144.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-wind-baltic-offshore-wind-farm",
+  "name": "Baltic Offshore Wind Farm",
+  "full_name": "Baltic Offshore Wind Farm",
+  "production_type": "WIND",
+  "technology": "offshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 55.0501,
+  "longitude": 17.6501,
+  "capacity_mw": 1200.0,
+  "commissioning_date": "2026-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-wind-banie-kozielice-wind-farm",
+  "name": "Banie Kozielice Wind Farm",
+  "full_name": "Banie Kozielice Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.0708,
+  "longitude": 14.77147,
+  "capacity_mw": 162.0,
+  "commissioning_date": "2015-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-wind-bialy-bor-wind-farm",
+  "name": "Bialy Bor Wind Farm",
+  "full_name": "Bialy Bor Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.8987,
+  "longitude": 16.8377,
+  "capacity_mw": 145.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W110000000307G",
+    "name": "Bialy Bor Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 145.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-wind-dargikowo-wind-farm",
+  "name": "Dargikowo Wind Farm",
+  "full_name": "Dargikowo Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.0158,
+  "longitude": 16.0632,
+  "capacity_mw": 133.0,
+  "commissioning_date": "2022-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W110000000306I",
+    "name": "Dargikowo Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 133.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-wind-darzyno-wind-farm",
+  "name": "Darzyno Wind Farm",
+  "full_name": "Darzyno Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.47525,
+  "longitude": 17.48115,
+  "capacity_mw": 151.0,
+  "commissioning_date": "2008-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-wind-debsk-wind-farm",
+  "name": "Debsk Wind Farm",
+  "full_name": "Debsk Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.0337,
+  "longitude": 19.9686,
+  "capacity_mw": 121.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-wind-dolice-wind-farm",
+  "name": "Dolice Wind Farm",
+  "full_name": "Dolice Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.3632,
+  "longitude": 14.5796,
+  "capacity_mw": 136.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-wind-fw-banie",
+  "name": "Fw Banie",
+  "full_name": "Fw Banie",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.11529,
+  "longitude": 14.78918,
+  "capacity_mw": 106.0,
+  "commissioning_date": "2015-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W000000000275S",
+    "name": "Fw Banie",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 106.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-wind-jasna-wind-farm",
+  "name": "Jasna Wind Farm",
+  "full_name": "Jasna Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 53.9772,
+  "longitude": 19.3326,
+  "capacity_mw": 132.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W110000000303O",
+    "name": "Jasna Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 132.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-wind-krzanowice-wind-farm",
+  "name": "Krzanowice Wind Farm",
+  "full_name": "Krzanowice Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.0182,
+  "longitude": 18.1244,
+  "capacity_mw": 105.0,
+  "commissioning_date": "2015-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-wind-margonin-wind-farm",
+  "name": "Margonin Wind Farm",
+  "full_name": "Margonin Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 52.9643,
+  "longitude": 17.1572,
+  "capacity_mw": 120.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "19W0000000001276",
+    "name": "Margonin Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 120.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "pl-wind-marszewo-wind-farm",
+  "name": "Marszewo Wind Farm",
+  "full_name": "Marszewo Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 54.4961,
+  "longitude": 16.6872,
+  "capacity_mw": 124.0,
+  "commissioning_date": "2013-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "pl-wind-silesia-wind-farm",
+  "name": "Silesia Wind Farm",
+  "full_name": "Silesia Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 50.6915,
+  "longitude": 17.8221,
+  "capacity_mw": 187.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ }
+]

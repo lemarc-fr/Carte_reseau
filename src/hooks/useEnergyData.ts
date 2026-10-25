@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { useMapStore } from '@/store/useMapStore';
 import { DAY_MS } from '@/lib/generationUtils';
-import type { GenerationSeries, PlantInfo } from '@/types/energy';
+import { expandPlant, type CompactPlant } from '@/lib/plantJson';
+import type { GenerationSeries } from '@/types/energy';
 
 const WINDOW_MS = 7 * DAY_MS;
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
@@ -35,8 +36,8 @@ export function useEnergyData() {
 
   useEffect(() => {
     const controller = new AbortController();
-    fetchJson<PlantInfo[]>('/api/plants', controller.signal)
-      .then(setPlants)
+    fetchJson<CompactPlant[]>('/api/plants', controller.signal)
+      .then((plants) => setPlants(plants.map(expandPlant)))
       .catch((err) => {
         if (controller.signal.aborted) return;
         console.error(err);

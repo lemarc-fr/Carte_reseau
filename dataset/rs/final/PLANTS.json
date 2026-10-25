@@ -1,0 +1,410 @@
+[
+ {
+  "id": "rs-coal-kolubara",
+  "name": "Kolubara",
+  "full_name": "Kolubara",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.48031,
+  "longitude": 20.29354,
+  "capacity_mw": 271.0,
+  "commissioning_date": "1956-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WETL-KOLUA---P",
+    "name": "Kolubara",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": 271.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-coal-kostolac-phase",
+  "name": "Kostolac Phase",
+  "full_name": "Kostolac Phase",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.72765,
+  "longitude": 21.19563,
+  "capacity_mw": 1360.0,
+  "commissioning_date": "1967-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WETL-KOSTA---J",
+    "name": "Kostolac Phase 1",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "34WETL-KOSTB---E",
+    "name": "Kostolac Phase 2",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-coal-morava",
+  "name": "Morava",
+  "full_name": "Morava",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.22383,
+  "longitude": 21.16315,
+  "capacity_mw": 120.0,
+  "commissioning_date": "1969-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WETL-MORAV---H",
+    "name": "Morava",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": 120.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-coal-nikola-tesla-phase",
+  "name": "Nikola Tesla Phase",
+  "full_name": "Nikola Tesla Phase",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.67134,
+  "longitude": 20.15842,
+  "capacity_mw": 1766.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "rs-coal-nikola-tesla-phase-2",
+  "name": "Nikola Tesla Phase",
+  "full_name": "Nikola Tesla Phase",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.65383,
+  "longitude": 20.00485,
+  "capacity_mw": 1300.0,
+  "commissioning_date": "1983-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "rs-gas-novi-sad",
+  "name": "Novi Sad",
+  "full_name": "Novi Sad",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.26797,
+  "longitude": 19.88533,
+  "capacity_mw": 285.0,
+  "commissioning_date": "1984-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WETG-NOSAD---Z",
+    "name": "Novi Sad",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 285.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-gas-pancevo",
+  "name": "Pancevo",
+  "full_name": "Pancevo",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.83121,
+  "longitude": 20.67989,
+  "capacity_mw": 189.0,
+  "commissioning_date": "2022-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WETG-PANVO---K",
+    "name": "Pancevo",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 189.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-gas-zrenjanin",
+  "name": "Zrenjanin",
+  "full_name": "Zrenjanin",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.35717,
+  "longitude": 20.41595,
+  "capacity_mw": 120.0,
+  "commissioning_date": "1989-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WETG-ZRENJ---4",
+    "name": "Zrenjanin",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 120.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-hydro-bistrica-eps",
+  "name": "Bistrica Eps",
+  "full_name": "Bistrica Eps",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.4705,
+  "longitude": 19.6546,
+  "capacity_mw": 102.0,
+  "commissioning_date": "1959-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WEHA-BISTR---W",
+    "name": "Bistrica Eps",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 102.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-hydro-he-derdap-djerdap-iron-gate",
+  "name": "He Derdap Djerdap Iron Gate",
+  "full_name": "He Derdap Djerdap Iron Gate",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.669,
+  "longitude": 22.527,
+  "capacity_mw": 1083.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WEHP-DJE-1---R",
+    "name": "He Derdap Djerdap Iron Gate 1",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "34WEHP-DJE-2---M",
+    "name": "He Derdap Djerdap Iron Gate 2",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-hydro-he-djerdap",
+  "name": "He Djerdap",
+  "full_name": "He Djerdap",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.329,
+  "longitude": 22.528,
+  "capacity_mw": 208.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "rs-hydro-he-vrla",
+  "name": "He Vrla",
+  "full_name": "He Vrla",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.70771,
+  "longitude": 22.31857,
+  "capacity_mw": 128.6,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "rs-hydro-zvornik",
+  "name": "Zvornik",
+  "full_name": "Zvornik",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.368,
+  "longitude": 19.1068,
+  "capacity_mw": 126.0,
+  "commissioning_date": "1955-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WEHP-ZVORN---E",
+    "name": "Zvornik",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 126.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-pumped-storage-bajina-basta",
+  "name": "Bajina Basta",
+  "full_name": "Bajina Basta",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.9647,
+  "longitude": 19.4101,
+  "capacity_mw": 1034.0,
+  "commissioning_date": "1966-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WEHR-BBASR---X",
+    "name": "Bajina Basta",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 1034.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "rs-pumped-storage-rhe-bajina-basta-bajina-basta",
+  "name": "Rhe Bajina Basta Bajina Basta",
+  "full_name": "Rhe Bajina Basta Bajina Basta",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.865,
+  "longitude": 19.406,
+  "capacity_mw": 614.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "rs-wind-cibuk-wind-farm",
+  "name": "Cibuk Wind Farm",
+  "full_name": "Cibuk Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.9427,
+  "longitude": 20.9334,
+  "capacity_mw": 158.0,
+  "commissioning_date": "2019-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "rs-wind-kovacica-wind-farm",
+  "name": "Kovacica Wind Farm",
+  "full_name": "Kovacica Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.06,
+  "longitude": 20.657,
+  "capacity_mw": 105.0,
+  "commissioning_date": "2019-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "rs-wind-krivaca-wind-farm",
+  "name": "Krivaca Wind Farm",
+  "full_name": "Krivaca Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.5958,
+  "longitude": 21.6699,
+  "capacity_mw": 105.6,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "34WERV-KRIVACA-U",
+    "name": "Krivaca Wind Farm",
+    "production_type": "WIND_ONSHORE",
+    "capacity_mw": 105.6,
+    "commissioning_date": null
+   }
+  ]
+ }
+]

@@ -1,20 +1,24 @@
 import 'dotenv/config';
-import { readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { prisma } from '@/lib/prisma';
 import { linkUnitsToPlants } from '@/lib/power/fr/unitPlants';
 
 // Usage : npm run db:seed
-// Remplit `plants` et `units` à partir des jeux de données consolidés de dataset/fr/final/ :
-//   NUCLEAR.json, HYDRO.json   centrales au format OSM + Wikidata + registre ODRE
-//   WIND.json, SOLAR.json, THERMAL.json, BIOENERGY.json, BATTERY.json, MARINE.json
-//                              sites regroupés par commune (dataset/fr/scripts/registre.py)
+// Remplit `plants` et `units` à partir des jeux de données consolidés :
+//   dataset/fr/final/
+//     NUCLEAR.json, HYDRO.json   centrales au format OSM + Wikidata + registre ODRE
+//     WIND.json, SOLAR.json, THERMAL.json, BIOENERGY.json, BATTERY.json, MARINE.json
+//                                sites regroupés par commune (dataset/fr/scripts/registre.py)
+//   dataset/<pays>/final/PLANTS.json
+//                                autres pays, même format (dataset/eu/scripts/powerplantmatching.py)
 // Idempotent : peut être rejoué sans risque (upserts). Les sites retirés d'un jeu de
 // données sont supprimés.
 
 const COUNTRY = 'FR';
 const SEED_CONCURRENCY = 8;
-const FINAL_DIR = join(process.cwd(), 'dataset', 'fr', 'final');
+const DATASET_DIR = join(process.cwd(), 'dataset');
+const FINAL_DIR = join(DATASET_DIR, 'fr', 'final');
 
 // Tolérance de simplification des contours (degrés, ~10 m)
 const CONTOUR_TOLERANCE_DEG = 0.0001;
@@ -136,13 +140,26 @@ interface RegistrySite {
   capacity_mw: number;
   commissioning_date: string | null;
   installations: number;
-  units: { eic_code: string; name: string; capacity_mw: number; commissioning_date: string | null }[];
+  units: {
+    eic_code: string;
+    name: string;
+    production_type?: string; // type ENTSO-E (autres pays) ; déduit de la filière en France
+    capacity_mw: number | null;
+    commissioning_date: string | null;
+  }[];
 }
 
 type PlantData = Parameters<typeof prisma.plant.create>[0]['data'];
-type UnitData = { eic_code: string; name: string; production_type: string; capacity_mw: number | null; commissioning_date: Date | null };
+type UnitData = {
+  eic_code: string;
+  name: string;
+  production_type: string;
+  country?: string;
+  capacity_mw: number | null;
+  commissioning_date: Date | null;
+};
 
-const readDataset = <T>(file: string) => JSON.parse(readFileSync(join(FINAL_DIR, file), 'utf-8')) as T[];
+const readDataset = <T>(file: string, dir = FINAL_DIR) => JSON.parse(readFileSync(join(dir, file), 'utf-8')) as T[];
 
 // ─── Géométrie ───────────────────────────────────────────────────────────────
 
@@ -357,11 +374,11 @@ const UNIT_TYPES: Record<string, string> = {
   SOLAR: 'SOLAR',
 };
 
-function registryPlants(file: string) {
-  return readDataset<RegistrySite>(file).map((site) => ({
+function registryPlants(file: string, country = COUNTRY, dir = FINAL_DIR) {
+  return readDataset<RegistrySite>(file, dir).map((site) => ({
     plant: {
       id: site.id,
-      country: COUNTRY,
+      country,
       name: site.name,
       full_name: site.full_name,
       production_type: site.production_type,
@@ -379,23 +396,36 @@ function registryPlants(file: string) {
     units: site.units.map((u) => ({
       eic_code: u.eic_code,
       name: u.name,
-      production_type: UNIT_TYPES[site.production_type],
+      production_type: u.production_type ?? UNIT_TYPES[site.production_type],
+      country,
       capacity_mw: u.capacity_mw,
       commissioning_date: u.commissioning_date ? new Date(u.commissioning_date) : null,
     })),
   }));
 }
 
+/** Autres pays : dataset/<pays>/final/PLANTS.json */
+function otherCountries() {
+  return readdirSync(DATASET_DIR)
+    .filter((dir) => /^[a-z]{2}$/.test(dir) && dir !== 'fr' && existsSync(join(DATASET_DIR, dir, 'final', 'PLANTS.json')))
+    .sort()
+    .map((dir) => {
+      const country = dir.toUpperCase();
+      return { label: country, country, plants: registryPlants('PLANTS.json', country, join(DATASET_DIR, dir, 'final')) };
+    });
+}
+
 async function main() {
   const datasets = [
-    { label: 'Nucléaire', plants: nuclearPlants() },
-    { label: 'Hydraulique', plants: hydroPlants() },
-    { label: 'Éolien', plants: registryPlants('WIND.json') },
-    { label: 'Solaire', plants: registryPlants('SOLAR.json') },
-    { label: 'Thermique', plants: registryPlants('THERMAL.json') },
-    { label: 'Bioénergies', plants: registryPlants('BIOENERGY.json') },
-    { label: 'Batteries', plants: registryPlants('BATTERY.json') },
-    { label: 'Marin', plants: registryPlants('MARINE.json') },
+    { label: 'Nucléaire', country: COUNTRY, plants: nuclearPlants() },
+    { label: 'Hydraulique', country: COUNTRY, plants: hydroPlants() },
+    { label: 'Éolien', country: COUNTRY, plants: registryPlants('WIND.json') },
+    { label: 'Solaire', country: COUNTRY, plants: registryPlants('SOLAR.json') },
+    { label: 'Thermique', country: COUNTRY, plants: registryPlants('THERMAL.json') },
+    { label: 'Bioénergies', country: COUNTRY, plants: registryPlants('BIOENERGY.json') },
+    { label: 'Batteries', country: COUNTRY, plants: registryPlants('BATTERY.json') },
+    { label: 'Marin', country: COUNTRY, plants: registryPlants('MARINE.json') },
+    ...otherCountries(),
   ];
 
   for (const { label, plants } of datasets) {
@@ -422,9 +452,11 @@ async function main() {
   }
 
   // Sites retirés des jeux de données (leurs groupes restent, détachés : ON DELETE SET NULL)
-  const ids = datasets.flatMap((d) => d.plants.map((p) => p.plant.id));
-  const { count: removed } = await prisma.plant.deleteMany({ where: { country: COUNTRY, id: { notIn: ids } } });
-  if (removed) console.log(`${removed} site(s) retiré(s) des jeux de données supprimé(s).`);
+  for (const country of new Set(datasets.map((d) => d.country))) {
+    const ids = datasets.filter((d) => d.country === country).flatMap((d) => d.plants.map((p) => p.plant.id));
+    const { count: removed } = await prisma.plant.deleteMany({ where: { country, id: { notIn: ids } } });
+    if (removed) console.log(`${country} : ${removed} site(s) retiré(s) des jeux de données supprimé(s).`);
+  }
 
   const linked = await linkUnitsToPlants();
   console.log(`${linked} groupe(s) RTE rattaché(s) par leur nom.`);

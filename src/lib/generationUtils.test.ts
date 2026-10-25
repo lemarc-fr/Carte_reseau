@@ -126,6 +126,12 @@ describe('regionalLoadFactor', () => {
     expect(regionalLoadFactor(gen, farm, 2)).toBeNull();
     expect(regionalLoadFactor(gen, farm, 1)).toBe(0.2);
   });
+  it('se replie sur le taux national "<pays>-*" sans série régionale', () => {
+    const gen = generation({}, { 'DE-*:SOLAR': [0, 0, 0.3, 0, 0, 0], 'FR-11:SOLAR': [0, 0, 0.6, 0, 0, 0] });
+    expect(regionalLoadFactor(gen, { ...farm, country: 'DE', region_code: null }, 2)).toBe(0.3);
+    expect(regionalLoadFactor(gen, farm, 2)).toBe(0.6); // la série régionale prime
+    expect(regionalLoadFactor(gen, { ...farm, country: 'GB', region_code: null }, 2)).toBeNull();
+  });
   it('utilise le pays du site dans la clé', () => {
     const gen = generation({}, { 'BE-11:SOLAR': [0, 0, 0.7, 0, 0, 0] });
     expect(regionalLoadFactor(gen, { ...farm, country: 'BE' }, 2)).toBe(0.7);
@@ -149,11 +155,16 @@ describe('nationalOutput', () => {
 
 describe('hasLargeUnit', () => {
   it('retient les sites dotés d’un groupe d’au moins 100 MW', () => {
-    expect(hasLargeUnit(plant({ units: [unit('A', 100)] }))).toBe(true);
-    expect(hasLargeUnit(plant({ units: [unit('A', 99), unit('B', 40)] }))).toBe(false);
-    expect(hasLargeUnit(plant({ units: [] }))).toBe(false);
+    const commune = { installations: 12, capacity_mw: 300 };
+    expect(hasLargeUnit(plant({ ...commune, units: [unit('A', 100)] }))).toBe(true);
+    expect(hasLargeUnit(plant({ ...commune, units: [unit('A', 99), unit('B', 40)] }))).toBe(false);
+    expect(hasLargeUnit(plant({ ...commune, units: [] }))).toBe(false);
   });
-  it('compte un groupe de puissance inconnue (publié par RTE, donc ≥ 100 MW)', () => {
-    expect(hasLargeUnit(plant({ units: [unit('A', null)] }))).toBe(true);
+  it('compte un groupe de puissance inconnue (publié par RTE ou ENTSO-E, donc ≥ 100 MW)', () => {
+    expect(hasLargeUnit(plant({ installations: 3, units: [unit('A', null)] }))).toBe(true);
+  });
+  it('retient une centrale isolée de 100 MW ou plus sans groupe connu', () => {
+    expect(hasLargeUnit(plant({ country: 'DE', capacity_mw: 1200, units: [] }))).toBe(true);
+    expect(hasLargeUnit(plant({ country: 'DE', capacity_mw: 80, units: [] }))).toBe(false);
   });
 });

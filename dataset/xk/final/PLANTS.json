@@ -1,0 +1,36 @@
+[
+ {
+  "id": "xk-solar-gjakova-solar-farm",
+  "name": "Gjakova Solar Farm",
+  "full_name": "Gjakova Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.587,
+  "longitude": 20.9021,
+  "capacity_mw": 150.0,
+  "commissioning_date": "2026-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "xk-wind-bajgora-wind-farm",
+  "name": "Bajgora Wind Farm",
+  "full_name": "Bajgora Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.9751,
+  "longitude": 21.0189,
+  "capacity_mw": 103.0,
+  "commissioning_date": "2021-01-01",
+  "installations": null,
+  "units": []
+ }
+]

@@ -1,0 +1,3565 @@
+[
+ {
+  "id": "it-battery-ottana",
+  "name": "Ottana",
+  "full_name": "Ottana",
+  "production_type": "BATTERY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.23,
+  "longitude": 9.04,
+  "capacity_mw": 201.3,
+  "commissioning_date": null,
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WBESSOTTANA00X",
+    "name": "Ottana",
+    "production_type": "BATTERY",
+    "capacity_mw": 201.3,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-battery-portoscuso",
+  "name": "Portoscuso",
+  "full_name": "Portoscuso",
+  "production_type": "BATTERY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.21,
+  "longitude": 8.4,
+  "capacity_mw": 175.2,
+  "commissioning_date": "1973-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-battery-sulcis",
+  "name": "Sulcis",
+  "full_name": "Sulcis",
+  "production_type": "BATTERY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.2,
+  "longitude": 8.4,
+  "capacity_mw": 126.7,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-battery-trino",
+  "name": "Trino",
+  "full_name": "Trino",
+  "production_type": "BATTERY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.25,
+  "longitude": 8.19,
+  "capacity_mw": 233.7,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-battery-udine-sud",
+  "name": "Udine Sud",
+  "full_name": "Udine Sud",
+  "production_type": "BATTERY",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.39,
+  "longitude": 13.03,
+  "capacity_mw": 201.3,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-bioenergy-acerra-waste-to-energy",
+  "name": "Acerra Waste To Energy",
+  "full_name": "Acerra Waste To Energy",
+  "production_type": "BIOENERGY",
+  "technology": "Déchets",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.9791,
+  "longitude": 14.3828,
+  "capacity_mw": 107.5,
+  "commissioning_date": "2009-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-coal-fiume-santo",
+  "name": "Fiume Santo",
+  "full_name": "Fiume Santo",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.84645,
+  "longitude": 8.30716,
+  "capacity_mw": 640.0,
+  "commissioning_date": "1992-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-coal-sulcis",
+  "name": "Sulcis",
+  "full_name": "Sulcis",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.19763,
+  "longitude": 8.40149,
+  "capacity_mw": 590.0,
+  "commissioning_date": "1986-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S20SCLCSULCL",
+    "name": "Sulcis 1",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ0SCLCSULCS",
+    "name": "Sulcis 2",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-altomonte",
+  "name": "Altomonte",
+  "full_name": "Altomonte",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.7118,
+  "longitude": 16.215,
+  "capacity_mw": 808.0,
+  "commissioning_date": "2006-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S18EADSALTOL",
+    "name": "Altomonte",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 808.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-aprilia",
+  "name": "Aprilia",
+  "full_name": "Aprilia",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.5616,
+  "longitude": 12.6337,
+  "capacity_mw": 800.0,
+  "commissioning_date": "2012-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WCCGT-SANFILIU",
+    "name": "Aprilia",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 800.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-archimede",
+  "name": "Archimede",
+  "full_name": "Archimede",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 37.14,
+  "longitude": 15.2159,
+  "capacity_mw": 743.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-azotati",
+  "name": "Azotati",
+  "full_name": "Azotati",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.4511,
+  "longitude": 12.2239,
+  "capacity_mw": 239.0,
+  "commissioning_date": "1993-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S05AZTTAZOTP",
+    "name": "Azotati",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 239.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-bertonico-turano-lodigliano",
+  "name": "Bertonico Turano Lodigliano",
+  "full_name": "Bertonico Turano Lodigliano",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.2268,
+  "longitude": 9.6377,
+  "capacity_mw": 800.0,
+  "commissioning_date": "2011-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-brindisi-nord",
+  "name": "Brindisi Nord",
+  "full_name": "Brindisi Nord",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.64412,
+  "longitude": 17.9808,
+  "capacity_mw": 1283.0,
+  "commissioning_date": "1967-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-bussi",
+  "name": "Bussi",
+  "full_name": "Bussi",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.2002,
+  "longitude": 13.8398,
+  "capacity_mw": 122.0,
+  "commissioning_date": "1994-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S13BSSUBUSSD",
+    "name": "Bussi",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 122.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-candela",
+  "name": "Candela",
+  "full_name": "Candela",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.2014,
+  "longitude": 15.4762,
+  "capacity_mw": 401.0,
+  "commissioning_date": "2005-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S16CNDLCANDY",
+    "name": "Candela",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 401.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-cassano-adda",
+  "name": "Cassano Adda",
+  "full_name": "Cassano Adda",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.5115,
+  "longitude": 9.5098,
+  "capacity_mw": 956.0,
+  "commissioning_date": "1960-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S03ACMNCASSO",
+    "name": "Cassano Adda 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WCASSANO-OEAE5",
+    "name": "Cassano Adda 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-cassino",
+  "name": "Cassino",
+  "full_name": "Cassino",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.4764,
+  "longitude": 13.75315,
+  "capacity_mw": 106.0,
+  "commissioning_date": "1997-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-chivasso",
+  "name": "Chivasso",
+  "full_name": "Chivasso",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.1856,
+  "longitude": 7.9016,
+  "capacity_mw": 1123.0,
+  "commissioning_date": "2004-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S01CHVSCHIV0",
+    "name": "Chivasso 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ1CHVSCHIVM",
+    "name": "Chivasso 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-cte-tamarete",
+  "name": "Cte Tamarete",
+  "full_name": "Cte Tamarete",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.32325,
+  "longitude": 14.37755,
+  "capacity_mw": 104.0,
+  "commissioning_date": "2013-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S13CTTMCTTAW",
+    "name": "Cte Tamarete",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 104.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-duino-mill",
+  "name": "Duino Mill",
+  "full_name": "Duino Mill",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.793,
+  "longitude": 13.583,
+  "capacity_mw": 120.0,
+  "commissioning_date": "2009-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S06SDDTDUINS",
+    "name": "Duino Mill",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 120.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-enipower-mantova",
+  "name": "Enipower Mantova",
+  "full_name": "Enipower Mantova",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.15026,
+  "longitude": 10.83491,
+  "capacity_mw": 780.0,
+  "commissioning_date": "2005-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-ferrara",
+  "name": "Ferrara",
+  "full_name": "Ferrara",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.86406,
+  "longitude": 11.59439,
+  "capacity_mw": 762.0,
+  "commissioning_date": "2004-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-ferrera-erbognone-refinery",
+  "name": "Ferrera Erbognone Refinery",
+  "full_name": "Ferrera Erbognone Refinery",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.09963,
+  "longitude": 8.86632,
+  "capacity_mw": 1006.0,
+  "commissioning_date": "2004-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-gissi",
+  "name": "Gissi",
+  "full_name": "Gissi",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.0502,
+  "longitude": 14.5639,
+  "capacity_mw": 840.0,
+  "commissioning_date": "2004-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S13CDGNGISSE",
+    "name": "Gissi 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ3CDGNGISSA",
+    "name": "Gissi 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-isab-energy-priolo",
+  "name": "Isab Energy Priolo",
+  "full_name": "Isab Energy Priolo",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 37.1266,
+  "longitude": 15.2175,
+  "capacity_mw": 512.0,
+  "commissioning_date": "1998-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-jesi",
+  "name": "Jesi",
+  "full_name": "Jesi",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.5537,
+  "longitude": 13.285,
+  "capacity_mw": 140.0,
+  "commissioning_date": "2001-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S11JSEIJESIR",
+    "name": "Jesi",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 140.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-la-casella",
+  "name": "La Casella",
+  "full_name": "La Casella",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.0904,
+  "longitude": 9.4805,
+  "capacity_mw": 1524.0,
+  "commissioning_date": "2002-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S08LCCSLA-CQ",
+    "name": "La Casella 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SX8LCCSLA-CX",
+    "name": "La Casella 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SY8LCCSLA-CM",
+    "name": "La Casella 3",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ8LCCSLA-CB",
+    "name": "La Casella 4",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-la-spezia",
+  "name": "La Spezia",
+  "full_name": "La Spezia",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.11215,
+  "longitude": 9.8842,
+  "capacity_mw": 682.0,
+  "commissioning_date": "2000-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-lamarmora",
+  "name": "Lamarmora",
+  "full_name": "Lamarmora",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.52034,
+  "longitude": 10.21895,
+  "capacity_mw": 139.0,
+  "commissioning_date": "1978-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-larino",
+  "name": "Larino",
+  "full_name": "Larino",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.81949,
+  "longitude": 14.96602,
+  "capacity_mw": 248.0,
+  "commissioning_date": "1992-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S14LTRNLARI7",
+    "name": "Larino 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ4LTRNLARI3",
+    "name": "Larino 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-leini",
+  "name": "Leini",
+  "full_name": "Leini",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.163,
+  "longitude": 7.7505,
+  "capacity_mw": 380.0,
+  "commissioning_date": "2007-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S01LNEILEINX",
+    "name": "Leini",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 380.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-livorno",
+  "name": "Livorno",
+  "full_name": "Livorno",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.584,
+  "longitude": 10.33809,
+  "capacity_mw": 203.0,
+  "commissioning_date": "1965-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-livorno-ferraris",
+  "name": "Livorno Ferraris",
+  "full_name": "Livorno Ferraris",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.28173,
+  "longitude": 8.08492,
+  "capacity_mw": 805.0,
+  "commissioning_date": "1996-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-lucca-paper-mill",
+  "name": "Lucca Paper Mill",
+  "full_name": "Lucca Paper Mill",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.82341,
+  "longitude": 10.60194,
+  "capacity_mw": 150.0,
+  "commissioning_date": "1996-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S09CPLRPORCZ",
+    "name": "Lucca Paper Mill",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 150.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-marghera-levante",
+  "name": "Marghera Levante",
+  "full_name": "Marghera Levante",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.4458,
+  "longitude": 12.2552,
+  "capacity_mw": 1546.0,
+  "commissioning_date": "1964-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S05PMARLEVA0",
+    "name": "Marghera Levante 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SY5PMARLEVAX",
+    "name": "Marghera Levante 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-milazzo",
+  "name": "Milazzo",
+  "full_name": "Milazzo",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 38.20056,
+  "longitude": 15.26735,
+  "capacity_mw": 200.0,
+  "commissioning_date": "1999-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S19TMRCMILA4",
+    "name": "Milazzo",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 200.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-mirafiori",
+  "name": "Mirafiori",
+  "full_name": "Mirafiori",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.0267,
+  "longitude": 7.6308,
+  "capacity_mw": 146.0,
+  "commissioning_date": "1990-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-modugno",
+  "name": "Modugno",
+  "full_name": "Modugno",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.1025,
+  "longitude": 16.756,
+  "capacity_mw": 800.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-moncalieri",
+  "name": "Moncalieri",
+  "full_name": "Moncalieri",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.993,
+  "longitude": 7.6755,
+  "capacity_mw": 780.0,
+  "commissioning_date": "2005-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S01MNCLMONCJ",
+    "name": "Moncalieri 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ1MNCLMONC4",
+    "name": "Moncalieri 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-monfalcone",
+  "name": "Monfalcone",
+  "full_name": "Monfalcone",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.7979,
+  "longitude": 13.5455,
+  "capacity_mw": 860.0,
+  "commissioning_date": "2026-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-montalto-alessandro-volta",
+  "name": "Montalto Alessandro Volta",
+  "full_name": "Montalto Alessandro Volta",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.3572,
+  "longitude": 11.5373,
+  "capacity_mw": 3446.0,
+  "commissioning_date": "1992-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-montalto-di-castro",
+  "name": "Montalto Di Castro",
+  "full_name": "Montalto Di Castro",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.3572,
+  "longitude": 11.5373,
+  "capacity_mw": 1090.0,
+  "commissioning_date": "1997-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-napoli-levante",
+  "name": "Napoli Levante",
+  "full_name": "Napoli Levante",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.8339,
+  "longitude": 14.3006,
+  "capacity_mw": 400.0,
+  "commissioning_date": "2008-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S15NLPLNAPOG",
+    "name": "Napoli Levante",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 400.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-novel",
+  "name": "Novel",
+  "full_name": "Novel",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.457,
+  "longitude": 8.6496,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2004-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-ostiglia",
+  "name": "Ostiglia",
+  "full_name": "Ostiglia",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.0603,
+  "longitude": 11.1374,
+  "capacity_mw": 2058.0,
+  "commissioning_date": "2003-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-SV3OSTGOSTIA",
+    "name": "Ostiglia 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SY3OSTGOSTIE",
+    "name": "Ostiglia 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-piacenza",
+  "name": "Piacenza",
+  "full_name": "Piacenza",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.0543,
+  "longitude": 9.7086,
+  "capacity_mw": 806.0,
+  "commissioning_date": "2006-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S08PLCNPIACB",
+    "name": "Piacenza",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 806.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-pietrafitta",
+  "name": "Pietrafitta",
+  "full_name": "Pietrafitta",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.9954,
+  "longitude": 12.1995,
+  "capacity_mw": 365.0,
+  "commissioning_date": "1980-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S10PTRFPIETO",
+    "name": "Pietrafitta",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 365.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-piombino-elettra-staiton",
+  "name": "Piombino Elettra Staiton",
+  "full_name": "Piombino Elettra Staiton",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.94152,
+  "longitude": 10.54482,
+  "capacity_mw": 240.0,
+  "commissioning_date": "2001-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-porto-corsini",
+  "name": "Porto Corsini",
+  "full_name": "Porto Corsini",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.4836,
+  "longitude": 12.2652,
+  "capacity_mw": 718.0,
+  "commissioning_date": "2002-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S08PCRTPORTI",
+    "name": "Porto Corsini 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ8PCRTPORT3",
+    "name": "Porto Corsini 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-porto-viro",
+  "name": "Porto Viro",
+  "full_name": "Porto Viro",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.0178,
+  "longitude": 12.2408,
+  "capacity_mw": 125.0,
+  "commissioning_date": "1995-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S05CNTRPORT1",
+    "name": "Porto Viro",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 125.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-presenzano-edison",
+  "name": "Presenzano Edison",
+  "full_name": "Presenzano Edison",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.37662,
+  "longitude": 14.07642,
+  "capacity_mw": 765.0,
+  "commissioning_date": "2023-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-priolo-melili",
+  "name": "Priolo Melili",
+  "full_name": "Priolo Melili",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 37.17949,
+  "longitude": 15.19632,
+  "capacity_mw": 480.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-ravenna",
+  "name": "Ravenna",
+  "full_name": "Ravenna",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.44852,
+  "longitude": 12.23747,
+  "capacity_mw": 773.0,
+  "commissioning_date": "2000-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-SY8ERNPNPWR3",
+    "name": "Ravenna 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ8ERNPNPWRT",
+    "name": "Ravenna 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-rizziconi",
+  "name": "Rizziconi",
+  "full_name": "Rizziconi",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 38.4453,
+  "longitude": 15.99,
+  "capacity_mw": 768.0,
+  "commissioning_date": "2008-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S18RCZZRIZZN",
+    "name": "Rizziconi 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ8RCZZRIZZJ",
+    "name": "Rizziconi 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-roselectra",
+  "name": "Roselectra",
+  "full_name": "Roselectra",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.38134,
+  "longitude": 10.44855,
+  "capacity_mw": 400.0,
+  "commissioning_date": "2007-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S09RSLCROSEN",
+    "name": "Roselectra",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 400.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-rosignano",
+  "name": "Rosignano",
+  "full_name": "Rosignano",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.38134,
+  "longitude": 10.44855,
+  "capacity_mw": 536.0,
+  "commissioning_date": "1997-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-rossano",
+  "name": "Rossano",
+  "full_name": "Rossano",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.6218,
+  "longitude": 16.6084,
+  "capacity_mw": 224.0,
+  "commissioning_date": "1995-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S18RTSNROSSJ",
+    "name": "Rossano 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ8RTSNROSSF",
+    "name": "Rossano 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-san-quirico",
+  "name": "San Quirico",
+  "full_name": "San Quirico",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.92466,
+  "longitude": 10.30298,
+  "capacity_mw": 137.0,
+  "commissioning_date": "1996-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WSAN-QUIRICO-R",
+    "name": "San Quirico",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 137.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-san-severo-enplus",
+  "name": "San Severo Enplus",
+  "full_name": "San Severo Enplus",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.6262,
+  "longitude": 15.42256,
+  "capacity_mw": 421.0,
+  "commissioning_date": "2011-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-sannazzaro-refinery",
+  "name": "Sannazzaro Refinery",
+  "full_name": "Sannazzaro Refinery",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.1015,
+  "longitude": 8.8777,
+  "capacity_mw": 260.0,
+  "commissioning_date": "2006-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-santa-barbara",
+  "name": "Santa Barbara",
+  "full_name": "Santa Barbara",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.565,
+  "longitude": 11.4777,
+  "capacity_mw": 392.0,
+  "commissioning_date": "2006-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-sarmato",
+  "name": "Sarmato",
+  "full_name": "Sarmato",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.0522,
+  "longitude": 9.5072,
+  "capacity_mw": 180.0,
+  "commissioning_date": "1998-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-sarroch",
+  "name": "Sarroch",
+  "full_name": "Sarroch",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.0777,
+  "longitude": 9.0162,
+  "capacity_mw": 636.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S20SRLXSARL4",
+    "name": "Sarroch",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 636.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-scandale",
+  "name": "Scandale",
+  "full_name": "Scandale",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.1022,
+  "longitude": 17.0325,
+  "capacity_mw": 814.0,
+  "commissioning_date": "2010-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-sermide",
+  "name": "Sermide",
+  "full_name": "Sermide",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.0265,
+  "longitude": 11.2522,
+  "capacity_mw": 1151.0,
+  "commissioning_date": "1981-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S03SRMDSERMH",
+    "name": "Sermide 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ3SRMDSERM2",
+    "name": "Sermide 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-servola",
+  "name": "Servola",
+  "full_name": "Servola",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.61949,
+  "longitude": 13.78295,
+  "capacity_mw": 230.0,
+  "commissioning_date": "2000-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-sesto-san-giovanni",
+  "name": "Sesto San Giovanni",
+  "full_name": "Sesto San Giovanni",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.5417,
+  "longitude": 9.2539,
+  "capacity_mw": 111.0,
+  "commissioning_date": "1994-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-simeri-crichi",
+  "name": "Simeri Crichi",
+  "full_name": "Simeri Crichi",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 38.8759,
+  "longitude": 16.6569,
+  "capacity_mw": 885.0,
+  "commissioning_date": "2008-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S18SCMRSMRI5",
+    "name": "Simeri Crichi",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 885.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-sparanise",
+  "name": "Sparanise",
+  "full_name": "Sparanise",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.1783,
+  "longitude": 14.1129,
+  "capacity_mw": 760.0,
+  "commissioning_date": "2007-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S15SCPRSPARZ",
+    "name": "Sparanise 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ5SCPRSPARV",
+    "name": "Sparanise 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-taranto-chp",
+  "name": "Taranto Chp",
+  "full_name": "Taranto Chp",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.46379,
+  "longitude": 17.24652,
+  "capacity_mw": 1044.0,
+  "commissioning_date": "1975-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-tavazzano",
+  "name": "Tavazzano",
+  "full_name": "Tavazzano",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.3325,
+  "longitude": 9.4364,
+  "capacity_mw": 2270.0,
+  "commissioning_date": "1992-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S03TVZZ1159W",
+    "name": "Tavazzano 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-S03TVZZTAVAZ",
+    "name": "Tavazzano 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ3TVZZTAVAK",
+    "name": "Tavazzano 3",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-tenaris-dalmine",
+  "name": "Tenaris Dalmine",
+  "full_name": "Tenaris Dalmine",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.63919,
+  "longitude": 9.60481,
+  "capacity_mw": 122.0,
+  "commissioning_date": "2007-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-termini-imerese",
+  "name": "Termini Imerese",
+  "full_name": "Termini Imerese",
+  "production_type": "GAS",
+  "technology": "Steam Turbine",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 37.96801,
+  "longitude": 13.75079,
+  "capacity_mw": 1080.0,
+  "commissioning_date": "2004-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-termoli",
+  "name": "Termoli",
+  "full_name": "Termoli",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.9369,
+  "longitude": 15.0004,
+  "capacity_mw": 844.2,
+  "commissioning_date": "2006-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-SZ9TCRMTERMX",
+    "name": "Termoli",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 844.2,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-teverola",
+  "name": "Teverola",
+  "full_name": "Teverola",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.00915,
+  "longitude": 14.2286,
+  "capacity_mw": 404.0,
+  "commissioning_date": "1997-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-tor-di-valle",
+  "name": "Tor Di Valle",
+  "full_name": "Tor Di Valle",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.8117,
+  "longitude": 12.4228,
+  "capacity_mw": 223.0,
+  "commissioning_date": "1997-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-torino-nord",
+  "name": "Torino Nord",
+  "full_name": "Torino Nord",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.10383,
+  "longitude": 7.61308,
+  "capacity_mw": 395.0,
+  "commissioning_date": "2011-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-torrevaldaliga-sud",
+  "name": "Torrevaldaliga Sud",
+  "full_name": "Torrevaldaliga Sud",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.1241,
+  "longitude": 11.7624,
+  "capacity_mw": 1140.0,
+  "commissioning_date": "2004-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-torviscosa",
+  "name": "Torviscosa",
+  "full_name": "Torviscosa",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.817,
+  "longitude": 13.2891,
+  "capacity_mw": 867.0,
+  "commissioning_date": "2006-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S06TRVCTORV6",
+    "name": "Torviscosa",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 867.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-turbigo",
+  "name": "Turbigo",
+  "full_name": "Turbigo",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.52051,
+  "longitude": 8.74128,
+  "capacity_mw": 1285.0,
+  "commissioning_date": "2008-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S03TRBGTURBK",
+    "name": "Turbigo 1",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26W-SZ3TRBGTURB5",
+    "name": "Turbigo 2",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-vado-ligure",
+  "name": "Vado Ligure",
+  "full_name": "Vado Ligure",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.2755,
+  "longitude": 8.4305,
+  "capacity_mw": 800.0,
+  "commissioning_date": "2007-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-gas-verzuolo",
+  "name": "Verzuolo",
+  "full_name": "Verzuolo",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.5947,
+  "longitude": 7.4858,
+  "capacity_mw": 140.0,
+  "commissioning_date": "2002-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S01BVRGVERZR",
+    "name": "Verzuolo",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 140.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-gas-voghera",
+  "name": "Voghera",
+  "full_name": "Voghera",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.0296,
+  "longitude": 8.9723,
+  "capacity_mw": 400.0,
+  "commissioning_date": "2005-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S03VEGHVOGHQ",
+    "name": "Voghera",
+    "production_type": "FOSSIL_GAS",
+    "capacity_mw": 400.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-avise",
+  "name": "Avise",
+  "full_name": "Avise",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.7056,
+  "longitude": 7.1452,
+  "capacity_mw": 127.0,
+  "commissioning_date": "1954-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S02AVSIAVISB",
+    "name": "Avise 1",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S02AVSIS",
+    "name": "Avise 2",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-cardano",
+  "name": "Cardano",
+  "full_name": "Cardano",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.4949,
+  "longitude": 11.3959,
+  "capacity_mw": 121.0,
+  "commissioning_date": "1929-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S04CRDACARDD",
+    "name": "Cardano 1",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S04CRDA9",
+    "name": "Cardano 2",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-centrale-di-premadio-giacomo",
+  "name": "Centrale Di Premadio Giacomo",
+  "full_name": "Centrale Di Premadio Giacomo",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.48629,
+  "longitude": 10.34927,
+  "capacity_mw": 254.5,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-hydro-centrale-villa-maria-lago-barrea",
+  "name": "Centrale Villa Maria Lago Barrea",
+  "full_name": "Centrale Villa Maria Lago Barrea",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.9579,
+  "longitude": 14.34924,
+  "capacity_mw": 100.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-hydro-cimego",
+  "name": "Cimego",
+  "full_name": "Cimego",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.9228,
+  "longitude": 10.6281,
+  "capacity_mw": 335.0,
+  "commissioning_date": "1953-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPI-S04CMGI4",
+    "name": "Cimego",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 335.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-galleto",
+  "name": "Galleto",
+  "full_name": "Galleto",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.5527,
+  "longitude": 12.699,
+  "capacity_mw": 295.0,
+  "commissioning_date": "1929-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-SZ0GLLTGALLA",
+    "name": "Galleto 1",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S10GLLT5",
+    "name": "Galleto 2",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-galleto-nera-tevere",
+  "name": "Galleto Nera Tevere",
+  "full_name": "Galleto Nera Tevere",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.56414,
+  "longitude": 12.64055,
+  "capacity_mw": 461.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-hydro-grosio",
+  "name": "Grosio",
+  "full_name": "Grosio",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.292,
+  "longitude": 10.266,
+  "capacity_mw": 737.0,
+  "commissioning_date": "1960-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WAI-PREM-GROSO",
+    "name": "Grosio 1",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPIGROSIO-11",
+    "name": "Grosio 2",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-lana",
+  "name": "Lana",
+  "full_name": "Lana",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.6127,
+  "longitude": 11.1452,
+  "capacity_mw": 132.0,
+  "commissioning_date": "1953-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-hydro-lana-up-lana",
+  "name": "Lana Up Lana",
+  "full_name": "Lana Up Lana",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.60738,
+  "longitude": 11.16133,
+  "capacity_mw": 132.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-hydro-lanzada",
+  "name": "Lanzada",
+  "full_name": "Lanzada",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.2685,
+  "longitude": 9.876,
+  "capacity_mw": 350.0,
+  "commissioning_date": "1955-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPI-S03LNZDP",
+    "name": "Lanzada",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 350.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-mese",
+  "name": "Mese",
+  "full_name": "Mese",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.3051,
+  "longitude": 9.3783,
+  "capacity_mw": 280.0,
+  "commissioning_date": "1927-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPI-S03XMCMK",
+    "name": "Mese",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 280.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-montorio",
+  "name": "Montorio",
+  "full_name": "Montorio",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.5858,
+  "longitude": 13.7089,
+  "capacity_mw": 110.0,
+  "commissioning_date": "1954-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S13MNTRMONTL",
+    "name": "Montorio 1",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S13MNTR3",
+    "name": "Montorio 2",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-mucone",
+  "name": "Mucone",
+  "full_name": "Mucone",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.4716,
+  "longitude": 16.4056,
+  "capacity_mw": 169.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WAI-MUCONE100G",
+    "name": "Mucone 1",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S18M1CN9",
+    "name": "Mucone 2",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-naturno",
+  "name": "Naturno",
+  "full_name": "Naturno",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.6519,
+  "longitude": 10.993,
+  "capacity_mw": 175.0,
+  "commissioning_date": "1963-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S04NATRCNTR9",
+    "name": "Naturno 1",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S04NATRE",
+    "name": "Naturno 2",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-nove",
+  "name": "Nove",
+  "full_name": "Nove",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.03653,
+  "longitude": 12.30373,
+  "capacity_mw": 154.0,
+  "commissioning_date": "1924-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-hydro-orichella",
+  "name": "Orichella",
+  "full_name": "Orichella",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.1922,
+  "longitude": 16.7254,
+  "capacity_mw": 151.0,
+  "commissioning_date": "1929-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-hydro-premadio",
+  "name": "Premadio",
+  "full_name": "Premadio",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.4858,
+  "longitude": 10.3516,
+  "capacity_mw": 245.0,
+  "commissioning_date": "1956-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-hydro-rosone-ceresole",
+  "name": "Rosone Ceresole",
+  "full_name": "Rosone Ceresole",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.4361,
+  "longitude": 7.4198,
+  "capacity_mw": 135.0,
+  "commissioning_date": "1931-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S01RASNROSO1",
+    "name": "Rosone Ceresole 1",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S01RASNN",
+    "name": "Rosone Ceresole 2",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-san-floriano",
+  "name": "San Floriano",
+  "full_name": "San Floriano",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.0285,
+  "longitude": 12.3016,
+  "capacity_mw": 180.0,
+  "commissioning_date": "1956-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S04SFLVSFLOC",
+    "name": "San Floriano 1",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S04SFLVM",
+    "name": "San Floriano 2",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-seled-glorenza",
+  "name": "Seled Glorenza",
+  "full_name": "Seled Glorenza",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.6738,
+  "longitude": 10.5757,
+  "capacity_mw": 101.0,
+  "commissioning_date": "1949-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPI-S04GLRNJ",
+    "name": "Seled Glorenza",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 101.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-somplago",
+  "name": "Somplago",
+  "full_name": "Somplago",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.3419,
+  "longitude": 13.0678,
+  "capacity_mw": 220.0,
+  "commissioning_date": "1958-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPIAMENTO-1T",
+    "name": "Somplago",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 220.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-sondrio",
+  "name": "Sondrio",
+  "full_name": "Sondrio",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.173,
+  "longitude": 9.8876,
+  "capacity_mw": 144.0,
+  "commissioning_date": "1960-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPI-S03SNDOY",
+    "name": "Sondrio",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 144.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-soverzene",
+  "name": "Soverzene",
+  "full_name": "Soverzene",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.2009,
+  "longitude": 12.3023,
+  "capacity_mw": 214.0,
+  "commissioning_date": "1951-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S05SVRZSOVEL",
+    "name": "Soverzene 1",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S05SVRZ0",
+    "name": "Soverzene 2",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-taio-santa-giustina",
+  "name": "Taio Santa Giustina",
+  "full_name": "Taio Santa Giustina",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.393,
+  "longitude": 11.0122,
+  "capacity_mw": 161.0,
+  "commissioning_date": "1951-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPII-NOCE-1C",
+    "name": "Taio Santa Giustina",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 161.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-timpagrande",
+  "name": "Timpagrande",
+  "full_name": "Timpagrande",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.1755,
+  "longitude": 16.7803,
+  "capacity_mw": 214.0,
+  "commissioning_date": "1927-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WAI-ORTICA100F",
+    "name": "Timpagrande 1",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPIORTICA-13",
+    "name": "Timpagrande 2",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-torbole",
+  "name": "Torbole",
+  "full_name": "Torbole",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.8816,
+  "longitude": 10.8815,
+  "capacity_mw": 110.0,
+  "commissioning_date": "1963-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPI-S04TRBLJ",
+    "name": "Torbole",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 110.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-valpelline",
+  "name": "Valpelline",
+  "full_name": "Valpelline",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.8257,
+  "longitude": 7.3324,
+  "capacity_mw": 130.0,
+  "commissioning_date": "1958-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S02VLPLVALPT",
+    "name": "Valpelline 1",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S02VLPL3",
+    "name": "Valpelline 2",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-hydro-venaus",
+  "name": "Venaus",
+  "full_name": "Venaus",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.1617,
+  "longitude": 7.0091,
+  "capacity_mw": 230.0,
+  "commissioning_date": "1967-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S01VNSEVENAF",
+    "name": "Venaus 1",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S01VNSE6",
+    "name": "Venaus 2",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-oil-assemini",
+  "name": "Assemini",
+  "full_name": "Assemini",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.22777,
+  "longitude": 8.99654,
+  "capacity_mw": 180.0,
+  "commissioning_date": "1992-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-oil-codrongianos",
+  "name": "Codrongianos",
+  "full_name": "Codrongianos",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.65292,
+  "longitude": 8.71249,
+  "capacity_mw": 100.0,
+  "commissioning_date": "1969-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WBESS-C------P",
+    "name": "Codrongianos",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 100.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-oil-falconara",
+  "name": "Falconara",
+  "full_name": "Falconara",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 43.6411,
+  "longitude": 13.3796,
+  "capacity_mw": 100.0,
+  "commissioning_date": "2001-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-oil-gela-biorefinery",
+  "name": "Gela Biorefinery",
+  "full_name": "Gela Biorefinery",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 37.0546,
+  "longitude": 14.2769,
+  "capacity_mw": 210.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-oil-porto-marghera-refinery",
+  "name": "Porto Marghera Refinery",
+  "full_name": "Porto Marghera Refinery",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.4618,
+  "longitude": 12.2686,
+  "capacity_mw": 114.0,
+  "commissioning_date": "1985-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-oil-porto-torres-refinery",
+  "name": "Porto Torres Refinery",
+  "full_name": "Porto Torres Refinery",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.8324,
+  "longitude": 8.3465,
+  "capacity_mw": 140.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-oil-valbasento",
+  "name": "Valbasento",
+  "full_name": "Valbasento",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.42452,
+  "longitude": 16.55728,
+  "capacity_mw": 280.0,
+  "commissioning_date": "1972-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-pumped-storage-anapo",
+  "name": "Anapo",
+  "full_name": "Anapo",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 37.1101,
+  "longitude": 15.1493,
+  "capacity_mw": 500.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S19ANPAANAPE",
+    "name": "Anapo 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMYI-S19ANPAB",
+    "name": "Anapo 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-bargi-italy",
+  "name": "Bargi Italy",
+  "full_name": "Bargi Italy",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.1167,
+  "longitude": 11.043,
+  "capacity_mw": 281.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S08BCRGBARG4",
+    "name": "Bargi Italy 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S08BCRGX",
+    "name": "Bargi Italy 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-capriati",
+  "name": "Capriati",
+  "full_name": "Capriati",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.4763,
+  "longitude": 14.1282,
+  "capacity_mw": 113.0,
+  "commissioning_date": "1966-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S15CPRTCAPRX",
+    "name": "Capriati 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S15CPRTZ",
+    "name": "Capriati 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-chiotas-entracque",
+  "name": "Chiotas Entracque",
+  "full_name": "Chiotas Entracque",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.17758,
+  "longitude": 7.41651,
+  "capacity_mw": 1064.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-pumped-storage-edolo",
+  "name": "Edolo",
+  "full_name": "Edolo",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.1721,
+  "longitude": 10.3442,
+  "capacity_mw": 950.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S03EDLOEDOLM",
+    "name": "Edolo 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S03EDLO9",
+    "name": "Edolo 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-entracque-chro",
+  "name": "Entracque Chro",
+  "full_name": "Entracque Chro",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.2299,
+  "longitude": 7.3908,
+  "capacity_mw": 1189.0,
+  "commissioning_date": "1982-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPI-S01ENTRP",
+    "name": "Entracque Chro",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 1189.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-fadalto",
+  "name": "Fadalto",
+  "full_name": "Fadalto",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.0692,
+  "longitude": 12.3299,
+  "capacity_mw": 220.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S05FDLTFADAP",
+    "name": "Fadalto 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S05FDLTJ",
+    "name": "Fadalto 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-gargnano",
+  "name": "Gargnano",
+  "full_name": "Gargnano",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.7039,
+  "longitude": 10.6863,
+  "capacity_mw": 137.0,
+  "commissioning_date": "1964-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S03GRGNGARGA",
+    "name": "Gargnano 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S03GRGNY",
+    "name": "Gargnano 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-pont-ventoux",
+  "name": "Pont Ventoux",
+  "full_name": "Pont Ventoux",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.1506,
+  "longitude": 7.0176,
+  "capacity_mw": 150.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPI-S01PVNTQ",
+    "name": "Pont Ventoux",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 150.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-presenzano",
+  "name": "Presenzano",
+  "full_name": "Presenzano",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.3854,
+  "longitude": 14.0929,
+  "capacity_mw": 985.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S15PRSNPRESC",
+    "name": "Presenzano 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S15PRSN8",
+    "name": "Presenzano 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-provvidenza",
+  "name": "Provvidenza",
+  "full_name": "Provvidenza",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.5113,
+  "longitude": 13.4104,
+  "capacity_mw": 139.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S13PRVVPROV1",
+    "name": "Provvidenza 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S13PRVVW",
+    "name": "Provvidenza 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-riva-del-garda",
+  "name": "Riva Del Garda",
+  "full_name": "Riva Del Garda",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.8833,
+  "longitude": 10.8382,
+  "capacity_mw": 117.0,
+  "commissioning_date": "1925-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPI-S04RDGLX",
+    "name": "Riva Del Garda",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 117.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-roncovalgrande",
+  "name": "Roncovalgrande",
+  "full_name": "Roncovalgrande",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.0694,
+  "longitude": 8.7324,
+  "capacity_mw": 1000.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S03RNCVRONCH",
+    "name": "Roncovalgrande 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S03RNCVS",
+    "name": "Roncovalgrande 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-san-fiorano",
+  "name": "San Fiorano",
+  "full_name": "San Fiorano",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.0442,
+  "longitude": 10.3521,
+  "capacity_mw": 268.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S03SFRNS-FIB",
+    "name": "San Fiorano 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S03SFRNQ",
+    "name": "San Fiorano 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-san-giacomo-sul-vomano",
+  "name": "San Giacomo Sul Vomano",
+  "full_name": "San Giacomo Sul Vomano",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.5607,
+  "longitude": 13.5641,
+  "capacity_mw": 490.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-S13S2GCSGIA1",
+    "name": "San Giacomo Sul Vomano 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-S13S2GCF",
+    "name": "San Giacomo Sul Vomano 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-santa-massenza",
+  "name": "Santa Massenza",
+  "full_name": "Santa Massenza",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.0659,
+  "longitude": 10.9805,
+  "capacity_mw": 377.0,
+  "commissioning_date": "1951-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WAI-S-MASS-CL9",
+    "name": "Santa Massenza 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPIASS-CL-1D",
+    "name": "Santa Massenza 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-taloro",
+  "name": "Taloro",
+  "full_name": "Taloro",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.1278,
+  "longitude": 9.1409,
+  "capacity_mw": 240.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26W-T20TLRATALON",
+    "name": "Taloro 1",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   },
+   {
+    "eic_code": "26WIMPI-T20TLRAJ",
+    "name": "Taloro 2",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": null,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-pumped-storage-venina",
+  "name": "Venina",
+  "full_name": "Venina",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.1614,
+  "longitude": 9.9252,
+  "capacity_mw": 327.0,
+  "commissioning_date": "1923-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "26WIMPITOADDA-1T",
+    "name": "Venina",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 327.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "it-solar-alessandria-solar-farm",
+  "name": "Alessandria Solar Farm",
+  "full_name": "Alessandria Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 44.835,
+  "longitude": 8.745,
+  "capacity_mw": 100.2,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-solar-castrum-solar-farm",
+  "name": "Castrum Solar Farm",
+  "full_name": "Castrum Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.37297,
+  "longitude": 11.5886,
+  "capacity_mw": 136.0,
+  "commissioning_date": "2009-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-solar-fenix-solar-farm",
+  "name": "Fenix Solar Farm",
+  "full_name": "Fenix Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 37.5731,
+  "longitude": 14.8015,
+  "capacity_mw": 305.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-solar-ginosa-taranto-solar-farm",
+  "name": "Ginosa Taranto Solar Farm",
+  "full_name": "Ginosa Taranto Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.5488,
+  "longitude": 17.0806,
+  "capacity_mw": 107.3,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-solar-montalto-di-castro-viterbo-solar-farm",
+  "name": "Montalto Di Castro Viterbo Solar Farm",
+  "full_name": "Montalto Di Castro Viterbo Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.4937,
+  "longitude": 11.9451,
+  "capacity_mw": 102.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-solar-roma-solar-farm",
+  "name": "Roma Solar Farm",
+  "full_name": "Roma Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.8933,
+  "longitude": 12.4829,
+  "capacity_mw": 107.8,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-solar-tarquinia-enel-solar-farm",
+  "name": "Tarquinia Enel Solar Farm",
+  "full_name": "Tarquinia Enel Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.2612,
+  "longitude": 11.774,
+  "capacity_mw": 170.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-solar-troia-solar-farm",
+  "name": "Troia Solar Farm",
+  "full_name": "Troia Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.3598,
+  "longitude": 15.3712,
+  "capacity_mw": 103.0,
+  "commissioning_date": "2020-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-solar-tuscania-solar-farm",
+  "name": "Tuscania Solar Farm",
+  "full_name": "Tuscania Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.42565,
+  "longitude": 11.8709,
+  "capacity_mw": 191.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-wind-budduso-ala-dei-sardi-wind-farm",
+  "name": "Budduso Ala Dei Sardi Wind Farm",
+  "full_name": "Budduso Ala Dei Sardi Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 40.6121,
+  "longitude": 9.2222,
+  "capacity_mw": 138.0,
+  "commissioning_date": "2011-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-wind-isola-di-capo-rizzuto-wind-farm",
+  "name": "Isola Di Capo Rizzuto Wind Farm",
+  "full_name": "Isola Di Capo Rizzuto Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 38.95155,
+  "longitude": 17.06495,
+  "capacity_mw": 136.0,
+  "commissioning_date": "2009-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-wind-mineo-militello-vizzini-wind-park",
+  "name": "Mineo Militello Vizzini Wind Park",
+  "full_name": "Mineo Militello Vizzini Wind Park",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 37.2436,
+  "longitude": 14.7555,
+  "capacity_mw": 101.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-wind-sant-agata-di-puglia-edf-wind-farm",
+  "name": "Sant Agata Di Puglia Edf Wind Farm",
+  "full_name": "Sant Agata Di Puglia Edf Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.15055,
+  "longitude": 15.3809,
+  "capacity_mw": 144.0,
+  "commissioning_date": "2007-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-wind-ulassai-wind-farm",
+  "name": "Ulassai Wind Farm",
+  "full_name": "Ulassai Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 39.7201,
+  "longitude": 9.4944,
+  "capacity_mw": 126.0,
+  "commissioning_date": "2005-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "it-wind-vrg-wind-farm",
+  "name": "Vrg Wind Farm",
+  "full_name": "Vrg Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 42.6384,
+  "longitude": 12.6743,
+  "capacity_mw": 152.0,
+  "commissioning_date": "2008-01-01",
+  "installations": null,
+  "units": []
+ }
+]

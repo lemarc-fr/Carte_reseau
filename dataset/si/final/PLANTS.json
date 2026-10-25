@@ -1,0 +1,169 @@
+[
+ {
+  "id": "si-coal-sostanj",
+  "name": "Sostanj",
+  "full_name": "Sostanj",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.3723,
+  "longitude": 15.0534,
+  "capacity_mw": 1355.0,
+  "commissioning_date": "1956-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "28W-G-000000080M",
+    "name": "Sostanj",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": 1355.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "si-coal-te-tol",
+  "name": "Te Tol",
+  "full_name": "Te Tol",
+  "production_type": "COAL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.05796,
+  "longitude": 14.54513,
+  "capacity_mw": 124.0,
+  "commissioning_date": "1966-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "28W-G-000000082I",
+    "name": "Te Tol",
+    "production_type": "FOSSIL_HARD_COAL",
+    "capacity_mw": 124.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "si-gas-te-tol",
+  "name": "Te Tol",
+  "full_name": "Te Tol",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.05796,
+  "longitude": 14.54513,
+  "capacity_mw": 114.0,
+  "commissioning_date": "2024-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "si-hydro-formin",
+  "name": "Formin",
+  "full_name": "Formin",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.4026,
+  "longitude": 16.0338,
+  "capacity_mw": 116.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "28W-G-000000091H",
+    "name": "Formin",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 116.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "si-hydro-zlatolicje",
+  "name": "Zlatolicje",
+  "full_name": "Zlatolicje",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.4479,
+  "longitude": 15.7868,
+  "capacity_mw": 116.0,
+  "commissioning_date": "1968-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "28W-G-000000090J",
+    "name": "Zlatolicje",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 116.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "si-nuclear-krsko-1",
+  "name": "Krsko 1",
+  "full_name": "Krsko 1",
+  "production_type": "NUCLEAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 45.9389,
+  "longitude": 15.51601,
+  "capacity_mw": 727.0,
+  "commissioning_date": "1983-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "28W-G-000000119L",
+    "name": "Krsko 1",
+    "production_type": "NUCLEAR",
+    "capacity_mw": 727.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "si-pumped-storage-avce",
+  "name": "Avce",
+  "full_name": "Avce",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 46.1027,
+  "longitude": 13.6707,
+  "capacity_mw": 180.0,
+  "commissioning_date": "1970-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "28W-G-0000000009",
+    "name": "Avce",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 180.0,
+    "commissioning_date": null
+   }
+  ]
+ }
+]

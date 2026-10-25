@@ -1,0 +1,27 @@
+[
+ {
+  "id": "lu-pumped-storage-vianden",
+  "name": "Vianden",
+  "full_name": "Vianden",
+  "production_type": "PUMPED_STORAGE",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 49.9395,
+  "longitude": 6.1825,
+  "capacity_mw": 1294.0,
+  "commissioning_date": "1962-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "11WD72VIA2H-KW-0",
+    "name": "Vianden",
+    "production_type": "HYDRO_PUMPED_STORAGE",
+    "capacity_mw": 1294.0,
+    "commissioning_date": null
+   }
+  ]
+ }
+]

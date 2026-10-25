@@ -55,11 +55,12 @@ export const france: Country = {
       ingest: async (fromDay, toDay) => {
         const units = await fetchActualGenerations(fromDay, toDay);
         return upsertUnits(
+          'FR',
           units.filter((u) => UNIT_PRODUCTION_TYPES.has(u.unit.production_type)),
           linkUnitsToPlants
         );
       },
-      daysWithData: (fromDay) => unitDays(fromDay, UNIT_TYPES_REQUIRED, FR_TIME_ZONE),
+      daysWithData: (fromDay) => unitDays(fromDay, 'FR', FR_TIME_ZONE, UNIT_TYPES_REQUIRED),
     },
     {
       name: 'filières RTE',

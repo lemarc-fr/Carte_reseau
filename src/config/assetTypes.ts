@@ -14,7 +14,8 @@ export interface AssetTypeStyle {
   badgeColor: string;
   // Séries nationales "<pays>:<CODE>" additionnées pour le graphique et la barre du haut
   nationalSeries: string[];
-  // Taux de charge régional "<pays>-<région>:<FILIÈRE>" pour estimer les sites sans groupe publié
+  // Taux de charge "<pays>-<région>:<FILIÈRE>" (région « * » : pays entier) pour estimer
+  // les sites sans groupe publié
   regionalSeries: string | null;
   // Production négative possible (stockage qui se recharge)
   storage: boolean;
@@ -47,7 +48,7 @@ export const ASSET_TYPES: Record<AssetType, AssetTypeStyle> = {
     badgeBackground: '#c4f1f9',
     badgeColor: '#086f83',
     nationalSeries: ['NUCLEAR'],
-    regionalSeries: null,
+    regionalSeries: 'NUCLEAR', // taux national ENTSO-E ; RTE publie chaque réacteur
     storage: false,
     osmSources: ['nuclear'],
   },
@@ -60,7 +61,7 @@ export const ASSET_TYPES: Record<AssetType, AssetTypeStyle> = {
     chartStroke: '#7ea6c8',
     badgeBackground: '#b2f5ea',
     badgeColor: '#234e52',
-    nationalSeries: ['HYDRO_RUN_OF_RIVER_AND_POUNDAGE', 'HYDRO_WATER_RESERVOIR'],
+    nationalSeries: ['HYDRO_RUN_OF_RIVER_AND_POUNDAGE', 'HYDRO_WATER_RESERVOIR', 'MARINE'],
     regionalSeries: 'HYDRO',
     storage: false,
     osmSources: ['hydro', 'tidal', 'wave'],
@@ -130,7 +131,7 @@ export const ASSET_TYPES: Record<AssetType, AssetTypeStyle> = {
     chartStroke: '#999999',
     badgeBackground: '#e2e8f0',
     badgeColor: '#1a202c',
-    nationalSeries: ['FOSSIL_HARD_COAL'],
+    nationalSeries: ['FOSSIL_HARD_COAL', 'FOSSIL_BROWN_COAL_LIGNITE', 'FOSSIL_COAL_DERIVED_GAS', 'FOSSIL_PEAT'],
     regionalSeries: 'THERMAL',
     storage: false,
     osmSources: ['coal'],
@@ -144,7 +145,7 @@ export const ASSET_TYPES: Record<AssetType, AssetTypeStyle> = {
     chartStroke: '#bba67e',
     badgeBackground: '#f3e8d8',
     badgeColor: '#5f370e',
-    nationalSeries: ['FOSSIL_OIL'],
+    nationalSeries: ['FOSSIL_OIL', 'FOSSIL_OIL_SHALE'],
     regionalSeries: 'THERMAL',
     storage: false,
     osmSources: ['oil', 'diesel'],
@@ -181,6 +182,7 @@ export const ASSET_TYPES: Record<AssetType, AssetTypeStyle> = {
 
 // Filière des taux de charge régionaux, pour les explications d'estimation
 export const REGIONAL_LABELS: Record<string, string> = {
+  NUCLEAR: 'du nucléaire',
   WIND: "de l'éolien",
   HYDRO: "de l'hydraulique",
   SOLAR: 'du solaire',
@@ -197,4 +199,22 @@ export const TECHNOLOGY_LABELS: Record<string, string> = {
   onshore: 'Éolien terrestre',
   offshore: 'Éolien en mer',
   Eclusée: 'Éclusée',
+  CCGT: 'Cycle combiné',
+  OCGT: 'Turbine à combustion',
+  'Steam Turbine': 'Turbine à vapeur',
+  'Combustion Engine': 'Moteur',
+  Lignite: 'Lignite',
+  Biogaz: 'Biogaz',
+  Déchets: 'Déchets',
+};
+
+// Noms des pays (sites et sources hors de France)
+export const COUNTRY_NAMES: Record<string, string> = {
+  FR: 'France', AT: 'Autriche', BE: 'Belgique', BG: 'Bulgarie', CH: 'Suisse', CZ: 'Tchéquie',
+  DE: 'Allemagne', DK: 'Danemark', EE: 'Estonie', ES: 'Espagne', FI: 'Finlande', GR: 'Grèce',
+  HR: 'Croatie', HU: 'Hongrie', IE: 'Irlande', IT: 'Italie', LT: 'Lituanie', LU: 'Luxembourg',
+  LV: 'Lettonie', NL: 'Pays-Bas', NO: 'Norvège', PL: 'Pologne', PT: 'Portugal', RO: 'Roumanie',
+  RS: 'Serbie', SE: 'Suède', SI: 'Slovénie', SK: 'Slovaquie', GB: 'Royaume-Uni', UA: 'Ukraine',
+  BA: 'Bosnie-Herzégovine', MK: 'Macédoine du Nord', AL: 'Albanie', ME: 'Monténégro', MD: 'Moldavie',
+  XK: 'Kosovo',
 };

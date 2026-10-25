@@ -1,0 +1,178 @@
+[
+ {
+  "id": "mk-coal-bitola",
+  "name": "Bitola",
+  "full_name": "Bitola",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.05832,
+  "longitude": 21.48427,
+  "capacity_mw": 699.0,
+  "commissioning_date": "1980-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "33W-TEC-BITOLA-F",
+    "name": "Bitola",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": 699.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "mk-coal-oslomej",
+  "name": "Oslomej",
+  "full_name": "Oslomej",
+  "production_type": "COAL",
+  "technology": "Lignite",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.582,
+  "longitude": 21.0,
+  "capacity_mw": 125.0,
+  "commissioning_date": "1980-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "33W-TECOSLOMEJ-7",
+    "name": "Oslomej",
+    "production_type": "FOSSIL_BROWN_COAL_LIGNITE",
+    "capacity_mw": 125.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "mk-gas-skopje-chp",
+  "name": "Skopje Chp",
+  "full_name": "Skopje Chp",
+  "production_type": "GAS",
+  "technology": "CCGT",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.99452,
+  "longitude": 21.45283,
+  "capacity_mw": 220.0,
+  "commissioning_date": "2012-01-01",
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "mk-hydro-tikves",
+  "name": "Tikves",
+  "full_name": "Tikves",
+  "production_type": "HYDRO",
+  "technology": "Lac",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.4046,
+  "longitude": 21.9367,
+  "capacity_mw": 114.0,
+  "commissioning_date": "1966-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "33W-HEC-TIKVES-8",
+    "name": "Tikves",
+    "production_type": "HYDRO_WATER_RESERVOIR",
+    "capacity_mw": 114.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "mk-hydro-vrutok",
+  "name": "Vrutok",
+  "full_name": "Vrutok",
+  "production_type": "HYDRO",
+  "technology": "Fil de l'eau",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.7706,
+  "longitude": 20.8383,
+  "capacity_mw": 166.0,
+  "commissioning_date": "1957-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "33W-HEC-VRUTOK-B",
+    "name": "Vrutok",
+    "production_type": "HYDRO_RUN_OF_RIVER_AND_POUNDAGE",
+    "capacity_mw": 166.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "mk-oil-negotino",
+  "name": "Negotino",
+  "full_name": "Negotino",
+  "production_type": "OIL",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.48333,
+  "longitude": 22.1,
+  "capacity_mw": 198.0,
+  "commissioning_date": "1978-01-01",
+  "installations": null,
+  "units": [
+   {
+    "eic_code": "33WTEC-NEGOTINOT",
+    "name": "Negotino",
+    "production_type": "FOSSIL_OIL",
+    "capacity_mw": 198.0,
+    "commissioning_date": null
+   }
+  ]
+ },
+ {
+  "id": "mk-solar-oslomej-solar-farm",
+  "name": "Oslomej Solar Farm",
+  "full_name": "Oslomej Solar Farm",
+  "production_type": "SOLAR",
+  "technology": null,
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.576,
+  "longitude": 20.9977,
+  "capacity_mw": 118.7,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ },
+ {
+  "id": "mk-wind-stip-wind-farm",
+  "name": "Stip Wind Farm",
+  "full_name": "Stip Wind Farm",
+  "production_type": "WIND",
+  "technology": "onshore",
+  "commune": null,
+  "departement": null,
+  "region": null,
+  "region_code": null,
+  "latitude": 41.725,
+  "longitude": 22.4074,
+  "capacity_mw": 400.0,
+  "commissioning_date": null,
+  "installations": null,
+  "units": []
+ }
+]
