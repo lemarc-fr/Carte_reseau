@@ -79,9 +79,10 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
             (© contributeurs OpenStreetMap).
           </li>
           <li>
-            Vent à 10 m : AROME HD de Météo-France sur la France (maille d&apos;environ 1 km) et GFS de la NOAA sur le
-            reste de l&apos;Europe (0,25°, via le serveur THREDDS de l&apos;UCAR), rechargés toutes les heures avec
-            l&apos;échéance la plus proche ; modèles, runs et échéances sont indiqués en bas à gauche de la carte. Fond
+            Vent à 10 m : AROME HD de Météo-France sur la France (maille d&apos;environ 1 km) et ARPEGE de Météo-France
+            sur le reste de l&apos;Europe (0,1°) ; à défaut, GFS de la NOAA (0,25°, via le serveur THREDDS de
+            l&apos;UCAR). Rechargés toutes les heures pour une même échéance, la plus proche ; modèles, runs et
+            échéances sont indiqués en bas à gauche de la carte. Fond
             de carte : Protomaps, relief : Mapterhorn.
           </li>
         </ul>

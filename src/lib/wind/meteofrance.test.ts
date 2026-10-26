@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { latestCoverage, nearest, runTimeOf, validTimes } from './arome';
+import { latestCoverage, nearest, runTimeOf, validTimes } from './meteofrance';
 
 // Réponse DescribeCoverage réelle (run du 24/10/2026 03 UTC, 52 échéances horaires)
 const DESCRIPTION = readFileSync(new URL('./fixtures/arome-describe-coverage.xml', import.meta.url), 'utf8');

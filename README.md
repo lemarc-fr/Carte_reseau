@@ -23,8 +23,9 @@ barre du haut utilisent la production nationale par filière publiée par RTE. A
 la carte montre l'emprise des centrales et chaque installation (éolienne, panneau, poste électrique)
 d'OpenStreetMap via les tuiles Open Infrastructure Map, partout dans le monde.
 
-Vent à 10 m : AROME HD (Météo-France) sur la France, GFS 0,25° (NOAA, via THREDDS/UCAR) sur l'Europe,
-pour la même échéance (celle de GFS, au pas de 3 h, la plus proche de maintenant).
+Vent à 10 m : AROME HD (Météo-France) sur la France, ARPEGE 0,1° (Météo-France) sur l'Europe, pour la
+même échéance (la plus proche de maintenant). La clé Météo-France doit être abonnée aux API AROME et
+ARPEGE ; sans ARPEGE, GFS 0,25° (NOAA, via THREDDS/UCAR, pas de 3 h) le remplace.
 
 Contrôles de la carte (en haut à droite) : vent, anneaux de capacité, taille normalisée, sites dotés
 d'un groupe de 100 MW ou plus seulement, lignes électriques, noms des centrales, puis une icône par
@@ -56,7 +57,7 @@ Au démarrage, le serveur récupère les derniers jours puis complète l'histori
 src/app/api/            plants (sites), generation (séries), wind (vent)
 src/lib/power/          ingestion générique : pays, sources, écriture en base, rattrapage
 src/lib/power/fr/       France : RTE (groupes, filières), éCO2mix régional, rattachement des groupes
-src/lib/wind/           vent : AROME (France), GFS (Europe), encodage des textures
+src/lib/wind/           vent : AROME (France), ARPEGE ou GFS (Europe), encodage des textures
 src/components/         carte (MapLibre + deck.gl), barre latérale, graphiques
 src/config/             filières (couleurs, séries), style de carte, réglages
 dataset/                jeux de données et leur préparation (voir dataset/README.md)

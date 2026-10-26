@@ -5,6 +5,7 @@ import type { WindField } from './types';
 
 // Grille 3 × 2 sur [0°, 2°] × [40°, 41°], ligne 0 au nord
 const field: WindField = {
+  model: 'test',
   width: 3,
   height: 2,
   u: new Float32Array([3, 0, NaN, -3, 0, 4]),
@@ -33,11 +34,31 @@ describe('encodeWind', () => {
     expect(data[11]).toBe(0);
   });
 
-  it('rend transparente la zone couverte par une couche plus fine', async () => {
-    const texture = await encodeWind(field, { minLon: 0.5, maxLon: 2, minLat: 39, maxLat: 40.5 });
-    const data = await pixels(texture.webp);
+  it('masque seulement là où la couche fine a des données, avec deux mailles de recouvrement', async () => {
+    // Grille grossière 7 × 3 au pas de 1° sur [0°, 6°] × [40°, 42°]
+    const coarse: WindField = {
+      ...field,
+      width: 7,
+      height: 3,
+      u: new Float32Array(21).fill(2),
+      v: new Float32Array(21).fill(2),
+      bounds: { minLon: 0, maxLon: 6, minLat: 40, maxLat: 42 },
+    };
+    // Couche fine au pas de 0,5° sur [0°, 6°] × [38°, 44°], sans donnée à l'est de 4,5°
+    const fineWidth = 13;
+    const fineU = new Float32Array(fineWidth * 13).map((_, i) => (i % fineWidth > 9 ? NaN : 1));
+    const fine: WindField = {
+      ...field,
+      width: fineWidth,
+      height: 13,
+      u: fineU,
+      v: fineU,
+      bounds: { minLon: 0, maxLon: 6, minLat: 38, maxLat: 44 },
+    };
+    const data = await pixels((await encodeWind(coarse, fine)).webp);
     const alpha = [...data].filter((_, i) => i % 4 === 3);
-    // Seule la ligne sud (40°) aux longitudes 1° et 2° est dans le trou
-    expect(alpha).toEqual([255, 255, 0, 255, 0, 0]);
+    // Seule la maille à 2° a des données fines de 0° à 4° autour d'elle
+    const row = [255, 255, 0, 255, 255, 255, 255];
+    expect(alpha).toEqual([...row, ...row, ...row]);
   });
 });

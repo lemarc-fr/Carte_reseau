@@ -1,23 +1,47 @@
 import { fromArrayBuffer } from 'geotiff';
 import type { Bounds, WindField } from './types';
 
-// AROME HD de Météo-France (grille 0,01°, France et pays voisins), API publique WCS :
-// https://portail-api.meteofrance.fr — clé METEO_FRANCE_API_KEY abonnée à « AROME ».
+// Modèles de Météo-France, API publique WCS : https://portail-api.meteofrance.fr — clé
+// METEO_FRANCE_API_KEY, l'application devant être abonnée à l'API de chaque modèle.
 // On prend le dernier run publié et l'échéance la plus proche de l'instant demandé.
 
-const BASE_URL =
-  'https://public-api.meteofrance.fr/public/arome/1.0/wcs/MF-NWP-HIGHRES-AROME-001-FRANCE-WCS';
+export interface MeteoFranceModel {
+  name: string; // affiché (bandeau du vent)
+  url: string; // service WCS
+  bounds: { minLon: number; maxLon: number; minLat: number; maxLat: number }; // domaine couvert
+}
+
+const WCS_URL = 'https://public-api.meteofrance.fr/public';
+
+// AROME HD : 0,01°, pas horaire, France et pays voisins
+export const AROME_HD: MeteoFranceModel = {
+  name: 'AROME HD (Météo-France)',
+  url: `${WCS_URL}/arome/1.0/wcs/MF-NWP-HIGHRES-AROME-001-FRANCE-WCS`,
+  bounds: { minLon: -12, maxLon: 16, minLat: 37.5, maxLat: 55.4 },
+};
+
+// ARPEGE Europe : 0,1°, pas horaire
+export const ARPEGE_EUROPE: MeteoFranceModel = {
+  name: 'ARPEGE 0,1° (Météo-France)',
+  url: `${WCS_URL}/arpege/1.0/wcs/MF-NWP-GLOBAL-ARPEGE-01-EUROPE-WCS`,
+  bounds: { minLon: -32, maxLon: 42, minLat: 20, maxLat: 72 },
+};
 const U_PREFIX = 'U_COMPONENT_OF_WIND__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND___';
 const V_PREFIX = 'V_COMPONENT_OF_WIND__SPECIFIC_HEIGHT_LEVEL_ABOVE_GROUND___';
 const PHYSICAL_MAX = 150; // m/s : au-delà, valeur invalide (NoData non déclaré)
 
-async function wcs(apiKey: string, operation: string, params: [string, string][]): Promise<Response> {
-  const url = new URL(`${BASE_URL}/${operation}`);
+async function wcs(
+  model: MeteoFranceModel,
+  apiKey: string,
+  operation: string,
+  params: [string, string][]
+): Promise<Response> {
+  const url = new URL(`${model.url}/${operation}`);
   url.searchParams.set('service', 'WCS');
   url.searchParams.set('version', '2.0.1');
   for (const [key, value] of params) url.searchParams.append(key, value);
   const res = await fetch(url, { headers: { apikey: apiKey }, signal: AbortSignal.timeout(60_000) });
-  if (!res.ok) throw new Error(`AROME ${operation} (${res.status}) : ${(await res.text()).slice(0, 200)}`);
+  if (!res.ok) throw new Error(`${model.name} ${operation} (${res.status}) : ${(await res.text()).slice(0, 200)}`);
   return res;
 }
 
@@ -42,7 +66,7 @@ export function validTimes(description: string): number[] {
     .map((m) => m[1])
     .find((axis) => /<gmlrgrid:gridAxesSpanned[^>]*>\s*time\s*</.test(axis));
   const coefficients = timeAxis?.match(/<gmlrgrid:coefficients[^>]*>([^<]*)<\/gmlrgrid:coefficients>/)?.[1];
-  if (!begin || !coefficients?.trim()) throw new Error('AROME : axe temporel introuvable dans DescribeCoverage');
+  if (!begin || !coefficients?.trim()) throw new Error('Météo-France : axe temporel introuvable dans DescribeCoverage');
 
   const base = Date.parse(begin);
   return coefficients.trim().split(/\s+/).map((seconds) => base + Number(seconds) * 1000);
@@ -73,13 +97,25 @@ async function readGeoTiff(buffer: ArrayBuffer) {
   };
 }
 
-export async function fetchArome(apiKey: string, bounds: Bounds, target = new Date()): Promise<WindField> {
-  const capabilities = await (await wcs(apiKey, 'GetCapabilities', [['language', 'eng']])).text();
+/** Vent à 10 m du modèle sur `bounds` (rognées au domaine du modèle), à l'échéance la plus proche de `target`. */
+export async function fetchMeteoFrance(
+  model: MeteoFranceModel,
+  apiKey: string,
+  requested: Bounds,
+  target = new Date()
+): Promise<WindField> {
+  const bounds = {
+    minLon: Math.max(requested.minLon, model.bounds.minLon),
+    maxLon: Math.min(requested.maxLon, model.bounds.maxLon),
+    minLat: Math.max(requested.minLat, model.bounds.minLat),
+    maxLat: Math.min(requested.maxLat, model.bounds.maxLat),
+  };
+  const capabilities = await (await wcs(model, apiKey, 'GetCapabilities', [['language', 'eng']])).text();
   const uId = latestCoverage(capabilities, U_PREFIX);
   const vId = latestCoverage(capabilities, V_PREFIX);
-  if (!uId || !vId) throw new Error('AROME : composantes U/V introuvables dans GetCapabilities');
+  if (!uId || !vId) throw new Error(`${model.name} : composantes U/V introuvables dans GetCapabilities`);
 
-  const description = await (await wcs(apiKey, 'DescribeCoverage', [['coverageID', uId]])).text();
+  const description = await (await wcs(model, apiKey, 'DescribeCoverage', [['coverageID', uId]])).text();
   const validTime = new Date(nearest(validTimes(description), target.getTime()));
   const time = validTime.toISOString().replace(/\.\d{3}Z$/, 'Z');
 
@@ -91,7 +127,7 @@ export async function fetchArome(apiKey: string, bounds: Bounds, target = new Da
   ];
   const [uTiff, vTiff] = await Promise.all(
     [uId, vId].map(async (id) => {
-      const res = await wcs(apiKey, 'GetCoverage', [['coverageID', id], ['format', 'image/tiff'], ...subsets]);
+      const res = await wcs(model, apiKey, 'GetCoverage', [['coverageID', id], ['format', 'image/tiff'], ...subsets]);
       return readGeoTiff(await res.arrayBuffer());
     })
   );
@@ -109,5 +145,14 @@ export async function fetchArome(apiKey: string, bounds: Bounds, target = new Da
     v[i] = valid ? vi : NaN;
   }
 
-  return { width: uTiff.width, height: uTiff.height, u, v, bounds: uTiff.bounds, runTime: runTimeOf(uId), validTime };
+  return {
+    model: model.name,
+    width: uTiff.width,
+    height: uTiff.height,
+    u,
+    v,
+    bounds: uTiff.bounds,
+    runTime: runTimeOf(uId),
+    validTime,
+  };
 }

@@ -49,6 +49,7 @@ export async function fetchGfs(bounds: Bounds, target = new Date()): Promise<Win
   if (!validTime) throw new Error('GFS : échéance introuvable');
 
   return {
+    model: 'GFS 0,25° (NOAA)',
     width: lon.length,
     height: lat.length,
     u: Float32Array.from(reader.getDataVariable(U_VAR) as number[]),

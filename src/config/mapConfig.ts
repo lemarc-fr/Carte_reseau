@@ -6,7 +6,7 @@ export const MAP_MAX_ZOOM = 14;
 export const DETAIL_MIN_ZOOM = 10;
 
 // Zones des couches de vent : GFS sur l'Europe, AROME HD sur la France et ses voisins
-export const EUROPE_WIND_BOUNDS = { minLon: -25, maxLon: 45, minLat: 34, maxLat: 72 };
+export const EUROPE_WIND_BOUNDS = { minLon: -25, maxLon: 42, minLat: 34, maxLat: 72 }; // domaine d'ARPEGE Europe à l'est
 export const FRANCE_WIND_BOUNDS = { minLon: -10, maxLon: 15, minLat: 40, maxLat: 52 };
 
 // Emprises [ouest, sud, est, nord]

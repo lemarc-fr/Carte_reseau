@@ -8,6 +8,7 @@ export interface Bounds {
 }
 
 export interface WindField {
+  model: string; // affiché, ex. « AROME HD (Météo-France) »
   width: number;
   height: number;
   // Composantes est (u) et nord (v) en m/s, ligne 0 = nord ; NaN = pas de donnée

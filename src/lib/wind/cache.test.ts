@@ -3,6 +3,7 @@ import { alignedFields } from './cache';
 import type { WindField } from './types';
 
 const field = (validTime: string): WindField => ({
+  model: 'test',
   width: 1,
   height: 1,
   u: new Float32Array([1]),

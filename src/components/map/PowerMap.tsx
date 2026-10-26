@@ -417,7 +417,7 @@ export default function PowerMap() {
             '<a href="https://data.rte-france.com">RTE</a>',
             '<a href="https://bmrs.elexon.co.uk">BMRS © Elexon</a>',
             'ENTSO-E',
-            'Météo-France AROME',
+            'Météo-France AROME, ARPEGE',
             'NOAA GFS',
           ]}
         />
