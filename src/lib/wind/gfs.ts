@@ -39,9 +39,13 @@ export async function fetchGfs(bounds: Bounds, target = new Date()): Promise<Win
     const value = variable?.attributes.find((a) => a.name === 'units')?.value;
     return typeof value === 'string' ? value : undefined;
   };
-  const timeVar = reader.variables.find((v) => v.name.startsWith('time'))!.name;
+  // Noms numérotés selon le run servi : time / time1, reftime / reftime1…
+  const named = (prefix: string) => reader.variables.find((v) => new RegExp(`^${prefix}\\d*$`).test(v.name))?.name;
+  const timeVar = named('time');
+  const refVar = named('reftime');
+  if (!timeVar) throw new Error('GFS : variable de temps introuvable');
   const validTime = hoursSince(units(timeVar), (reader.getDataVariable(timeVar) as number[])[0]);
-  const runTime = hoursSince(units('reftime'), (reader.getDataVariable('reftime') as number[])[0]);
+  const runTime = refVar ? hoursSince(units(refVar), (reader.getDataVariable(refVar) as number[])[0]) : null;
   if (!validTime) throw new Error('GFS : échéance introuvable');
 
   return {
