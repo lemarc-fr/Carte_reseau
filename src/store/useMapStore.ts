@@ -32,7 +32,7 @@ export interface WindLayerData {
 
 // ─── État initial ─────────────────────────────────────────────────────────────
 
-const ALL_PRODUCTION_TYPES: ProductionTypesState = {
+const INITIAL_VIEW: ProductionTypesState = {
     nuclear: true,
     hydro: true,
     pumpedStorage: true,
@@ -118,7 +118,7 @@ export const useMapStore = create<MapState>()(
             selectedTime: null,
             selectedPlantId: null,
             selectedLinkId: null,
-            exchangesVisible: true,
+            exchangesVisible: false,
             hoveredPlantId: null,
             windVisible: true,
             windStatus: 'loading',
@@ -127,8 +127,8 @@ export const useMapStore = create<MapState>()(
             normalizeRing: false,
             powerLinesVisible: true,
             labelsVisible: true,
-            largeUnitsOnly: false,
-            productionTypes: ALL_PRODUCTION_TYPES,
+            largeUnitsOnly: true,
+            productionTypes: INITIAL_VIEW,
 
             setPlants: (plants) => set({ plants, plantsStatus: 'ok' }, false, 'setPlants'),
             setPlantsStatus: (status) => set({ plantsStatus: status }, false, 'setPlantsStatus'),
