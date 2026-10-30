@@ -1,0 +1,7 @@
+{"country":"ME","datasets":[
+{"label":"ME","plants":[
+{"id":"me-coal-pljevlja","country":"ME","name":"Pljevlja","full_name":"Pljevlja","production_type":"COAL","technology":"Lignite","latitude":43.33457,"longitude":19.32714,"capacity_mw":225,"commissioning_date":"1982-01-01T00:00:00.000Z","commune":null,"departement":null,"region":null,"region_code":null,"installations":null,"units":[]},
+{"id":"me-hydro-mratinje","country":"ME","name":"Mratinje","full_name":"Mratinje","production_type":"HYDRO","technology":"Lac","latitude":43.2728,"longitude":18.8424,"capacity_mw":342,"commissioning_date":"1970-01-01T00:00:00.000Z","commune":null,"departement":null,"region":null,"region_code":null,"installations":null,"units":[]},
+{"id":"me-pumped-storage-perucica","country":"ME","name":"Perucica","full_name":"Perucica","production_type":"PUMPED_STORAGE","technology":null,"latitude":42.6719,"longitude":18.9951,"capacity_mw":307,"commissioning_date":"1960-01-01T00:00:00.000Z","commune":null,"departement":null,"region":null,"region_code":null,"installations":null,"units":[]}
+]}
+]}

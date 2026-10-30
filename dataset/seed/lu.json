@@ -1,0 +1,5 @@
+{"country":"LU","datasets":[
+{"label":"LU","plants":[
+{"id":"lu-pumped-storage-vianden","country":"LU","name":"Vianden","full_name":"Vianden","production_type":"PUMPED_STORAGE","technology":null,"latitude":49.9395,"longitude":6.1825,"capacity_mw":1294,"commissioning_date":"1962-01-01T00:00:00.000Z","commune":null,"departement":null,"region":null,"region_code":null,"installations":null,"units":[{"eic_code":"11WD72VIA2H-KW-0","name":"Vianden","production_type":"HYDRO_PUMPED_STORAGE","country":"LU","capacity_mw":1294,"commissioning_date":null}]}
+]}
+]}

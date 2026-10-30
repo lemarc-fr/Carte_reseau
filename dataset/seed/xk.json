@@ -1,0 +1,6 @@
+{"country":"XK","datasets":[
+{"label":"XK","plants":[
+{"id":"xk-solar-gjakova-solar-farm","country":"XK","name":"Gjakova Solar Farm","full_name":"Gjakova Solar Farm","production_type":"SOLAR","technology":null,"latitude":42.587,"longitude":20.9021,"capacity_mw":150,"commissioning_date":"2026-01-01T00:00:00.000Z","commune":null,"departement":null,"region":null,"region_code":null,"installations":null,"units":[]},
+{"id":"xk-wind-bajgora-wind-farm","country":"XK","name":"Bajgora Wind Farm","full_name":"Bajgora Wind Farm","production_type":"WIND","technology":"onshore","latitude":42.9751,"longitude":21.0189,"capacity_mw":103,"commissioning_date":"2021-01-01T00:00:00.000Z","commune":null,"departement":null,"region":null,"region_code":null,"installations":null,"units":[]}
+]}
+]}
