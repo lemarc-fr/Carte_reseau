@@ -1,7 +1,7 @@
 import { EUROPE_WIND_BOUNDS, FRANCE_WIND_BOUNDS } from '@/config/mapConfig';
 import { fetchGfs } from './gfs';
 import { AROME_HD, ARPEGE_EUROPE, fetchMeteoFrance } from './meteofrance';
-import { encodeWind, type WindTexture } from './texture';
+import { coarsen, encodeWind, type WindTexture } from './texture';
 import type { WindField } from './types';
 
 // Deux couches de vent, rechargées toutes les heures, pour une même échéance :
@@ -23,6 +23,7 @@ export interface WindLayer extends WindTexture {
 }
 
 const REFRESH_MS = 60 * 60 * 1000;
+const AROME_TEXTURE_FACTOR = 2;
 
 const fields: Partial<Record<WindLayerId, WindField>> = {};
 let layers: WindLayer[] = [];
@@ -87,7 +88,8 @@ async function refresh(): Promise<void> {
   const { europe, france } = alignedFields(fields);
   const next: WindLayer[] = [];
   if (europe) next.push(await toLayer('europe', europe, france));
-  if (france) next.push(await toLayer('france', france));
+  // AROME au pas de 0,02° pour le navigateur (le masque de la couche Europe garde le 0,01°)
+  if (france) next.push(await toLayer('france', coarsen(france, AROME_TEXTURE_FACTOR)));
   if (next.length) layers = next;
 }
 

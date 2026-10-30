@@ -44,7 +44,7 @@ import {
 import { ReactControl } from '../controls/ReactControl';
 import DisplayPanel from '../controls/DisplayPanel';
 import ProductionTypesPanel from '../controls/ProductionTypesPanel';
-import { windDeckLayers } from './windLayers';
+import { windParticleLayers, windRasterLayers } from './windLayers';
 import styles from './Map.module.css';
 
 // ─── Représentation des centrales ─────────────────────────────────────────────
@@ -115,8 +115,9 @@ function osmSourceLabel(source: string | null): string {
 
 // ─── Contrôles ────────────────────────────────────────────────────────────────
 
-function DeckGLOverlay(props: MapboxOverlayProps) {
-  const overlay = useControl<MapboxOverlay>(() => new MapboxOverlay({ interleaved: true, ...props }));
+// interleaved : calques dessinés dans le contexte WebGL de MapLibre, entre ses couches
+function DeckGLOverlay({ interleaved = true, ...props }: MapboxOverlayProps) {
+  const overlay = useControl<MapboxOverlay>(() => new MapboxOverlay({ interleaved, ...props }));
   overlay.setProps(props);
   return null;
 }
@@ -148,6 +149,8 @@ export default function PowerMap() {
   const { generation, index } = useCurrentSlot();
 
   const [styleReady, setStyleReady] = useState(false);
+  // Particules lancées une fois la carte affichée : leur animation ne retarde pas le premier rendu
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [detail, setDetail] = useState(false);
   const [tooltip, setTooltip] = useState<{ x: number; y: number; id: string } | null>(null);
   const [osmFeature, setOsmFeature] = useState<OsmFeature | null>(null);
@@ -252,7 +255,7 @@ export default function PowerMap() {
       charging(d) ? DISC_ALPHA.charging : d.estimated ? DISC_ALPHA.estimated : DISC_ALPHA.measured;
 
     const result = [];
-    if (windVisible) result.push(...windDeckLayers(windLayers, FIRST_POWER_LINE_LAYER_ID));
+    if (windVisible) result.push(...windRasterLayers(windLayers, FIRST_POWER_LINE_LAYER_ID));
     if (data.length === 0) return result;
 
     if (detail) {
@@ -335,6 +338,11 @@ export default function PowerMap() {
     return result;
   }, [data, windVisible, windLayers, capacityRingVisible, normalizeRing, detail, selectedPlantId, hoveredPlantId]);
 
+  const particleLayers = useMemo(
+    () => (windVisible && mapLoaded ? windParticleLayers(windLayers) : []),
+    [windVisible, mapLoaded, windLayers]
+  );
+
   // ─── Interactions ──────────────────────────────────────────────────────────
 
   const lastHovered = useRef<string | null>(null);
@@ -396,6 +404,7 @@ export default function PowerMap() {
         onClick={onOsmPointer}
         onMouseLeave={() => setOsmFeature(null)}
         onStyleData={() => setStyleReady(true)}
+        onLoad={() => setMapLoaded(true)}
         onMove={(e) => {
           const next = e.viewState.zoom >= DETAIL_MIN_ZOOM;
           setDetail((current) => (current === next ? current : next));
@@ -422,6 +431,7 @@ export default function PowerMap() {
           ]}
         />
         <DeckGLOverlay layers={layers} onHover={onHover} onClick={onClick} />
+        <DeckGLOverlay interleaved={false} layers={particleLayers} />
       </Map>
 
       {tooltip && tooltipDatum && (

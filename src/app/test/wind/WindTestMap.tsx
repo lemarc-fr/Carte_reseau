@@ -6,7 +6,7 @@ import { MapboxOverlay, type MapboxOverlayProps } from '@deck.gl/mapbox';
 import { EUROPE_WIND_BOUNDS } from '@/config/mapConfig';
 import { FIRST_POWER_LINE_LAYER_ID, mapStyle } from '@/config/mapStyle';
 import { useWindData } from '@/hooks/useWindData';
-import { windDeckLayers } from '@/components/map/windLayers';
+import { windRasterLayers } from '@/components/map/windLayers';
 import { useMapStore } from '@/store/useMapStore';
 
 declare global {
@@ -39,7 +39,7 @@ export default function WindTestMap() {
   const [box, setBox] = useState<[number, number, number, number] | null>(null);
   const [wind] = useState(showWind);
   const layers = useMemo(
-    () => (wind ? windDeckLayers(windLayers, FIRST_POWER_LINE_LAYER_ID, { particles: false }) : []),
+    () => (wind ? windRasterLayers(windLayers, FIRST_POWER_LINE_LAYER_ID) : []),
     [wind, windLayers]
   );
 

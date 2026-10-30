@@ -27,6 +27,58 @@ export function hasData(field: WindField): (lon: number, lat: number) => boolean
   };
 }
 
+/**
+ * Champ moyenné par blocs de `factor` × `factor` points (NaN ignorés ; bloc sans donnée :
+ * NaN). Allège la texture envoyée au navigateur (AROME HD : 0,01° -> 0,02°, quatre fois
+ * moins de pixels à télécharger, décoder et charger sur le GPU).
+ */
+export function coarsen(field: WindField, factor: number): WindField {
+  if (factor <= 1) return field;
+  const width = Math.ceil(field.width / factor);
+  const height = Math.ceil(field.height / factor);
+  const u = new Float32Array(width * height);
+  const v = new Float32Array(width * height);
+  for (let row = 0; row < height; row++) {
+    for (let col = 0; col < width; col++) {
+      let su = 0;
+      let sv = 0;
+      let n = 0;
+      for (let dy = 0; dy < factor; dy++) {
+        for (let dx = 0; dx < factor; dx++) {
+          const y = row * factor + dy;
+          const x = col * factor + dx;
+          if (y >= field.height || x >= field.width) continue;
+          const i = y * field.width + x;
+          if (Number.isNaN(field.u[i])) continue;
+          su += field.u[i];
+          sv += field.v[i];
+          n++;
+        }
+      }
+      u[row * width + col] = n ? su / n : NaN;
+      v[row * width + col] = n ? sv / n : NaN;
+    }
+  }
+  // Centres des blocs du bord
+  const lonStep = (field.bounds.maxLon - field.bounds.minLon) / (field.width - 1);
+  const latStep = (field.bounds.maxLat - field.bounds.minLat) / (field.height - 1);
+  const lastCol = Math.min(field.width - 1, (width - 1) * factor + (factor - 1) / 2);
+  const lastRow = Math.min(field.height - 1, (height - 1) * factor + (factor - 1) / 2);
+  return {
+    ...field,
+    width,
+    height,
+    u,
+    v,
+    bounds: {
+      minLon: field.bounds.minLon + ((factor - 1) / 2) * lonStep,
+      maxLon: field.bounds.minLon + lastCol * lonStep,
+      maxLat: field.bounds.maxLat - ((factor - 1) / 2) * latStep,
+      minLat: field.bounds.maxLat - lastRow * latStep,
+    },
+  };
+}
+
 export async function encodeWind(field: WindField, finer?: WindField): Promise<WindTexture> {
   const { width, height, u, v, bounds } = field;
   const lonStep = width > 1 ? (bounds.maxLon - bounds.minLon) / (width - 1) : 0;

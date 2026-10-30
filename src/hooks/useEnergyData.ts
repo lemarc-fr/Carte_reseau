@@ -7,6 +7,8 @@ import { expandPlant, type CompactPlant } from '@/lib/plantJson';
 import type { GenerationSeries } from '@/types/energy';
 
 const WINDOW_MS = 7 * DAY_MS;
+// Temps réel : URL fixe (le serveur prend les 7 derniers jours), préchargée dès le HTML
+export const LIVE_GENERATION_URL = '/api/generation';
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
 
 async function fetchJson<T>(url: string, signal: AbortSignal): Promise<T> {
@@ -53,8 +55,7 @@ export function useEnergyData() {
     if (!isLive) return;
     const controller = new AbortController();
     const load = () => {
-      const now = Date.now();
-      fetchJson<GenerationSeries>(generationUrl(now - WINDOW_MS, now), controller.signal)
+      fetchJson<GenerationSeries>(LIVE_GENERATION_URL, controller.signal)
         .then(setGeneration)
         .catch((err) => {
           if (controller.signal.aborted) return;

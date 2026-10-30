@@ -1,6 +1,6 @@
 import sharp from 'sharp';
 import { describe, expect, it } from 'vitest';
-import { encodeWind } from './texture';
+import { coarsen, encodeWind } from './texture';
 import type { WindField } from './types';
 
 // Grille 3 × 2 sur [0°, 2°] × [40°, 41°], ligne 0 au nord
@@ -62,3 +62,30 @@ describe('encodeWind', () => {
     expect(alpha).toEqual([...row, ...row, ...row]);
   });
 });
+
+describe('coarsen', () => {
+  it('moyenne par blocs en ignorant les points sans donnée', () => {
+    // 4 × 2 au pas de 1° : [0°, 3°] × [40°, 41°]
+    const fine: WindField = {
+      ...field,
+      width: 4,
+      height: 2,
+      u: new Float32Array([1, 3, NaN, NaN, 5, 7, NaN, 4]),
+      v: new Float32Array([0, 0, NaN, NaN, 0, 0, NaN, 2]),
+      bounds: { minLon: 0, maxLon: 3, minLat: 40, maxLat: 41 },
+    };
+    const coarse = coarsen(fine, 2);
+    expect([coarse.width, coarse.height]).toEqual([2, 1]);
+    expect([...coarse.u]).toEqual([4, 4]);
+    expect([...coarse.v]).toEqual([0, 2]);
+    // Centres des blocs
+    expect(coarse.bounds).toEqual({ minLon: 0.5, maxLon: 2.5, minLat: 40.5, maxLat: 40.5 });
+    expect(coarsen(fine, 1)).toBe(fine);
+  });
+
+  it('laisse sans donnée un bloc vide', () => {
+    const empty: WindField = { ...field, width: 2, height: 2, u: new Float32Array(4).fill(NaN), v: new Float32Array(4).fill(NaN) };
+    expect(Number.isNaN(coarsen(empty, 2).u[0])).toBe(true);
+  });
+});
+
