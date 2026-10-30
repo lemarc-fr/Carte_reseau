@@ -17,8 +17,11 @@ const PREMULTIPLIED_ALPHA_BLENDING = {
 const PARTICLES_PER_SQUARE_DEGREE = 3;
 const MAX_PARTICLES = 6000;
 
-/** Fond coloré et particules de chaque couche (Europe d'abord, la France HD par-dessus). */
-export function windDeckLayers(layers: WindLayerData[], beforeId: string) {
+/**
+ * Fond coloré et particules de chaque couche (Europe d'abord, la France HD par-dessus).
+ * `particles: false` : image fixe (page de test /test/wind).
+ */
+export function windDeckLayers(layers: WindLayerData[], beforeId: string, { particles = true } = {}) {
   return layers.flatMap((layer) => {
     const { minLon, minLat, maxLon, maxLat } = layer.bounds;
     const bounds: [number, number, number, number] = [minLon, minLat, maxLon, maxLat];
@@ -36,6 +39,7 @@ export function windDeckLayers(layers: WindLayerData[], beforeId: string) {
         extensions: [new ClipExtension()],
         clipBounds: bounds,
       }),
+      particles &&
       new ParticleLayer({
         id: `wind-particles-${layer.id}`,
         beforeId,
@@ -52,6 +56,6 @@ export function windDeckLayers(layers: WindLayerData[], beforeId: string) {
         extensions: [new ClipExtension()],
         clipBounds: bounds,
       }),
-    ];
+    ].filter((l) => l !== false);
   });
 }

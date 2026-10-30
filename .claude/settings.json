@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./dataset/**/raw/**)",
+      "Read(./package-lock.json)",
+      "Read(./.next/**)",
+      "Read(./node_modules/**/dist/**/*.js)"
+    ]
+  }
+}

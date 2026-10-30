@@ -43,6 +43,7 @@ npm run db:migrate   # applique src/prisma/migrations
 npm run db:seed      # sites et groupes depuis dataset/fr/final/
 npm run dev
 npm test             # tests unitaires (vitest, sans réseau ni base)
+npm run test:integration   # API réelles (vent) + capture de /test/wind (TEST_BASE_URL, défaut localhost:3000)
 ```
 
 Au démarrage, le serveur récupère les derniers jours puis complète l'historique depuis

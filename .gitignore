@@ -49,3 +49,4 @@ __pycache__/
 .idea/
 dataset/gb/scripts/matches.txt
 dataset/gb/scripts/unmatched.txt
+test-output/
