@@ -2,6 +2,7 @@ import React from 'react';
 import MapIconButton, { DIVIDER_STYLE } from './MapIconButton';
 import {
   CapacityRingIcon,
+  ExchangesIcon,
   GridBoundariesIcon,
   LabelsIcon,
   LargeUnitsIcon,
@@ -23,6 +24,8 @@ export default function DisplayPanel() {
   const togglePowerLines = useMapStore((s) => s.togglePowerLines);
   const labelsVisible = useMapStore((s) => s.labelsVisible);
   const toggleLabels = useMapStore((s) => s.toggleLabels);
+  const exchangesVisible = useMapStore((s) => s.exchangesVisible);
+  const toggleExchanges = useMapStore((s) => s.toggleExchanges);
   const largeUnitsOnly = useMapStore((s) => s.largeUnitsOnly);
   const toggleLargeUnitsOnly = useMapStore((s) => s.toggleLargeUnitsOnly);
 
@@ -52,6 +55,12 @@ export default function DisplayPanel() {
         ? 'Afficher tous les sites'
         : `Uniquement les centrales et groupes de ${LARGE_UNIT_MW} MW ou plus`,
       onClick: toggleLargeUnitsOnly,
+    },
+    {
+      icon: <ExchangesIcon size={18} />,
+      active: exchangesVisible,
+      title: exchangesVisible ? 'Masquer les échanges aux frontières' : 'Afficher les échanges aux frontières',
+      onClick: toggleExchanges,
     },
     {
       icon: <GridBoundariesIcon size={16} />,

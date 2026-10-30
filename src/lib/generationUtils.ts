@@ -1,5 +1,6 @@
 import type { AssetType, GenerationSeries, PlantInfo, UnitInfo } from '@/types/energy';
 import { ASSET_TYPES, DISPLAYED_COUNTRIES } from '@/config/assetTypes';
+import { exchangeSeries, type Interconnection } from '@/config/interconnections';
 
 // Fonctions pures côté client : lecture des matrices de GenerationSeries.
 // Les valeurs sont légèrement négatives quand un groupe à l'arrêt consomme pour ses
@@ -220,4 +221,55 @@ export function midnightTicks(from: number, to: number, maxTicks = 8): number[] 
   if (ticks.length <= maxTicks) return ticks;
   const step = Math.ceil(ticks.length / maxTicks);
   return ticks.filter((_, i) => i % step === 0);
+}
+
+// ─── Échanges aux frontières ─────────────────────────────────────────────────
+
+/** Flux commercial (MW, positif = import en France) sur le créneau. */
+export function exchangeFlow(generation: GenerationSeries | null, link: Interconnection, index: number): number | null {
+  if (!generation || index < 0) return null;
+  return generation.aggregates[exchangeSeries(link)]?.[index] ?? null;
+}
+
+/** Prix day-ahead (€/MWh) d'un pays, moyenne de plusieurs pays (frontière Allemagne-Belgique). */
+export function price(generation: GenerationSeries | null, countries: string[], index: number): number | null {
+  if (!generation || index < 0 || !countries.length) return null;
+  const values = countries
+    .map((country) => generation.aggregates[`${country}:PRICE`]?.[index])
+    .filter((v): v is number => v !== null && v !== undefined);
+  return values.length ? values.reduce((a, b) => a + b, 0) / values.length : null;
+}
+
+export interface ExchangeTotals {
+  importMWh: number;
+  exportMWh: number;
+  importEur: number; // achats, valorisés au prix français
+  exportEur: number; // ventes, valorisées au prix français
+}
+
+/** Énergie et valeur échangées sur la fenêtre chargée (créneaux horaires et journaliers). */
+export function exchangeTotals(generation: GenerationSeries, link: Interconnection): ExchangeTotals {
+  const totals = { importMWh: 0, exportMWh: 0, importEur: 0, exportEur: 0 };
+  generation.times.forEach((_, i) => {
+    const flow = exchangeFlow(generation, link, i);
+    if (flow === null) return;
+    const mwh = (Math.abs(flow) * slotDuration(generation, i)) / HOUR_MS;
+    const eur = mwh * (price(generation, ['FR'], i) ?? 0);
+    if (flow > 0) {
+      totals.importMWh += mwh;
+      totals.importEur += eur;
+    } else {
+      totals.exportMWh += mwh;
+      totals.exportEur += eur;
+    }
+  });
+  return totals;
+}
+
+const euroFormat = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1, minimumFractionDigits: 1 });
+/** 1 234 567 € -> « 1,2 M€ », 12 345 € -> « 12,3 k€ » */
+export function formatEuros(eur: number): string {
+  if (Math.abs(eur) >= 1e6) return `${euroFormat.format(eur / 1e6)} M€`;
+  if (Math.abs(eur) >= 1e3) return `${euroFormat.format(eur / 1e3)} k€`;
+  return `${Math.round(eur)} €`;
 }

@@ -24,7 +24,9 @@ Répondre en français, code et commentaires en français, style du code environ
 - `src/lib/energy.ts` (API plants/generation), `generationUtils.ts` (estimations, filtre 100 MW).
 - `src/components/map/PowerMap.tsx`, `controls/` (panneaux d'icônes), `sidebar/`.
 - `src/config/` : `assetTypes.ts` (filières, séries, pays), `mapStyle.ts`, `mapConfig.ts`.
-- Séries agrégées : `<CC>:<TYPE>` (MW), `<CC>-<région>:<FILIÈRE>` (taux de charge, région `*` = pays).
+- Séries agrégées : `<CC>:<TYPE>` (MW), `<CC>-<région>:<FILIÈRE>` (taux de charge, région `*` = pays),
+  `FR~<frontière>:COMM` (échange commercial éCO2mix, MW, + = import), `FR:EXCHANGE` (solde physique),
+  `<CC>:PRICE` (day-ahead €/MWh, Energy-Charts : 429 fréquents, attendre Retry-After).
 - Données : `dataset/<cc>/final/` lu par `src/prisma/seed.ts` ; scripts Python dans
   `dataset/{fr,gb,eu}/scripts/` (voir `dataset/README.md`).
 

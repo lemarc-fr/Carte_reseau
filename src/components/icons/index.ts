@@ -14,3 +14,4 @@ export { default as CoalIcon } from "./CoalIcon";
 export { default as OilIcon } from "./OilIcon";
 export { default as LabelsIcon } from "./LabelsIcon";
 export { default as LargeUnitsIcon } from "./LargeUnitsIcon";
+export { default as ExchangesIcon } from "./ExchangesIcon";

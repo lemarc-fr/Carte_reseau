@@ -7,6 +7,8 @@ import TimeControl from './TimeControl';
 import AssetSearch from './AssetSearch';
 import AssetTable from './AssetTable';
 import PlantDetail from './PlantDetail';
+import LinkDetail from './LinkDetail';
+import { INTERCONNECTIONS } from '@/config/interconnections';
 import AboutModal from './AboutModal';
 import styles from './Sidebar.module.css';
 
@@ -14,6 +16,8 @@ export default function Sidebar() {
   const plants = useMapStore((s) => s.plants);
   const selectedPlantId = useMapStore((s) => s.selectedPlantId);
   const selectedPlant = plants.find((p) => p.id === selectedPlantId) ?? null;
+  const selectedLinkId = useMapStore((s) => s.selectedLinkId);
+  const selectedLink = INTERCONNECTIONS.find((l) => l.id === selectedLinkId) ?? null;
   const [aboutOpen, setAboutOpen] = useState(false);
   const closeAbout = useCallback(() => setAboutOpen(false), []);
 
@@ -37,7 +41,13 @@ export default function Sidebar() {
       <GenerationChart />
       <TimeControl />
       <AssetSearch />
-      {selectedPlant ? <PlantDetail plant={selectedPlant} /> : <AssetTable />}
+      {selectedPlant ? (
+        <PlantDetail plant={selectedPlant} />
+      ) : selectedLink ? (
+        <LinkDetail link={selectedLink} />
+      ) : (
+        <AssetTable />
+      )}
 
       {aboutOpen && <AboutModal onClose={closeAbout} />}
     </>

@@ -10,11 +10,16 @@ import {
   MAX_DAYS_PER_CALL,
 } from './rte';
 import { linkUnitsToPlants } from './unitPlants';
+import { fetchExchanges } from './exchanges';
+import { fetchAllPrices } from '../prices';
+import { midnightIn } from '../days';
 
-// France : trois sources, synchronisées ensemble.
+// France : cinq sources, synchronisées ensemble.
 //   groupes RTE    production par groupe (> 100 MW)    -> production_readings
 //   filières RTE   production nationale par filière     -> "FR:<TYPE>"
 //   éCO2mix        taux de charge régionaux, batteries  -> "FR-<région>:<FILIÈRE>", "FR:BATTERY"
+//   échanges       éCO2mix national, MW par frontière   -> "FR~<FRONTIÈRE>:COMM", "FR:EXCHANGE"
+//   prix           Energy-Charts, €/MWh day-ahead       -> "<pays>:PRICE" (France et voisins)
 
 // Groupes suivis : tous ceux que publie RTE sauf ceux d'une filière sans site sur la carte
 const UNIT_PRODUCTION_TYPES = new Set([
@@ -110,6 +115,33 @@ export const france: Country = {
       },
       // Solaire : filière la plus récemment ajoutée, son absence relance le rattrapage
       daysWithData: (fromDay) => aggregateDays(fromDay, 'FR-84:SOLAR', FR_TIME_ZONE),
+    },
+    {
+      name: 'échanges éCO2mix',
+      maxDays: MAX_DAYS_PER_CALL,
+      ingest: async (fromDay, toDay) => {
+        const now = new Date().toISOString();
+        const readings = await fetchExchanges(fromDay, toDay);
+        return upsertAggregates(
+          readings.map((r) => ({ series: r.series, start: r.start.toISOString(), value: r.value, updated: now }))
+        );
+      },
+      daysWithData: (fromDay) => aggregateDays(fromDay, 'FR~GB:COMM', FR_TIME_ZONE),
+    },
+    {
+      // Prix de la France et de ses voisins, pour la valeur des échanges
+      name: 'prix Energy-Charts',
+      maxDays: MAX_DAYS_PER_CALL,
+      ingest: async (fromDay, toDay) => {
+        const now = new Date().toISOString();
+        const from = new Date(midnightIn(FR_TIME_ZONE, fromDay));
+        const to = new Date(midnightIn(FR_TIME_ZONE, toDay));
+        const rows = (await fetchAllPrices(from, to)).flatMap(({ country, hours }) =>
+          [...hours].map(([hour, value]) => ({ series: `${country}:PRICE`, start: new Date(hour).toISOString(), value, updated: now }))
+        );
+        return upsertAggregates(rows);
+      },
+      daysWithData: (fromDay) => aggregateDays(fromDay, 'FR:PRICE', FR_TIME_ZONE),
     },
   ],
 };

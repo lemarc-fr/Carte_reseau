@@ -51,6 +51,15 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
             comptée dans les totaux nationaux.
           </li>
           <li>
+            Échanges aux frontières : échanges commerciaux par frontière et solde physique d&apos;éCO2mix national
+            (RTE, via ODRE) ; prix day-ahead de la France et de ses voisins d&apos;après{' '}
+            <a href="https://api.energy-charts.info" target="_blank" rel="noreferrer">
+              Energy-Charts
+            </a>{' '}
+            (Fraunhofer ISE, données SMARD, CC BY 4.0). La valeur des achats et des ventes est estimée au prix
+            français.
+          </li>
+          <li>
             Grande-Bretagne : centrales de 100 MW et plus et leurs unités du mécanisme d&apos;ajustement (BMU), placées
             grâce à powerplantmatching et OpenStreetMap. Production de chaque unité d&apos;après{' '}
             <a href="https://bmrs.elexon.co.uk" target="_blank" rel="noreferrer">

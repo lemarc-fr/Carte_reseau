@@ -23,6 +23,11 @@ barre du haut utilisent la production nationale par filière publiée par RTE. A
 la carte montre l'emprise des centrales et chaque installation (éolienne, panneau, poste électrique)
 d'OpenStreetMap via les tuiles Open Infrastructure Map, partout dans le monde.
 
+Échanges aux frontières : un arc par frontière (Grande-Bretagne, Allemagne-Belgique, Suisse, Italie,
+Espagne), épaisseur selon les MW, vert pour une vente, orange pour un achat ; un clic ouvre l'historique
+des MW et des prix day-ahead de part et d'autre, avec l'énergie et la valeur vendues et achetées sur la
+période (au prix français). Sources : éCO2mix national (échanges commerciaux) et Energy-Charts (prix).
+
 Vent à 10 m : AROME HD (Météo-France) sur la France, ARPEGE 0,1° (Météo-France) sur l'Europe, pour la
 même échéance (la plus proche de maintenant). La clé Météo-France doit être abonnée aux API AROME et
 ARPEGE ; sans ARPEGE, GFS 0,25° (NOAA, via THREDDS/UCAR, pas de 3 h) le remplace.

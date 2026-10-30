@@ -13,7 +13,8 @@ import {
 import type { GeoJSONSource } from 'maplibre-gl';
 import { MapboxOverlay, type MapboxOverlayProps } from '@deck.gl/mapbox';
 import type { PickingInfo } from '@deck.gl/core';
-import { PolygonLayer, ScatterplotLayer } from '@deck.gl/layers';
+import { ArcLayer, PolygonLayer, ScatterplotLayer } from '@deck.gl/layers';
+import { INTERCONNECTIONS, type Interconnection } from '@/config/interconnections';
 import { DETAIL_MIN_ZOOM, FRANCE_BOUNDS, MAP_MAX_ZOOM, MAX_BOUNDS, WIND_PALETTE } from '@/config/mapConfig';
 import {
   FIRST_POWER_LINE_LAYER_ID,
@@ -32,7 +33,10 @@ import { useMapStore } from '@/store/useMapStore';
 import { useCurrentSlot } from '@/hooks/useCurrentSlot';
 import {
   chargingLabel,
+  exchangeFlow,
+  formatEuros,
   formatMW,
+  price,
   hasLargeUnit,
   LARGE_UNIT_MW,
   formatOutput,
@@ -85,6 +89,65 @@ interface PlantDatum {
   estimated: boolean;
   running: number;
   units: number;
+}
+
+// Échange sur une frontière au créneau affiché
+interface ExchangeDatum {
+  link: Interconnection;
+  flow: number; // MW, positif = import en France
+}
+
+// Couleurs des arcs : import (achat) orange, export (vente) vert, comme la fiche des échanges
+const EXCHANGE_RGB = { import: [214, 96, 42] as [number, number, number], export: [46, 158, 74] as [number, number, number] };
+
+function ExchangeTooltip({
+  x,
+  y,
+  flip,
+  datum,
+  frPrice,
+  neighbourPrice,
+}: {
+  x: number;
+  y: number;
+  flip: boolean;
+  datum: ExchangeDatum;
+  frPrice: number | null;
+  neighbourPrice: number | null;
+}) {
+  const { link, flow } = datum;
+  return (
+    <div
+      className={styles.tooltip}
+      style={{ left: x, top: y, transform: flip ? 'translate(calc(-100% - 12px), 12px)' : undefined }}
+    >
+      <div className={styles.tooltipTitle}>
+        {flow > 0 ? `${link.label} → France` : `France → ${link.label}`}
+      </div>
+      <div className={styles.tooltipType}>{flow > 0 ? 'Import (achat)' : 'Export (vente)'}</div>
+      <div className={styles.tooltipRow}>
+        <span>Échange commercial</span>
+        <span>{formatMW(Math.abs(flow))} MW</span>
+      </div>
+      <div className={styles.tooltipRow}>
+        <span>Prix France</span>
+        <span>{frPrice === null ? '–' : `${Math.round(frPrice)} €/MWh`}</span>
+      </div>
+      {link.priceCountries.length > 0 && (
+        <div className={styles.tooltipRow}>
+          <span>Prix {link.label}</span>
+          <span>{neighbourPrice === null ? '–' : `${Math.round(neighbourPrice)} €/MWh`}</span>
+        </div>
+      )}
+      {frPrice !== null && (
+        <div className={styles.tooltipRow}>
+          <span>Valeur</span>
+          <span>{formatEuros(Math.abs(flow) * frPrice)} / h</span>
+        </div>
+      )}
+      <div className={styles.tooltipNote}>Cliquer pour l&apos;historique</div>
+    </div>
+  );
 }
 
 // Installation OpenStreetMap survolée au zoom du détail
@@ -145,6 +208,9 @@ export default function PowerMap() {
   const powerLinesVisible = useMapStore((s) => s.powerLinesVisible);
   const labelsVisible = useMapStore((s) => s.labelsVisible);
   const productionTypes = useMapStore((s) => s.productionTypes);
+  const exchangesVisible = useMapStore((s) => s.exchangesVisible);
+  const selectedLinkId = useMapStore((s) => s.selectedLinkId);
+  const selectLink = useMapStore((s) => s.selectLink);
   const largeUnitsOnly = useMapStore((s) => s.largeUnitsOnly);
   const { generation, index } = useCurrentSlot();
 
@@ -154,6 +220,8 @@ export default function PowerMap() {
   const [detail, setDetail] = useState(false);
   const [tooltip, setTooltip] = useState<{ x: number; y: number; id: string } | null>(null);
   const [osmFeature, setOsmFeature] = useState<OsmFeature | null>(null);
+  // flip : infobulle à gauche du curseur, près du bord droit de la carte
+  const [linkTooltip, setLinkTooltip] = useState<{ x: number; y: number; id: string; flip: boolean } | null>(null);
 
   const visibleTypes = useMemo(
     () => ASSET_TYPE_ORDER.filter((type) => productionTypes[ASSET_TYPES[type].storeKey]),
@@ -338,6 +406,61 @@ export default function PowerMap() {
     return result;
   }, [data, windVisible, windLayers, capacityRingVisible, normalizeRing, detail, selectedPlantId, hoveredPlantId]);
 
+  // Échanges aux frontières : arc de l'exportateur vers l'importateur, épaisseur selon les MW
+  const exchanges = useMemo<ExchangeDatum[]>(
+    () =>
+      INTERCONNECTIONS.flatMap((link) => {
+        const flow = exchangeFlow(generation, link, index);
+        return flow === null ? [] : [{ link, flow }];
+      }),
+    [generation, index]
+  );
+
+  const onLinkHover = useCallback((info: PickingInfo<ExchangeDatum>) => {
+    setLinkTooltip(
+      info.object
+        ? { x: info.x, y: info.y, id: info.object.link.id, flip: info.x > (info.viewport?.width ?? Infinity) - 260 }
+        : null
+    );
+    return Boolean(info.object); // ne pas traiter comme le survol d'une centrale
+  }, []);
+
+  // Curseur main au survol d'un arc
+  const hoveringLink = linkTooltip !== null;
+  useEffect(() => {
+    const canvas = mapRef.current?.getCanvas();
+    if (canvas) canvas.style.cursor = hoveringLink ? 'pointer' : '';
+  }, [hoveringLink]);
+
+  const exchangeLayers = useMemo(() => {
+    if (!exchangesVisible || !exchanges.length) return [];
+    const color = (d: ExchangeDatum) => (d.flow > 0 ? EXCHANGE_RGB.import : EXCHANGE_RGB.export);
+    return [
+      new ArcLayer<ExchangeDatum, Interleaved>({
+        id: 'exchanges',
+        beforeId: PLANT_LABELS_LAYER_ID,
+        data: exchanges,
+        // Source = exportateur : le dégradé va du plus clair (départ) au plus soutenu (arrivée)
+        getSourcePosition: (d) => (d.flow > 0 ? d.link.neighbour : d.link.france),
+        getTargetPosition: (d) => (d.flow > 0 ? d.link.france : d.link.neighbour),
+        getSourceColor: (d): RGBA => [...color(d), 110],
+        getTargetColor: (d): RGBA => [...color(d), 255],
+        getWidth: (d) => Math.min(16, 2 + Math.abs(d.flow) / 500) + (d.link.id === selectedLinkId ? 2 : 0),
+        widthUnits: 'pixels',
+        getHeight: 0.3,
+        pickable: true,
+        autoHighlight: true,
+        highlightColor: [26, 32, 44, 90],
+        onHover: onLinkHover,
+        onClick: (info) => {
+          if (info.object) selectLink(info.object.link.id);
+          return true;
+        },
+        updateTriggers: { getWidth: [selectedLinkId] },
+      }),
+    ];
+  }, [exchangesVisible, exchanges, selectedLinkId, selectLink, onLinkHover]);
+
   const particleLayers = useMemo(
     () => (windVisible && mapLoaded ? windParticleLayers(windLayers) : []),
     [windVisible, mapLoaded, windLayers]
@@ -387,6 +510,7 @@ export default function PowerMap() {
   }, []);
 
   const tooltipDatum = tooltip ? data.find((d) => d.id === tooltip.id) : undefined;
+  const linkDatum = linkTooltip ? exchanges.find((d) => d.link.id === linkTooltip.id) : undefined;
   const windAt = windLayers.find((l) => l.id === 'france') ?? windLayers[0];
 
   return (
@@ -426,11 +550,12 @@ export default function PowerMap() {
             '<a href="https://data.rte-france.com">RTE</a>',
             '<a href="https://bmrs.elexon.co.uk">BMRS © Elexon</a>',
             'ENTSO-E',
+            'Energy-Charts (SMARD)',
             'Météo-France AROME, ARPEGE',
             'NOAA GFS',
           ]}
         />
-        <DeckGLOverlay layers={layers} onHover={onHover} onClick={onClick} />
+        <DeckGLOverlay layers={[...layers, ...exchangeLayers]} onHover={onHover} onClick={onClick} />
         <DeckGLOverlay interleaved={false} layers={particleLayers} />
       </Map>
 
@@ -476,7 +601,11 @@ export default function PowerMap() {
         </div>
       )}
 
-      {!tooltip && osmFeature && (
+      {linkTooltip && linkDatum && (
+        <ExchangeTooltip x={linkTooltip.x} y={linkTooltip.y} flip={linkTooltip.flip} datum={linkDatum} frPrice={price(generation, ['FR'], index)} neighbourPrice={price(generation, linkDatum.link.priceCountries, index)} />
+      )}
+
+      {!tooltip && !linkTooltip && osmFeature && (
         <div className={styles.tooltip} style={{ left: osmFeature.x, top: osmFeature.y }}>
           <div className={styles.tooltipTitle}>
             {osmFeature.name ?? (osmFeature.kind === 'generator' ? 'Générateur' : 'Installation sans nom')}

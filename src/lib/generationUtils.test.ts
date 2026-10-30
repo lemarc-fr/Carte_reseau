@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest';
 import type { GenerationSeries, PlantInfo, UnitInfo } from '@/types/energy';
 import {
   DAY_MS,
+  exchangeFlow,
+  exchangeTotals,
+  formatEuros,
+  price,
   hasLargeUnit,
   HOUR_MS,
   isEstimated,
@@ -166,5 +170,42 @@ describe('hasLargeUnit', () => {
   it('retient une centrale isolée de 100 MW ou plus sans groupe connu', () => {
     expect(hasLargeUnit(plant({ country: 'DE', capacity_mw: 1200, units: [] }))).toBe(true);
     expect(hasLargeUnit(plant({ country: 'DE', capacity_mw: 80, units: [] }))).toBe(false);
+  });
+});
+
+describe('échanges', () => {
+  const link = { id: 'CH', label: 'Suisse', france: [0, 0] as [number, number], neighbour: [1, 1] as [number, number], priceCountries: ['CH'] };
+  const gen = generation(
+    {},
+    {
+      'FR~CH:COMM': [-1000, null, 500, -2000, 0, null],
+      'FR:PRICE': [50, 60, 100, 80, 0, 0],
+      'CH:PRICE': [55, 0, 120, 90, 0, 0],
+      'DE:PRICE': [0, 0, 70, 0, 0, 0],
+      'BE:PRICE': [0, 0, 90, 0, 0, 0],
+    }
+  );
+
+  it('lit le flux et les prix du créneau', () => {
+    expect(exchangeFlow(gen, link, 2)).toBe(500);
+    expect(exchangeFlow(gen, link, 1)).toBeNull();
+    expect(price(gen, ['CH'], 2)).toBe(120);
+    expect(price(gen, ['DE', 'BE'], 2)).toBe(80); // moyenne
+    expect(price(gen, [], 2)).toBeNull(); // pas de prix (Grande-Bretagne)
+  });
+
+  it('totalise énergie et valeur au prix français (créneau journalier = 24 h)', () => {
+    const totals = exchangeTotals(gen, link);
+    // index 0 : journalier, export 1 000 MW × 24 h à 50 € ; index 3 : export 2 000 MWh à 80 €
+    expect(totals.exportMWh).toBe(24_000 + 2_000);
+    expect(totals.exportEur).toBe(24_000 * 50 + 2_000 * 80);
+    expect(totals.importMWh).toBe(500);
+    expect(totals.importEur).toBe(500 * 100);
+  });
+
+  it('formate les montants', () => {
+    expect(formatEuros(1_234_567)).toBe('1,2 M€');
+    expect(formatEuros(12_345)).toBe('12,3 k€');
+    expect(formatEuros(42)).toBe('42 €');
   });
 });

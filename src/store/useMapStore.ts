@@ -66,6 +66,9 @@ interface MapState {
     // Centrale sélectionnée (vue détaillée) et survolée (carte / tableau)
     selectedPlantId: string | null;
     selectPlant: (id: string | null) => void;
+    // Frontière sélectionnée (fiche des échanges), exclusive de la centrale sélectionnée
+    selectedLinkId: string | null;
+    selectLink: (id: string | null) => void;
     hoveredPlantId: string | null;
     setHoveredPlantId: (id: string | null) => void;
 
@@ -90,6 +93,10 @@ interface MapState {
     labelsVisible: boolean;
     toggleLabels: () => void;
 
+    // Échanges aux frontières (arcs)
+    exchangesVisible: boolean;
+    toggleExchanges: () => void;
+
     // Uniquement les sites dotés d'un groupe d'au moins LARGE_UNIT_MW
     largeUnitsOnly: boolean;
     toggleLargeUnitsOnly: () => void;
@@ -110,6 +117,8 @@ export const useMapStore = create<MapState>()(
             generationStatus: 'loading',
             selectedTime: null,
             selectedPlantId: null,
+            selectedLinkId: null,
+            exchangesVisible: true,
             hoveredPlantId: null,
             windVisible: true,
             windStatus: 'loading',
@@ -130,7 +139,9 @@ export const useMapStore = create<MapState>()(
             setSelectedTime: (time) =>
                 set({ selectedTime: time === null ? null : Math.min(time, Date.now()) }, false, 'setSelectedTime'),
 
-            selectPlant: (id) => set({ selectedPlantId: id }, false, 'selectPlant'),
+            selectPlant: (id) => set({ selectedPlantId: id, selectedLinkId: null }, false, 'selectPlant'),
+            selectLink: (id) => set({ selectedLinkId: id, selectedPlantId: null }, false, 'selectLink'),
+            toggleExchanges: () => set((s) => ({ exchangesVisible: !s.exchangesVisible }), false, 'toggleExchanges'),
             setHoveredPlantId: (id) => set({ hoveredPlantId: id }, false, 'setHoveredPlantId'),
 
             toggleWind: () => set((s) => ({ windVisible: !s.windVisible }), false, 'toggleWind'),
