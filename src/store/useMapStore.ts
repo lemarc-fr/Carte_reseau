@@ -104,6 +104,7 @@ interface MapState {
     // Filières affichées
     productionTypes: ProductionTypesState;
     toggleProductionType: (key: ProductionType) => void;
+    setAllProductionTypes: (visible: boolean) => void;
 }
 
 // ─── Store ────────────────────────────────────────────────────────────────────
@@ -161,6 +162,16 @@ export const useMapStore = create<MapState>()(
                     (s) => ({ productionTypes: { ...s.productionTypes, [key]: !s.productionTypes[key] } }),
                     false,
                     `toggleProductionType/${key}`
+                ),
+            setAllProductionTypes: (visible) =>
+                set(
+                    (s) => ({
+                        productionTypes: Object.fromEntries(
+                            Object.keys(s.productionTypes).map((key) => [key, visible])
+                        ) as ProductionTypesState,
+                    }),
+                    false,
+                    'setAllProductionTypes'
                 ),
         }),
         { name: 'MapStore' } // nom affiché dans Redux DevTools

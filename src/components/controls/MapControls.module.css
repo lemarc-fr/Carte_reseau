@@ -1,0 +1,166 @@
+/* Icône du bouton (le bouton lui-même suit le style des contrôles MapLibre) */
+.buttonIcon {
+  display: block;
+  margin: 0 auto;
+  color: #333333;
+}
+
+/* ─── Panneau ─────────────────────────────────────────────────────────────── */
+
+.panel {
+  position: absolute;
+  z-index: 4;
+  top: 10px;
+  right: 49px; /* à gauche de la colonne des contrôles */
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  max-width: calc(100% - 59px);
+  max-height: calc(100% - 20px);
+  background: #ffffff;
+  border-radius: var(--radius);
+  box-shadow:
+    0 0 0 2px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.12);
+  font-size: 14px;
+  color: var(--gray-800);
+}
+
+.header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 6px 6px 14px;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.close {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--radius);
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--gray-600);
+}
+
+.close:hover {
+  background: var(--gray-100);
+}
+
+.body {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 2px 8px 8px;
+}
+
+/* ─── Sections ────────────────────────────────────────────────────────────── */
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 6px 6px;
+  border: none;
+  background: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+.sectionHeader:hover {
+  color: var(--gray-800);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ─── Options ─────────────────────────────────────────────────────────────── */
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 30px;
+  padding: 3px 8px;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  font-size: 14px;
+  line-height: 1.3;
+  text-align: left;
+  color: var(--gray-500);
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.option:hover {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.optionActive {
+  composes: option;
+  background: var(--gray-100);
+  color: var(--gray-800);
+}
+
+.optionActive:hover {
+  background: var(--gray-200);
+  color: var(--gray-800);
+}
+
+.optionIcon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+}
+
+.optionLabel {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Couleur de la filière sur la carte (vide quand elle est masquée) */
+.swatch {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--gray-300);
+  border-radius: 50%;
+}
+
+.link {
+  align-self: flex-start;
+  padding: 2px 8px 4px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  color: var(--blue-500);
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.note {
+  padding: 0 8px 4px 38px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--gray-500);
+}

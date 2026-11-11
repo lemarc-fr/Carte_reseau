@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import { formatDayTick, formatSlot, midnightTicks } from '@/lib/generationUtils';
 import styles from '@/components/sidebar/Sidebar.module.css';
+import PlotFrame from './PlotFrame';
 
 export interface LineSeries {
   key: string;
@@ -71,6 +72,7 @@ export default function LineChart({ rows, series, from, to, cursor, unit, height
             isAnimationActive={false}
           />
         ))}
+        <PlotFrame stroke={AXIS_COLOR} />
         {cursor !== null && <ReferenceLine x={cursor} stroke="#e53e3e" strokeWidth={1.5} />}
         <Tooltip
           isAnimationActive={false}

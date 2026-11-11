@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   AttributionControl,
   FullscreenControl,
@@ -41,13 +41,10 @@ import {
   LARGE_UNIT_MW,
   formatOutput,
   formatPercent,
-  formatShortDateTime,
   formatSlot,
   plantSnapshot,
 } from '@/lib/generationUtils';
-import { ReactControl } from '../controls/ReactControl';
-import DisplayPanel from '../controls/DisplayPanel';
-import ProductionTypesPanel from '../controls/ProductionTypesPanel';
+import MapControls from '../controls/MapControls';
 import { windParticleLayers, windRasterLayers } from './windLayers';
 import styles from './Map.module.css';
 
@@ -66,6 +63,11 @@ const MAJOR_PLANT_MW = 500; // nom affiché dès la vue France (sinon à partir 
 const FILL_NO_DATA: [number, number, number] = [90, 100, 110];
 // Opacité du disque : production publiée, estimée, ou stockage qui se recharge
 const DISC_ALPHA = { measured: 110, estimated: 80, charging: 40 };
+// Fond de l'anneau : blanc, ou gris léger sans donnée (les anneaux voisins se superposent)
+const RING_ALPHA = { data: 70, noData: 30 };
+// Cercles à plat, tous à la même profondeur : l'ordre de dessin décide seul de qui recouvre qui
+// (sinon le test de profondeur tronque des cercles dès que la carte est inclinée)
+const FLAT = { depthCompare: 'always', depthWriteEnabled: false } as const;
 
 type RGBA = [number, number, number, number];
 
@@ -89,6 +91,14 @@ interface PlantDatum {
   estimated: boolean;
   running: number;
   units: number;
+}
+
+// Cercle dessiné pour un site : anneau de capacité ou disque de production
+interface PlantMark {
+  id: string;
+  ring: boolean;
+  radius: number; // m
+  datum: PlantDatum;
 }
 
 // Échange sur une frontière au créneau affiché
@@ -178,16 +188,15 @@ function osmSourceLabel(source: string | null): string {
 
 // ─── Contrôles ────────────────────────────────────────────────────────────────
 
+// Curseur de la carte, que deck.gl fixe lui-même : main au survol d'un site ou d'un arc
+function getCursor({ isDragging, isHovering }: { isDragging: boolean; isHovering: boolean }): string {
+  return isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab';
+}
+
 // interleaved : calques dessinés dans le contexte WebGL de MapLibre, entre ses couches
 function DeckGLOverlay({ interleaved = true, ...props }: MapboxOverlayProps) {
   const overlay = useControl<MapboxOverlay>(() => new MapboxOverlay({ interleaved, ...props }));
   overlay.setProps(props);
-  return null;
-}
-
-// Panneaux d'icônes (contenu lu dans le store)
-function PanelControl({ children }: { children: React.ReactElement }) {
-  useControl<ReactControl>(() => new ReactControl(children), { position: 'top-right' });
   return null;
 }
 
@@ -253,6 +262,22 @@ export default function PowerMap() {
       }),
     [visiblePlants, generation, index]
   );
+
+  // Cercles du plus grand au plus petit, l'anneau d'un site juste avant son disque : un petit
+  // site reste entier et cliquable au-dessus d'un grand voisin, au lieu d'être à moitié recouvert
+  const marks = useMemo<PlantMark[]>(() => {
+    const sized = data.map((datum) => ({
+      datum,
+      ring: ringRadius(datum.capacity, normalizeRing),
+      disc: discRadius(datum, normalizeRing),
+    }));
+    const size = (m: (typeof sized)[number]) => (capacityRingVisible ? m.ring : m.disc);
+    sized.sort((a, b) => size(b) - size(a) || b.disc - a.disc || a.datum.id.localeCompare(b.datum.id));
+    return sized.flatMap(({ datum, ring, disc }) => [
+      ...(capacityRingVisible ? [{ id: datum.id, ring: true, radius: ring, datum }] : []),
+      ...(disc > 0 ? [{ id: datum.id, ring: false, radius: disc, datum }] : []),
+    ]);
+  }, [data, capacityRingVisible, normalizeRing]);
 
   // ─── Calques MapLibre : noms, lignes électriques, installations OSM ────────
 
@@ -342,6 +367,7 @@ export default function PowerMap() {
           getLineWidth: (d) => (highlighted(d.id) ? 2.5 : 1.5),
           lineWidthUnits: 'pixels',
           pickable: true,
+          parameters: FLAT,
           updateTriggers: {
             getFillColor: [selectedPlantId],
             getLineColor: [selectedPlantId, hoveredPlantId],
@@ -352,59 +378,42 @@ export default function PowerMap() {
       return result;
     }
 
-    if (capacityRingVisible) {
-      result.push(
-        new ScatterplotLayer<PlantDatum, Interleaved>({
-          id: 'capacity-rings',
-          beforeId: PLANT_LABELS_LAYER_ID,
-          data,
-          getPosition: (d) => d.position,
-          getRadius: (d) => ringRadius(d.capacity, normalizeRing),
-          radiusUnits: 'meters',
-          filled: true,
-          stroked: true,
-          getFillColor: (d): RGBA =>
-            d.output === null ? [...FILL_NO_DATA, alpha(70, d.id)] : [255, 255, 255, alpha(70, d.id)],
-          getLineColor: (d): RGBA => (highlighted(d.id) ? [26, 32, 44, 255] : [74, 85, 104, alpha(160, d.id)]),
-          getLineWidth: (d) => (highlighted(d.id) ? 2 : 1),
-          lineWidthUnits: 'pixels',
-          pickable: true,
-          updateTriggers: {
-            getRadius: [normalizeRing],
-            getFillColor: [selectedPlantId],
-            getLineColor: [selectedPlantId, hoveredPlantId],
-            getLineWidth: [selectedPlantId, hoveredPlantId],
-          },
-        })
-      );
-    }
-
     result.push(
-      new ScatterplotLayer<PlantDatum, Interleaved>({
-        id: 'generation-discs',
+      new ScatterplotLayer<PlantMark, Interleaved>({
+        id: 'plant-circles',
         beforeId: PLANT_LABELS_LAYER_ID,
-        data: data.filter((d) => d.output),
-        getPosition: (d) => d.position,
-        getRadius: (d) => discRadius(d, normalizeRing),
+        data: marks,
+        getPosition: (m) => m.datum.position,
+        getRadius: (m) => m.radius,
         radiusUnits: 'meters',
         radiusMinPixels: 1.5,
         filled: true,
         stroked: true,
-        getFillColor: (d): RGBA => [...fill(d), alpha(discAlpha(d), d.id)],
-        getLineColor: (d): RGBA => [...stroke(d), alpha(255, d.id)],
-        getLineWidth: (d) => (charging(d) ? 2 : 1),
+        getFillColor: ({ ring, datum: d }): RGBA => {
+          if (!ring) return [...fill(d), alpha(discAlpha(d), d.id)];
+          return d.output === null
+            ? [...FILL_NO_DATA, alpha(RING_ALPHA.noData, d.id)]
+            : [255, 255, 255, alpha(RING_ALPHA.data, d.id)];
+        },
+        getLineColor: ({ ring, datum: d }): RGBA => {
+          if (!ring) return [...stroke(d), alpha(255, d.id)];
+          if (highlighted(d.id)) return [26, 32, 44, 255];
+          return [74, 85, 104, alpha(d.output === null ? 110 : 160, d.id)];
+        },
+        getLineWidth: ({ ring, datum: d }) => ((ring ? highlighted(d.id) : charging(d)) ? 2 : 1),
         lineWidthUnits: 'pixels',
         pickable: true,
+        parameters: FLAT,
         updateTriggers: {
-          getRadius: [normalizeRing],
           getFillColor: [selectedPlantId],
-          getLineColor: [selectedPlantId],
+          getLineColor: [selectedPlantId, hoveredPlantId],
+          getLineWidth: [selectedPlantId, hoveredPlantId],
         },
       })
     );
 
     return result;
-  }, [data, windVisible, windLayers, capacityRingVisible, normalizeRing, detail, selectedPlantId, hoveredPlantId]);
+  }, [data, marks, windVisible, windLayers, detail, selectedPlantId, hoveredPlantId]);
 
   // Échanges aux frontières : arc de l'exportateur vers l'importateur, épaisseur selon les MW
   const exchanges = useMemo<ExchangeDatum[]>(
@@ -424,13 +433,6 @@ export default function PowerMap() {
     );
     return Boolean(info.object); // ne pas traiter comme le survol d'une centrale
   }, []);
-
-  // Curseur main au survol d'un arc
-  const hoveringLink = linkTooltip !== null;
-  useEffect(() => {
-    const canvas = mapRef.current?.getCanvas();
-    if (canvas) canvas.style.cursor = hoveringLink ? 'pointer' : '';
-  }, [hoveringLink]);
 
   const exchangeLayers = useMemo(() => {
     if (!exchangesVisible || !exchanges.length) return [];
@@ -470,13 +472,11 @@ export default function PowerMap() {
 
   const lastHovered = useRef<string | null>(null);
   const onHover = useCallback(
-    (info: PickingInfo<PlantDatum>) => {
+    (info: PickingInfo<{ id: string }>) => {
       const id = info.object?.id ?? null;
       if (id !== lastHovered.current) {
         lastHovered.current = id;
         setHoveredPlantId(id);
-        const canvas = mapRef.current?.getCanvas();
-        if (canvas) canvas.style.cursor = id ? 'pointer' : '';
       }
       setTooltip(id ? { x: info.x, y: info.y, id } : null);
     },
@@ -484,7 +484,7 @@ export default function PowerMap() {
   );
 
   const onClick = useCallback(
-    (info: PickingInfo<PlantDatum>) => {
+    (info: PickingInfo<{ id: string }>) => {
       if (info.object) selectPlant(info.object.id);
     },
     [selectPlant]
@@ -537,15 +537,10 @@ export default function PowerMap() {
       >
         <FullscreenControl position="top-right" containerId="map-card" />
         <NavigationControl position="top-right" />
-        <PanelControl>
-          <DisplayPanel />
-        </PanelControl>
-        <PanelControl>
-          <ProductionTypesPanel />
-        </PanelControl>
+        <MapControls />
         <AttributionControl
           position="bottom-right"
-          compact={false}
+          compact
           customAttribution={[
             '<a href="https://data.rte-france.com">RTE</a>',
             '<a href="https://bmrs.elexon.co.uk">BMRS © Elexon</a>',
@@ -555,7 +550,7 @@ export default function PowerMap() {
             'NOAA GFS',
           ]}
         />
-        <DeckGLOverlay layers={[...layers, ...exchangeLayers]} onHover={onHover} onClick={onClick} />
+        <DeckGLOverlay layers={[...layers, ...exchangeLayers]} getCursor={getCursor} onHover={onHover} onClick={onClick} />
         <DeckGLOverlay interleaved={false} layers={particleLayers} />
       </Map>
 
@@ -622,13 +617,12 @@ export default function PowerMap() {
       )}
 
       {windVisible && (
-        <div className={styles.status}>
-          {windStatus === 'loading' && '⟳ Chargement des vents…'}
-          {windStatus === 'error' && '⚠ Données vent indisponibles'}
+        <div className={styles.windLegend}>
+          {windStatus === 'loading' && 'Chargement du vent…'}
+          {windStatus === 'error' && 'Vent indisponible'}
           {windStatus === 'ok' && windAt && (
             <>
-              Vent à 10 m · {windLayers.map((l) => l.model).join(' et ')} · prévision pour {formatSlot(windAt.validTime)}
-              {windAt.runTime !== null && <> · run du {formatShortDateTime(windAt.runTime)}</>}
+              Vent · {formatSlot(windAt.validTime)}
               <div className={styles.scale}>
                 <span>0</span>
                 <span className={styles.scaleBar} style={{ background: WIND_GRADIENT }} />

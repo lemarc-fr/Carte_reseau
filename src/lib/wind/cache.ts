@@ -1,4 +1,5 @@
 import { EUROPE_WIND_BOUNDS, FRANCE_WIND_BOUNDS } from '@/config/mapConfig';
+import { globalState } from '../globalState';
 import { fetchGfs } from './gfs';
 import { AROME_HD, ARPEGE_EUROPE, fetchMeteoFrance } from './meteofrance';
 import { coarsen, encodeWind, type WindTexture } from './texture';
@@ -25,10 +26,23 @@ export interface WindLayer extends WindTexture {
 const REFRESH_MS = 60 * 60 * 1000;
 const AROME_TEXTURE_FACTOR = 2;
 
-const fields: Partial<Record<WindLayerId, WindField>> = {};
-let layers: WindLayer[] = [];
-let refreshing: Promise<void> | null = null;
-let intervalId: NodeJS.Timeout | null = null;
+// État partagé : le rechargement horaire est lancé par l'instrumentation, les couches sont
+// lues par les routes /api/wind (bundles distincts, voir globalState)
+interface WindState {
+  fields: Partial<Record<WindLayerId, WindField>>;
+  layers: WindLayer[];
+  refreshing: Promise<void> | null;
+  intervalId: NodeJS.Timeout | null;
+  refreshedAt: number; // dernière tentative de rechargement (epoch ms)
+}
+
+const state = globalState<WindState>('wind', () => ({
+  fields: {},
+  layers: [],
+  refreshing: null,
+  intervalId: null,
+  refreshedAt: 0,
+}));
 
 async function toLayer(id: WindLayerId, field: WindField, finer?: WindField): Promise<WindLayer> {
   const texture = await encodeWind(field, finer);
@@ -70,6 +84,8 @@ async function fetchEurope(apiKey: string | undefined): Promise<WindField> {
 }
 
 async function refresh(): Promise<void> {
+  state.refreshedAt = Date.now();
+  const { fields } = state;
   const apiKey = process.env.METEO_FRANCE_API_KEY;
   try {
     fields.europe = await fetchEurope(apiKey);
@@ -90,26 +106,29 @@ async function refresh(): Promise<void> {
   if (europe) next.push(await toLayer('europe', europe, france));
   // AROME au pas de 0,02° pour le navigateur (le masque de la couche Europe garde le 0,01°)
   if (france) next.push(await toLayer('france', coarsen(france, AROME_TEXTURE_FACTOR)));
-  if (next.length) layers = next;
+  if (next.length) state.layers = next;
 }
 
 function refreshOnce(): Promise<void> {
-  refreshing ??= refresh()
+  state.refreshing ??= refresh()
     .catch((err) => console.error('[vent] rechargement échoué :', err))
     .finally(() => {
-      refreshing = null;
+      state.refreshing = null;
     });
-  return refreshing;
+  return state.refreshing;
 }
 
 export function startWindRefresh() {
-  if (intervalId) return;
+  if (state.intervalId) return;
   refreshOnce();
-  intervalId = setInterval(refreshOnce, REFRESH_MS);
+  state.intervalId = setInterval(refreshOnce, REFRESH_MS);
 }
 
 export async function getWindLayers(): Promise<WindLayer[]> {
-  if (!layers.length) await refreshOnce();
-  if (!layers.length) throw new Error('Vent indisponible');
-  return layers;
+  if (!state.layers.length) await refreshOnce();
+  // Filet de sécurité si le rechargement périodique ne tourne pas : relance en arrière-plan,
+  // la réponse n'attend pas le téléchargement
+  else if (Date.now() - state.refreshedAt > 2 * REFRESH_MS) void refreshOnce();
+  if (!state.layers.length) throw new Error('Vent indisponible');
+  return state.layers;
 }

@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { prisma } from './prisma';
+import { globalState } from './globalState';
 import { DISPLAYED_COUNTRIES } from '@/config/assetTypes';
 import type { AssetType, GenerationSeries, PlantInfo, ReadingGranularity } from '@/types/energy';
 
@@ -66,10 +67,12 @@ export interface PlantsPayload {
   etag: string;
 }
 
-let plantsPayload: Promise<PlantsPayload> | null = null;
+// Partagé par tout le processus : l'ingestion (lancée par l'instrumentation) invalide le
+// cache que lit la route /api/plants (bundles distincts, voir globalState)
+const plantsCache = globalState<{ payload: Promise<PlantsPayload> | null }>('plants', () => ({ payload: null }));
 
 export function cachedPlants(): Promise<PlantsPayload> {
-  plantsPayload ??= listPlants()
+  plantsCache.payload ??= listPlants()
     .then((plants) => {
       // Champs vides omis (un tiers du volume) : le client les remet à null
       const json = JSON.stringify(plants, (_, value) => (value === null ? undefined : value));
@@ -77,14 +80,14 @@ export function cachedPlants(): Promise<PlantsPayload> {
       return { json, etag: `"plants-${hash}"` };
     })
     .catch((err) => {
-      plantsPayload = null;
+      plantsCache.payload = null;
       throw err;
     });
-  return plantsPayload;
+  return plantsCache.payload;
 }
 
 export function invalidatePlants() {
-  plantsPayload = null;
+  plantsCache.payload = null;
 }
 
 // Arrondi des valeurs envoyées : 0,1 MW, ou 4 décimales pour les taux de charge ("<pays>-<région>:…")

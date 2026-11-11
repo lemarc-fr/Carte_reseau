@@ -12,6 +12,7 @@ import {
 } from 'recharts';
 import { formatDayTick, formatMW, formatSlot, HOUR_MS, midnightTicks } from '@/lib/generationUtils';
 import styles from '@/components/sidebar/Sidebar.module.css';
+import PlotFrame from './PlotFrame';
 
 export interface ChartSeries {
   key: string;
@@ -137,7 +138,8 @@ export default function StackedChart({
             />
           ))}
           {yMin < 0 && <ReferenceLine y={0} stroke="#2d3748" strokeWidth={1} />}
-        {capacity !== undefined && (
+          <PlotFrame stroke={AXIS_COLOR} />
+          {capacity !== undefined && (
             <ReferenceLine
               y={capacity}
               stroke="#4a5568"
